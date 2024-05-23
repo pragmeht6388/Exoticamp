@@ -1,7 +1,16 @@
+using Exoticamp.UI.Helper;
+using Exoticamp.UI.Services.IRepositories;
+using Exoticamp.UI.Services.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+var Configuration = builder.Configuration;
+
+// ApiBaseUrl Keys
+builder.Services.Configure<ApiBaseUrl>(Configuration.GetSection("ApiBaseUrl"));
+builder.Services.AddScoped<IEventRepository,EventRepository>();
 
 var app = builder.Build();
 
