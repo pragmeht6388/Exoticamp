@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "MyCleanProject1.Api": {
+    "Exoticamp.Api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

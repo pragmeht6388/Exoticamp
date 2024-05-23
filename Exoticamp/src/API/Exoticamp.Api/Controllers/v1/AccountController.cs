@@ -11,6 +11,7 @@ namespace Exoticamp.Api.Controllers.v1
     //AccountController
     public class AccountController : ControllerBase
     {
+        //AccountController
         private readonly IAuthenticationService _authenticationService;
         public AccountController(IAuthenticationService authenticationService)
         {
