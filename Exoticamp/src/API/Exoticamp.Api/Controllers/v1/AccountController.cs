@@ -8,9 +8,10 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+   
     public class AccountController : ControllerBase
     {
-        //AccountController
+    
         private readonly IAuthenticationService _authenticationService;
         public AccountController(IAuthenticationService authenticationService)
         {
