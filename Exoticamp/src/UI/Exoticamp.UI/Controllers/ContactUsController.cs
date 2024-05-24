@@ -45,16 +45,6 @@ namespace Exoticamp.UI.Controllers
 
         }
 
-        public async Task<IActionResult> Index(int? page)
-        {
-            int pageSize = 5;
-            int pageNumber = page ?? 1;
-
-            var contactUsEntries = await _contactUsRepository
-                .OrderBy(c => c.SubmittedAt)
-                .ToPagedListAsync(pageNumber, pageSize);
-
-            return View(contactUsEntries);
-        }
+        
     }
 }
