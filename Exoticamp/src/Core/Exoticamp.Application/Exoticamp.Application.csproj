@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Exoticamp.Domain\Exoticamp.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Banners\" />
+  </ItemGroup>
+
 </Project>
