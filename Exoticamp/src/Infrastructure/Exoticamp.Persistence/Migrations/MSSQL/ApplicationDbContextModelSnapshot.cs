@@ -17,12 +17,46 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Category", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Banner", b =>
+                {
+                    b.Property<int>("BannerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BannerId"));
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<string>("Locations")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PromoCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("BannerId");
+
+                    b.ToTable("Banners");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("CategoryId")
                         .ValueGeneratedOnAdd()
@@ -75,7 +109,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                         });
                 });
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Event", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
                 {
                     b.Property<Guid>("EventId")
                         .ValueGeneratedOnAdd()
@@ -131,7 +165,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "John Egbert",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2024, 11, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(6981),
+                            Date = new DateTime(2024, 11, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3437),
                             Description = "Join John for his farwell tour across 15 continents. John really needs no introduction since he has already mesmerized the world with his banjo.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/banjo.jpg",
                             Name = "John Egbert Live",
@@ -143,7 +177,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "Michael Johnson",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2025, 2, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7004),
+                            Date = new DateTime(2025, 2, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3475),
                             Description = "Michael Johnson doesn't need an introduction. His 25 concert across the globe last year were seen by thousands. Can we add you to the list?",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/michael.jpg",
                             Name = "The State of Affairs: Michael Live!",
@@ -155,7 +189,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "DJ 'The Mike'",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2024, 9, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7018),
+                            Date = new DateTime(2024, 9, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3502),
                             Description = "DJs from all over the world will compete in this epic battle for eternal fame.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/dj.jpg",
                             Name = "Clash of the DJs",
@@ -167,7 +201,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "Manuel Santinonisi",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2024, 9, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7030),
+                            Date = new DateTime(2024, 9, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3522),
                             Description = "Get on the hype of Spanish Guitar concerts with Manuel.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/guitar.jpg",
                             Name = "Spanish guitar hits with Manuel",
@@ -179,7 +213,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "Many",
                             CategoryId = new Guid("fe98f549-e790-4e9f-aa16-18c2292a2ee9"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2025, 3, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7042),
+                            Date = new DateTime(2025, 3, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3544),
                             Description = "The best tech conference in the world",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/conf.jpg",
                             Name = "Techorama 2021",
@@ -191,7 +225,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "Nick Sailor",
                             CategoryId = new Guid("6313179f-7837-473a-a4d5-a5571b43e6a6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2025, 1, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7058),
+                            Date = new DateTime(2025, 1, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3568),
                             Description = "The critics are over the moon and so will you after you've watched this sing and dance extravaganza written by Nick Sailor, the man from 'My dad and sister'.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/musical.jpg",
                             Name = "To the Moon and Back",
@@ -199,7 +233,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                         });
                 });
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Message", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Message", b =>
                 {
                     b.Property<Guid>("MessageId")
                         .ValueGeneratedOnAdd()
@@ -252,7 +286,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                         });
                 });
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Order", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Order", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -293,7 +327,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("7e94bc5b-71a5-4c8c-bc3b-71bb7976237e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7072),
+                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3594),
                             OrderTotal = 400,
                             UserId = new Guid("a441eb40-9636-4ee6-be49-a66c5ec1330b")
                         },
@@ -302,7 +336,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("86d3a045-b42d-4854-8150-d6a374948b6e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7144),
+                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3618),
                             OrderTotal = 135,
                             UserId = new Guid("ac3cfaf5-34fd-4e4d-bc04-ad1083ddc340")
                         },
@@ -311,7 +345,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("771cca4b-066c-4ac7-b3df-4d12837fe7e0"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7160),
+                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3639),
                             OrderTotal = 85,
                             UserId = new Guid("d97a15fc-0d32-41c6-9ddf-62f0735c4c1c")
                         },
@@ -320,7 +354,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("3dcb3ea0-80b1-4781-b5c0-4d85c41e55a6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7171),
+                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3669),
                             OrderTotal = 245,
                             UserId = new Guid("4ad901be-f447-46dd-bcf7-dbe401afa203")
                         },
@@ -329,7 +363,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("e6a2679c-79a3-4ef1-a478-6f4c91b405b6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7183),
+                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3691),
                             OrderTotal = 142,
                             UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
                         },
@@ -338,7 +372,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7197),
+                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3713),
                             OrderTotal = 40,
                             UserId = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923")
                         },
@@ -347,13 +381,13 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("ba0eb0ef-b69b-46fd-b8e2-41b4178ae7cb"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7209),
+                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3733),
                             OrderTotal = 116,
                             UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
                         });
                 });
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Product", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("ProductId")
                         .ValueGeneratedOnAdd()
@@ -383,9 +417,9 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Event", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
                 {
-                    b.HasOne("MyCleanProject1.Domain.Entities.Category", "Category")
+                    b.HasOne("Exoticamp.Domain.Entities.Category", "Category")
                         .WithMany("Events")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -394,7 +428,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Category", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Events");
                 });
