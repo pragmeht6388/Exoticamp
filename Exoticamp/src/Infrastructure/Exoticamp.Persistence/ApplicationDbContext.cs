@@ -32,6 +32,7 @@ namespace Exoticamp.Persistence
         public DbSet<Order> Orders { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ContactUs> ContactUs { get; set; }
 
         private IDbContextTransaction _transaction;
 

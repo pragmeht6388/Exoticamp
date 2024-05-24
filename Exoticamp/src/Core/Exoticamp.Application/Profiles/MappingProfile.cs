@@ -16,6 +16,8 @@ using Exoticamp.Application.Features.Products.Commands.AddProduct;
 using Exoticamp.Application.Features.Products.Commands.UpdateProduct;
 using Exoticamp.Domain.Entities;
 using Exoticamp.Application.Features.Products.Queries.GetProduct;
+using Exoticamp.Application.Features.ContactUs.Command.AddContactUs;
+using Exoticamp.Application.Features.ContactUs.Query.GetContactUs;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -53,6 +55,9 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Product, Features.Products.Queries.GetProduct.ProductVM>();
             CreateMap<Product, UpdateProductCommand>().ReverseMap();
 
+            CreateMap<ContactUs, AddContactUsCommand>().ReverseMap();
+            CreateMap<ContactUs, ContactUsDto>();
+            CreateMap<ContactUs,ContactUsVM>();
 
         }
     }

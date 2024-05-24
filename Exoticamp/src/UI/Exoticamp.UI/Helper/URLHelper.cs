@@ -8,5 +8,8 @@
         public const string GetAllEvents = "/api/v1/Events";
 
         #endregion
+
+        public const string GetAllContactUs = "/api/v1/ContactUs/all";
+        public const string AddContact = "/api/v1/ContactUs";
     }
 }
