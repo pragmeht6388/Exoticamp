@@ -4,6 +4,7 @@ using Exoticamp.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MyCleanProject1.Identity.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    partial class IdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240523124709_ChangedRoles")]
+    partial class ChangedRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,6 +38,7 @@ namespace MyCleanProject1.Identity.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -62,8 +66,8 @@ namespace MyCleanProject1.Identity.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
@@ -71,7 +75,7 @@ namespace MyCleanProject1.Identity.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("TermsandCondition")
+                    b.Property<bool>("TermsandCondition")
                         .HasColumnType("bit");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -123,19 +127,19 @@ namespace MyCleanProject1.Identity.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ece96ccc-1192-4f0d-af81-32c8666db888",
+                            Id = "1fc3e963-77e8-4f47-9808-8df68d641dec",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "8bb884a0-a525-41c5-b382-e984df6fc587",
+                            Id = "9aca1fee-af25-4940-908d-4304736c3339",
                             Name = "Vendor",
                             NormalizedName = "VENDOR"
                         },
                         new
                         {
-                            Id = "2d6747d2-7af4-47b1-853d-f93dc02cd469",
+                            Id = "5b3d0368-103a-4540-9c15-5eb1fd3f1285",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         });

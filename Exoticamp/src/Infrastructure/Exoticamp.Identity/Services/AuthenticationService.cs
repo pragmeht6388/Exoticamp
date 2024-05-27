@@ -78,20 +78,21 @@ namespace Exoticamp.Identity.Services
 
         public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)
         {
-            var existingUser = await _userManager.FindByNameAsync(request.UserName);
+            var existingUser = await _userManager.FindByNameAsync(request.Email);
 
             if (existingUser != null)
             {
-                throw new ArgumentException($"Username '{request.UserName}' already exists.");
+                throw new ArgumentException($"Username '{request.Email}' already exists.");
             }
 
             var user = new ApplicationUser
             {
+                UserName=request.Email,
                 Email = request.Email,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                UserName = request.UserName,
-                EmailConfirmed = true
+                Name = request.Name,
+                PhoneNumber = request.PhoneNumber,
+                TermsandCondition = false,
+                EmailConfirmed = true,
             };
 
             var existingEmail = await _userManager.FindByEmailAsync(request.Email);
@@ -102,7 +103,15 @@ namespace Exoticamp.Identity.Services
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "Viewer");
+                    if (string.IsNullOrEmpty(request.Role))
+                    {
+                        await _userManager.AddToRoleAsync(user, "User");
+                    }
+                   else if (request.Role == "SuperAdmin")
+                    {
+                        await _userManager.AddToRoleAsync(user, "Vendor");
+                    }
+                    
                     return new RegistrationResponse() { UserId = user.Id };
                 }
                 else

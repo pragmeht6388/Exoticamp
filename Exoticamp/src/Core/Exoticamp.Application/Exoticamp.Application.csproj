@@ -22,4 +22,9 @@
     <ProjectReference Include="..\Exoticamp.Domain\Exoticamp.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Users\Commands\AddUser\" />
+    <Folder Include="Features\Users\Commands\UpdateUser\" />
+  </ItemGroup>
+
 </Project>

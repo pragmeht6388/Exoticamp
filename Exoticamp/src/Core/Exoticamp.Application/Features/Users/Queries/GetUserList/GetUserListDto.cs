@@ -1,16 +1,21 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Exoticamp.Application.Models.Authentication
+namespace Exoticamp.Application.Features.Users.Queries.GetUserList
 {
-    public class RegistrationRequest
+    public class GetUserListDto
     {
         [Required]
-        public string  Name { get; set; }
+        public string Name { get; set; }
 
 
         [Required]
-         
+
         public string PhoneNumber { get; set; }
 
         [Required]
@@ -24,8 +29,7 @@ namespace Exoticamp.Application.Models.Authentication
         [Required]
         public string Password { get; set; }
 
-        public string? Role { get; set; }
-
-
+        [Required]
+        public string Role { get; set; }
     }
 }
