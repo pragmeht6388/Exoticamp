@@ -33,13 +33,13 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventDetail
             var @event = await _eventRepository.GetByIdAsync(new Guid(id));
             var eventDetailDto = _mapper.Map<EventDetailVm>(@event);
 
-            var category = await _categoryRepository.GetByIdAsync(@event.CategoryId);
+            //var category = await _categoryRepository.GetByIdAsync(@event.CategoryId);
 
-            if (category == null)
-            {
-                throw new NotFoundException(nameof(Category), @event.CategoryId);
-            }
-            eventDetailDto.Category = _mapper.Map<CategoryDto>(category);
+            //if (category == null)
+            //{
+            //    throw new NotFoundException(nameof(Category), @event.CategoryId);
+            //}
+           // eventDetailDto.Category = _mapper.Map<CategoryDto>(category);
 
             var response = new Response<EventDetailVm>(eventDetailDto);
             return response;

@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.DataProtection;
 using Exoticamp.Application.Features.Events.Queries.GetEventsList;
 using Exoticamp.Domain.Entities;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -20,7 +23,13 @@ namespace Exoticamp.Application.Profiles
                 EventId = _protector.Protect(source.EventId.ToString()),
                 Name = source.Name,
                 ImageUrl = source.ImageUrl,
-                Date = source.Date
+                StartDate = source.StartDate,
+                EndDate= source.EndDate,
+                Price =source.Price,
+                Capacity = source.Capacity,
+                Description=source.Description,
+                Highlights=source.Highlights,
+                EventRules=source.EventRules
             };
 
             return dest;

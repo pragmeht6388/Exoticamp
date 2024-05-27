@@ -21,10 +21,11 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
                 .NotNull()
                 .MaximumLength(50).WithMessage(GetMessage("2", ApplicationConstants.LANG_ENG));
 
-            RuleFor(p => p.Date)
+            RuleFor(p => p.StartDate)
                 .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
                 .NotNull()
                 .GreaterThan(DateTime.Now);
+
 
             RuleFor(e => e)
                 .MustAsync(EventNameAndDateUnique)
@@ -37,7 +38,7 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
 
         private async Task<bool> EventNameAndDateUnique(CreateEventCommand e, CancellationToken token)
         {
-            return !await _eventRepository.IsEventNameAndDateUnique(e.Name, e.Date);
+            return !await _eventRepository.IsEventNameAndDateUnique(e.Name, e.StartDate);
         }
 
         private string GetMessage(string Code, string Lang)

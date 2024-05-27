@@ -1,21 +1,28 @@
 ﻿using MediatR;
 using System;
 using Exoticamp.Application.Responses;
+using System.ComponentModel.DataAnnotations;
 
 namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
 {
     public class CreateEventCommand : IRequest<Response<Guid>>
     {
+  
         public string Name { get; set; }
-        public int Price { get; set; }
-        public string Artist { get; set; }
-        public DateTime Date { get; set; }
+    
+        public decimal Price { get; set; }
+
+        public int Capacity { get; set; }
+ 
+        public DateTime StartDate { get; set; }
+   
+        public DateTime EndDate { get; set; } 
         public string Description { get; set; }
+      
         public string ImageUrl { get; set; }
-        public Guid CategoryId { get; set; }
-        public override string ToString()
-        {
-            return $"Event name: {Name}; Price: {Price}; By: {Artist}; On: {Date.ToShortDateString()}; Description: {Description}";
-        }
+  
+        public string Highlights { get; set; }
+      
+        public string EventRules { get; set; }
     }
 }

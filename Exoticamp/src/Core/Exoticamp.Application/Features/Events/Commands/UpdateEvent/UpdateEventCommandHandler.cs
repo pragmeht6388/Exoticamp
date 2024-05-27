@@ -10,7 +10,7 @@ using Exoticamp.Domain.Entities;
 
 namespace Exoticamp.Application.Features.Events.Commands.UpdateEvent
 {
-    public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand, Response<Guid>>
+    public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand, Response<UpdateEventDto>>
     {
         private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace Exoticamp.Application.Features.Events.Commands.UpdateEvent
             _messageRepository = messageRepository;
         }
 
-        public async Task<Response<Guid>> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
+        public async Task<Response<UpdateEventDto>> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
         {
             var eventToUpdate = await _eventRepository.GetByIdAsync(request.EventId);
 
@@ -42,7 +42,7 @@ namespace Exoticamp.Application.Features.Events.Commands.UpdateEvent
 
             await _eventRepository.UpdateAsync(eventToUpdate);
 
-            return new Response<Guid>(request.EventId, "Updated successfully ");
+            return new Response<UpdateEventDto>(_mapper.Map<UpdateEventDto>(request), "Updated successfully ");
 
         }
     }
