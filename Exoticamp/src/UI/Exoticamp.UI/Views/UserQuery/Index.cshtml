@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Exoticamp.UI.Models.UserQuery.UserQueyVM>
+@{
+}
+
+
+<h1>Get all user queries</h1>
+
+<table class="dataTable table mb-4" id="dataTable">
+    <thead>
+        <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Query</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model is not null)
+        {
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>{@item.Email}</td>
+                    <td>{@item.Query}</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td>No user queries at the moment!</td></tr>
+        }
+    </tbody>
+</table>

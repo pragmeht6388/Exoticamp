@@ -12,6 +12,8 @@ var Configuration = builder.Configuration;
 builder.Services.Configure<ApiBaseUrl>(Configuration.GetSection("ApiBaseUrl"));
 builder.Services.AddScoped<IEventRepository,EventRepository>();
 builder.Services.AddScoped<IChatbotRepository, ChatbotRepository>();
+builder.Services.AddScoped<IUserQueryRepository, UserQueryRepository>();
+
 
 
 var app = builder.Build();
