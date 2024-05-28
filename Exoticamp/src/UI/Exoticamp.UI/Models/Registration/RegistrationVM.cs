@@ -5,16 +5,17 @@ namespace Exoticamp.UI.Models.Registration
 {
     public class RegistrationVM
     {
-        [Required]
+        [Required(ErrorMessage = "Name is required.")]
+        [RegularExpression(@"^[^0-9]+$", ErrorMessage = "Name cannot contain numbers.")]
         public string Name { get; set; }
 
 
-        [Required]
-
+        [Required(ErrorMessage = "Phone number is required.")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number must be exactly 10 digits.")]
         public string PhoneNumber { get; set; }
 
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string Email { get; set; }
 
         

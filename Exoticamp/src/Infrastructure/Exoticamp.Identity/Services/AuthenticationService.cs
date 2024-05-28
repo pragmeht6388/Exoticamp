@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Exoticamp.Application.Models.Authentication;
 using Exoticamp.Application.Contracts.Identity;
 using Exoticamp.Identity.Models;
+using Exoticamp.Application.Responses;
 
 namespace Exoticamp.Identity.Services
 {
@@ -34,6 +35,7 @@ namespace Exoticamp.Identity.Services
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
+            var role = await _userManager.GetRolesAsync(user);
             AuthenticationResponse response = new AuthenticationResponse();
 
             if (user == null)
@@ -72,22 +74,29 @@ namespace Exoticamp.Identity.Services
             response.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             response.Email = user.Email;
             response.UserName = user.UserName;
+            response.Role = role[0];
+
 
             return response;
         }
 
-        public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)
+        public async Task<Response<RegistrationResponse>> RegisterAsync(RegistrationRequest request)
         {
+            var registrationresponse = new Response<RegistrationResponse>();
+
             var existingUser = await _userManager.FindByNameAsync(request.Email);
+
 
             if (existingUser != null)
             {
-                throw new ArgumentException($"Username '{request.Email}' already exists.");
+                registrationresponse.Message = $"Username '{request.Email}' already exists.";
+                registrationresponse.Succeeded = false;
+                return registrationresponse;
             }
 
             var user = new ApplicationUser
             {
-                UserName=request.Email,
+                UserName = request.Email,
                 Email = request.Email,
                 Name = request.Name,
                 PhoneNumber = request.PhoneNumber,
@@ -107,12 +116,16 @@ namespace Exoticamp.Identity.Services
                     {
                         await _userManager.AddToRoleAsync(user, "User");
                     }
-                   else if (request.Role == "SuperAdmin")
+                    else if (request.Role == "SuperAdmin")
                     {
                         await _userManager.AddToRoleAsync(user, "Vendor");
                     }
-                    
-                    return new RegistrationResponse() { UserId = user.Id };
+
+                    return new Response<RegistrationResponse>()
+                    {
+                        Succeeded = true,
+                        Data = new RegistrationResponse { UserId = user.Id }
+                    };
                 }
                 else
                 {

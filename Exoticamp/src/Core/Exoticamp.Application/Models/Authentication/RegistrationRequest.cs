@@ -5,6 +5,9 @@ namespace Exoticamp.Application.Models.Authentication
 {
     public class RegistrationRequest
     {
+       
+        
+
         [Required]
         public string  Name { get; set; }
 

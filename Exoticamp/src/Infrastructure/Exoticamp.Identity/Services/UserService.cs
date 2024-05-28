@@ -2,6 +2,7 @@
 using Exoticamp.Application.Models.Authentication;
 using Exoticamp.Identity.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,55 @@ namespace Exoticamp.Identity.Services
             identityDbContext = _identityDbContext;
             _userManager = userManager;  
         }
+
+        public async Task<RegistrationRequest> Delete(RegistrationRequest registrationRequest)
+        {
+           var user = await _userManager.FindByEmailAsync(registrationRequest.Email);
+            // Or use FindByIdAsync if using UserId
+            // var user = await _userManager.FindByIdAsync(registrationRequest.Id);
+
+            if (user == null)
+            {
+                return null; // User not found
+            }
+
+            // Begin transaction if necessary
+            using var transaction = await identityDbContext.Database.BeginTransactionAsync();
+
+            try
+            {
+                // Remove any related data if necessary
+                var userRoles = await identityDbContext.UserRoles
+                    .Where(ur => ur.UserId == user.Id)
+                .ToListAsync();
+
+                identityDbContext.UserRoles.RemoveRange(userRoles);
+
+                // Remove user
+                var result = await _userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    await identityDbContext.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                }
+                else
+                {
+                    await transaction.RollbackAsync();
+                    throw new Exception("Error occurred while deleting user");
+                }
+
+                return registrationRequest;
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+        
+    
+}
+
         public async Task<List<RegistrationRequest>> GetAllUserDetails()
         {
 
