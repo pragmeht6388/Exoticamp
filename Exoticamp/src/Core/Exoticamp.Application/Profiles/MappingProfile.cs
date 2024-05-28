@@ -16,6 +16,8 @@ using Exoticamp.Application.Features.Products.Commands.AddProduct;
 using Exoticamp.Application.Features.Products.Commands.UpdateProduct;
 using Exoticamp.Domain.Entities;
 using Exoticamp.Application.Features.Products.Queries.GetProduct;
+using Exoticamp.Application.Features.UserQueries.Commands.CreateUserQuery;
+using Exoticamp.Application.Features.UserQueries.Queries.GetUserQueryList;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -52,6 +54,9 @@ namespace Exoticamp.Application.Profiles
 
             CreateMap<Product, Features.Products.Queries.GetProduct.ProductVM>();
             CreateMap<Product, UpdateProductCommand>().ReverseMap();
+            CreateMap<UserQuery, CreateUserQueryCommand>().ReverseMap();
+            CreateMap<UserQuery, GetUserQueryListVM>().ReverseMap();
+
 
 
         }

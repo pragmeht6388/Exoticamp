@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Exoticamp.UI.Models.Chatbot.ChatbotVM>
+
+
+
+<div class="chatbox">
+    <div class="chatbox-messages" id="chatbox-messages">
+        <div class="message bot-message">
+            <p>Hello! How can I help you today?</p>
+        </div>
+
+        @* @foreach (var concern in Model)
+        {
+            <div class="message bot-message">
+                <form class="chat-option" data-concern-id="@concern.Id">
+                    <button type="button" class="btn btn-link">@concern.Text</button>
+                </form>
+            </div>
+        } *@
+        <div class="message bot-message">
+            <form class="chat-option" data-concern-id="1">
+                <button type="button" class="btn btn-link">Events</button>
+            </form>
+        </div>
+
+        <div class="message bot-message">
+            <form class="chat-option" data-concern-id="0">
+                <button type="button" class="btn btn-link">My concern is not listed here</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="query-form" class="message user-query d-none">
+        <h4>Submit a New Query:</h4>
+        <form id="user-query-form">
+            <div>
+                <label>Email:</label>
+                <input type="email" name="email" required />
+            </div>
+            <div>
+                <label>Query:</label>
+                <textarea name="query" required></textarea>
+            </div>
+            <button type="button" onclick="CreateUserQuery()">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.chat-option button').click(function () {
+            var concernId = $(this).closest('form').data('concern-id');
+            var message = $(this).text();
+
+            var userMessage = `<div class="message user-message"><p>${message}</p></div>`;
+            $('#chatbox-messages').append(userMessage);
+
+            if (concernId == 0) {
+                $('#query-form').removeClass('d-none');
+            } else {
+                $.post('@Url.Action("SelectConcern", "Chatbot")', { concernId: concernId }, function (data) {
+                    $('#chatbox-messages').append(data);
+                });
+            }
+
+            $('#chatbox-messages').scrollTop($('#chatbox-messages')[0].scrollHeight);
+        });
+    });
+
+    function CreateUserQuery() {
+        var form = $('#user-query-form');
+        var formData = form.serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SubmitQuery", "Chatbot")',
+            data: formData,
+            success: function (response) {
+                // Append user message
+                var userMessage = `<div class="message user-message"><p>${form.find('textarea[name="query"]').val()}</p></div>`;
+                $('#chatbox-messages').append(userMessage);
+
+                // Append bot response message
+                var botMessage = `<div class="message bot-message"><p>Your query has been submitted successfully! Wait for a response from our team!</p></div>`;
+                $('#chatbox-messages').append(botMessage);
+
+                // Clear the form
+                form.trigger("reset");
+                $('#query-form').addClass('d-none');
+                // Scroll to the bottom of the chatbox
+                $('#chatbox-messages').scrollTop($('#chatbox-messages')[0].scrollHeight);
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+                alert('There was an error submitting your query. Please try again later.');
+            }
+        });
+    }
+</script>

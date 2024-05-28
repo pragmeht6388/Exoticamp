@@ -32,6 +32,9 @@ namespace Exoticamp.Persistence
         public DbSet<Order> Orders { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ChatbotResponse> ChatbotResponses { get; set; }
+        public DbSet<UserQuery> UserQueries { get; set; }
+
 
         private IDbContextTransaction _transaction;
 
@@ -231,6 +234,42 @@ namespace Exoticamp.Persistence
                 Language = "en",
                 Type = Message.MessageType.Error
             });
+
+            modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
+            {
+                Id = 1,
+                Keyword = "Hello! I hope you are having a nice day today!",
+                Response = "What can I help you with today?",
+                ParentId = 0
+            });
+
+            modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
+            {
+                Id = 2,
+                Keyword = "Booking Process",
+                Response = "Please select one of the following options so I can better assist you.",
+                ParentId = 1
+            });
+
+            modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
+            {
+                Id = 3,
+                Keyword = "Ongoing Events",
+                Response = "The current ongoing events are: fireflies camping, glamping, river rafting.",
+                ParentId = 1
+            });
+
+            modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
+            {
+                Id = 4,
+                Keyword = "How to cancel a booking?",
+                Response = "You can cancel a booking before 10 days of the booked date to claim full refund. After that on cancellation only partial amount will be refunded to you.",
+                ParentId = 2
+            });
+
+
+
+
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
