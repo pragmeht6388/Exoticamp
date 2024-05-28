@@ -13,5 +13,7 @@ namespace Exoticamp.Application.Contracts.Persistence
         Task<Banner> AddBanner(Banner banner);
         Task<Banner> UpdateBanner(Banner banner);
         Task<Banner> DeleteBanner(Banner banner);
+
+        Task<Banner> GetBannerByLinkAsync(string link);
     }
 }

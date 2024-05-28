@@ -24,11 +24,9 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Banner", b =>
                 {
-                    b.Property<int>("BannerId")
+                    b.Property<Guid>("BannerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BannerId"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
@@ -165,7 +163,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "John Egbert",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2024, 11, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3437),
+                            Date = new DateTime(2024, 11, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5245),
                             Description = "Join John for his farwell tour across 15 continents. John really needs no introduction since he has already mesmerized the world with his banjo.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/banjo.jpg",
                             Name = "John Egbert Live",
@@ -177,7 +175,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "Michael Johnson",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2025, 2, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3475),
+                            Date = new DateTime(2025, 2, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5300),
                             Description = "Michael Johnson doesn't need an introduction. His 25 concert across the globe last year were seen by thousands. Can we add you to the list?",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/michael.jpg",
                             Name = "The State of Affairs: Michael Live!",
@@ -189,7 +187,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "DJ 'The Mike'",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2024, 9, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3502),
+                            Date = new DateTime(2024, 9, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5333),
                             Description = "DJs from all over the world will compete in this epic battle for eternal fame.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/dj.jpg",
                             Name = "Clash of the DJs",
@@ -201,7 +199,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "Manuel Santinonisi",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2024, 9, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3522),
+                            Date = new DateTime(2024, 9, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5361),
                             Description = "Get on the hype of Spanish Guitar concerts with Manuel.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/guitar.jpg",
                             Name = "Spanish guitar hits with Manuel",
@@ -213,7 +211,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "Many",
                             CategoryId = new Guid("fe98f549-e790-4e9f-aa16-18c2292a2ee9"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2025, 3, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3544),
+                            Date = new DateTime(2025, 3, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5391),
                             Description = "The best tech conference in the world",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/conf.jpg",
                             Name = "Techorama 2021",
@@ -225,7 +223,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "Nick Sailor",
                             CategoryId = new Guid("6313179f-7837-473a-a4d5-a5571b43e6a6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2025, 1, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3568),
+                            Date = new DateTime(2025, 1, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5424),
                             Description = "The critics are over the moon and so will you after you've watched this sing and dance extravaganza written by Nick Sailor, the man from 'My dad and sister'.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/musical.jpg",
                             Name = "To the Moon and Back",
@@ -327,7 +325,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("7e94bc5b-71a5-4c8c-bc3b-71bb7976237e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3594),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5460),
                             OrderTotal = 400,
                             UserId = new Guid("a441eb40-9636-4ee6-be49-a66c5ec1330b")
                         },
@@ -336,7 +334,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("86d3a045-b42d-4854-8150-d6a374948b6e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3618),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5493),
                             OrderTotal = 135,
                             UserId = new Guid("ac3cfaf5-34fd-4e4d-bc04-ad1083ddc340")
                         },
@@ -345,7 +343,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("771cca4b-066c-4ac7-b3df-4d12837fe7e0"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3639),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5523),
                             OrderTotal = 85,
                             UserId = new Guid("d97a15fc-0d32-41c6-9ddf-62f0735c4c1c")
                         },
@@ -354,7 +352,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("3dcb3ea0-80b1-4781-b5c0-4d85c41e55a6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3669),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5553),
                             OrderTotal = 245,
                             UserId = new Guid("4ad901be-f447-46dd-bcf7-dbe401afa203")
                         },
@@ -363,7 +361,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("e6a2679c-79a3-4ef1-a478-6f4c91b405b6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3691),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5581),
                             OrderTotal = 142,
                             UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
                         },
@@ -372,7 +370,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3713),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5625),
                             OrderTotal = 40,
                             UserId = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923")
                         },
@@ -381,7 +379,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("ba0eb0ef-b69b-46fd-b8e2-41b4178ae7cb"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 24, 10, 8, 26, 785, DateTimeKind.Utc).AddTicks(3733),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5656),
                             OrderTotal = 116,
                             UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
                         });

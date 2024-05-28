@@ -42,5 +42,9 @@ namespace Exoticamp.Persistence.Repositories
             await UpdateAsync(banner);
             return banner;
         }
+        public async Task<Banner> GetBannerByLinkAsync(string link)
+        {
+            return await _dbContext.Banners.FirstOrDefaultAsync(b => b.Link == link);
+        }
     }
 }

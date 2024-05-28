@@ -32,5 +32,13 @@ namespace Exoticamp.UI.Controllers
         {
             return View();
         }
+        public IActionResult AdminPage()
+        {
+            return View();
+        }
+        public IActionResult InfoPage()
+        {
+            return View();
+        }
     }
 }

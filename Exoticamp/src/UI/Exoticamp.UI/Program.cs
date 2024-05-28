@@ -11,6 +11,7 @@ var Configuration = builder.Configuration;
 // ApiBaseUrl Keys
 builder.Services.Configure<ApiBaseUrl>(Configuration.GetSection("ApiBaseUrl"));
 builder.Services.AddScoped<IEventRepository,EventRepository>();
+builder.Services.AddScoped<IBannerRepository,BannerRepository>();
 
 var app = builder.Build();
 
