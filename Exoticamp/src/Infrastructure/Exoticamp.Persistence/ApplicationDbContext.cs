@@ -33,6 +33,8 @@ namespace Exoticamp.Persistence
         public DbSet<Message> Messages { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ContactUs> ContactUs { get; set; }
+        public DbSet<Campsite> Campsites { get; set; }
+        public DbSet<Activities> Activities { get; set; }
 
         private IDbContextTransaction _transaction;
 

@@ -18,6 +18,10 @@ using Exoticamp.Domain.Entities;
 using Exoticamp.Application.Features.Products.Queries.GetProduct;
 using Exoticamp.Application.Features.ContactUs.Command.AddContactUs;
 using Exoticamp.Application.Features.ContactUs.Query.GetContactUs;
+using Exoticamp.Application.Features.Campsite.Commands.AddCampsite;
+using Exoticamp.Application.Features.Campsite.Commands.UpdateCampsite;
+using Exoticamp.Application.Features.Campsite.Query.GetCampsiteList;
+
 
 namespace Exoticamp.Application.Profiles
 {
@@ -59,6 +63,11 @@ namespace Exoticamp.Application.Profiles
             CreateMap<ContactUs, ContactUsDto>();
             CreateMap<ContactUs,ContactUsVM>();
 
+            CreateMap<Campsite,AddCampsiteCommand>().ReverseMap();
+            CreateMap<Campsite,CampsiteDto>();
+            CreateMap<Campsite, UpdateCampsiteCommand>().ReverseMap();
+            CreateMap<Campsite, Features.Campsite.Query.GetCampsiteList.CampsiteVM>();
+            CreateMap<Campsite, Features.Campsite.Query.GetCampsite.CampsiteVM>();
         }
     }
 }

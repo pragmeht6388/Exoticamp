@@ -12,6 +12,7 @@ var Configuration = builder.Configuration;
 builder.Services.Configure<ApiBaseUrl>(Configuration.GetSection("ApiBaseUrl"));
 builder.Services.AddScoped<IEventRepository,EventRepository>();
 builder.Services.AddScoped<IContactUsRepository,ContactUsRepository>();
+builder.Services.AddScoped<ICampsiteRepository, CamsiteRepository>();
 
 var app = builder.Build();
 
