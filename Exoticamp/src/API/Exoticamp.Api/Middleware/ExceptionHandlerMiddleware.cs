@@ -53,6 +53,10 @@ namespace Exoticamp.Api.Middleware
                     httpStatusCode = HttpStatusCode.BadRequest;
                     result = GetErrorMessage(badRequestException.Message);
                     break;
+                    case BannerLinkAlreadyExistsException bannerLinkAlreadyExistsException:
+                    httpStatusCode = HttpStatusCode.Conflict; // Conflict status code for duplicate entries
+                    result = GetErrorMessage(bannerLinkAlreadyExistsException.Message);
+                    break;
                 case NotFoundException notFoundException:
                     httpStatusCode = HttpStatusCode.NotFound;
                     result = GetErrorMessage(notFoundException.Message);

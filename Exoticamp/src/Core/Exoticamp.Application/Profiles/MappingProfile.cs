@@ -18,6 +18,10 @@ using Exoticamp.Domain.Entities;
 using Exoticamp.Application.Features.Products.Queries.GetProduct;
 using Exoticamp.Application.Models.Authentication;
 using Exoticamp.Application.Features.Users.Queries.GetUserList;
+using Exoticamp.Application.Features.Banners.Queries;
+using Exoticamp.Application.Features.Banners.Commands.CreateBanner;
+using Exoticamp.Application.Features.Banners.Queries.GetBanner;
+using Exoticamp.Application.Features.Banners.Commands.UpdateBanner;
 using Exoticamp.Application.Features.ContactUs.Command.AddContactUs;
 using Exoticamp.Application.Features.ContactUs.Query.GetContactUs;
 using Exoticamp.Application.Features.Campsite.Commands.AddCampsite;
@@ -61,11 +65,13 @@ namespace Exoticamp.Application.Profiles
 
             CreateMap<Product, Features.Products.Queries.GetProduct.ProductVM>();
             CreateMap<Product, UpdateProductCommand>().ReverseMap();
+            CreateMap<Banner, CreateBannerCommand>().ReverseMap();
+            CreateMap<Banner, CreateBannerDto>().ReverseMap();
+            CreateMap<Banner, UpdateBannerCommand>().ReverseMap();
 
-            //users
-            CreateMap<RegistrationRequest, GetUserListDto>().ReverseMap();
-            
+            CreateMap<Banner, BannerDto>().ReverseMap();
 
+            CreateMap<Banner, BannerVM>();
             CreateMap<ContactUs, AddContactUsCommand>().ReverseMap();
             CreateMap<ContactUs, ContactUsDto>();
             CreateMap<ContactUs,ContactUsVM>();
