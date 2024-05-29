@@ -1,0 +1,127 @@
+﻿@*  @model Exoticamp.UI.Models.Registration.RegistrationVM
+
+ 
+
+<h1>Registration</h1>
+
+ 
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Registration">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input asp-for="TermsandCondition" class="form-check-input" type="checkbox"   required/>
+                    <label asp-for="TermsandCondition" class="form-check-label" for="TermsandCondition">
+                        By signing up, I agree to the <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a>
+                    </label>
+                    </div>
+                    <span asp-validation-for="TermsandCondition" class="text-danger"></span>
+                </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+ 
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+ *@
+
+                @model Exoticamp.UI.Models.Registration.RegistrationVM
+
+<h1>Registration</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form id="registrationForm" asp-action="Registration" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input asp-for="TermsandCondition" id="TermsandCondition" class="form-check-input" type="checkbox"   />
+                    <label class="form-check-label" for="TermsandCondition">
+                        By signing up, I agree to the <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a>
+                    </label>
+                </div>
+                <span asp-validation-for="TermsandCondition" class="text-danger"></span>
+                <div id="errorMessage" class="text-danger"></div> <!-- Error message placeholder -->
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var form = document.getElementById("registrationForm");
+            var errorMessage = document.getElementById("errorMessage");
+
+            form.addEventListener("submit", function (event) {
+               
+                var termsCheckbox = document.getElementById("TermsandCondition");
+                if (!termsCheckbox.checked) {
+                    
+                    event.preventDefault();
+
+                     
+                    errorMessage.textContent = "You must accept the Terms and Conditions before proceeding.";
+                }
+            });
+        });
+    </script>
+
+
+}

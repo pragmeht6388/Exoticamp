@@ -4,6 +4,7 @@ using Exoticamp.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MyCleanProject1.Identity.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    partial class IdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240524082803_remove table")]
+    partial class removetable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,8 +65,8 @@ namespace MyCleanProject1.Identity.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("PhoneNumber")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
@@ -123,19 +126,19 @@ namespace MyCleanProject1.Identity.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ece96ccc-1192-4f0d-af81-32c8666db888",
+                            Id = "e458e53f-1009-4511-ae54-6b10c2da1a55",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "8bb884a0-a525-41c5-b382-e984df6fc587",
+                            Id = "f6f055ba-b903-4838-9be3-9a9ddfe0ed4d",
                             Name = "Vendor",
                             NormalizedName = "VENDOR"
                         },
                         new
                         {
-                            Id = "2d6747d2-7af4-47b1-853d-f93dc02cd469",
+                            Id = "3a333eba-64fb-4cbf-bc66-6cd472962814",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         });

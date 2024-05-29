@@ -12,6 +12,7 @@ using Exoticamp.Application.Models.Authentication;
 using Exoticamp.Application.Contracts.Identity;
 using Exoticamp.Identity.Models;
 using Exoticamp.Identity.Services;
+using Exoticamp.Identity.Configurations;
 
 namespace Exoticamp.Identity
 {
@@ -19,6 +20,7 @@ namespace Exoticamp.Identity
     {
         public static void AddIdentityServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped< RoleConfiguration>();
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
             services.AddDbContext<IdentityDbContext>(
                 options => options.UseSqlServer(configuration.GetConnectionString("IdentityConnectionString"),
@@ -27,6 +29,7 @@ namespace Exoticamp.Identity
                 .AddEntityFrameworkStores<IdentityDbContext>().AddDefaultTokenProviders();
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();
+            services.AddTransient<IUserService, UserService>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

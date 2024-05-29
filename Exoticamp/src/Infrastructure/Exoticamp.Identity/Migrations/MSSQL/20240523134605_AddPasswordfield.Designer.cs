@@ -4,6 +4,7 @@ using Exoticamp.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MyCleanProject1.Identity.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    partial class IdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240523134605_AddPasswordfield")]
+    partial class AddPasswordfield
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,6 +38,7 @@ namespace MyCleanProject1.Identity.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -59,11 +63,15 @@ namespace MyCleanProject1.Identity.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("PhoneNumber")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
@@ -123,19 +131,19 @@ namespace MyCleanProject1.Identity.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ece96ccc-1192-4f0d-af81-32c8666db888",
+                            Id = "fae94390-20d8-4923-a6dd-20bb7845a6a1",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "8bb884a0-a525-41c5-b382-e984df6fc587",
+                            Id = "3b19ae32-5a4d-4539-b7b5-67121998a88c",
                             Name = "Vendor",
                             NormalizedName = "VENDOR"
                         },
                         new
                         {
-                            Id = "2d6747d2-7af4-47b1-853d-f93dc02cd469",
+                            Id = "4aff2ae3-3de6-4e3c-a3ed-d9bab3d47844",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         });

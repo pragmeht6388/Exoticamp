@@ -6,11 +6,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); 
+    options.Cookie.HttpOnly = true;  
+    options.Cookie.IsEssential = true;  
+});
 var Configuration = builder.Configuration;
 
 // ApiBaseUrl Keys
 builder.Services.Configure<ApiBaseUrl>(Configuration.GetSection("ApiBaseUrl"));
 builder.Services.AddScoped<IEventRepository,EventRepository>();
+builder.Services.AddScoped< IRegistrationRepository,  RegistrationRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+
+
 builder.Services.AddScoped<IContactUsRepository,ContactUsRepository>();
 builder.Services.AddScoped<ICampsiteRepository, CamsiteRepository>();
 
@@ -29,7 +40,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

@@ -18,6 +18,8 @@ namespace Exoticamp.Persistence
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped< IUserRepository,  UserRepository>();
+
             services.AddScoped<IContactUsRepository, ContactUsRepository>();
             services.AddScoped<ICampsiteRepository, CampsiteRepository>();
             services.AddScoped<ICampsiteDetailsRepository, CampsiteDetailsRepository>();
