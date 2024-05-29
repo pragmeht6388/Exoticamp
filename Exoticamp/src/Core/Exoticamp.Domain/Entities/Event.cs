@@ -28,10 +28,10 @@ namespace Exoticamp.Domain.Entities
         [Required]
         public string EventRules { get; set; }
         //public Guid CampsiteId { get; set; }
-        //public Category Campsite { get; set; }
+        //public Campsite Campsite { get; set; }
         //public Guid ActivityId { get; set; }
         //public Activity activity { get; set; }
-        // public Guid LocationId { get; set; }
+        //public Guid LocationId { get; set; }
         //public Location location { get; set; }
 
     }
