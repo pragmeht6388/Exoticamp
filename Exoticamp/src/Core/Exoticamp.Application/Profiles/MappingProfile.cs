@@ -16,6 +16,8 @@ using Exoticamp.Application.Features.Products.Commands.AddProduct;
 using Exoticamp.Application.Features.Products.Commands.UpdateProduct;
 using Exoticamp.Domain.Entities;
 using Exoticamp.Application.Features.Products.Queries.GetProduct;
+using Exoticamp.Application.Models.Authentication;
+using Exoticamp.Application.Features.Users.Queries.GetUserList;
 using Exoticamp.Application.Features.Banners.Queries;
 using Exoticamp.Application.Features.Banners.Commands.CreateBanner;
 using Exoticamp.Application.Features.Banners.Queries.GetBanner;
@@ -27,6 +29,7 @@ namespace Exoticamp.Application.Profiles
     {
         public MappingProfile()
         {
+             
             CreateMap<Event, CreateEventCommand>().ReverseMap();
             CreateMap<Event, TransactionCommand>().ReverseMap();
             CreateMap<Event, UpdateEventCommand>().ReverseMap();
