@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exoticamp.Application", "Ex
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{54909060-EA40-4CED-A081-1463B1FBF1BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exoticamp.UI", "Exoticamp\src\UI\Exoticamp.UI\Exoticamp.UI.csproj", "{FA29CCC1-D8BD-4770-A808-8EF1B104FEBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exoticamp.UI", "Exoticamp\src\UI\Exoticamp.UI\Exoticamp.UI.csproj", "{FA29CCC1-D8BD-4770-A808-8EF1B104FEBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
