@@ -12,7 +12,6 @@ using Exoticamp.Domain.Common;
 
 namespace Exoticamp.Persistence
 {
-    [ExcludeFromCodeCoverage]
     public class ApplicationDbContext : DbContext
     {
         private readonly ILoggedInUserService _loggedInUserService;
@@ -35,6 +34,7 @@ namespace Exoticamp.Persistence
         public DbSet<ContactUs> ContactUs { get; set; }
         public DbSet<Campsite> Campsites { get; set; }
         public DbSet<Activities> Activities { get; set; }
+        public DbSet<CampsiteDetails> CampsiteDetails { get; set; }
 
         private IDbContextTransaction _transaction;
 
