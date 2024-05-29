@@ -1,0 +1,23 @@
+﻿@model Exoticamp.UI.Models.UserQuery.UserQueyVM
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div>
+    <h5>User Query:</h5>
+    <textarea disabled asp-for="Query">@Model.Query</textarea>
+</div>
+<div id="query-form" class="message user-query">
+    <h4>Respond to the user query:</h4>
+    <form id="user-query-form" method="post" asp-action="Respond" asp-controller="UserQuery">
+        @Html.HiddenFor(x => x.Id)
+        <div>
+            <label>Email:</label>
+            <input type="email" name="email" required asp-for="Email"/>
+        </div>
+        <div>
+            <label>Response to the query:</label>
+            <textarea name="response" required></textarea>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>

@@ -67,7 +67,6 @@
     <script>
         $(document).ready(function () {
             $('#chatbot-icon').click(function () {
-                debugger
                 $('#chatbotModal').modal('show');
                 $.get('@Url.Action("ChatbotPartial", "Chatbot")', function (data) {
                     $('#chatbot-content').html(data);

@@ -8,23 +8,23 @@
             <p>Hello! How can I help you today?</p>
         </div>
 
-        @* @foreach (var concern in Model)
+        @foreach (var response in Model)
         {
             <div class="message bot-message">
-                <form class="chat-option" data-concern-id="@concern.Id">
-                    <button type="button" class="btn btn-link">@concern.Text</button>
+                <form class="chat-option" data-concern-id="@response.Id" data-response="@response.Response">
+                    <button type="button" class="btn">@response.Keyword</button>
                 </form>
             </div>
-        } *@
+        }
         <div class="message bot-message">
             <form class="chat-option" data-concern-id="1">
-                <button type="button" class="btn btn-link">Events</button>
+                <button type="button" class="btn">Events</button>
             </form>
         </div>
 
         <div class="message bot-message">
             <form class="chat-option" data-concern-id="0">
-                <button type="button" class="btn btn-link">My concern is not listed here</button>
+                <button type="button" class="btn">My concern is not listed here</button>
             </form>
         </div>
     </div>
@@ -35,21 +35,32 @@
             <div>
                 <label>Email:</label>
                 <input type="email" name="email" required />
+                <span class="text-danger" id="email-error"></span>
             </div>
             <div>
                 <label>Query:</label>
                 <textarea name="query" required></textarea>
+                <span class="text-danger" id="query-error"></span>
             </div>
-            <button type="button" onclick="CreateUserQuery()">Submit</button>
+            <button type="submit" onclick="CreateUserQuery()">Submit</button>
         </form>
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
-        $('.chat-option button').click(function () {
+
+
+        $('#chatbox-messages').on('click', '.chat-option button', function () {
+            debugger
             var concernId = $(this).closest('form').data('concern-id');
             var message = $(this).text();
+            var chatbotResponse = $(this).closest('form').data('response');
+            var botMessageDefault = `<div class="message bot-message">
+                                                    <form class="chat-option" data-concern-id="0">
+                                                            <button type="button" class="btn">My concern is not listed here</button>
+                                                    </form>
+                                                </div>`;
 
             var userMessage = `<div class="message user-message"><p>${message}</p></div>`;
             $('#chatbox-messages').append(userMessage);
@@ -57,9 +68,32 @@
             if (concernId == 0) {
                 $('#query-form').removeClass('d-none');
             } else {
-                $.post('@Url.Action("SelectConcern", "Chatbot")', { concernId: concernId }, function (data) {
-                    $('#chatbox-messages').append(data);
-                });
+                if (chatbotResponse == "" || chatbotResponse == undefined) {
+                    $.get('@Url.Action("ChatbotPartial", "Chatbot")', { concernId: concernId }, function (responseData) {
+                        if (responseData) {
+                            responseData.response.forEach(function (x) {
+                                var botMessage = `<div class="message bot-message">
+                                                <form class="chat-option" data-concern-id="${x.id}" data-response="${x.response}">
+                                                    <button type="button" class="btn" >${x.keyword}</button>
+                                                </form>
+                                            </div>`;
+
+                                $('#chatbox-messages').append(botMessage);
+
+                            });
+                            $('#chatbox-messages').append(botMessageDefault);
+
+
+                        } else {
+                            $('#chatbox-messages').append(responseData);
+                        }
+                        $('#chatbox-messages').scrollTop($('#chatbox-messages')[0].scrollHeight);
+                    });
+                }
+                else {
+                    var botMessage = `<div class="message bot-message chat-option"><button type="button" class="btn" >${chatbotResponse}</button></div>`;
+                    $('#chatbox-messages').append(botMessage);
+                }
             }
 
             $('#chatbox-messages').scrollTop($('#chatbox-messages')[0].scrollHeight);
@@ -68,6 +102,7 @@
 
     function CreateUserQuery() {
         var form = $('#user-query-form');
+        // Clear previous error messages
         var formData = form.serialize();
 
         $.ajax({
@@ -95,4 +130,6 @@
             }
         });
     }
+
+
 </script>

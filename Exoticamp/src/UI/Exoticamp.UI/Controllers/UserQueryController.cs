@@ -1,4 +1,5 @@
-﻿using Exoticamp.UI.Services.IRepositories;
+﻿using Exoticamp.UI.Models.UserQuery;
+using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Exoticamp.UI.Controllers
@@ -14,6 +15,23 @@ namespace Exoticamp.UI.Controllers
         {
             var list = await _userQueryRepository.GetAllUserQueries();
             return View(list);
+        }
+
+        public async Task<IActionResult> Respond(string Id)
+        {
+            var userQuery = await _userQueryRepository.GetUserQueryById(Id);
+            return PartialView("_PartialRespondModal", userQuery.data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Respond(UserQueyVM model)
+        {
+            var userQuery = await _userQueryRepository.RespondToUserQuery(model);
+            if(userQuery.data != null)
+            {
+                return RedirectToAction("Index");
+            }
+            return PartialView("_PartialRespondModal", userQuery);
         }
     }
 }

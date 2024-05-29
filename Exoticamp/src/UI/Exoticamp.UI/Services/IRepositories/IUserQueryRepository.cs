@@ -1,12 +1,13 @@
-﻿using Exoticamp.UI.Models.UserQuery;
+﻿using Exoticamp.UI.Models.ResponseModels;
+using Exoticamp.UI.Models.UserQuery;
 
 namespace Exoticamp.UI.Services.IRepositories
 {
     public interface IUserQueryRepository
     {
         Task<IEnumerable<UserQueyVM>> GetAllUserQueries();
-        Task<UserQueyVM> GetUserQueryById( Guid Id);
-        Task<Guid> RespondToUserQuery(UserQueyVM userQuey);
+        Task<Response<UserQueyVM>> GetUserQueryById( string Id);
+        Task<Response<string>> RespondToUserQuery(UserQueyVM userQuey);
 
 
     }

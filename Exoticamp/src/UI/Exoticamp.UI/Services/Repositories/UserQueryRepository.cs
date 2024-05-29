@@ -6,6 +6,7 @@ using Exoticamp.UI.Models.UserQuery;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Exoticamp.UI.Services.Repositories
 {
@@ -37,14 +38,49 @@ namespace Exoticamp.UI.Services.Repositories
             return queries;
         }
 
-        public Task<UserQueyVM> GetUserQueryById(Guid Id)
+        public async Task<Response<UserQueyVM>> GetUserQueryById(string Id)
         {
-            throw new NotImplementedException();
+            _apiRepository = new APIRepository(_configuration);
+
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(Id, Newtonsoft.Json.Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+
+            var bytes = new ByteArrayContent(content);
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetUserQueryById.Replace("{0}", Id), HttpMethod.Get, bytes, _sToken);
+            if (response.data != null)
+            {
+                return (JsonConvert.DeserializeObject<Response<UserQueyVM>>(response.data));
+
+            }
+
+            return new Response<UserQueyVM>
+            {
+                Success = false,
+                Message = "Event Not Found"
+            };
+
         }
 
-        public Task<Guid> RespondToUserQuery(UserQueyVM userQuey)
+        public async Task<Response<string>> RespondToUserQuery(UserQueyVM userQuey)
         {
-            throw new NotImplementedException();
+            _apiRepository = new APIRepository(_configuration);
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(userQuey, Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+            var bytes = new ByteArrayContent(content);
+            _oApiResponse = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.RespondToUserQuery, HttpMethod.Put, bytes, _sToken);
+
+            if (_oApiResponse.data != null)
+            {
+                return JsonConvert.DeserializeObject<Response<string>>(_oApiResponse.data);
+            }
+
+            return new Response<string>()
+            {
+                Success = false,
+                Message = "Failed to add user query."
+            };
         }
     }
 }

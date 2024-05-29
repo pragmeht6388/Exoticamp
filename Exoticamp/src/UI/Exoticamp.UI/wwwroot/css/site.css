@@ -59,8 +59,8 @@ body {
 .chat-option button {
     border: none;
     background: none;
-    color: #007bff;
     text-decoration: none;
+    background: #dcefff;
 }
 
     .chat-option button:hover {

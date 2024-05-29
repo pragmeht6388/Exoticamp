@@ -2,8 +2,10 @@
 using Exoticamp.Application.Features.Chatbot.Queries.GetChatbotResponses;
 using Exoticamp.Application.Features.Events.Commands.CreateEvent;
 using Exoticamp.Application.Features.Events.Commands.UpdateEvent;
+using Exoticamp.Application.Features.Events.Queries.GetEventDetail;
 using Exoticamp.Application.Features.UserQueries.Commands.CreateUserQuery;
 using Exoticamp.Application.Features.UserQueries.Commands.RespondToUserQuery;
+using Exoticamp.Application.Features.UserQueries.Queries.GetUserQueryById;
 using Exoticamp.Application.Features.UserQueries.Queries.GetUserQueryList;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -38,7 +40,14 @@ namespace Exoticamp.Api.Controllers.v1
             return Ok(id);
         }
 
-        [HttpPut("Respond")]
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetUserQueryById(string id)
+        {
+            var getDetailQuery = new GetUserQueryByIdQuery() { UserQueryId = id };
+            return Ok(await _mediator.Send(getDetailQuery));
+        }
+
+        [HttpPut("respond")]
         //[ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]

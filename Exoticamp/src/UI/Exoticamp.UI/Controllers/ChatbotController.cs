@@ -13,10 +13,17 @@ namespace Exoticamp.UI.Controllers
             _chatbotRepository = chatbotRepository;
         }
         [HttpGet]
-        public IActionResult ChatbotPartial()
+        public async Task<IActionResult> ChatbotPartial(string concernId)
         {
-            //var concerns = _context.Concerns.Where(c => c.ParentId == null).ToList();
-            return PartialView("_PartialChatbotView", new List<ChatbotVM>());
+            var concerns = await _chatbotRepository.GetChatbotResponseById(concernId);
+            if (concernId is null)
+            {
+                return PartialView("_PartialChatbotView", concerns.data);
+            }
+
+            return Json(new { response = concerns.data });
+
+
         }
 
         [HttpPost]
