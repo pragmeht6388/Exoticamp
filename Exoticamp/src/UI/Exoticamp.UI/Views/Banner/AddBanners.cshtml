@@ -1,54 +1,92 @@
 ﻿@model Exoticamp.UI.Models.Banners.BannerViewModel
 
 @{
+    Layout = null;
     ViewData["Title"] = "AddBanners";
 }
 
-<h1>AddBanners</h1>
+<!-- Include Bootstrap CSS for styling -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-<h4>BannerViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<!-- Custom CSS for styling the form card -->
+<style>
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f8f9fa;
+    }
+
+    .form-card {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .form-card h1 {
+            color: #343a40;
+        }
+
+        .form-card .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+</style>
+
+<div class="form-container">
+    <div class="card form-card p-4 border-light-subtle shadow-sm col-md-6 col-lg-4">
+        <h1 class="text-center">Add Banners</h1>
+        <hr />
         <form asp-action="AddBanners">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <label asp-for="Link" class="control-label"></label>
+
+            <div class="form-group mb-3">
+                <label asp-for="Link" class="form-label"></label>
                 <input asp-for="Link" class="form-control" />
                 <span asp-validation-for="Link" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                </label>
+
+            <div class="form-group form-check mb-3">
+                <input class="form-check-input" asp-for="IsActive" />
+                <label class="form-check-label" asp-for="IsActive"></label>
             </div>
-            <div class="form-group">
-                <label asp-for="PromoCode" class="control-label"></label>
+
+            <div class="form-group mb-3">
+                <label asp-for="PromoCode" class="form-label"></label>
                 <input asp-for="PromoCode" class="form-control" />
                 <span asp-validation-for="PromoCode" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Locations" class="control-label"></label>
+
+            <div class="form-group mb-3">
+                <label asp-for="Locations" class="form-label"></label>
                 <input asp-for="Locations" class="form-control" />
                 <span asp-validation-for="Locations" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ImagePath" class="control-label"></label>
+
+            <div class="form-group mb-3">
+                <label asp-for="ImagePath" class="form-label"></label>
                 <input asp-for="ImagePath" class="form-control" />
                 <span asp-validation-for="ImagePath" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+            <div class="d-grid mb-3">
+                <input type="submit" value="Create" class="btn btn-primary btn-block" />
             </div>
         </form>
+
+        <div class="text-center">
+            <a asp-action="Index">Back to List</a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- Include jQuery Validation plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <!-- Include jQuery Unobtrusive Validation plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Render validation scripts partial -->
+

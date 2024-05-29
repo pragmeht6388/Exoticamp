@@ -53,6 +53,7 @@ namespace Exoticamp.UI.Services.Repositories
 
             if (response.data != null)
             {
+                response.Message = "Failed to Add data ";
                 return JsonConvert.DeserializeObject<CreateBannerResponseModel>(response.data);
             }
 

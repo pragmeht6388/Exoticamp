@@ -29,7 +29,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> AddBanners(BannerViewModel model)
         {
             var banners = await _bannerRepository.AddBanners(model);
-           
+            TempData["Message"] = banners.Message;
             return RedirectToAction("AllBanners");
         }
         [HttpGet]
