@@ -10,7 +10,12 @@ namespace Exoticamp.UI.Services.Repositories
 {
     public class EventRepository : IEventRepository
     {
-        private APIRepository _apiRepository;        private Response<string> _oApiResponse;        private string _sToken = string.Empty;        private readonly IOptions<ApiBaseUrl> _apiBaseUrl;        private readonly IConfiguration _configuration;
+        private APIRepository _apiRepository;
+
+        private Response<string> _oApiResponse;
+        private string _sToken = string.Empty;
+        private readonly IOptions<ApiBaseUrl> _apiBaseUrl;
+        private readonly IConfiguration _configuration;
         public EventRepository(IOptions<ApiBaseUrl> apiBaseUrl)
         {
             _apiBaseUrl = apiBaseUrl;
