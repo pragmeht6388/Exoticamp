@@ -45,7 +45,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="chatbotModalLabel">Chatbot</h5>
-                    <button type="button" class="close" data-dismiss="modal" id="close_Chatbot" aria-label="Close">
+                    <button type="button" class="close" data-bs-dismiss="modal" id="close_Chatbot" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -64,13 +64,17 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+
     <script>
         $(document).ready(function () {
             $('#chatbot-icon').click(function () {
-                $('#chatbotModal').modal('show');
                 $.get('@Url.Action("ChatbotPartial", "Chatbot")', function (data) {
                     $('#chatbot-content').html(data);
                 });
+                $('#chatbotModal').modal('show');
+
             });
         });</script>
     @await RenderSectionAsync("Scripts", required: false)
