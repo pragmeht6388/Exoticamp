@@ -29,7 +29,8 @@ namespace Exoticamp.UI.Controllers
 
             if (result.Message != null)
             {
-                ModelState.AddModelError(string.Empty, result.Message);
+                // ModelState.AddModelError(string.Empty, result.Message);
+                TempData["Message"]=  result.Message;
                 return View(registrationVM);
             }
             else
@@ -49,10 +50,26 @@ namespace Exoticamp.UI.Controllers
             return View();
         }
 
-        [HttpPost]        public async Task<IActionResult> Login( LoginVM request)        {            if (!ModelState.IsValid)            {                return View(request);            }            var response = await _loginRepository.AuthenticateAsync(request);            if (!response.IsAuthenticated || string.IsNullOrEmpty(response.Token))            {                ModelState.AddModelError(string.Empty, response.Message ?? "Authentication failed, please try again.");                return View(request);            }            HttpContext.Session.SetString("Token", response.Token);
+        [HttpPost]
+        public async Task<IActionResult> Login( LoginVM request)
+        {
+            if (!ModelState.IsValid)
+            {
+
+                return View(request);
+            }
+            var response = await _loginRepository.AuthenticateAsync(request);
+            if (!response.IsAuthenticated || string.IsNullOrEmpty(response.Token))
+            {
+                //ModelState.AddModelError(string.Empty, response.Message ?? " Wrong Email and Password, please try again.");
+                TempData["Message"] = " Wrong Email and Password, please try again.";
+                return View(request);
+            }
+            HttpContext.Session.SetString("Token", response.Token);
             HttpContext.Session.SetString("UserRole", response.Role);
 
-                         switch (response.Role)
+             
+            switch (response.Role)
             {
                 case "User":
                     return RedirectToAction("Index", "Home");
@@ -62,6 +79,8 @@ namespace Exoticamp.UI.Controllers
                     return RedirectToAction("Dashboard", "SuperAdmin");
                 default:
                     return RedirectToAction("Index", "Home");  
-            }        }
+            }
+        }
+
     }
 }
