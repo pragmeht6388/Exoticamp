@@ -242,33 +242,49 @@ namespace Exoticamp.Persistence
             modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
             {
                 Id = 1,
-                Keyword = "Hello! I hope you are having a nice day today!",
-                Response = "What can I help you with today?",
+                Keyword = "Technical Issue",
+                Response = null,
                 ParentId = 0
             });
 
             modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
             {
                 Id = 2,
-                Keyword = "Booking Process",
-                Response = "Please select one of the following options so I can better assist you.",
+                Keyword = "Account Issue",
+                Response = null,
                 ParentId = 1
             });
 
             modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
             {
                 Id = 3,
-                Keyword = "Ongoing Events",
-                Response = "The current ongoing events are: fireflies camping, glamping, river rafting.",
+                Keyword = "Cannot login",
+                Response = "Please reset your password.",
                 ParentId = 1
             });
 
             modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
             {
                 Id = 4,
-                Keyword = "How to cancel a booking?",
-                Response = "You can cancel a booking before 10 days of the booked date to claim full refund. After that on cancellation only partial amount will be refunded to you.",
+                Keyword = "Update email",
+                Response = "You can update your email in the account settings.",
                 ParentId = 2
+            });
+            modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
+            {
+                Id = 5,
+                Keyword = "Forgot password",
+                Response = "You can reset your password using the Forgot Password link.",
+                ParentId = 2
+            });
+
+            modelBuilder.Entity<UserQuery>().HasData(new UserQuery
+            {
+                Id = Guid.Parse("{FAFE649A-3E2A-4153-8FD8-9DCD0B87E6D8}"),
+                Email = "s@gmail.com",
+                Response = null,
+                IsDeleted = false,
+                Query = "Is there any pickup service available for pune?"
             });
 
 

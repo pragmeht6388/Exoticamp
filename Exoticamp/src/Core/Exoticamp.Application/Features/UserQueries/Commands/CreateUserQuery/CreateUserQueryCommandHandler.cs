@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Exoticamp.Application.Contracts.Infrastructure;
 using Exoticamp.Application.Contracts.Persistence;
+using Exoticamp.Application.Exceptions;
+using Exoticamp.Application.Features.Categories.Commands.CreateCategory;
 using Exoticamp.Application.Models.Mail;
 using Exoticamp.Application.Responses;
 using Exoticamp.Domain.Entities;
@@ -21,16 +23,26 @@ namespace Exoticamp.Application.Features.UserQueries.Commands.CreateUserQuery
         private readonly IMapper _mapper;
         //private readonly IEmailService _emailService;
         private readonly ILogger<CreateUserQueryCommandHandler> _logger;
+        private readonly IMessageRepository _messageRepository;
+
         public CreateUserQueryCommandHandler(IAsyncRepository<UserQuery> userQueryRepository, IMapper mapper,
-             ILogger<CreateUserQueryCommandHandler> logger)
+             ILogger<CreateUserQueryCommandHandler> logger, IMessageRepository messageRepository)
         {
             _userQueryRepository = userQueryRepository;
             _mapper = mapper;
             //_emailService = emailService;
             _logger = logger;
+            _messageRepository = messageRepository;
         }
         public async Task<Response<int>> Handle(CreateUserQueryCommand request, CancellationToken cancellationToken)
         {
+            var validator = new CreateUserQueryCommandValidator(_messageRepository);
+            var validationResult = await validator.ValidateAsync(request);
+
+            if (validationResult.Errors.Count > 0)
+            {
+                throw new ValidationException(validationResult);
+            }
             var add = _mapper.Map<UserQuery>(request);
             var result = await _userQueryRepository.AddAsync(add);
             //var email = new Email()
