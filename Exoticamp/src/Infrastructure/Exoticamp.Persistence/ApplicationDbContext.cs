@@ -31,6 +31,7 @@ namespace Exoticamp.Persistence
         public DbSet<Order> Orders { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Banner> Banners { get; set; }
         public DbSet<ContactUs> ContactUs { get; set; }
         public DbSet<Campsite> Campsites { get; set; }
         public DbSet<Activities> Activities { get; set; }
