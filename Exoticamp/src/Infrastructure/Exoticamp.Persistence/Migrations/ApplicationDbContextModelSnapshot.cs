@@ -277,6 +277,39 @@ namespace Exoticamp.Persistence.Migrations
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
                 {
+                    b.Property<Guid>("BannerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<string>("Locations")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PromoCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("BannerId");
+
+                    b.ToTable("Banners");
+                });
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
+                {
                     b.Property<Guid>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
@@ -360,6 +393,7 @@ namespace Exoticamp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContactUs");
+                });
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
@@ -695,20 +729,23 @@ namespace Exoticamp.Persistence.Migrations
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
                 {
                     b.HasOne("Exoticamp.Domain.Entities.Category", "Category")
                         .WithMany("Events")
                         .HasForeignKey("CategoryId");
                 });
 
+<<<<<<<<< Temporary merge branch 1
+=========
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
                 {
                     b.Navigation("Activities");
 
                     b.Navigation("Categories");
                 });
-
             modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
+>>>>>>>>> Temporary merge branch 2
                 {
                     b.Navigation("Events");
                 });
