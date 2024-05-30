@@ -1,0 +1,74 @@
+﻿@model Exoticamp.UI.Models.Campsite.CampsiteVM
+
+@{
+    ViewData["Title"] = "AddCampsite";
+}
+
+<h1>AddCampsite</h1>
+
+<h4>CampsiteVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddCampsite" asp-controller="Campsite" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="TentType" class="control-label"></label>
+                <input asp-for="TentType" class="form-control" />
+                <span asp-validation-for="TentType" class="text-danger"></span>
+            </div>
+           @*  <div class="form-group">
+                <label asp-for="isActive" class="control-label"></label>
+                <input asp-for="isActive" class="form-control" />
+                <span asp-validation-for="isActive" class="text-danger"></span>
+            </div> *@
+            @* <div class="form-group">
+                <label asp-for="ApprovedBy" class="control-label"></label>
+                <input asp-for="ApprovedBy" class="form-control" />
+                <span asp-validation-for="ApprovedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApprovededDate" class="control-label"></label>
+                <input asp-for="ApprovededDate" class="form-control" />
+                <span asp-validation-for="ApprovededDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeletededBy" class="control-label"></label>
+                <input asp-for="DeletededBy" class="form-control" />
+                <span asp-validation-for="DeletededBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeletedDate" class="control-label"></label>
+                <input asp-for="DeletedDate" class="form-control" />
+                <span asp-validation-for="DeletedDate" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

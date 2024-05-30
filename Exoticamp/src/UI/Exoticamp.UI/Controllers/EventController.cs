@@ -21,7 +21,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> GetAllEvents()
         {
             var events=await _eventRepository.GetAllEvents();
-            return RedirectToAction("Index","Home",events);
+            return View(events);
         }
         [HttpGet]
         public IActionResult AddEvent()
