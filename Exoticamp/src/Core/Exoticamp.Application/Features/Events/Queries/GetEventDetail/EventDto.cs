@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace Exoticamp.Application.Features.Events.Queries.GetEventsList
+namespace Exoticamp.Application.Features.Events.Queries.GetEventDetail
 {
-    public class EventListVm
+    public class EventDto
     {
         public string EventId { get; set; }
         [Required]
@@ -20,8 +20,8 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventsList
         [Required]
 
         public string Description { get; set; }
-      
-     
+    
+
 
         public string? ImageUrl { get; set; }
         [Required]

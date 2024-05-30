@@ -16,6 +16,7 @@
     <title>Exoticamp Landing Page</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <style>
         html, body {
             margin: 0;
@@ -76,7 +77,35 @@
             width: 50px;
         }
 
-      
+        .d-none {
+            display: none;
+        }
+
+        .d-block {
+            display: block;
+        }
+
+        .img-thumbnail {
+            padding: .25rem;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: .25rem;
+            max-width: 100px;
+            height: 100px;
+        }
+
+        .abc-container {
+            display: flex;
+            gap: 20px; /* Space between abc-content elements */
+    
+        }
+
+        .abc-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        }
         footer ul {
             padding: 0;
             list-style: none;
@@ -122,23 +151,8 @@
     <!-- Additional Menu -->
     <div class="container mt-3">
         <div class="row justify-content-center" id="row">
-        @*     <div class="col-auto">
-              
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        <img src="/Assets/Icons/LocationICON.png" alt="Locations" class="menu-img">
-                        Locations
-                    </button>
-                </p>
-            </div>
-            <div class="col-auto">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        <img src="/Assets/Icons/ActivitiesICON.png" alt="Activities" class="menu-img">
-                        Activities
-                    </button>
-                </p>
-            </div> *@
+    
+                   
             <div class="col-auto">
                 <p class="d-inline-flex gap-1">
                     <button class="btn btn-primary menu-button" type="button" data-target="#locationsContent">
@@ -157,8 +171,9 @@
             </div>
             <div class="col-auto">
             
+           
                 <p class="d-inline-flex gap-1">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button class="btn btn-primary menu-button" type="button" data-target="#EventsContent" >
                         <img src="/Assets/Icons/EventsICON.png" alt="Events" class="menu-img">
                         Events
                     </button>
@@ -166,17 +181,18 @@
             </div>
             <div class="col-auto">
               
+          
                 <p class="d-inline-flex gap-1">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button class="btn btn-primary menu-button" type="button" data-target="#WaterfrontContent">
                         <img src="/Assets/Icons/WaterfrontICON.png" alt="Waterfront" class="menu-img">
                         Waterfront
                     </button>
                 </p>
             </div>
             <div class="col-auto">
-              
+           
                 <p class="d-inline-flex gap-1">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button class="btn btn-primary menu-button" type="button" data-target="#LuxuryContent">
                         <img src="/Assets/Icons/LuxuryICON.png" alt="Luxury" class="menu-img">
                         Luxury
                     </button>
@@ -184,8 +200,9 @@
             </div>
             <div class="col-auto">
                
+        
                 <p class="d-inline-flex gap-1">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button class="btn btn-primary menu-button" type="button" data-target="#MountainContent">
                         <img src="/Assets/Icons/MountainIcon.png" alt="Mountain" class="menu-img">
                         Mountain
                     </button>
@@ -193,26 +210,27 @@
             </div>
             <div class="col-auto">
                 
+            
                 <p class="d-inline-flex gap-1">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button class="btn btn-primary menu-button" type="button" data-target="#FarmContent">
                         <img src="/Assets/Icons/FarmIcon.png" alt="Farm" class="menu-img">
                         Farm
                     </button>
                 </p>
             </div>
             <div class="col-auto">
-
+ 
                 <p class="d-inline-flex gap-1">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button class="btn btn-primary menu-button" type="button" data-target="#DesertContent">
                         <img src="/Assets/Icons/DesertIcon.png" alt="Desert" class="menu-img">
                         Desert
                     </button>
                 </p>
             </div>
             <div class="col-auto">
-               
+      
                 <p class="d-inline-flex gap-1">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button class="btn btn-primary menu-button" type="button" data-target="#FiltersContent">
                         <img src="/Assets/Icons/FiltersIcon.png" alt="Filters" class="menu-img">
                         Filters
                     </button>
@@ -220,26 +238,27 @@
             </div>
             <div class="col-auto">
                
+ 
                 <p class="d-inline-flex gap-1">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button class="btn btn-primary menu-button" type="button" data-target="#FAQsContent">
                         <img src="/Assets/Icons/FaqsIcon.png" alt="FAQs" class="menu-img">
                         FAQs
                     </button>
                 </p>
             </div>
             <div class="col-auto">
-             
+     
                 <p class="d-inline-flex gap-1">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button class="btn btn-primary menu-button" type="button" data-target="#SafetyContent">
                         <img src="/Assets/Icons/SafetyIcon.png" alt="Safety" class="menu-img">
                         Safety
                     </button>
                 </p>
             </div>
             <div class="col-auto">
-              
+            
                 <p class="d-inline-flex gap-1">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button class="btn btn-primary menu-button" type="button" data-target="#ReviewsContent">
                         <img src="/Assets/Icons/ReviewIcon.png" alt="Reviews" class="menu-img">
                         Reviews
                     </button>
@@ -253,33 +272,10 @@
         </div> *@
     </div>
     <!-- Collapsible Content Sections -->
-    <div class="container mt-3">
-        <div id="collapseContainer">
-            <div id="locationsContent" class="collapse-content d-none">
-                <div class="card card-body">
-                    Content for Locations
-                </div>
-            </div>
-            <div id="activitiesContent" class="collapse-content d-none">
-                <div class="card card-body">
-                    Content for Activities
-                </div>
-            </div>
-            <!-- Repeat for other content sections -->
-        </div>
-    </div>
-
-    <!-- Other Sections -->
-
-
-    
-  
-   
-
  
-    <!-- Content Sections -->
+    
+    <!-- Other Sections -->
     @RenderBody()
-  
     <!-- Content Sections -->
     <div class="container mt-5">
         <h2>Upcoming Camping Events</h2>
@@ -493,18 +489,7 @@
         </div>
 
         <!-- Add other sections similarly -->
-        @*  <div class="container mt-5">
-        <h2>Upcoming Camping Events</h2>
-        <div id="events" class="row"></div>
-
-        <h2 class="mt-5">Nearest Camping Sites</h2>
-        <div id="nearest-sites" class="row"></div>
-
-        <h2 class="mt-5">Trending Destinations</h2>
-        <div id="trending-destinations" class="row"></div>
-
-        <h2 class="mt-5">Glamping Locations</h2>
-        <div id="glamping-locations" class="row"></div>*@
+        
 
         <h2 class="mt-5">Promotional Banners</h2>
         <div id="promotional-banners" class="row"></div>
@@ -559,13 +544,6 @@
         </div>
     </footer>
 
-   
-
-
-    @* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> *@
-
-    @* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>*@
-    @* <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> *@
     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
@@ -574,8 +552,6 @@
     <script>
 
 
-        // const collapseElementList = document.querySelectorAll('.collapse')
-        // const collapseList = [...collapseElementList].map(collapseEl => new bootstrap.Collapse(collapseEl))
 
         $(document).ready(function () {
             $('.collapse-content').addClass('d-none').removeClass('d-block');
@@ -641,6 +617,6 @@
         }
 
     </script>
-  
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

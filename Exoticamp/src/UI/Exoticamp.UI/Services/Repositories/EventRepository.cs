@@ -61,7 +61,7 @@ namespace Exoticamp.UI.Services.Repositories
             return new AddEventResponseModel
             {
                 Succeeded = false,
-                Message = "Failed to add Event."
+               Message =response.Message
             };
 
 
@@ -87,7 +87,7 @@ namespace Exoticamp.UI.Services.Repositories
             return new EditEventResponseModel
             {
                 Succeeded = false,
-                Message = "Failed to Edit Event."
+                Message = response.Message
             };
 
 

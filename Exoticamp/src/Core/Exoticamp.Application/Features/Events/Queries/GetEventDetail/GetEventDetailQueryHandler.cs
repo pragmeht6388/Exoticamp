@@ -28,9 +28,9 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventDetail
 
         public async Task<Response<EventDetailVm>> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
         {
-            string id = _protector.Unprotect(request.Id);
+           // string id = _protector.Unprotect(request.Id);
 
-            var @event = await _eventRepository.GetByIdAsync(new Guid(id));
+            var @event = await _eventRepository.GetByIdAsync(new Guid(request.Id));
             var eventDetailDto = _mapper.Map<EventDetailVm>(@event);
 
             //var category = await _categoryRepository.GetByIdAsync(@event.CategoryId);

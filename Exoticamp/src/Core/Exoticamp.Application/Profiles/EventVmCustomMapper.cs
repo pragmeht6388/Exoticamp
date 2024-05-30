@@ -20,7 +20,7 @@ namespace Exoticamp.Application.Profiles
         {
             EventListVm dest = new EventListVm()
             {
-                EventId = _protector.Protect(source.EventId.ToString()),
+                EventId = source.EventId.ToString(),
                 Name = source.Name,
                 ImageUrl = source.ImageUrl,
                 StartDate = source.StartDate,

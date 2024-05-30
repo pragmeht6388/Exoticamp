@@ -21,7 +21,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> GetAllEvents()
         {
             var events=await _eventRepository.GetAllEvents();
-            return View(events);
+            return RedirectToAction("Index","Home",events);
         }
         [HttpGet]
         public IActionResult AddEvent()
@@ -33,17 +33,19 @@ namespace Exoticamp.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 var fileName = Path.GetFileName(model.Image.FileName);
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
 
                     model.ImageUrl = "/Assets/Images/Event/" + model.Image.FileName;
                                
-                _eventRepository.AddEvent(model);
+               var response= _eventRepository.AddEvent(model);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await model.Image.CopyToAsync(fileStream);
                 }
-                // return View("Products","Product");
+               
+                 return RedirectToAction("GetAllEvents","Event");
             }
             else
                 ModelState.AddModelError("", "Oops! Some error occured.");
@@ -84,6 +86,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> Details(string id)
         {
             var eventObj = await _eventRepository.GetEventById(id);
+
             return View(eventObj.Data);
         }
 

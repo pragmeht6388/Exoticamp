@@ -12,7 +12,7 @@ using Exoticamp.Domain.Entities;
 
 namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
 {
-    public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, Response<Guid>>
+    public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, Response<CreateEventCommandDto>>
     {
         private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
             _messageRepository = messageRepository;
         }
 
-        public async Task<Response<Guid>> Handle(CreateEventCommand request, CancellationToken cancellationToken)
+        public async Task<Response<CreateEventCommandDto>> Handle(CreateEventCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Handle Initiated");
 
@@ -56,7 +56,7 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
             //    _logger.LogError($"Mailing about event {@event.EventId} failed due to an error with the mail service: {ex.Message}");
             //}
 
-            var response = new Response<Guid>(@event.EventId, "Inserted successfully ");
+            var response = new Response<CreateEventCommandDto>(_mapper.Map<CreateEventCommandDto>(@event), "Inserted successfully ");
 
             _logger.LogInformation("Handle Completed");
 

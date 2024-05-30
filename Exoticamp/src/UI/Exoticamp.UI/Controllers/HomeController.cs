@@ -1,4 +1,5 @@
 using Exoticamp.UI.Models;
+using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,14 +8,18 @@ namespace Exoticamp.UI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IEventRepository _eventRepository;
+     
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger , IEventRepository eventRepository)
         {
             _logger = logger;
+            _eventRepository = eventRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.Events = await _eventRepository.GetAllEvents();
             return View();
         }
 

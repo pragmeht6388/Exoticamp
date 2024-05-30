@@ -12,11 +12,11 @@
     <div class="col-md-4">
         <form asp-action="AddEvent" method="post" enctype='multipart/form-data'>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+          @*   <div class="form-group">
 
                 <input asp-for="EventId" class="form-control"  hidden/>
                
-            </div> 
+            </div>  *@
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -72,7 +72,14 @@
 <div>
     <a asp-action="GetAllEvents">Back to List</a>
 </div>
-
+@if (TempData["Message"] != null)
+{
+    <script src="/lib/jquery//dist/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.error('@TempData["Message"]');
+    </script>
+}
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

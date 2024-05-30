@@ -34,7 +34,7 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Event, CategoryEventDto>().ReverseMap();
             CreateMap<Event, EventExportDto>().ReverseMap();
 
-            CreateMap<Category, CategoryDto>();
+            //CreateMap<Category, CategoryDto>();
             CreateMap<Category, CategoryListVm>();
             CreateMap<Category, CategoryVM>();
 

@@ -1,28 +1,28 @@
-﻿using MediatR;
-using System;
-using Exoticamp.Application.Responses;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
 {
-    public class CreateEventCommand : IRequest<Response<CreateEventCommandDto>>
+    public class CreateEventCommandDto
     {
-  
         public string Name { get; set; }
-    
+
         public decimal Price { get; set; }
 
         public int Capacity { get; set; }
- 
+
         public DateTime StartDate { get; set; }
-   
-        public DateTime EndDate { get; set; } 
+
+        public DateTime EndDate { get; set; }
         public string Description { get; set; }
-      
+
         public string ImageUrl { get; set; }
-  
+
         public string Highlights { get; set; }
-      
+
         public string EventRules { get; set; }
     }
 }

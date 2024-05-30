@@ -5,7 +5,7 @@ namespace Exoticamp.UI.Models.Events
 {
     public class EventVM
     {
-       public string EventId { get; set; }
+       public string? EventId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
