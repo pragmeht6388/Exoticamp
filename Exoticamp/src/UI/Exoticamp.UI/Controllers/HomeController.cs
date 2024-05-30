@@ -33,5 +33,17 @@ namespace Exoticamp.UI.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult HomePage()
+        {
+            return View();
+        }
+        public IActionResult AdminPage()
+        {
+            return View();
+        }
+        public IActionResult InfoPage()
+        {
+            return View();
+        }
     }
 }
