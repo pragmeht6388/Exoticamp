@@ -17,15 +17,273 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Category", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Activities", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CampsiteDetailsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampsiteDetailsId");
+
+                    b.ToTable("Activities");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Campsite", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ApprovedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ApprovededDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletededBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Campsites");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AboutCampsite")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Accommodation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Amenities")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ApprovedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ApprovededDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("BestTimeToVisit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CampsiteRules")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CancellationPolicy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletededBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DistanceWithMap")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Exclusion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FAQs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Highlights")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HouseRules")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HowToGetHere")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Images")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Inclusions")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Itinerary")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MealPlans")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QuickSummary")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ratings")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Safety")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WhyExoticamp")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CampsiteDetails");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Banner", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
+                {
+                    b.Property<Guid>("BannerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<string>("Locations")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PromoCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("BannerId");
+
+                    b.ToTable("Banners");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("CategoryId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CampsiteDetailsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedBy")
@@ -45,6 +303,8 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                         .HasColumnType("varchar(50)");
 
                     b.HasKey("CategoryId");
+
+                    b.HasIndex("CampsiteDetailsId");
 
                     b.ToTable("Categories");
 
@@ -75,7 +335,37 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                         });
                 });
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Event", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.ContactUs", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("SubmittedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactUs");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
                 {
                     b.Property<Guid>("EventId")
                         .ValueGeneratedOnAdd()
@@ -131,7 +421,8 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "John Egbert",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2024, 11, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(6981),
+                            Date = new DateTime(2024, 11, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5245),
+                            Date = new DateTime(2024, 11, 29, 4, 46, 41, 729, DateTimeKind.Utc).AddTicks(8695),
                             Description = "Join John for his farwell tour across 15 continents. John really needs no introduction since he has already mesmerized the world with his banjo.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/banjo.jpg",
                             Name = "John Egbert Live",
@@ -143,7 +434,8 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "Michael Johnson",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2025, 2, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7004),
+                            Date = new DateTime(2025, 2, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5300),
+                            Date = new DateTime(2025, 2, 28, 4, 46, 41, 729, DateTimeKind.Utc).AddTicks(8732),
                             Description = "Michael Johnson doesn't need an introduction. His 25 concert across the globe last year were seen by thousands. Can we add you to the list?",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/michael.jpg",
                             Name = "The State of Affairs: Michael Live!",
@@ -155,7 +447,8 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "DJ 'The Mike'",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2024, 9, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7018),
+                            Date = new DateTime(2024, 9, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5333),
+                            Date = new DateTime(2024, 9, 29, 4, 46, 41, 729, DateTimeKind.Utc).AddTicks(8755),
                             Description = "DJs from all over the world will compete in this epic battle for eternal fame.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/dj.jpg",
                             Name = "Clash of the DJs",
@@ -167,7 +460,8 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "Manuel Santinonisi",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2024, 9, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7030),
+                            Date = new DateTime(2024, 9, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5361),
+                            Date = new DateTime(2024, 9, 29, 4, 46, 41, 729, DateTimeKind.Utc).AddTicks(8776),
                             Description = "Get on the hype of Spanish Guitar concerts with Manuel.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/guitar.jpg",
                             Name = "Spanish guitar hits with Manuel",
@@ -179,7 +473,8 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "Many",
                             CategoryId = new Guid("fe98f549-e790-4e9f-aa16-18c2292a2ee9"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2025, 3, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7042),
+                            Date = new DateTime(2025, 3, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5391),
+                            Date = new DateTime(2025, 3, 29, 4, 46, 41, 729, DateTimeKind.Utc).AddTicks(8797),
                             Description = "The best tech conference in the world",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/conf.jpg",
                             Name = "Techorama 2021",
@@ -191,7 +486,8 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Artist = "Nick Sailor",
                             CategoryId = new Guid("6313179f-7837-473a-a4d5-a5571b43e6a6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2025, 1, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7058),
+                            Date = new DateTime(2025, 1, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5424),
+                            Date = new DateTime(2025, 1, 29, 4, 46, 41, 729, DateTimeKind.Utc).AddTicks(8822),
                             Description = "The critics are over the moon and so will you after you've watched this sing and dance extravaganza written by Nick Sailor, the man from 'My dad and sister'.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/musical.jpg",
                             Name = "To the Moon and Back",
@@ -199,7 +495,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                         });
                 });
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Message", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Message", b =>
                 {
                     b.Property<Guid>("MessageId")
                         .ValueGeneratedOnAdd()
@@ -252,7 +548,7 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                         });
                 });
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Order", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Order", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -293,7 +589,8 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("7e94bc5b-71a5-4c8c-bc3b-71bb7976237e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7072),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5460),
+                            OrderPlaced = new DateTime(2024, 5, 29, 4, 46, 41, 729, DateTimeKind.Utc).AddTicks(8849),
                             OrderTotal = 400,
                             UserId = new Guid("a441eb40-9636-4ee6-be49-a66c5ec1330b")
                         },
@@ -302,7 +599,8 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("86d3a045-b42d-4854-8150-d6a374948b6e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7144),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5493),
+                            OrderPlaced = new DateTime(2024, 5, 29, 4, 46, 41, 729, DateTimeKind.Utc).AddTicks(8873),
                             OrderTotal = 135,
                             UserId = new Guid("ac3cfaf5-34fd-4e4d-bc04-ad1083ddc340")
                         },
@@ -311,7 +609,8 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("771cca4b-066c-4ac7-b3df-4d12837fe7e0"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7160),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5523),
+                            OrderPlaced = new DateTime(2024, 5, 29, 4, 46, 41, 729, DateTimeKind.Utc).AddTicks(8894),
                             OrderTotal = 85,
                             UserId = new Guid("d97a15fc-0d32-41c6-9ddf-62f0735c4c1c")
                         },
@@ -320,7 +619,8 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("3dcb3ea0-80b1-4781-b5c0-4d85c41e55a6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7171),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5553),
+                            OrderPlaced = new DateTime(2024, 5, 29, 4, 46, 41, 729, DateTimeKind.Utc).AddTicks(8916),
                             OrderTotal = 245,
                             UserId = new Guid("4ad901be-f447-46dd-bcf7-dbe401afa203")
                         },
@@ -329,7 +629,8 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("e6a2679c-79a3-4ef1-a478-6f4c91b405b6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7183),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5581),
+                            OrderPlaced = new DateTime(2024, 5, 29, 4, 46, 41, 729, DateTimeKind.Utc).AddTicks(8939),
                             OrderTotal = 142,
                             UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
                         },
@@ -338,7 +639,8 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7197),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5625),
+                            OrderPlaced = new DateTime(2024, 5, 29, 4, 46, 41, 729, DateTimeKind.Utc).AddTicks(8964),
                             OrderTotal = 40,
                             UserId = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923")
                         },
@@ -347,13 +649,14 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                             Id = new Guid("ba0eb0ef-b69b-46fd-b8e2-41b4178ae7cb"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 20, 9, 15, 47, 769, DateTimeKind.Utc).AddTicks(7209),
+                            OrderPlaced = new DateTime(2024, 5, 27, 11, 27, 45, 321, DateTimeKind.Utc).AddTicks(5656),
+                            OrderPlaced = new DateTime(2024, 5, 29, 4, 46, 41, 729, DateTimeKind.Utc).AddTicks(8986),
                             OrderTotal = 116,
                             UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
                         });
                 });
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Product", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("ProductId")
                         .ValueGeneratedOnAdd()
@@ -383,9 +686,24 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Event", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Activities", b =>
                 {
-                    b.HasOne("MyCleanProject1.Domain.Entities.Category", "Category")
+                    b.HasOne("Exoticamp.Domain.Entities.CampsiteDetails", null)
+                        .WithMany("Activities")
+                        .HasForeignKey("CampsiteDetailsId");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
+                {
+                    b.HasOne("Exoticamp.Domain.Entities.CampsiteDetails", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("CampsiteDetailsId");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
+                {
+                    b.HasOne("Exoticamp.Domain.Entities.Category", "Category")
                         .WithMany("Events")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -394,7 +712,15 @@ namespace MyCleanProject1.Persistence.Migrations.MSSQL
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("MyCleanProject1.Domain.Entities.Category", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
+                {
+                    b.Navigation("Activities");
+
+                    b.Navigation("Categories");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Events");
                 });

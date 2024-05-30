@@ -22,6 +22,9 @@ builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 
 
+builder.Services.AddScoped<IBannerRepository,BannerRepository>();
+builder.Services.AddScoped<IContactUsRepository,ContactUsRepository>();
+builder.Services.AddScoped<ICampsiteRepository, CamsiteRepository>();
 
 var app = builder.Build();
 
