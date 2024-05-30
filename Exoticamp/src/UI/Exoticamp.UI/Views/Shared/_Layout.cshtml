@@ -72,8 +72,9 @@
             $('#chatbot-icon').click(function () {
                 $.get('@Url.Action("ChatbotPartial", "Chatbot")', function (data) {
                     $('#chatbot-content').html(data);
+                    $('#chatbotModal').modal('show');
                 });
-                $('#chatbotModal').modal('show');
+                
 
             });
         });</script>

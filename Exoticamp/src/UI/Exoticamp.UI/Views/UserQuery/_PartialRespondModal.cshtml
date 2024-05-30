@@ -3,9 +3,8 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-<style>
 
-    <style >
+<style>
     body {
         font-family: Arial, sans-serif;
     }
@@ -54,10 +53,9 @@
     }
 </style>
 
-</style>
 <div>
     <h5>User Query:</h5>
-    <textarea disabled asp-for="Query">@Model.Query</textarea>
+    <textarea disabled asp-for="Query" class="form-control">@Model.Query</textarea>
 </div>
 <div id="query-form" class="message user-query">
     <h4>Respond to the user query:</h4>
@@ -79,7 +77,7 @@
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Initialize jQuery Validation on the form
         $("#user-query-form").validate({
             rules: {
@@ -100,7 +98,7 @@
                     required: "Please enter a response"
                 }
             },
-            submitHandler: function(form) {
+            submitHandler: function (form) {
                 // Custom validation before submission
                 var email = $(form).find("input[name='email']").val();
                 var response = $(form).find("textarea[name='response']").val();
