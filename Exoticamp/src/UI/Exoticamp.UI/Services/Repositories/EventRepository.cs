@@ -21,6 +21,7 @@ namespace Exoticamp.UI.Services.Repositories
             GetAllEventResponseModel response = new GetAllEventResponseModel();
             List<EventVM> events = new List<EventVM>();
             _apiRepository = new APIRepository(_configuration);
+
             _oApiResponse = new Response<string>();
             byte[] content = Array.Empty<byte>();
             var bytes = new ByteArrayContent(content);
