@@ -24,6 +24,7 @@ builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 
 builder.Services.AddScoped<IContactUsRepository,ContactUsRepository>();
 builder.Services.AddScoped<ICampsiteRepository, CamsiteRepository>();
+builder.Services.AddScoped<ICampsiteDetailsRepository, CampsiteDetailsRepository>();
 
 var app = builder.Build();
 

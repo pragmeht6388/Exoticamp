@@ -1,18 +1,14 @@
-﻿using Exoticamp.Domain.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Exoticamp.Domain.Entities
+namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetails
 {
-    public class CampsiteDetails:AuditableEntity
+    public class CampsiteDetailsVM
     {
-        [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
@@ -37,12 +33,10 @@ namespace Exoticamp.Domain.Entities
         public string QuickSummary { get; set; }
 
         public Guid CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
-        public ICollection<Category> Categories { get; set; }
+        [ForeignKey(nameof(CategoryId))]
 
         public Guid ActivitiesId { get; set; }
-        [ForeignKey("ActivitiesId")]
-        public ICollection<Activities> Activities { get; set; }
+        [ForeignKey(nameof(ActivitiesId))]
 
         public string MealPlans { get; set; }
 
@@ -66,7 +60,7 @@ namespace Exoticamp.Domain.Entities
         public string HouseRules { get; set; }
 
         public string CancellationPolicy { get; set; }
-        public bool? isActive { get; set; } 
+        public bool? isActive { get; set; }
         public string? ApprovedBy { get; set; }
         public DateTime? ApprovededDate { get; set; }
         public string? DeletededBy { get; set; }
