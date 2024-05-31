@@ -36,6 +36,9 @@ namespace Exoticamp.Persistence
         public DbSet<Campsite> Campsites { get; set; }
         public DbSet<Activities> Activities { get; set; }
         public DbSet<CampsiteDetails> CampsiteDetails { get; set; }
+        public DbSet<ChatbotResponse> ChatbotResponses { get; set; }
+        public DbSet<UserQuery> UserQueries { get; set; }
+
 
         private IDbContextTransaction _transaction;
 
@@ -235,6 +238,58 @@ namespace Exoticamp.Persistence
                 Language = "en",
                 Type = Message.MessageType.Error
             });
+
+            modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
+            {
+                Id = 1,
+                Keyword = "Technical Issue",
+                Response = null,
+                ParentId = 0
+            });
+
+            modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
+            {
+                Id = 2,
+                Keyword = "Account Issue",
+                Response = null,
+                ParentId = 1
+            });
+
+            modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
+            {
+                Id = 3,
+                Keyword = "Cannot login",
+                Response = "Please reset your password.",
+                ParentId = 1
+            });
+
+            modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
+            {
+                Id = 4,
+                Keyword = "Update email",
+                Response = "You can update your email in the account settings.",
+                ParentId = 2
+            });
+            modelBuilder.Entity<ChatbotResponse>().HasData(new ChatbotResponse
+            {
+                Id = 5,
+                Keyword = "Forgot password",
+                Response = "You can reset your password using the Forgot Password link.",
+                ParentId = 2
+            });
+
+            modelBuilder.Entity<UserQuery>().HasData(new UserQuery
+            {
+                Id = Guid.Parse("{FAFE649A-3E2A-4153-8FD8-9DCD0B87E6D8}"),
+                Email = "s@gmail.com",
+                Response = null,
+                IsDeleted = false,
+                Query = "Is there any pickup service available for pune?"
+            });
+
+
+
+
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
