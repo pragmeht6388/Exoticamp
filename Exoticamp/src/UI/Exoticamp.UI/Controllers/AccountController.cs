@@ -29,7 +29,8 @@ namespace Exoticamp.UI.Controllers
 
             if (result.Message != null)
             {
-                ModelState.AddModelError(string.Empty, result.Message);
+                // ModelState.AddModelError(string.Empty, result.Message);
+                TempData["Message"]=  result.Message;
                 return View(registrationVM);
             }
             else
@@ -60,7 +61,8 @@ namespace Exoticamp.UI.Controllers
             var response = await _loginRepository.AuthenticateAsync(request);
             if (!response.IsAuthenticated || string.IsNullOrEmpty(response.Token))
             {
-                ModelState.AddModelError(string.Empty, response.Message ?? "Authentication failed, please try again.");
+                //ModelState.AddModelError(string.Empty, response.Message ?? " Wrong Email and Password, please try again.");
+                TempData["Message"] = " Wrong Email and Password, please try again.";
                 return View(request);
             }
             HttpContext.Session.SetString("Token", response.Token);

@@ -74,7 +74,10 @@ namespace Exoticamp.Identity.Services
             response.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             response.Email = user.Email;
             response.UserName = user.UserName;
-            response.Role = role[0];
+            if (role.Count > 0)
+            {
+                response.Role = role[0];
+            }
 
 
             return response;
@@ -100,7 +103,7 @@ namespace Exoticamp.Identity.Services
                 Email = request.Email,
                 Name = request.Name,
                 PhoneNumber = request.PhoneNumber,
-                TermsandCondition = false,
+                TermsandCondition =  true,
                 EmailConfirmed = true,
             };
 
