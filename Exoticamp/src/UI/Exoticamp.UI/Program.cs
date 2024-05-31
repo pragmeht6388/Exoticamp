@@ -29,6 +29,8 @@ builder.Services.AddScoped<IChatbotRepository, ChatbotRepository>();
 builder.Services.AddScoped<IUserQueryRepository, UserQueryRepository>();
 
 
+builder.Services.AddScoped<ICampsiteDetailsRepository, CampsiteDetailsRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
 

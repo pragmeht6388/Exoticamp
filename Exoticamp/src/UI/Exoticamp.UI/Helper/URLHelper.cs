@@ -46,5 +46,13 @@
         public const string GetById = "/api/v1/Campsite/{0}";
         public const string DeleteById = "/api/v1/Campsite/{0}";
         #endregion
+
+        public const string GetAllCampsiteDetails = "/api/v1/CampsiteDetails/all";
+        public const string GetDetailsById = "/api/v1/CampsiteDetails/{0}";
+        public const string AddCampsiteDetails = "/api/v1/CampsiteDetails";
+
+
+        public const string GetAllCategories = "/api/v1/Category/all";
+
     }
 }

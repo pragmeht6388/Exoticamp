@@ -1,4 +1,5 @@
-﻿using Exoticamp.Domain.Entities;
+﻿using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetailsList;
+using Exoticamp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace Exoticamp.Application.Contracts.Persistence
         Task<CampsiteDetails> AddCampsite(CampsiteDetails campsiteDetails);
         Task<CampsiteDetails> Update(CampsiteDetails campsiteDetails);
         Task<CampsiteDetails> Delete(CampsiteDetails campsiteDetails);
+
+        Task<List<CampsiteDetailsVM>> GetAllCampsiteWithCategoryAndActivityDetails();
     }
 }

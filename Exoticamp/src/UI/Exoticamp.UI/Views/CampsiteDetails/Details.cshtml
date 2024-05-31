@@ -1,0 +1,48 @@
+﻿@model Exoticamp.UI.Models.CampsiteDetails.CampsiteDetailsVM
+
+@{
+    ViewData["Title"] = "Campsite Details";
+}
+
+<h1>Campsite Details</h1>
+
+<div>
+    <h2>@Model.Name</h2>
+    <p><strong>Location:</strong> @Model.Location</p>
+    <p><strong>Status:</strong> @(Model.Status ? "Active" : "Inactive")</p>
+    <p><strong>Tent Type:</strong> @Model.TentType</p>
+    <img src="@Model.Images" alt="Campsite Image" style="width:300px;height:300px;" />
+    <p><strong>Date:</strong> @Model.DateTime</p>
+    <p><strong>Highlights:</strong> @Model.Highlights</p>
+    <p><strong>Ratings:</strong> @Model.Ratings</p>
+    <p><strong>About Campsite:</strong> @Model.AboutCampsite</p>
+    <p><strong>Campsite Rules:</strong> @Model.CampsiteRules</p>
+    <p><strong>Best Time to Visit:</strong> @Model.BestTimeToVisit</p>
+    <p><strong>How to Get Here:</strong> @Model.HowToGetHere</p>
+    <p><strong>Quick Summary:</strong> @Model.QuickSummary</p>
+    <p><strong>Category Id:</strong> @Model.CategoryId</p>
+    <p><strong>Category Name:</strong> @Model.CategoryName</p>
+    <p><strong>Activities Id:</strong> @Model.ActivitiesId</p>
+    <p><strong>Activities Name:</strong> @Model.ActivityName</p>
+    <p><strong>Meal Plans:</strong> @Model.MealPlans</p>
+    <p><strong>Itinerary:</strong> @Model.Itinerary</p>
+    <p><strong>Inclusions:</strong> @Model.Inclusions</p>
+    <p><strong>Exclusion:</strong> @Model.Exclusion</p>
+    <p><strong>Amenities:</strong> @Model.Amenities</p>
+    <p><strong>Accommodation:</strong> @Model.Accommodation</p>
+    <p><strong>Safety:</strong> @Model.Safety</p>
+    <p><strong>Distance With Map:</strong> @Model.DistanceWithMap</p>
+    <p><strong>Why Exoticamp:</strong> @Model.WhyExoticamp</p>
+    <p><strong>FAQs:</strong> @Model.FAQs</p>
+    <p><strong>House Rules:</strong> @Model.HouseRules</p>
+    <p><strong>Cancellation Policy:</strong> @Model.CancellationPolicy</p>
+    <p><strong>Is Active:</strong> @(Model.IsActive )</p>
+    <p><strong>Approved By:</strong> @Model.ApprovedBy</p>
+    <p><strong>Approved Date:</strong> @Model.ApprovededDate</p>
+    <p><strong>Deleted By:</strong> @Model.DeletededBy</p>
+    <p><strong>Deleted Date:</strong> @Model.DeletedDate</p>
+</div>
+
+<p>
+    <a asp-action="ShowCampsite">Back to List</a>
+</p>
