@@ -26,7 +26,7 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventsExport
 
         public async Task<EventExportFileVm> Handle(GetEventsExportQuery request, CancellationToken cancellationToken)
         {
-            var allEvents = _mapper.Map<List<EventExportDto>>((await _eventRepository.ListAllAsync()).OrderBy(x => x.Date));
+            var allEvents = _mapper.Map<List<EventExportDto>>((await _eventRepository.ListAllAsync()).OrderBy(x => x.StartDate));
 
             var fileData = _csvExporter.ExportEventsToCsv(allEvents);
 
