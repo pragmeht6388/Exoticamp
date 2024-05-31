@@ -27,6 +27,8 @@ using Exoticamp.Application.Features.ContactUs.Query.GetContactUs;
 using Exoticamp.Application.Features.Campsite.Commands.AddCampsite;
 using Exoticamp.Application.Features.Campsite.Commands.UpdateCampsite;
 using Exoticamp.Application.Features.Campsite.Query.GetCampsiteList;
+using Exoticamp.Application.Features.UserQueries.Commands.CreateUserQuery;
+using Exoticamp.Application.Features.UserQueries.Queries.GetUserQueryList;
 
 
 namespace Exoticamp.Application.Profiles
@@ -70,6 +72,9 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Banner, UpdateBannerCommand>().ReverseMap();
 
             CreateMap<Banner, BannerDto>().ReverseMap();
+            CreateMap<UserQuery, CreateUserQueryCommand>().ReverseMap();
+            CreateMap<UserQuery, GetUserQueryListVM>().ReverseMap();
+
 
             CreateMap<Banner, BannerVM>();
             CreateMap<ContactUs, AddContactUsCommand>().ReverseMap();
