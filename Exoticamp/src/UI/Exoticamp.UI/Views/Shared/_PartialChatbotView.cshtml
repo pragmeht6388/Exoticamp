@@ -1,0 +1,228 @@
+﻿@model IEnumerable<Exoticamp.UI.Models.Chatbot.ChatbotVM>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+    }
+
+
+
+
+    .user-query {
+        text-align: left;
+        background: #f9f9f9;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .userForm .btn {
+        padding: 10px 15px;
+        margin-top: 10px;
+        border: none;
+        color: white;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .error {
+        color: red;
+        margin-top: 5px;
+        display: block;
+    }
+</style>
+
+
+
+
+<div class="chatbox">
+    <div class="chatbox-messages" id="chatbox-messages">
+        <div class="message  chat-option">
+            <p class="chat-message-style">Hello! How can I help you today?</p>
+        </div>
+
+        @foreach (var response in Model)
+        {
+            <div class="message bot-message">
+                <form class="chat-option" data-concern-id="@response.Id" data-response="@response.Response">
+                    <button type="button" class="btn">@response.Keyword</button>
+                </form>
+            </div>
+        }
+
+        <div class="message bot-message">
+            <form class="chat-option" data-concern-id="0">
+                <button type="button" class="btn">My concern is not listed here</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="query-form" class="message user-query d-none">
+        <h4>Submit a New Query:</h4>
+        <form id="user-query-form" class="userForm">
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" name="email" required class="form-control" />
+                <span class="field-validation-valid" data-valmsg-for="email" data-valmsg-replace="true"></span>
+            </div>
+            <div>
+                <label for="query">Query:</label>
+                <textarea name="query" required class="form-control"></textarea>
+                <span class="field-validation-valid" data-valmsg-for="query" data-valmsg-replace="true"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+
+
+</div>
+
+<script>
+    $(document).ready(function () {
+
+
+        $('#chatbox-messages').on('click', '.chat-option button', function () {
+            debugger
+            var concernId = $(this).closest('form').data('concern-id');
+            var message = $(this).text();
+            var chatbotResponse = $(this).closest('form').data('response');
+            var botMessageDefault = `<div class="message bot-message">
+                                                                <form class="chat-option" data-concern-id="0">
+                                                                        <button type="button" class="btn">My concern is not listed here</button>
+                                                                </form>
+                                                            </div>`;
+
+            var userMessage = `<div class="message user-message"><p>${message}</p></div>`;
+            $('#chatbox-messages').append(userMessage);
+
+            if (concernId == 0) {
+                $('#query-form').removeClass('d-none');
+            } else {
+                if (chatbotResponse == "" || chatbotResponse == undefined) {
+                    $.get('@Url.Action("ChatbotPartial", "Chatbot")', { concernId: concernId }, function (responseData) {
+                        if (responseData) {
+                            responseData.response.forEach(function (x) {
+                                var botMessage = `<div class="message bot-message">
+                                                            <form class="chat-option" data-concern-id="${x.id}" data-response="${x.response}">
+                                                                <button type="button" class="btn" >${x.keyword}</button>
+                                                            </form>
+                                                        </div>`;
+
+                                $('#chatbox-messages').append(botMessage);
+
+                            });
+                            $('#chatbox-messages').append(botMessageDefault);
+
+
+                        } else {
+                            $('#chatbox-messages').append(responseData);
+                        }
+                        $('#chatbox-messages').scrollTop($('#chatbox-messages')[0].scrollHeight);
+                    });
+                }
+                else {
+                    var botMessage = `<div class="message bot-message chat-option"><p class="chat-message-style">${chatbotResponse}</p></div>`;
+                    $('#chatbox-messages').append(botMessage);
+                }
+            }
+
+            $('#chatbox-messages').scrollTop($('#chatbox-messages')[0].scrollHeight);
+        });
+
+        $("#user-query-form").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                query: {
+                    required: true
+                }
+            },
+            messages: {
+                email: {
+                    required: "Please enter your email",
+                    email: "Please enter a valid email address"
+                },
+                query: {
+                    required: "Please enter the query"
+                }
+            },
+            submitHandler: function (form) {
+                var email = $(form).find("input[name='email']").val();
+                var query = $(form).find("textarea[name='query']").val();
+
+                if (email && query) {
+                    CreateUserQuery();
+                } else {
+                    alert("Please fill out all required fields.");
+                }
+            }
+        });
+    });
+
+    function CreateUserQuery() {
+        var form = $('#user-query-form');
+        // Clear previous error messages
+        var formData = form.serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SubmitQuery", "Chatbot")',
+            data: formData,
+            success: function (response) {
+                // Append user message
+                var userMessage = `<div class="message user-message"><p>${form.find('textarea[name="query"]').val()}</p></div>`;
+                $('#chatbox-messages').append(userMessage);
+
+                // Append bot response message
+                var botMessage = `<div class="message bot-message"><p class="chat-message-style">Your query has been submitted successfully! Wait for a response from our team!</p></div>`;
+                $('#chatbox-messages').append(botMessage);
+
+                // Clear the form
+                form.trigger("reset");
+                $('#query-form').addClass('d-none');
+                // Scroll to the bottom of the chatbox
+                $('#chatbox-messages').scrollTop($('#chatbox-messages')[0].scrollHeight);
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+                alert('There was an error submitting your query. Please try again later.');
+            }
+        });
+    }
+
+
+</script>

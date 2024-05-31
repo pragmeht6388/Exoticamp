@@ -63,7 +63,6 @@ services.AddCors(options =>
         });
 });
 services.AddApplicationServices();
-
 services.AddInfrastructureServices(Configuration);
 services.AddPersistenceServices(Configuration);
 services.AddIdentityServices(Configuration);

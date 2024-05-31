@@ -17,7 +17,7 @@ namespace Exoticamp.Api.Controllers.v1
     public class BannerController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly ILogger _logger;
+        private readonly ILogger<BannerController> _logger;
 
         public BannerController(IMediator mediator, ILogger<BannerController> logger)
         {

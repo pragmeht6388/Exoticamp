@@ -23,6 +23,16 @@
         public const string UpdateBanners = "/api/v1/Banner/UpdateBanner";
 
         public const string GetbyId = "/api/v1/Banner/{0}";
+        public const string CreateUserQuery = "/api/v1/UserQuery/add";
+        public const string GetAllUserQueries = "/api/v1/UserQuery/all";
+        public const string GetUserQueryById = "/api/v1/UserQuery/{0}";
+        public const string RespondToUserQuery = "/api/v1/UserQuery/respond";
+        public const string GetChatbotResponses = "/api/v1/Chatbot/all?id={0}";
+
+
+
+
+
 
         public const string DeleteBannerById = "/api/v1/Banner/{0}";
 

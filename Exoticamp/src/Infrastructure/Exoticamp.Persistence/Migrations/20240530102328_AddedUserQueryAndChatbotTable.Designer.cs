@@ -4,6 +4,7 @@ using Exoticamp.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Exoticamp.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240530102328_AddedUserQueryAndChatbotTable")]
+    partial class AddedUserQueryAndChatbotTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -305,6 +308,32 @@ namespace Exoticamp.Persistence.Migrations
                     b.HasIndex("CampsiteDetailsId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Concerts"
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("6313179f-7837-473a-a4d5-a5571b43e6a6"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Musicals"
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("bf3f3002-7e53-441e-8b76-f6280be284aa"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Plays"
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("fe98f549-e790-4e9f-aa16-18c2292a2ee9"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Conferences"
+                        });
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.ChatbotResponse", b =>
@@ -400,10 +429,11 @@ namespace Exoticamp.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
+                    b.Property<string>("Artist")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
-                    b.Property<Guid?>("CategoryId")
+                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedBy")
@@ -412,20 +442,12 @@ namespace Exoticamp.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("varchar(500)");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EventRules")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Highlights")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -441,11 +463,8 @@ namespace Exoticamp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.HasKey("EventId");
 
@@ -546,12 +565,39 @@ namespace Exoticamp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MessageId");
 
                     b.ToTable("Messages");
+
+                    b.HasData(
+                        new
+                        {
+                            MessageId = new Guid("253c75d5-32af-4dbf-ab63-1af449bde7bd"),
+                            Code = "1",
+                            Language = "en",
+                            MessageContent = "{PropertyName} is required.",
+                            Type = "Error"
+                        },
+                        new
+                        {
+                            MessageId = new Guid("ed0cc6b6-11f4-4512-a441-625941917502"),
+                            Code = "2",
+                            Language = "en",
+                            MessageContent = "{PropertyName} must not exceed {MaxLength} characters.",
+                            Type = "Error"
+                        },
+                        new
+                        {
+                            MessageId = new Guid("fafe649a-3e2a-4153-8fd8-9dcd0b87e6d8"),
+                            Code = "3",
+                            Language = "en",
+                            MessageContent = "An event with the same name and date already exists.",
+                            Type = "Error"
+                        });
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Order", b =>
@@ -735,9 +781,13 @@ namespace Exoticamp.Persistence.Migrations
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
                 {
-                    b.HasOne("Exoticamp.Domain.Entities.Category", null)
+                    b.HasOne("Exoticamp.Domain.Entities.Category", "Category")
                         .WithMany("Events")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
