@@ -73,8 +73,8 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new {  id = Model.EventId }) |
-    @Html.ActionLink("Delete", "Delete", new { id = Model.EventId  }) |
+    @Html.ActionLink("Edit", "Edit", new {  id = Model?.EventId }) |
+    @Html.ActionLink("Delete", "Delete", new { id = Model?.EventId  }) |
 
-    <a asp-action="GetAllEvents" >Back to List</a>
+    <button id="backButton" class="btn btn-primary">Back</button>
 </div>

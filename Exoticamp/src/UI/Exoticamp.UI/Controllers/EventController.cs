@@ -37,15 +37,23 @@ namespace Exoticamp.UI.Controllers
                 var fileName = Path.GetFileName(model.Image.FileName);
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
 
-                    model.ImageUrl = "/Assets/Images/Event/" + model.Image.FileName;
-                               
-               var response= _eventRepository.AddEvent(model);
+                model.ImageUrl = "/Assets/Images/Event/" + model.Image.FileName;
+
+                var response = await _eventRepository.AddEvent(model);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await model.Image.CopyToAsync(fileStream);
                 }
-               
-                 return RedirectToAction("GetAllEvents","Event");
+                if (response.Succeeded == false)
+                {
+                    TempData["Message"] = response.Message;
+                    TempData["Flag"] = response.Succeeded;
+                }
+                else {
+                    TempData["Message"] = response.Message;
+                    TempData["Flag"] = null;
+                    return RedirectToAction("GetAllEvents", "Event");
+                     }
             }
             else
                 ModelState.AddModelError("", "Oops! Some error occured.");

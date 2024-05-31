@@ -46,7 +46,15 @@ namespace Exoticamp.Api.Controllers.v1
         public async Task<ActionResult> Create([FromBody] CreateEventCommand createEventCommand)
         {
             var dto = await _mediator.Send(createEventCommand);
-            return Ok(dto);
+            if (dto.Succeeded == true)
+            {
+                return Ok(dto);
+            }
+            else
+            {
+                dto.Message=$"{dto.Errors}";
+                return BadRequest();
+            }
         }
 
         [HttpPost("TransactionDemo", Name = "TransactionDemo")]

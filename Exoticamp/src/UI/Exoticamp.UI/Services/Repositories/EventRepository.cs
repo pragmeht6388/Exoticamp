@@ -53,17 +53,16 @@ namespace Exoticamp.UI.Services.Repositories
            
             var bytes = new ByteArrayContent(content);
             response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.AddEvent, HttpMethod.Post, bytes, _sToken);
-            if (response.data != null)
+            if (response.Success == true)
             {
                return (JsonConvert.DeserializeObject<AddEventResponseModel>(response.data));
             }
 
-            return new AddEventResponseModel
-            {
-                Succeeded = false,
-               Message =response.Message
-            };
+            res.Succeeded = false;
+            res.Message = "Bad Request";
 
+            res.StatusCode = "400";
+            return res;
 
         }
 

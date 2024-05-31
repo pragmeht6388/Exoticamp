@@ -56,7 +56,7 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
             //    _logger.LogError($"Mailing about event {@event.EventId} failed due to an error with the mail service: {ex.Message}");
             //}
 
-            var response = new Response<CreateEventCommandDto>(_mapper.Map<CreateEventCommandDto>(@event), "Inserted successfully ");
+            var response = new Response<CreateEventCommandDto>(_mapper.Map<CreateEventCommandDto>(@event), "Inserted successfully");
 
             _logger.LogInformation("Handle Completed");
 
