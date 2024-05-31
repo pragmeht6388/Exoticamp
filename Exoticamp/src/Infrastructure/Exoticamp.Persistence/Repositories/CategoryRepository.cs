@@ -28,7 +28,7 @@ namespace Exoticamp.Persistence.Repositories
             var allCategories = await _dbContext.Categories.Include(x => x.Events).ToListAsync();
             if (!includePassedEvents)
             {
-                allCategories.ForEach(p => p.Events.ToList().RemoveAll(c => c.Date < DateTime.Today));
+                allCategories.ForEach(p => p.Events.ToList().RemoveAll(c => c.StartDate < DateTime.Today));
             }
             _logger.LogInformation("GetCategoriesWithEvents Completed");
             return allCategories;

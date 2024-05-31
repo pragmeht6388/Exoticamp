@@ -28,8 +28,13 @@ namespace Exoticamp.Persistence.Configurations
                 .IsRequired();
 
             builder
-                .Property(b => b.Artist)
-                .HasColumnType("varchar(50)")
+                .Property(b => b.Price)
+                //.HasColumnType("varchar(50)")
+                .IsRequired();
+
+            builder
+                .Property(b => b.Capacity)
+                //.HasColumnType("varchar(50)")
                 .IsRequired();
 
             builder
@@ -42,12 +47,23 @@ namespace Exoticamp.Persistence.Configurations
                 .HasColumnType("varchar(200)")
                 .IsRequired();
 
-            //Not necessary if relationship conventions are followed in model(Cascade is the default behaviour)
             builder
-                .HasOne(b => b.Category)
-                .WithMany(b => b.Events)
-                .HasForeignKey(b => b.CategoryId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .Property(b => b.Highlights)
+                //.HasColumnType("varchar(50)")
+                .IsRequired();
+
+
+            builder
+                .Property(b => b.EventRules)
+                //.HasColumnType("varchar(50)")
+                .IsRequired();
+
+            //Not necessary if relationship conventions are followed in model(Cascade is the default behaviour)
+            //builder
+            //    .HasOne(b => b.Category)
+            //    .WithMany(b => b.Events)
+            //    .HasForeignKey(b => b.CategoryId)
+            //    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
