@@ -27,6 +27,10 @@ using Exoticamp.Application.Features.ContactUs.Query.GetContactUs;
 using Exoticamp.Application.Features.Campsite.Commands.AddCampsite;
 using Exoticamp.Application.Features.Campsite.Commands.UpdateCampsite;
 using Exoticamp.Application.Features.Campsite.Query.GetCampsiteList;
+using Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDetails;
+using Exoticamp.Application.Features.CampsiteDetails.Commands.UpdateCampsite;
+using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetailsList;
+using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetails;
 using Exoticamp.Application.Features.UserQueries.Commands.CreateUserQuery;
 using Exoticamp.Application.Features.UserQueries.Queries.GetUserQueryList;
 
@@ -86,6 +90,12 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Campsite, UpdateCampsiteCommand>().ReverseMap();
             CreateMap<Campsite, Features.Campsite.Query.GetCampsiteList.CampsiteVM>();
             CreateMap<Campsite, Features.Campsite.Query.GetCampsite.CampsiteVM>();
+
+            CreateMap<CampsiteDetails,AddCampsiteDetailsCommand>().ReverseMap();
+            CreateMap<CampsiteDetails,CampsiteDetailsDto>();
+            CreateMap<CampsiteDetails, UpdateCampsiteDetailsCommand>().ReverseMap();
+            CreateMap<CampsiteDetails, Features.CampsiteDetails.Query.GetCampsiteDetailsList.CampsiteDetailsVM>().ReverseMap();
+            CreateMap<CampsiteDetails, Features.CampsiteDetails.Query.GetCampsiteDetails.CampsiteDetailsVM>();
         }
     }
 }
