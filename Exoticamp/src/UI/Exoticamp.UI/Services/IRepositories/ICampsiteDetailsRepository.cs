@@ -6,7 +6,7 @@ namespace Exoticamp.UI.Services.IRepositories
 {
     public interface ICampsiteDetailsRepository
     {
-       // Task<CreateCampsiteDetailsResponseModel> AddCampsite(CampsiteDetailsVM campsiteVM);
+       Task<CreateCampsiteDetailsResponseModel> AddCampsiteDetails(CampsiteDetailsVM campsiteVM);
         Task<IEnumerable<CampsiteDetailsVM>> GetAllCampsites();
 
         Task<GetCampsiteDetailsByIdResponseModel> GetCampsiteById(string Id);

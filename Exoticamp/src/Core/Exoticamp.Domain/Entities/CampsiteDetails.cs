@@ -36,13 +36,12 @@ namespace Exoticamp.Domain.Entities
 
         public string QuickSummary { get; set; }
 
+       
         public Guid CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
-        public ICollection<Category> Categories { get; set; }
 
+       
         public Guid ActivitiesId { get; set; }
-        [ForeignKey("ActivitiesId")]
-        public ICollection<Activities> Activities { get; set; }
+       
 
         public string MealPlans { get; set; }
 
@@ -71,5 +70,11 @@ namespace Exoticamp.Domain.Entities
         public DateTime? ApprovededDate { get; set; }
         public string? DeletededBy { get; set; }
         public DateTime? DeletedDate { get; set; }
+
+        [ForeignKey("CategoryId")]
+        public Category Categories { get; set; }
+
+        [ForeignKey("ActivitiesId")]
+        public Activities Activities { get; set; }
     }
 }

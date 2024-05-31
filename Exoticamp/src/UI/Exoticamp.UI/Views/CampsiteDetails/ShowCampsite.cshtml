@@ -19,6 +19,10 @@
             <th>@Html.DisplayNameFor(model => model.TentType)</th>
             <th>@Html.DisplayNameFor(model => model.Images)</th>
             <th>@Html.DisplayNameFor(model => model.DateTime)</th>
+            <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
+            <th>@Html.DisplayNameFor(model => model.CategoryId)</th>
+
+
             @* <th>@Html.DisplayNameFor(model => model.Highlights)</th>
             <th>@Html.DisplayNameFor(model => model.Ratings)</th>
             <th>@Html.DisplayNameFor(model => model.AboutCampsite)</th>
@@ -59,6 +63,10 @@
                 <td>@Html.DisplayFor(modelItem => item.TentType)</td>
                 <td><img src="@item.Images" alt="Campsite Image" style="width:100px;height:100px;" /></td>
                 <td>@Html.DisplayFor(modelItem => item.DateTime)</td>
+                <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
+                <td>@Html.DisplayFor(modelItem => item.CategoryId)</td>
+
+
                 @* <td>@Html.DisplayFor(modelItem => item.Highlights)</td>
                 <td>@Html.DisplayFor(modelItem => item.Ratings)</td>
                 <td>@Html.DisplayFor(modelItem => item.AboutCampsite)</td>

@@ -63,5 +63,28 @@ namespace Exoticamp.UI.Services.Repositories
                 Message = "Event Not Found"
             };
         }
+
+        public async Task<CreateCampsiteDetailsResponseModel> AddCampsiteDetails(CampsiteDetailsVM campsiteVM)
+        {
+            _apiRepository = new APIRepository(_configuration);
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(campsiteVM, Newtonsoft.Json.Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+            var bytes = new ByteArrayContent(content);
+
+
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.AddCampsiteDetails, HttpMethod.Post, bytes, _sToken);
+
+            if (response.data != null)
+            {
+                return JsonConvert.DeserializeObject<CreateCampsiteDetailsResponseModel>(response.data);
+            }
+
+            return new CreateCampsiteDetailsResponseModel
+            {
+                Succeeded = false,
+                Message = "Failed to add contact."
+            };
+        }
     }
 }

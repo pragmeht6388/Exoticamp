@@ -55,6 +55,9 @@ namespace Exoticamp.UI.Models.CampsiteDetails
 
         [JsonProperty("categoryId")]
         public Guid CategoryId { get; set; }
+        [JsonProperty("CategoryName")]
+        //[IgnoreMember]
+        public string CategoryName { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
         //[JsonProperty("categories")]
@@ -62,6 +65,10 @@ namespace Exoticamp.UI.Models.CampsiteDetails
 
         [JsonProperty("activitiesId")]
         public Guid ActivitiesId { get; set; }
+
+        [JsonProperty("ActivityName")]
+        //[IgnoreMember]
+        public string ActivityName { get; set; }
 
         [ForeignKey(nameof(ActivitiesId))]
         //[JsonProperty("activities")]

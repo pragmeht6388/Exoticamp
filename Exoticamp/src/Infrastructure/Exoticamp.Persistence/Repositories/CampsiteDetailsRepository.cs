@@ -14,11 +14,11 @@ namespace Exoticamp.Persistence.Repositories
     public class CampsiteDetailsRepository:BaseRepository<CampsiteDetails>, ICampsiteDetailsRepository
     {
         private readonly ILogger _logger;
-        private readonly ApplicationDbContext _dbContext;
+       // private readonly ApplicationDbContext _dbContext;
         public CampsiteDetailsRepository(ApplicationDbContext dbContext, ILogger<CampsiteDetails> logger) : base(dbContext, logger)
         {
             _logger = logger;
-            _dbContext = dbContext;
+           // _dbContext = dbContext;
         }
 
         public Task<CampsiteDetails> AddCampsite(CampsiteDetails campsite)
@@ -42,8 +42,9 @@ namespace Exoticamp.Persistence.Repositories
         }
         public async Task<List<CampsiteDetailsVM>> GetAllCampsiteWithCategoryAndActivityDetails()
         {
-            var data = await this._dbContext.CampsiteDetails.Include(request => request.Categories).Select(request => new CampsiteDetailsVM()
+            var data = await this._dbContext.CampsiteDetails.Include(x => x.Categories).Include(x=>x.Activities).Select(request => new CampsiteDetailsVM()
             {
+
                 Id = request.Id,
                 Name = request.Name,
                 Location = request.Location,
@@ -54,7 +55,7 @@ namespace Exoticamp.Persistence.Repositories
                 ApprovededDate = request.ApprovededDate,
                 DeletededBy = request.DeletededBy,
                 DeletedDate = request.DeletedDate,
-                CategoryName = request.Categories.First().Name,
+                CategoryName = request.Categories.Name,
                 Images = request.Images,
                 DateTime = request.DateTime,
                 Highlights = request.Highlights,
@@ -77,11 +78,14 @@ namespace Exoticamp.Persistence.Repositories
                 FAQs = request.FAQs,
                 HouseRules = request.HouseRules,
                 MealPlans = request.MealPlans,
-                WhyExoticamp = request.WhyExoticamp
+                WhyExoticamp = request.WhyExoticamp,
+                ActivitiesName=request.Activities.Name
+                //ActivitiesName=request.Activities.FirstOrDefault().Name
 
             }).ToListAsync();
-            return null;
+            return data;
         }
+
 
     }
 }

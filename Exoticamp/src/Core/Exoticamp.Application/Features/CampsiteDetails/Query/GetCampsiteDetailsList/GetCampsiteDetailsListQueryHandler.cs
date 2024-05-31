@@ -28,18 +28,19 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
         {
             _logger.LogInformation("Handle Initiated");
 
-            var allCampsite = await _campsiteRepository.ListAllAsync();
+            var allCampsite = (await _campsiteRepository.GetAllCampsiteWithCategoryAndActivityDetails()).OrderBy(x=>x.Name);
 
             var activeCampsites = allCampsite.Where(c => c.isActive == true);
 
             var orderedCampsites = activeCampsites.OrderBy(x => x.Name);
 
-            var campsiteVMs = _mapper.Map<IEnumerable<CampsiteDetailsVM>>(orderedCampsites);
+            //var campsiteVMs = _mapper.Map<IEnumerable<CampsiteDetailsVM>>(orderedCampsites);
 
             _logger.LogInformation("Hanlde Completed");
 
-            return new Response<IEnumerable<CampsiteDetailsVM>>(campsiteVMs, "success");
+            return new Response<IEnumerable<CampsiteDetailsVM>>(allCampsite, "success");
         }
+
 
     }
 }
