@@ -10,8 +10,8 @@ namespace Exoticamp.Identity.Seed
         {
             var applicationUser = new ApplicationUser
             {
-                FirstName = "John",
-                LastName = "Smith",
+                 Name = "John",
+                
                 UserName = "johnsmith",
                 Email = "john@test.com",
                 EmailConfirmed = true

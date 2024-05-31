@@ -1,0 +1,60 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_VendorLayout.cshtml";
+}
+@model IEnumerable<Exoticamp.UI.Models.Banners.BannerViewModel>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th style="display:none;">BannerId</th>
+            <th>Link</th>
+            <th>IsActive</th>
+            <th>PromoCode</th>
+            <th>Locations</th>
+            <th>ImagePath</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var banner in Model)
+        {
+            <tr>
+                <td>&nbsp;</td>
+                <td style="display:none;">@banner.BannerId</td>
+                <td>@banner.Link</td>
+                <td>@banner.IsActive</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(banner.PromoCode))
+                    {
+                        <!-- If promo code exists, show a check mark icon from Font Awesome -->
+                        <span class="text-success"><i class="fas fa-check-circle"></i></span>
+                    }
+                    else
+                    {
+                        <!-- If no promo code, show a cross mark icon from Font Awesome -->
+                        <span class="text-danger"><i class="fas fa-times-circle"></i></span>
+                    }
+                </td>
+                <td>@banner.Locations</td>
+                <td><img src="@banner.ImagePath" alt="Banner Image" width="100" height="100" /></td>
+                  <td>
+                        @Html.ActionLink("Edit", "EditBanner", new { id = banner.BannerId }) |
+                    @Html.ActionLink("Delete", "DeleteBanner", new { id = banner.BannerId })
+                      @*   @Html.ActionLink("Delete", "Delete"; *@
+                  </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        toastr.success('@TempData["Message"]');
+    </script>
+}

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Exoticamp.Application.Models.Authentication;
 using Exoticamp.Application.Contracts.Identity;
 using Exoticamp.Identity.Models;
+using Exoticamp.Application.Responses;
 
 namespace Exoticamp.Identity.Services
 {
@@ -34,6 +35,7 @@ namespace Exoticamp.Identity.Services
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
+            var role = await _userManager.GetRolesAsync(user);
             AuthenticationResponse response = new AuthenticationResponse();
 
             if (user == null)
@@ -72,26 +74,37 @@ namespace Exoticamp.Identity.Services
             response.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             response.Email = user.Email;
             response.UserName = user.UserName;
+            if (role.Count > 0)
+            {
+                response.Role = role[0];
+            }
+
 
             return response;
         }
 
-        public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)
+        public async Task<Response<RegistrationResponse>> RegisterAsync(RegistrationRequest request)
         {
-            var existingUser = await _userManager.FindByNameAsync(request.UserName);
+            var registrationresponse = new Response<RegistrationResponse>();
+
+            var existingUser = await _userManager.FindByNameAsync(request.Email);
+
 
             if (existingUser != null)
             {
-                throw new ArgumentException($"Username '{request.UserName}' already exists.");
+                registrationresponse.Message = $"Username '{request.Email}' already exists.";
+                registrationresponse.Succeeded = false;
+                return registrationresponse;
             }
 
             var user = new ApplicationUser
             {
+                UserName = request.Email,
                 Email = request.Email,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                UserName = request.UserName,
-                EmailConfirmed = true
+                Name = request.Name,
+                PhoneNumber = request.PhoneNumber,
+                TermsandCondition =  true,
+                EmailConfirmed = true,
             };
 
             var existingEmail = await _userManager.FindByEmailAsync(request.Email);
@@ -102,8 +115,20 @@ namespace Exoticamp.Identity.Services
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "Viewer");
-                    return new RegistrationResponse() { UserId = user.Id };
+                    if (string.IsNullOrEmpty(request.Role))
+                    {
+                        await _userManager.AddToRoleAsync(user, "User");
+                    }
+                    else if (request.Role == "SuperAdmin")
+                    {
+                        await _userManager.AddToRoleAsync(user, "Vendor");
+                    }
+
+                    return new Response<RegistrationResponse>()
+                    {
+                        Succeeded = true,
+                        Data = new RegistrationResponse { UserId = user.Id }
+                    };
                 }
                 else
                 {

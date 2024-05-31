@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Exoticamp.UI.Models.UserQuery.UserQueyVM>
+@{
+}
+
+
+<h1>Get all user queries</h1>
+
+<table class="dataTable table mb-4" id="dataTable">
+    <thead>
+        <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Query</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model is not null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Email</td>
+                    <td>@item.Query</td>
+                    <td>
+                        <button class="respond-button" data-id="@item.Id">Respond</button>
+
+
+                    </td>
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td>No user queries at the moment!</td></tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="respondModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="respondModalLabel">Respond to user queries</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" id="close_modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="respond-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.respond-button').on('click', function () {
+                var queryId = $(this).data('id');
+                $.ajax({
+                    url: '@Url.Action("Respond", "UserQuery")',
+                    type: 'GET',
+                    data: { Id: queryId },
+                    success: function (result) {
+                        $('#respond-content').html(result);
+                        $('#respondModal').modal('show');
+                    },
+                    error: function () {
+                        alert('An error occurred while loading the response form.');
+                    }
+                });
+            });
+        });
+    </script>
+}
