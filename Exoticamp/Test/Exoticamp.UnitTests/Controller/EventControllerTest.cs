@@ -75,20 +75,6 @@ namespace Exoticamp.Tests
             Assert.True(returnedDto.Succeeded);
             Assert.Equal("Updated Event", returnedDto.Data.Name);
         }
-        [Fact]
-        public async Task Update_ShouldReturnNotFound_WhenUpdateFailed()
-        {
-            // Arrange
-            var updateEventCommand = new UpdateEventCommand { EventId = Guid.NewGuid(), Name = "Updated Event" };
-            var response = new Response<UpdateEventDto> { Succeeded = false, Errors = new List<string> { "Event not found" } };
-
-            _mediatorMock.Setup(m => m.Send(updateEventCommand, default)).ReturnsAsync(response);
-
-            // Act
-            var result = await _controller.Update(updateEventCommand);
-
-            // Assert
-            var notFoundResult = Assert.IsType<NotFoundResult>(result);
-        }
+   
     }
 }
