@@ -29,8 +29,19 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> AddBanners(BannerViewModel model)
         {
             var banners = await _bannerRepository.AddBanners(model);
-            TempData["Message"] = banners.Message;
-            return RedirectToAction("AllBanners");
+            if (banners.Message == "success")
+            {
+                TempData["Message"] = banners.Message;
+                return RedirectToAction("AllBanners");
+
+            }
+            else if (banners.Message == $"lINK Existed '{banners.Data.Link}'")
+            {
+                TempData["Message"] = banners.Message;
+                return View(model);
+            }
+            return View();
+
         }
         [HttpGet]
         public async Task<IActionResult> EditBanner(string id)
