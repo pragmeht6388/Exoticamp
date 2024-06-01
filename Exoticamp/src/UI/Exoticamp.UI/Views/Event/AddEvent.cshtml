@@ -76,6 +76,9 @@
 {
     <script type="text/javascript">
         toastr.error('@TempData["Message"]');
+        document.getElementById('backButton').addEventListener('click', function () {
+            window.history.back();
+        });
     </script>
 }
 
