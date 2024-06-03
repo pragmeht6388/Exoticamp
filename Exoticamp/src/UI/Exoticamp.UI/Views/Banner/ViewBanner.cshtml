@@ -1,0 +1,74 @@
+﻿@model Exoticamp.UI.Models.Banners.BannerViewModel
+
+@{
+    Layout = null;
+    ViewData["Title"] = "ViewBanner";
+}
+
+<style>
+    /* Container styles */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f8f9fa; /* Light gray background */
+    }
+
+    /* Banner details card styles */
+    .banner-details {
+        max-width: 400px;
+        background-color: #fff; /* White background */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    }
+
+        /* Banner image styles */
+        .banner-details img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+
+    /* Button styles */
+    .btn-cancel {
+        background-color: #dc3545; /* Red */
+        border-color: #dc3545;
+        color: #fff; /* White text */
+        border-radius: 5px; /* Rounded corners */
+        font-size: 16px;
+        width: 100%; /* Full width */
+        padding: 10px; /* Padding */
+        margin-top: 20px; /* Margin top */
+        transition: background-color 0.3s ease; /* Smooth transition */
+    }
+
+        /* Button hover effect */
+        .btn-cancel:hover {
+            background-color: #c82333; /* Dark red */
+            border-color: #c82333;
+        }
+</style>
+
+<div class="container">
+    <div class="card banner-details">
+        <h2 class="card-title text-center mt-3 mb-4">Banner Details</h2>
+
+        <div class="row">
+            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                <img src="@Model.ImagePath" class="img-fluid rounded" alt="Banner Image">
+            </div>
+            <div class="col-md-6">
+                <h3>@Model.Link</h3>
+                <p>Locations: @Model.Locations</p>
+                <p>Promo Code: @Model.PromoCode</p>
+                <p>Active: @(Model.IsActive ? "Yes" : "No")</p>
+
+                <!-- Cancel button to go back -->
+                <a href="@Url.Action("AllBanners")" class="btn btn-cancel">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>

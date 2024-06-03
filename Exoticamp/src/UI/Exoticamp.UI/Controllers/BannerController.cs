@@ -1,6 +1,7 @@
 ﻿using Exoticamp.UI.Models.Banners;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -35,7 +36,7 @@ namespace Exoticamp.UI.Controllers
                 return RedirectToAction("AllBanners");
 
             }
-            else if (banners.Message == $"lINK Existed '{banners.Data.Link}'")
+            else if (banners.Message == "Failed to add banner.")
             {
                 TempData["Message"] = banners.Message;
                 return View(model);
@@ -72,6 +73,22 @@ namespace Exoticamp.UI.Controllers
                 return RedirectToAction("AllBanners");
       
         }
+        public async Task<IActionResult> ViewBanner(string id)
+        {
+            // Fetch the banner details from your data source based on the id
+            var banner = await _bannerRepository.GetBannerById(id);
 
+            if (banner == null)
+            {
+                return NotFound(); // Return 404 if the banner is not found
+            }
+
+            return View(banner.Data);
+        }
+        public async Task<IActionResult> AllBannersUser()
+        {
+            var banners = await _bannerRepository.GetAllBanners();
+            return View(banners);
+        }
     }
 }

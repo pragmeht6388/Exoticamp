@@ -31,6 +31,7 @@ namespace Exoticamp.Application.Features.Banners.Commands.DeleteBanner
 
                 // Perform the deletion logic here
                 // For example, you can mark the banner as inactive or delete it from the database
+                //bannerToDelete.IsDeleted = true;
                 bannerToDelete.IsActive = false; // Marking the banner as inactive
 
                 // Update the database
