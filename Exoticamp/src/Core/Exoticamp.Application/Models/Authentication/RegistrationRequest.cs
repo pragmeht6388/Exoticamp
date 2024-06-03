@@ -29,6 +29,5 @@ namespace Exoticamp.Application.Models.Authentication
 
         public string? Role { get; set; }
 
-
     }
 }

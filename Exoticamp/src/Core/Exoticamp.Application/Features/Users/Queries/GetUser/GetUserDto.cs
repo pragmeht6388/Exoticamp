@@ -13,9 +13,7 @@ namespace Exoticamp.Application.Features.Users.Queries.GetUser
         [Required]
         public string Name { get; set; }
 
-
         [Required]
-
         public string PhoneNumber { get; set; }
 
         [Required]
@@ -27,9 +25,10 @@ namespace Exoticamp.Application.Features.Users.Queries.GetUser
         public bool? TermsandCondition { get; set; }
 
         [Required]
-        public string Password { get; set; }
-
-        [Required]
         public string Role { get; set; }
+        public Guid LocationId { get; set; }
+        public string Location {  get; set; }
+        public Guid PreferenceId { get; set; }
+        public string Preference { get; set; }
     }
 }
