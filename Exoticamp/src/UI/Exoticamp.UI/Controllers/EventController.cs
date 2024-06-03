@@ -37,7 +37,7 @@ namespace Exoticamp.UI.Controllers
                 var fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.Image.FileName)}";
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
 
-                model.ImageUrl = "/Assets/Images/Event/" + model.Image.FileName;
+                model.ImageUrl = "/Assets/Images/Event/" + fileName;
 
                 var response = await _eventRepository.AddEvent(model);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -71,10 +71,10 @@ namespace Exoticamp.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var fileName = Path.GetFileName(model.Image.FileName);
+                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.Image.FileName)}";
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
 
-                model.ImageUrl = "/Assets/Images/Event/" + model.Image.FileName;
+                model.ImageUrl = "/Assets/Images/Event/" + fileName;
 
                 var response = await _eventRepository.EditEvent(model);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))

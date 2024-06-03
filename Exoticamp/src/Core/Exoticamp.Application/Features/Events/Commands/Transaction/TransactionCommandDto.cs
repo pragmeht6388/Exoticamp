@@ -1,12 +1,13 @@
-﻿using MediatR;
-using System;
-using Exoticamp.Application.Responses;
-using Exoticamp.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Exoticamp.Application.Features.Events.Commands.Transaction
 {
-    public class TransactionCommand : IRequest<Response<TransactionCommandDto>>
+    public class TransactionCommandDto
     {
         [Key]
         public Guid EventId { get; set; }
@@ -23,7 +24,7 @@ namespace Exoticamp.Application.Features.Events.Commands.Transaction
 
         public DateTime EndDate { get; set; }
 
-      
+
         public string Description { get; set; }
         public string ImageUrl { get; set; }
 
@@ -37,7 +38,6 @@ namespace Exoticamp.Application.Features.Events.Commands.Transaction
 
         public Domain.Entities.Activities activity { get; set; }
         public string location { get; set; }
-        public bool Status { get; set; } = true;
-   
+        public bool Status { get; set; } 
     }
 }
