@@ -2,53 +2,79 @@
 
 @{
     ViewData["Title"] = "ContactUsAll";
-    Layout = "_LayoutLandingPage";
+    Layout = "~/Views/Shared/_VendorLayout.cshtml"; // Assuming you have a layout for your ContactUs page
 }
 
-<h1>ContactUsAll</h1>
+<h1 style="text-align:center">Contact Us List</h1>
 
-
-<table class="table">
-    <thead>
+<table class="table table-striped table-bordered" id="contactUsTable">
+    <thead style="background-color:antiquewhite;">
         <tr>
-
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Sr No.
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Message)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SubmittedAt)
+                Message
             </th>
-            <th></th>
+            <th>
+                SubmittedAt
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Message)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubmittedAt)
-            </td>
-            <td>
-                @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) | *@
-               @*  @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
-            </td>
-        </tr>
-}
+        @{
+            int serialNumber = 1;
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@serialNumber</td>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Message)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SubmittedAt)</td>
+                  
+                </tr>
+                serialNumber++;
+            }
+        }
     </tbody>
 </table>
+
+@section scripts {
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#contactUsTable').DataTable({
+                "paging": true, // Enable pagination
+                "searching": true, // Enable searching
+                "ordering": true, // Enable sorting
+                "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'All']], // Set the length menu options
+                "pageLength": 5 // Set the default page length
+            });
+        });
+
+        function confirmDelete(contactUsId) {
+            if (confirm("Are you sure?")) {
+                var form = document.createElement("form");
+                form.method = "post";
+                form.action = "/ContactUs/DeleteContactUs";
+
+                var hiddenField = document.createElement("input");
+                hiddenField.type = "hidden";
+                hiddenField.name = "contactUsId";
+                hiddenField.value = contactUsId;
+                form.appendChild(hiddenField);
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
+}

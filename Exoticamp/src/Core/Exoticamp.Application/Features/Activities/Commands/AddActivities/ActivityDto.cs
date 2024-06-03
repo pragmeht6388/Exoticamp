@@ -1,19 +1,18 @@
-﻿using Exoticamp.Domain.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Exoticamp.Domain.Entities
+namespace Exoticamp.Application.Features.Activities.Commands.AddActivities
 {
-    public class Activities :AuditableEntity
+    public class ActivityDto
     {
         [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<CampsiteDetails> CampsiteDetails { get; set; }=new List<CampsiteDetails>();
+        //public ICollection<Domain.Entities.CampsiteDetails> CampsiteDetails { get; set; }
     }
 }

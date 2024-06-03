@@ -32,16 +32,18 @@ namespace Exoticamp.UI.Controllers
 
                 if (result.Message != null)
                 {
+                    TempData["SuccessMessage"] = "Your message has been successfully submitted!";
+
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
                 else
                 {
 
-                    ModelState.AddModelError(string.Empty, "An error occurred while creating the SysPrefCompany.");
+                    ModelState.AddModelError(string.Empty, "An error occurred while creating the Contact.");
                 }
 
 
-                return RedirectToAction("ContactUsAll");
+                return RedirectToAction("ContactUs");
 
         }
 
