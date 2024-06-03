@@ -88,5 +88,17 @@ namespace Exoticamp.Identity.Services
 
             return data;
         }
+
+        public async Task<RegistrationRequest> GetUserDetailsById(string Id)
+        {
+            var user = await _userManager.FindByIdAsync(Id);
+            return new RegistrationRequest()
+            {
+                Email = user.Email,
+                Name = user.Name,
+                PhoneNumber = user.PhoneNumber,
+                TermsandCondition = user.TermsandCondition
+            };
+        }
     }
 }

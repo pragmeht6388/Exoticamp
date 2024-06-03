@@ -33,6 +33,7 @@ using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetailsLis
 using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetails;
 using Exoticamp.Application.Features.UserQueries.Commands.CreateUserQuery;
 using Exoticamp.Application.Features.UserQueries.Queries.GetUserQueryList;
+using Exoticamp.Application.Features.Users.Queries.GetUser;
 
 
 namespace Exoticamp.Application.Profiles
@@ -99,6 +100,8 @@ namespace Exoticamp.Application.Profiles
             CreateMap<CampsiteDetails, UpdateCampsiteDetailsCommand>().ReverseMap();
             CreateMap<CampsiteDetails, Features.CampsiteDetails.Query.GetCampsiteDetailsList.CampsiteDetailsVM>().ReverseMap();
             CreateMap<CampsiteDetails, Features.CampsiteDetails.Query.GetCampsiteDetails.CampsiteDetailsVM>();
+            CreateMap<RegistrationRequest, GetUserDto>().ReverseMap();
+
         }
     }
 }
