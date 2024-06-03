@@ -2,103 +2,92 @@
 
 @{
     ViewData["Title"] = "Show Campsite";
+    Layout = "~/Views/Shared/_VendorLayout.cshtml";
 }
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" />
+    <!-- Include Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<h1 style="text-align: center;">Show Campsite</h1>
 
-<h1>Show Campsite</h1>
-
-<p>
-    <a asp-action="AddCampsiteDetails">Create New</a>
+<p style="margin-left: 20px;">
+    <a asp-action="AddCampsiteDetails" class="btn btn-primary">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            @* <th>@Html.DisplayNameFor(model => model.Id)</th> *@
-            <th>@Html.DisplayNameFor(model => model.Name)</th>
-            <th>@Html.DisplayNameFor(model => model.Location)</th>
-            <th>@Html.DisplayNameFor(model => model.Status)</th>
-            <th>@Html.DisplayNameFor(model => model.TentType)</th>
-            <th>@Html.DisplayNameFor(model => model.Images)</th>
-            <th>@Html.DisplayNameFor(model => model.DateTime)</th>
-            <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
-@*             <th>@Html.DisplayNameFor(model => model.CategoryId)</th>
- *@
 
-            @* <th>@Html.DisplayNameFor(model => model.Highlights)</th>
-            <th>@Html.DisplayNameFor(model => model.Ratings)</th>
-            <th>@Html.DisplayNameFor(model => model.AboutCampsite)</th>
-            <th>@Html.DisplayNameFor(model => model.CampsiteRules)</th>
-            <th>@Html.DisplayNameFor(model => model.BestTimeToVisit)</th>
-            <th>@Html.DisplayNameFor(model => model.HowToGetHere)</th>
-            <th>@Html.DisplayNameFor(model => model.QuickSummary)</th>
-            <th>@Html.DisplayNameFor(model => model.CategoryId)</th>
-            <th>@Html.DisplayNameFor(model => model.ActivitiesId)</th>
-            <th>@Html.DisplayNameFor(model => model.MealPlans)</th>
-            <th>@Html.DisplayNameFor(model => model.Itinerary)</th>
-            <th>@Html.DisplayNameFor(model => model.Inclusions)</th>
-            <th>@Html.DisplayNameFor(model => model.Exclusion)</th>
-            <th>@Html.DisplayNameFor(model => model.Amenities)</th>
-            <th>@Html.DisplayNameFor(model => model.Accommodation)</th>
-            <th>@Html.DisplayNameFor(model => model.Safety)</th>
-            <th>@Html.DisplayNameFor(model => model.DistanceWithMap)</th>
-            <th>@Html.DisplayNameFor(model => model.WhyExoticamp)</th>
-            <th>@Html.DisplayNameFor(model => model.FAQs)</th>
-            <th>@Html.DisplayNameFor(model => model.HouseRules)</th>
-            <th>@Html.DisplayNameFor(model => model.CancellationPolicy)</th>
-            <th>@Html.DisplayNameFor(model => model.IsActive)</th>
-            <th>@Html.DisplayNameFor(model => model.ApprovedBy)</th>
-            <th>@Html.DisplayNameFor(model => model.ApprovededDate)</th>
-            <th>@Html.DisplayNameFor(model => model.DeletededBy)</th>
-            <th>@Html.DisplayNameFor(model => model.DeletedDate)</th> *@
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+<div class="container mt-3">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="campsiteTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Tent</th>
+                    <th>Images</th>
+                    <th>Date Time</th>
+                    <th>Category</th>
+                    <th>Activity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TentType)</td>
+                        <td><img src="@item.Images" alt="Campsite Image" style="max-width:100px;max-height:100px;" /></td>
+                        <td>@Html.DisplayFor(modelItem => item.DateTime)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ActivityName)</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Campsite Actions">
+                                <a href="@Url.Action("Details", "CampsiteDetails", new { id = item.Id })" class="btn btn-info" title="Details">
+                                    <i class="bi bi-eye-fill"></i>
+                                </a>
+                                <a href="@Url.Action("EditCampsite", "CampsiteDetails", new { id = item.Id })" class="btn btn-warning" title="Edit">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                                <a href="@Url.Action("DeleteCampsite", "CampsiteDetails", new { id = item.Id })" class="btn btn-danger" title="Delete" onclick="return confirm('Are you sure you want to delete this campsite?');">
+                                    <i class="bi bi-trash-fill"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts {
+    <!-- Include jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Include DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Include Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#campsiteTable').DataTable({
+                "paging": true, // Enable pagination
+                "searching": true, // Enable searching
+                "ordering": true, // Enable sorting
+                "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'All']], // Set the length menu options
+                "pageLength": 5, // Set the default page length
+            });
+        });
+
+        @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
         {
-            <tr>
-                @* <td>@Html.DisplayFor(modelItem => item.Id)</td> *@
-                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.Location)</td>
-                <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                <td>@Html.DisplayFor(modelItem => item.TentType)</td>
-                <td><img src="@item.Images" alt="Campsite Image" style="width:100px;height:100px;" /></td>
-                <td>@Html.DisplayFor(modelItem => item.DateTime)</td>
-                <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
-@*                 <td>@Html.DisplayFor(modelItem => item.CategoryId)</td>
- *@
-
-                @* <td>@Html.DisplayFor(modelItem => item.Highlights)</td>
-                <td>@Html.DisplayFor(modelItem => item.Ratings)</td>
-                <td>@Html.DisplayFor(modelItem => item.AboutCampsite)</td>
-                <td>@Html.DisplayFor(modelItem => item.CampsiteRules)</td>
-                <td>@Html.DisplayFor(modelItem => item.BestTimeToVisit)</td>
-                <td>@Html.DisplayFor(modelItem => item.HowToGetHere)</td>
-                <td>@Html.DisplayFor(modelItem => item.QuickSummary)</td>
-                <td>@Html.DisplayFor(modelItem => item.CategoryId)</td>
-                <td>@Html.DisplayFor(modelItem => item.ActivitiesId)</td>
-                <td>@Html.DisplayFor(modelItem => item.MealPlans)</td>
-                <td>@Html.DisplayFor(modelItem => item.Itinerary)</td>
-                <td>@Html.DisplayFor(modelItem => item.Inclusions)</td>
-                <td>@Html.DisplayFor(modelItem => item.Exclusion)</td>
-                <td>@Html.DisplayFor(modelItem => item.Amenities)</td>
-                <td>@Html.DisplayFor(modelItem => item.Accommodation)</td>
-                <td>@Html.DisplayFor(modelItem => item.Safety)</td>
-                <td>@Html.DisplayFor(modelItem => item.DistanceWithMap)</td>
-                <td>@Html.DisplayFor(modelItem => item.WhyExoticamp)</td>
-                <td>@Html.DisplayFor(modelItem => item.FAQs)</td>
-                <td>@Html.DisplayFor(modelItem => item.HouseRules)</td>
-                <td>@Html.DisplayFor(modelItem => item.CancellationPolicy)</td>
-                <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
-                <td>@Html.DisplayFor(modelItem => item.ApprovedBy)</td>
-                <td>@Html.DisplayFor(modelItem => item.ApprovededDate)</td>
-                <td>@Html.DisplayFor(modelItem => item.DeletededBy)</td>
-                <td>@Html.DisplayFor(modelItem => item.DeletedDate)</td> *@
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id })
-                    @Html.ActionLink("Edit", "Details", new { id = item.Id })
-                    @* @Html.ActionLink("Delete", "Details", new { id = item.Id }) *@
-                </td>
-            </tr>
+                <script>
+                toastr.success("@ViewBag.SuccessMessage");
+        </script>
         }
-    </tbody>
-</table>
+        </script>
+}
