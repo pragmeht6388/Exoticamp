@@ -101,15 +101,11 @@ namespace Exoticamp.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
-            var eventObj = await _eventRepository.GetEventById(id);
-            return View(eventObj.Data);
+            var eventObj = await _eventRepository.DeleteEvent(id);
+            return RedirectToAction("GetAllEvents", "Event");
         }
 
         
-        public async Task<IActionResult> DeleteData(string id)
-        {
-            var eventObj = await _eventRepository.DeleteEvent(id);
-            return RedirectToAction("GetAllEvents" ,"Event");
-        }
+     
     }
 }
