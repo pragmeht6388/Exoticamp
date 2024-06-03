@@ -34,9 +34,12 @@
         public const string GetAllCampsiteDetails = "/api/v1/CampsiteDetails/all";
         public const string GetDetailsById = "/api/v1/CampsiteDetails/{0}";
         public const string AddCampsiteDetails = "/api/v1/CampsiteDetails";
-
+        public const string EditCampsiteDetails = "/api/v1/CampsiteDetails/UpdateCampsiteById";
+        public const string DeleteCampsiteById = "/api/v1/CampsiteDetails/{0}";
 
         public const string GetAllCategories = "/api/v1/Category/all";
+
+        public const string GetAllActivities = "/api/v1/Activities/all";
 
     }
 }

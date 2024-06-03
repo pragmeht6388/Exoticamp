@@ -31,6 +31,8 @@ using Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDetails
 using Exoticamp.Application.Features.CampsiteDetails.Commands.UpdateCampsite;
 using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetailsList;
 using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetails;
+using Exoticamp.Application.Features.Activities.Commands.AddActivities;
+using Exoticamp.Application.Features.Activities.Commands.UpdateActivities;
 
 
 namespace Exoticamp.Application.Profiles
@@ -91,6 +93,12 @@ namespace Exoticamp.Application.Profiles
             CreateMap<CampsiteDetails, UpdateCampsiteDetailsCommand>().ReverseMap();
             CreateMap<CampsiteDetails, Features.CampsiteDetails.Query.GetCampsiteDetailsList.CampsiteDetailsVM>().ReverseMap();
             CreateMap<CampsiteDetails, Features.CampsiteDetails.Query.GetCampsiteDetails.CampsiteDetailsVM>();
+
+            CreateMap<Activities, AddCampsiteCommand>().ReverseMap();
+            CreateMap<Activities,ActivityDto>().ReverseMap();
+            CreateMap<Activities, UpdateActivitiesCommand>().ReverseMap();
+            CreateMap<Activities, Features.Activities.Query.GetActivityList.ActivityVM>().ReverseMap();
+
         }
     }
 }

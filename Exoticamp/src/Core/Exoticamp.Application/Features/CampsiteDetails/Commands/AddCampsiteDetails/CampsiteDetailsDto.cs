@@ -41,7 +41,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
 
         public Guid ActivitiesId { get; set; }
         [ForeignKey(nameof(ActivitiesId))]
-        public ICollection<Activities> Activities { get; set; }
+        public ICollection<Domain.Entities.Activities> Activities { get; set; }
 
         public string MealPlans { get; set; }
 
