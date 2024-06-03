@@ -1,0 +1,353 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Home";
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exoticamp Landing Page</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        header .logo {
+            height: 50px;
+        }
+
+        #row {
+            --bs-gutter-x: 0.8rem;
+            --bs-gutter-y: 0;
+            display: inline-flex;
+            flex-wrap: wrap;
+            margin-top: calc(-1* var(--bs-gutter-y));
+            margin-right: calc(-.5* var(--bs-gutter-x));
+            margin-left: calc(-.5* var(--bs-gutter-x));
+        }
+        .banner {
+            background-image: url('banner.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0px;
+            font-size: 1.2em;
+        }
+    
+        .menu-img {
+            width:35px; /* Adjust the width as needed */
+            height: 35px; /* Adjust the height as needed */
+            object-fit: cover; /* Ensures the image covers the area without distortion */
+            display: block;
+            margin: 0 auto 10px; /* Centers the image and adds some space below it */
+        }
+
+        .dummy-content {
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+            .dummy-content img {
+                width: 100%;
+                height: auto;
+            }
+
+        .carousel-control-prev, .carousel-control-next {
+            background-color: rgba(0,0,0,0.5);
+            width: 50px;
+        }
+
+        .d-none {
+            display: none;
+        }
+
+        .d-block {
+            display: block;
+        }
+
+        .img-thumbnail {
+            padding: .25rem;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: .25rem;
+            max-width: 100px;
+            height: 100px;
+        }
+
+        .abc-container {
+            display: flex;
+            gap: 20px; /* Space between abc-content elements */
+    
+        }
+
+        .abc-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        }
+        footer ul {
+            padding: 0;
+            list-style: none;
+        }
+
+            footer ul li a {
+                color: white;
+                text-decoration: none;
+            }
+
+                footer ul li a:hover {
+                    text-decoration: underline;
+                }
+
+        .chatbox {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            max-height: 70%;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        .chatbox-messages {
+            max-height: 280px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .bot-message {
+            text-align: left;
+        }
+        .user-message {
+    text-align: right;
+}
+
+.user-query {
+    margin-top: 10px;
+}
+
+.chat-option button {
+    border: none;
+    background: none;
+    text-decoration: none;
+    background: #dcefff;
+}
+
+
+
+.chat-message-style {
+    border: none;
+    background: none;
+    text-decoration: none;
+    background: #dcefff;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-primary text-white text-center p-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <img src="/Assets/Icons/Exoticamp.png" alt="Exoticamp Logo" class="logo">
+                <span class="ml-2">Exoticamp</span>
+            </div>
+            <nav>
+                <a asp-action="Login" asp-controller="Account" class="text-white">Login/Signup</a>
+                <a href="#" class="text-white ml-3">Toll Free Number</a>
+                <a href="#" class="text-white ml-3">List My Site / Become a Host</a>
+            </nav>
+        </div>
+    </header>
+
+    
+    <!-- Collapsible Content Sections -->
+ 
+    
+    <!-- Other Sections -->
+    @RenderBody()
+    <!-- Content Sections -->
+   
+    </div>
+    @* Code for chatbot. *@
+    <div id="chatbot-icon" style="position:fixed; bottom:25px; right:25px; cursor:pointer; z-index:1000;">
+        <img src="~/images/robot.png" alt="Chatbot" style="width:50px; height:50px;" />
+    </div>
+    <div class="modal fade" id="chatbotModal" tabindex="-1" role="dialog" aria-labelledby="chatbotModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chatbotModalLabel">Chatbot</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" id="close_Chatbot" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="chatbot-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white text-center p-2 mt-2">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Blogs</a></li>
+                        <li><a href="#" class="text-white">Investors</a></li>
+                        <li><a href="#" class="text-white">Affiliation MSME</a></li>
+                        <li><a href="#" class="text-white">FAQ</a></li>
+                        <li><a href="#" class="text-white">About Us</a></li>
+                        <li><a href="#" class="text-white">News & Media</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h5>Contact</h5>
+                    <p>Terms of Use</p>
+                    <a asp-action="ContactUsAll" asp-controller="ContactUs" class="text-white">Contact Us</a>
+                    <p>Sitemap</p>
+                </div>
+                <div class="col">
+                    <h5>Social Media</h5>
+                    <a href="#" class="text-white">Facebook</a><br>
+                    <a href="#" class="text-white">Instagram</a><br>
+                    <a href="#" class="text-white">Twitter</a><br>
+                    <a href="#" class="text-white">LinkedIn</a><br>
+                </div>
+            </div>
+            <div class="mt-1">
+                <small>&copy; 2024 Exoticamp. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+
+
+
+        $(document).ready(function () {
+            $('.collapse-content').addClass('d-none').removeClass('d-block');
+
+            $('.menu-button').on('click', function () {
+                var target = $(this).data('target');
+
+                // Hide all other collapse-content elements
+                $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
+
+                // Toggle the targeted element
+                $(target).toggleClass('d-none d-block');
+            });
+        });
+        //back button<script>
+        document.getElementById('backButton').addEventListener('click', function () {
+            window.history.back();
+        });
+  
+
+
+
+        // Example data fetching (to be replaced with real data fetching)
+        document.addEventListener('DOMContentLoaded', () => {
+            const events = [
+                { title: 'Camping Event 1', location: 'Location 1' },
+                { title: 'Camping Event 2', location: 'Location 2' },
+            ];
+
+            const nearestSites = [
+                { name: 'Campsite 1', distance: '5 km' },
+                { name: 'Campsite 2', distance: '10 km' },
+            ];
+
+            const trendingDestinations = [
+                { name: 'Destination 1' },
+                { name: 'Destination 2' },
+            ];
+
+            const glampingLocations = [
+                { name: 'Glamping Site 1' },
+                { name: 'Glamping Site 2' },
+            ];
+
+            const promotionalBanners = [
+                { image: 'promo1.jpg' },
+                { image: 'promo2.jpg' },
+            ];
+
+            const reviews = [
+                { name: 'User 1', review: 'Great experience!', rating: 5 },
+                { name: 'User 2', review: 'Amazing!', rating: 4 },
+            ];
+
+            populateSection('events', events, 'title', 'location');
+            populateSection('nearest-sites', nearestSites, 'name', 'distance');
+            populateSection('trending-destinations', trendingDestinations, 'name');
+            populateSection('glamping-locations', glampingLocations, 'name');
+            populateSection('promotional-banners', promotionalBanners, 'image');
+            populateSection('reviews', reviews, 'name', 'review', 'rating');
+        });
+
+        function populateSection(sectionId, data, ...fields) {
+            const section = document.getElementById(sectionId);
+            data.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'col-md-4 mb-3';
+                div.innerHTML = fields.map(field => `<p>${item[field]}</p>`).join('');
+                section.appendChild(div);
+            });
+        }
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#chatbot-icon').click(function () {
+                $.get('@Url.Action("ChatbotPartial", "Chatbot")', function (data) {
+                    $('#chatbot-content').html(data);
+                    $('#chatbotModal').modal('show');
+                });
+
+
+            });
+        });</script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "ContactUsAll";
+    Layout = "_LayoutLandingPage";
 }
 
 <h1>ContactUsAll</h1>
@@ -10,9 +11,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -31,9 +30,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
