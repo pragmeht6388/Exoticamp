@@ -8,6 +8,7 @@ using Exoticamp.Application.Features.UserQueries.Commands.RespondToUserQuery;
 using Exoticamp.Application.Features.UserQueries.Queries.GetUserQueryById;
 using Exoticamp.Application.Features.UserQueries.Queries.GetUserQueryList;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [Authorize(Roles = "User")]
     public class UserQueryController : ControllerBase
     {
         private readonly IMediator _mediator;

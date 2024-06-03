@@ -3,13 +3,16 @@ using System.Threading.Tasks;
 using Exoticamp.Application.Models.Authentication;
 using Exoticamp.Application.Contracts.Identity;
 using Exoticamp.Identity.Configurations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Exoticamp.Api.Controllers.v1
 {
+    
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-   
+    //[Authorize(Roles = "")]
+
     public class AccountController : ControllerBase
     {
     
