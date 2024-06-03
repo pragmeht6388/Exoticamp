@@ -72,5 +72,7 @@ namespace Exoticamp.Api.Controllers.v1
             var getCampsiteDetailQuery = new GetCampsiteDetailsIdIdQuery() { Id = id };
             return Ok(await _mediator.Send(getCampsiteDetailQuery));
         }
+
+
     }
 }
