@@ -7,7 +7,7 @@
 <h1>Show Campsite</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="AddCampsiteDetails">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -20,8 +20,8 @@
             <th>@Html.DisplayNameFor(model => model.Images)</th>
             <th>@Html.DisplayNameFor(model => model.DateTime)</th>
             <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
-            <th>@Html.DisplayNameFor(model => model.CategoryId)</th>
-
+@*             <th>@Html.DisplayNameFor(model => model.CategoryId)</th>
+ *@
 
             @* <th>@Html.DisplayNameFor(model => model.Highlights)</th>
             <th>@Html.DisplayNameFor(model => model.Ratings)</th>
@@ -64,8 +64,8 @@
                 <td><img src="@item.Images" alt="Campsite Image" style="width:100px;height:100px;" /></td>
                 <td>@Html.DisplayFor(modelItem => item.DateTime)</td>
                 <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
-                <td>@Html.DisplayFor(modelItem => item.CategoryId)</td>
-
+@*                 <td>@Html.DisplayFor(modelItem => item.CategoryId)</td>
+ *@
 
                 @* <td>@Html.DisplayFor(modelItem => item.Highlights)</td>
                 <td>@Html.DisplayFor(modelItem => item.Ratings)</td>

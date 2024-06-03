@@ -305,6 +305,32 @@ namespace Exoticamp.Persistence.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Concerts"
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("6313179f-7837-473a-a4d5-a5571b43e6a6"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Musicals"
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("bf3f3002-7e53-441e-8b76-f6280be284aa"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Plays"
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("fe98f549-e790-4e9f-aa16-18c2292a2ee9"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Conferences"
+                        });
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.ChatbotResponse", b =>
@@ -472,12 +498,39 @@ namespace Exoticamp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MessageId");
 
                     b.ToTable("Messages");
+
+                    b.HasData(
+                        new
+                        {
+                            MessageId = new Guid("253c75d5-32af-4dbf-ab63-1af449bde7bd"),
+                            Code = "1",
+                            Language = "en",
+                            MessageContent = "{PropertyName} is required.",
+                            Type = "Error"
+                        },
+                        new
+                        {
+                            MessageId = new Guid("ed0cc6b6-11f4-4512-a441-625941917502"),
+                            Code = "2",
+                            Language = "en",
+                            MessageContent = "{PropertyName} must not exceed {MaxLength} characters.",
+                            Type = "Error"
+                        },
+                        new
+                        {
+                            MessageId = new Guid("fafe649a-3e2a-4153-8fd8-9dcd0b87e6d8"),
+                            Code = "3",
+                            Language = "en",
+                            MessageContent = "An event with the same name and date already exists.",
+                            Type = "Error"
+                        });
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Order", b =>
@@ -521,7 +574,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("7e94bc5b-71a5-4c8c-bc3b-71bb7976237e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 37, 47, 528, DateTimeKind.Utc).AddTicks(3718),
+                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(8926),
                             OrderTotal = 400,
                             UserId = new Guid("a441eb40-9636-4ee6-be49-a66c5ec1330b")
                         },
@@ -530,7 +583,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("86d3a045-b42d-4854-8150-d6a374948b6e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 37, 47, 528, DateTimeKind.Utc).AddTicks(3745),
+                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(8953),
                             OrderTotal = 135,
                             UserId = new Guid("ac3cfaf5-34fd-4e4d-bc04-ad1083ddc340")
                         },
@@ -539,7 +592,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("771cca4b-066c-4ac7-b3df-4d12837fe7e0"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 37, 47, 528, DateTimeKind.Utc).AddTicks(3767),
+                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(8973),
                             OrderTotal = 85,
                             UserId = new Guid("d97a15fc-0d32-41c6-9ddf-62f0735c4c1c")
                         },
@@ -548,7 +601,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("3dcb3ea0-80b1-4781-b5c0-4d85c41e55a6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 37, 47, 528, DateTimeKind.Utc).AddTicks(3788),
+                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(9029),
                             OrderTotal = 245,
                             UserId = new Guid("4ad901be-f447-46dd-bcf7-dbe401afa203")
                         },
@@ -557,7 +610,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("e6a2679c-79a3-4ef1-a478-6f4c91b405b6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 37, 47, 528, DateTimeKind.Utc).AddTicks(3807),
+                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(9050),
                             OrderTotal = 142,
                             UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
                         },
@@ -566,7 +619,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 37, 47, 528, DateTimeKind.Utc).AddTicks(3828),
+                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(9071),
                             OrderTotal = 40,
                             UserId = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923")
                         },
@@ -575,7 +628,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("ba0eb0ef-b69b-46fd-b8e2-41b4178ae7cb"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 37, 47, 528, DateTimeKind.Utc).AddTicks(3847),
+                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(9089),
                             OrderTotal = 116,
                             UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
                         });
