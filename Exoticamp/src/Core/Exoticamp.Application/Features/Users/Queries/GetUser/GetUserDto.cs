@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Exoticamp.Application.Features.Users.Queries.GetUser
 {
-    public class GetUserListDto
+    public class GetUserDto
     {
         [Required]
         public string Name { get; set; }
