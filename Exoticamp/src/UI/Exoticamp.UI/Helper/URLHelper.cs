@@ -9,6 +9,12 @@
         public const string Registration = "/api/v1/Account/register";
         public const string Login = "/api/v1/Account/authenticate";
         public const string GetAllUsers = "/api/v1/Admin/GetAllUsers";
+
+        public const string AddEvent = "/api/v1/Events";
+        public const string EditEvent = "/api/v1/Events";
+        public const string GetEventById = "/api/v1/Events/{0}";
+        public const string DeleteEvent = "/api/v1/Events/{0}";
+
         #endregion
         public const string GetAllBanners = "/api/v1/Banner/all";
 
@@ -17,6 +23,16 @@
         public const string UpdateBanners = "/api/v1/Banner/UpdateBanner";
 
         public const string GetbyId = "/api/v1/Banner/{0}";
+        public const string CreateUserQuery = "/api/v1/UserQuery/add";
+        public const string GetAllUserQueries = "/api/v1/UserQuery/all";
+        public const string GetUserQueryById = "/api/v1/UserQuery/{0}";
+        public const string RespondToUserQuery = "/api/v1/UserQuery/respond";
+        public const string GetChatbotResponses = "/api/v1/Chatbot/all?id={0}";
+
+
+
+
+
 
         public const string DeleteBannerById = "/api/v1/Banner/{0}";
 

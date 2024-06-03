@@ -7,6 +7,7 @@
 
 <!-- Include Bootstrap CSS for styling -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 
 <!-- Custom CSS for styling the form card -->
 <style>
@@ -42,7 +43,7 @@
 
             <div class="form-group mb-3">
                 <label asp-for="Link" class="form-label"></label>
-                <input asp-for="Link" class="form-control" />
+                <input asp-for="Link" class="form-control" data-val="true" data-val-regex="The link must end with .com or .in." data-val-regex-pattern="^(.*\.com|.*\.in)$" />
                 <span asp-validation-for="Link" class="text-danger"></span>
             </div>
 
@@ -75,18 +76,32 @@
         </form>
 
         <div class="text-center">
-            <a asp-action="Index">Back to List</a>
+            <a asp-action="AllBanners">Back to List</a>
         </div>
     </div>
 </div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        toastr.error('@TempData["Message"]');
+    </script>
+}
+
+<!-- Render validation scripts partial -->
 
 
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <!-- Include jQuery Validation plugin -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
-    <!-- Include jQuery Unobtrusive Validation plugin -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
 
-    <!-- Render validation scripts partial -->
+<!-- Include jQuery -->
+<!-- Include jQuery Validation plugin -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+<!-- Include jQuery Unobtrusive Validation plugin -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#addBannerForm").validate();
+    });
+</script>

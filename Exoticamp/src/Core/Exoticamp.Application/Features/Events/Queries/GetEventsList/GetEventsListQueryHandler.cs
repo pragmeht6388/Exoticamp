@@ -23,7 +23,7 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventsList
 
         public async Task<Response<IEnumerable<EventListVm>>> Handle(GetEventsListQuery request, CancellationToken cancellationToken)
         {
-            var allEvents = (await _eventRepository.ListAllAsync()).OrderBy(x => x.Date);
+            var allEvents = (await _eventRepository.ListAllAsync()).OrderBy(x => x.StartDate);
             var eventList = _mapper.Map<List<EventListVm>>(allEvents);
             var response = new Response<IEnumerable<EventListVm>>(eventList);
             return response;

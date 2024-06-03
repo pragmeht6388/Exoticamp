@@ -1,10 +1,10 @@
 ﻿@*  @model Exoticamp.UI.Models.Registration.RegistrationVM
 
- 
+
 
 <h1>Registration</h1>
 
- 
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -46,82 +46,96 @@
     </div>
 </div>
 
- 
+
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
- *@
+  *@
+ @model Exoticamp.UI.Models.Registration.RegistrationVM
 
-                @model Exoticamp.UI.Models.Registration.RegistrationVM
+@{
+    Layout = "_LayoutLandingPage";
+}
 
-<h1>Registration</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form id="registrationForm" asp-action="Registration" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="form-check">
-                    <input asp-for="TermsandCondition" id="TermsandCondition" class="form-check-input" type="checkbox"   />
-                    <label class="form-check-label" for="TermsandCondition">
-                        By signing up, I agree to the <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a>
-                    </label>
+
+<section class="p-3 p-md-4 p-xl-5">
+    <div class="container">
+        <div class="card border-light-subtle shadow-sm">
+            <div class="row g-0">
+                <div class="col-12 col-md-6">
+                    <img class="img-fluid rounded-start w-100 h-100 object-fit-cover" loading="lazy" src="https://c4.wallpaperflare.com/wallpaper/730/267/668/sun-rays-camping-photography-mountains-wallpaper-preview.jpg" alt="BootstrapBrain Logo">
                 </div>
-                <span asp-validation-for="TermsandCondition" class="text-danger"></span>
-                <div id="errorMessage" class="text-danger"></div> <!-- Error message placeholder -->
+                <div class="col-12 col-md-6">
+                    <div class="card-body p-3 p-md-4 p-xl-5">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-5">
+                                    <h3>Register</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <form id="registrationForm" asp-action="Registration" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                            <div class="row gy-3 gy-md-4 overflow-hidden">
+                                <div class="col-12">
+                                    <label asp-for="Name" class="form-label"></label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="col-12">
+                                    <label asp-for="PhoneNumber" class="form-label"></label>
+                                    <input asp-for="PhoneNumber" class="form-control" />
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                                <div class="col-12">
+                                    <label asp-for="Email" class="form-label"></label>
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="col-12">
+                                    <label asp-for="Password" class="form-label"></label>
+                                    <input asp-for="Password" class="form-control" type="password" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input asp-for="TermsandCondition" id="terms" class="form-check-input" type="checkbox" />
+                                        <label class="form-check-label text-secondary" asp-for="TermsandCondition">
+                                            I agree to the <a href="#!" class="link-primary">Terms and Conditions</a>
+                                        </label>
+                                    </div>
+                                    <span asp-validation-for="TermsandCondition" class="text-danger"></span>
+                                    <div id="errorMessage" class="text-danger"></div> <!-- Error message placeholder -->
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-grid">
+                                        <button class="btn bsb-btn-xl btn-primary" type="submit">Register now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="row">
+                            <div class="col-12">
+                                <hr class="mt-5 mb-4 border-secondary-subtle">
+                                <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end">
+                                    <a asp-action="Login" asp-controller="Account" class="link-secondary text-decoration-none">Already have an account? Log in</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var form = document.getElementById("registrationForm");
-            var errorMessage = document.getElementById("errorMessage");
-
-            form.addEventListener("submit", function (event) {
-               
-                var termsCheckbox = document.getElementById("TermsandCondition");
-                if (!termsCheckbox.checked) {
-                    
-                    event.preventDefault();
-
-                     
-                    errorMessage.textContent = "You must accept the Terms and Conditions before proceeding.";
-                }
-            });
-        });
+</section>
+@if (TempData["Message"] != null)
+{
+    <script src="/lib/jquery//dist/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.error('@TempData["Message"]');
     </script>
-
-
 }

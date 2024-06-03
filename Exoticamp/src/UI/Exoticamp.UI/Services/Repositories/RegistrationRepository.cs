@@ -41,7 +41,7 @@ namespace Exoticamp.UI.Services.Repositories
             return new CreateRegistrationUsResponse
             {
                 Succeeded = false,
-                Message = "Failed to add contact."
+                Message = "Failed Create Registration"
             };
         }
     }

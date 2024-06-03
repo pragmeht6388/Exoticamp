@@ -24,12 +24,11 @@ namespace Exoticamp.Application.Features.Events.Commands.DeleteEvent
 
         public async Task<Unit> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
         {
-            var eventId = new Guid(_protector.Unprotect(request.EventId));
-            var eventToDelete = await _eventRepository.GetByIdAsync(eventId);
+            var eventToDelete = await _eventRepository.GetByIdAsync(Guid.Parse(request.EventId));
 
             if (eventToDelete == null)
             {
-                throw new NotFoundException(nameof(Event), eventId);
+                throw new NotFoundException(nameof(Event), Guid.Parse(request.EventId));
             }
 
             await _eventRepository.DeleteAsync(eventToDelete);
