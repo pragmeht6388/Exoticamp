@@ -1,5 +1,6 @@
 ﻿using Exoticamp.Application.Contracts.Persistence;
 using Exoticamp.Application.Models.Authentication;
+using Exoticamp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,11 @@ namespace Exoticamp.Persistence.Repositories
         public Task UpdateAsync(RegistrationRequest entity)
         {
             throw new NotImplementedException();
+        }
+        public async Task<RegistrationRequest> UpdateBanner(RegistrationRequest Users)
+        {
+            await UpdateAsync(Users);
+            return Users;
         }
     }
 }

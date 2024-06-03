@@ -26,6 +26,7 @@
     <Folder Include="Features\Activities\" />
     <Folder Include="Features\Users\Commands\AddUser\" />
     <Folder Include="Features\Users\Commands\UpdateUser\" />
+    <Folder Include="Features\Vendors\Commands\" />
   </ItemGroup>
 
 </Project>

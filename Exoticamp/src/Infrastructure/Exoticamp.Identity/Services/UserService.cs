@@ -74,16 +74,52 @@ namespace Exoticamp.Identity.Services
         public async Task<List<RegistrationRequest>> GetAllUserDetails()
         {
 
+            //var data = await (from user in identityDbContext.Users
+            //                  join userRole in identityDbContext.UserRoles on user.Id equals userRole.UserId
+            //                  join role in identityDbContext.Roles on userRole.RoleId equals role.Id
+            //                  select new RegistrationRequest()
+            //                  {
+            //                      Email= user.Email,
+            //                      Name=user.Name,
+            //                       PhoneNumber= user.PhoneNumber,
+            //                       Role= role.Name,
+            //                       TermsandCondition= user.TermsandCondition
+            //                  }).ToListAsync();
+
+            //return data;
+             
+                var data = await (from user in identityDbContext.Users
+                                  join userRole in identityDbContext.UserRoles on user.Id equals userRole.UserId
+                                  join role in identityDbContext.Roles on userRole.RoleId equals role.Id
+                                  where role.Name == "User"
+                                  select new RegistrationRequest()
+                                  {
+                                      Email = user.Email,
+                                      Name = user.Name,
+                                      PhoneNumber = user.PhoneNumber,
+                                      Role = role.Name,
+                                      TermsandCondition = user.TermsandCondition
+                                  }).ToListAsync();
+
+               return data;
+            
+
+        }
+
+        public async Task<List<RegistrationRequest>> GetAllVendorDetails()
+        {
+
             var data = await (from user in identityDbContext.Users
                               join userRole in identityDbContext.UserRoles on user.Id equals userRole.UserId
                               join role in identityDbContext.Roles on userRole.RoleId equals role.Id
+                              where role.Name == "Vendor"
                               select new RegistrationRequest()
                               {
-                                  Email= user.Email,
-                                  Name=user.Name,
-                                   PhoneNumber= user.PhoneNumber,
-                                   Role= role.Name,
-                                   TermsandCondition= user.TermsandCondition
+                                  Email = user.Email,
+                                  Name = user.Name,
+                                  PhoneNumber = user.PhoneNumber,
+                                  Role = role.Name,
+                                  TermsandCondition = user.TermsandCondition
                               }).ToListAsync();
 
             return data;

@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Exoticamp.Application.Features.Banners.Commands.UpdateBanner;
+using Exoticamp.Application.Responses;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,7 @@ namespace Exoticamp.Application.Features.Users.Commands.DeleteUser
 {
     public class DeleteUserCommand : IRequest<Unit>
     {
-        public string UserId { get; set; }
+        public string Id { get; set; }
+
     }
 }

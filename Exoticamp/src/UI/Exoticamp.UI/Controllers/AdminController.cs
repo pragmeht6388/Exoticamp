@@ -19,6 +19,18 @@ namespace Exoticamp.UI.Controllers
             return View(users);
         }
 
+        public async Task<IActionResult> GetAllUsersPartial()
+        {
+            var users = await _userRepository.GetAllUsersAsync();
+            return PartialView("GetAllUsersPartial", users);
+        }
+
+        public async Task<IActionResult> GetAllVendors()
+        {
+            var users = await _userRepository.GetAllVendorsAsync();
+            return PartialView("_GetAllVendorsPartial",users);
+        }
+
 
     }
 }

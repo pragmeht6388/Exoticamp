@@ -11,6 +11,7 @@ namespace Exoticamp.Application.Contracts.Identity
     public interface IUserService
     {
         Task<List< RegistrationRequest>> GetAllUserDetails();
+        Task<List<RegistrationRequest>> GetAllVendorDetails();
         Task<RegistrationRequest> Delete(RegistrationRequest category);
     }
 }

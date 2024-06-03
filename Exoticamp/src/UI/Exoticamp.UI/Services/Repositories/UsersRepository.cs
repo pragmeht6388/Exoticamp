@@ -72,6 +72,24 @@ namespace Exoticamp.UI.Services.Repositories
 
             return events;
         }
+
+        public async Task<IEnumerable<UsersVM>> GetAllVendorsAsync()
+        {
+            UsersResponse response = new UsersResponse();
+            List<UsersVM> events = new List<UsersVM>();
+            _apiRepository = new APIRepository(_configuration);
+
+            _oApiResponse = new Response<string>();
+            byte[] content = Array.Empty<byte>();
+            var bytes = new ByteArrayContent(content);
+            _oApiResponse = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetAllVendorsQueries, HttpMethod.Get, bytes, _sToken);
+            if (_oApiResponse.data != null)
+            {
+                events = (JsonConvert.DeserializeObject<UsersResponse>(_oApiResponse.data)).Data.ToList();
+            }
+
+            return events;
+        }
     }
 }
 

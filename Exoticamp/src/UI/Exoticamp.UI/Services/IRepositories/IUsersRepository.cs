@@ -7,7 +7,9 @@ namespace Exoticamp.UI.Services.IRepositories
     public interface IUsersRepository
     {
 
-        public  Task<IEnumerable<UsersVM>> GetAllUsersAsync();
-        
-        }
+        public Task<IEnumerable<UsersVM>> GetAllUsersAsync();
+
+        public Task<IEnumerable<UsersVM>> GetAllVendorsAsync();
+
+    }
 }
