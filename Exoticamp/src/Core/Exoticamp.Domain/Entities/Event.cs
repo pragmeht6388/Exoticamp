@@ -45,17 +45,18 @@ namespace Exoticamp.Domain.Entities
         [Required(ErrorMessage = "enter rules of the event")]
         [StringLength(100)]
         public string EventRules { get; set; }
+        //[Required(ErrorMessage = "Please select a location")]
+        //public string location { get; set; }
+        public bool Status { get; set; } = true;
         public Guid CampsiteId { get; set; }
         [Required(ErrorMessage = "Please select the  campsite")]
 
         public Domain.Entities.CampsiteDetails Campsite { get; set; }
-        public Guid ActivityId { get; set; }
-        [Required(ErrorMessage = "Please select activities")]
+       
 
-        public Domain.Entities.Activities activity { get; set; }
-        [Required(ErrorMessage = "Please select a location")]
-        public string location { get; set; }
-        public bool Status { get; set; } = true;
+        public ICollection<Activities> Activities { get; set; }
+        
+       
 
         public static ValidationResult ValidateStartDate(DateTime startDate, ValidationContext context)
         {

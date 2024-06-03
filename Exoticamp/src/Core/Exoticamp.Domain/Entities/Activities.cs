@@ -15,5 +15,6 @@ namespace Exoticamp.Domain.Entities
         public string Name { get; set; }
 
         public ICollection<CampsiteDetails> CampsiteDetails { get; set; }=new List<CampsiteDetails>();
+        public ICollection<Event> Events { get; set; }=new List<Event>();
     }
 }
