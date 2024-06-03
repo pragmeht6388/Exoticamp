@@ -12,11 +12,6 @@
     <div class="col-md-4">
         <form asp-action="AddEvent" method="post" enctype='multipart/form-data'>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-          @*   <div class="form-group">
-
-                <input asp-for="EventId" class="form-control"  hidden/>
-               
-            </div>  *@
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -34,32 +29,32 @@
             </div>
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
+                <input asp-for="StartDate" class="form-control" type="date" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
+                <input asp-for="EndDate" class="form-control" type="date" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control"  type="file"/>
+                <input asp-for="Image" class="form-control" type="file" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Highlights" class="control-label"></label>
-                <input asp-for="Highlights" class="form-control" />
+                <textarea asp-for="Highlights" class="form-control"></textarea>
                 <span asp-validation-for="Highlights" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EventRules" class="control-label"></label>
-                <input asp-for="EventRules" class="form-control" />
+                <textarea asp-for="EventRules" class="form-control"></textarea>
                 <span asp-validation-for="EventRules" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -82,6 +77,33 @@
     </script>
 }
 
-    @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Set the min attribute for date inputs to today's date
+        document.addEventListener('DOMContentLoaded', function () {
+            var today = new Date().toISOString().split('T')[0];
+            document.querySelector('[name="StartDate"]').setAttribute('min', today);
+            document.querySelector('[name="EndDate"]').setAttribute('min', today);
+        });
+
+        // Client-side validation for StartDate and EndDate
+        document.querySelector('form').addEventListener('submit', function (e) {
+            var startDate = new Date(document.querySelector('[name="StartDate"]').value);
+            var endDate = new Date(document.querySelector('[name="EndDate"]').value);
+            var currentDate = new Date();
+
+            if (startDate <= currentDate) {
+                e.preventDefault();
+                alert('Start date must be greater than the current date.');
+            }
+
+            if (endDate <= startDate) {
+                e.preventDefault();
+                alert('End date must be greater than the start date.');
+            }
+        });
+    </script>
 }

@@ -34,7 +34,7 @@ namespace Exoticamp.UI.Controllers
             if (ModelState.IsValid)
             {
 
-                var fileName = Path.GetFileName(model.Image.FileName);
+                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.Image.FileName)}";
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
 
                 model.ImageUrl = "/Assets/Images/Event/" + model.Image.FileName;
