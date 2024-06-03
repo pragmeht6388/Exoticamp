@@ -16,9 +16,10 @@ namespace Exoticamp.Identity.Models
        
         public List<RefreshToken> RefreshTokens { get; set; }
         public Guid LocationId { get; set; }
-        public Location Location { get; set; }
         public Guid ActivityId { get; set; }
-        public Activities Activities { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsLocked { get; set; }
+        public int LoginAttemptCount { get; set; }
 
     }
 }

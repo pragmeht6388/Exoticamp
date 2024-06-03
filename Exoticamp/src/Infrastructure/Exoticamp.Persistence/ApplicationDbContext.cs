@@ -37,6 +37,7 @@ namespace Exoticamp.Persistence
         public DbSet<CampsiteDetails> CampsiteDetails { get; set; }
         public DbSet<ChatbotResponse> ChatbotResponses { get; set; }
         public DbSet<UserQuery> UserQueries { get; set; }
+        public DbSet<Location> Locations { get; set; }
 
 
         private IDbContextTransaction _transaction;
