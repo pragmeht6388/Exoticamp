@@ -10,6 +10,8 @@ namespace Exoticamp.UI.Models.ResponseModels.Users
         public bool IsAuthenticated { get; set; }
 
         public string Role { get; set; }
+        public string UserId { get; set; }
+
 
         [JsonProperty("isSuccess")]
         public bool IsSuccess { get; set; }

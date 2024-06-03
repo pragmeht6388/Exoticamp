@@ -37,6 +37,7 @@ using Exoticamp.Application.Features.UserQueries.Commands.CreateUserQuery;
 using Exoticamp.Application.Features.UserQueries.Queries.GetUserQueryList;
 using Exoticamp.Application.Features.Vendors.Queries.GetVendorList;
 using Exoticamp.Application.Features.Users.Commands.DeleteUser;
+using Exoticamp.Application.Features.Users.Queries.GetUser;
 
 
 namespace Exoticamp.Application.Profiles
@@ -113,6 +114,8 @@ namespace Exoticamp.Application.Profiles
             CreateMap< RegistrationRequest, GetUserListDto>().ReverseMap();
             CreateMap<RegistrationRequest,  GetVendorListDto>().ReverseMap();
              
+
+            CreateMap<RegistrationRequest, GetUserDto>().ReverseMap();
 
         }
     }
