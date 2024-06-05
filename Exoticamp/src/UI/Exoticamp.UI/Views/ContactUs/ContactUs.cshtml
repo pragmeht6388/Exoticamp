@@ -19,20 +19,20 @@
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="Name" class="form-label"></label>
-                    <input asp-for="Name" class="form-control" required />
+                    <label asp-for="Name" class="form-label">Name<span class="text-danger">*</span></label>
+                    <input asp-for="Name" class="form-control" required placeholder="Enter Your Name" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="Email" class="form-label"></label>
-                    <input asp-for="Email" type="email" class="form-control" required />
+                    <label asp-for="Email" class="form-label">Email<span class="text-danger">*</span></label>
+                    <input asp-for="Email" type="email" class="form-control" required placeholder="Enter Your Email" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="Message" class="form-label"></label>
-                    <textarea asp-for="Message" class="form-control" rows="5" required></textarea>
+                    <label asp-for="Message" class="form-label">Message<span class="text-danger">*</span></label>
+                    <textarea asp-for="Message" class="form-control" rows="5" required placeholder="Type Your Message here"></textarea>
                     <span asp-validation-for="Message" class="text-danger"></span>
                 </div>
 
