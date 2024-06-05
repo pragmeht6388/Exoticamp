@@ -25,10 +25,11 @@ namespace Exoticamp.UI.Models.CampsiteDetails
 
         [JsonProperty("tentType")]
         public string TentType { get; set; }
-
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
 
         [JsonProperty("images")]
-        public string Images { get; set; }
+        public string? Images { get; set; }
 
         [JsonProperty("dateTime")]
         public DateTime DateTime { get; set; }
