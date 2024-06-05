@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="wwwroot\Assets\Images\Banner\" />
+    <Folder Include="wwwroot\Campsite\" />
     <Folder Include="wwwroot\vendor\" />
   </ItemGroup>
 

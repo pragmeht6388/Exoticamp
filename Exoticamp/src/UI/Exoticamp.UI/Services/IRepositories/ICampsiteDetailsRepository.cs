@@ -11,7 +11,7 @@ namespace Exoticamp.UI.Services.IRepositories
 
         Task<GetCampsiteDetailsByIdResponseModel> GetCampsiteById(string Id);
 
-        //Task<CreateCampsiteDetailsResponseModel> EditCampsite(CampsiteDetailsVM campsiteVM);
-        //Task<CreateCampsiteDetailsResponseModel> DeleteCampsite(string Id);
+       Task<EditCampsiteDetailsResopnseModel> EditCampsiteDetails(CampsiteDetailsVM campsiteVM);
+        Task<DeleteCampsiteDetailsResponseModel> DeleteCampsite(string Id);
     }
 }

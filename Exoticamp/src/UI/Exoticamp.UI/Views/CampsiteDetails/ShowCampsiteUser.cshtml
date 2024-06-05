@@ -1,0 +1,188 @@
+﻿@model IEnumerable<Exoticamp.UI.Models.CampsiteDetails.CampsiteDetailsVM>
+
+@{
+    ViewData["Title"] = "ShowCampsiteUser";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .scroll-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .campsite-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+
+            .campsite-container::-webkit-scrollbar {
+                display: none; /* Chrome, Safari, Opera */
+            }
+
+        .campsite-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            min-width: 300px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            margin-right: 20px;
+        }
+
+            .campsite-item:hover {
+                transform: scale(1.02);
+            }
+
+        .campsite-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .campsite-info {
+            padding: 15px;
+        }
+
+        .campsite-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .campsite-highlights {
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .campsite-category-activity {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .campsite-category, .campsite-activity {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .campsite-details {
+            text-align: center;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        .scroll-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .scroll-arrow-left {
+            left: 10px;
+        }
+
+        .scroll-arrow-right {
+            right: 10px;
+        }
+
+        .scroll-arrow:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CampingSites</h1>
+
+       
+
+        <div class="scroll-container">
+            <button class="scroll-arrow scroll-arrow-left" onclick="scrollLeft()">
+                &larr;
+            </button>
+            <div class="campsite-container" id="campsiteContainer">
+                @foreach (var item in Model)
+                {
+                    <div class="campsite-item">
+                        <div class="campsite-image">
+                            <img src="@item.Images" alt="Campsite Image" />
+                        </div>
+                        <div class="campsite-info">
+                            <div class="campsite-name">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </div>
+                            <div class="campsite-highlights">
+                                @Html.DisplayFor(modelItem => item.Highlights)
+                            </div>
+                            <div class="campsite-category-activity">
+                                <div class="campsite-category">
+                                    @Html.DisplayFor(modelItem => item.CategoryName)
+                                </div>
+                                <div class="campsite-activity">
+                                    @Html.DisplayFor(modelItem => item.ActivityName)
+                                </div>
+                            </div>
+                            <div class="campsite-details">
+                                @Html.ActionLink("View", "DetailsUser", new { id = item.Id }, new { @class = "btn btn-info" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <button class="scroll-arrow scroll-arrow-right" onclick="scrollRight()">
+                &rarr;
+            </button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function scrollLeft() {
+            document.getElementById('campsiteContainer').scrollBy({ left: -300, behavior: 'smooth' });
+        }
+
+        function scrollRight() {
+            document.getElementById('campsiteContainer').scrollBy({ left: 300, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

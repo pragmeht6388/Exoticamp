@@ -50,7 +50,7 @@ namespace Exoticamp.Persistence.Repositories
                 Location = request.Location,
                 Status = request.Status,
                 TentType = request.TentType,
-                isActive = true,
+                isActive = request.isActive,
                 ApprovedBy = request.ApprovedBy,
                 ApprovededDate = request.ApprovededDate,
                 DeletededBy = request.DeletededBy,

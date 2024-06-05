@@ -81,59 +81,6 @@ namespace Exoticamp.Persistence.Migrations
                     b.ToTable("Banners");
                 });
 
-            modelBuilder.Entity("Exoticamp.Domain.Entities.Campsite", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ApprovedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ApprovededDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletededBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("TentType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Campsites");
-                });
-
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
                 {
                     b.Property<Guid>("Id")
@@ -480,6 +427,21 @@ namespace Exoticamp.Persistence.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Location", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
+
             modelBuilder.Entity("Exoticamp.Domain.Entities.Message", b =>
                 {
                     b.Property<Guid>("MessageId")
@@ -574,7 +536,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("7e94bc5b-71a5-4c8c-bc3b-71bb7976237e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(8926),
+                            OrderPlaced = new DateTime(2024, 6, 3, 10, 35, 37, 949, DateTimeKind.Utc).AddTicks(9862),
                             OrderTotal = 400,
                             UserId = new Guid("a441eb40-9636-4ee6-be49-a66c5ec1330b")
                         },
@@ -583,7 +545,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("86d3a045-b42d-4854-8150-d6a374948b6e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(8953),
+                            OrderPlaced = new DateTime(2024, 6, 3, 10, 35, 37, 949, DateTimeKind.Utc).AddTicks(9891),
                             OrderTotal = 135,
                             UserId = new Guid("ac3cfaf5-34fd-4e4d-bc04-ad1083ddc340")
                         },
@@ -592,7 +554,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("771cca4b-066c-4ac7-b3df-4d12837fe7e0"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(8973),
+                            OrderPlaced = new DateTime(2024, 6, 3, 10, 35, 37, 949, DateTimeKind.Utc).AddTicks(9913),
                             OrderTotal = 85,
                             UserId = new Guid("d97a15fc-0d32-41c6-9ddf-62f0735c4c1c")
                         },
@@ -601,7 +563,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("3dcb3ea0-80b1-4781-b5c0-4d85c41e55a6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(9029),
+                            OrderPlaced = new DateTime(2024, 6, 3, 10, 35, 37, 949, DateTimeKind.Utc).AddTicks(9934),
                             OrderTotal = 245,
                             UserId = new Guid("4ad901be-f447-46dd-bcf7-dbe401afa203")
                         },
@@ -610,7 +572,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("e6a2679c-79a3-4ef1-a478-6f4c91b405b6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(9050),
+                            OrderPlaced = new DateTime(2024, 6, 3, 10, 35, 37, 949, DateTimeKind.Utc).AddTicks(9955),
                             OrderTotal = 142,
                             UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
                         },
@@ -619,7 +581,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(9071),
+                            OrderPlaced = new DateTime(2024, 6, 3, 10, 35, 37, 949, DateTimeKind.Utc).AddTicks(9979),
                             OrderTotal = 40,
                             UserId = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923")
                         },
@@ -628,7 +590,7 @@ namespace Exoticamp.Persistence.Migrations
                             Id = new Guid("ba0eb0ef-b69b-46fd-b8e2-41b4178ae7cb"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(9089),
+                            OrderPlaced = new DateTime(2024, 6, 3, 10, 35, 37, 950, DateTimeKind.Utc),
                             OrderTotal = 116,
                             UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
                         });
