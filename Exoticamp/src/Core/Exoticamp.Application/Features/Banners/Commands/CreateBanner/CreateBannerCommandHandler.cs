@@ -40,7 +40,7 @@ namespace Exoticamp.Application.Features.Banners.Commands.CreateBanner
             var existingBanner = await _bannerRepository.GetBannerByLinkAsync(request.Link);
             if (existingBanner != null)
             {
-                addBannerCommandResponse.Message = $"lINK Existed '{request.Link}'";
+                addBannerCommandResponse.Message = "Invalid Details";
                 //throw new BannerLinkAlreadyExistsException(request.Link);
             }
             else

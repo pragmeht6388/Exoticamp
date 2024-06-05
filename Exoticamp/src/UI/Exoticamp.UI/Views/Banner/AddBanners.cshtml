@@ -1,8 +1,8 @@
 ﻿@model Exoticamp.UI.Models.Banners.BannerViewModel
 
 @{
-    Layout = null;
-    ViewData["Title"] = "AddBanners";
+    ViewData["Title"] = "Banners";
+    Layout = "~/Views/Shared/_VendorLayout.cshtml";
 }
 
 <!-- Include Bootstrap CSS for styling -->
@@ -22,27 +22,56 @@
     .form-card {
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        background-color: #fff;
     }
 
         .form-card h1 {
             color: #343a40;
+            margin-bottom: 20px;
         }
 
         .form-card .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
         }
+
+            .form-card .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #004085;
+            }
+
+        .form-card .form-group label {
+            font-weight: bold;
+        }
+
+        .form-card .form-control {
+            border-radius: 5px;
+        }
+
+        .form-card .btn-block {
+            border-radius: 5px;
+        }
+
+        .form-card .text-center a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .form-card .text-center a:hover {
+                text-decoration: underline;
+            }
 </style>
 
 <div class="form-container">
-    <div class="card form-card p-4 border-light-subtle shadow-sm col-md-6 col-lg-4">
-        <h1 class="text-center">Add Banners</h1>
+    <div class="card form-card col-md-6 col-lg-4">
+        <h1 class="text-center">Banners</h1>
         <hr />
-        <form asp-action="AddBanners">
+        <form asp-action="AddBanners" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group mb-3">
-                <label asp-for="Link" class="form-label"></label>
+                <label asp-for="Link" class="form-label">Link<span class="text-danger">*</span></label>
                 <input asp-for="Link" class="form-control" data-val="true" data-val-regex="The link must end with .com or .in." data-val-regex-pattern="^(.*\.com|.*\.in)$" />
                 <span asp-validation-for="Link" class="text-danger"></span>
             </div>
@@ -53,21 +82,56 @@
             </div>
 
             <div class="form-group mb-3">
-                <label asp-for="PromoCode" class="form-label"></label>
-                <input asp-for="PromoCode" class="form-control" />
+                <label asp-for="PromoCode" class="form-label">PromoCode<span class="text-danger">*</span></label>
+                <select asp-for="PromoCode" class="form-control">
+                    <option value="">Select Promo Type</option>
+                    <option value="Normal Banner">Normal Banner</option>
+                    <option value="Big Banner">Big Banner</option>
+                    <option value="Short Banner">Short Banner</option>
+                </select>
                 <span asp-validation-for="PromoCode" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
-                <label asp-for="Locations" class="form-label"></label>
-                <input asp-for="Locations" class="form-control" />
+                <label asp-for="Locations" class="form-label">Location<span class="text-danger">*</span></label>
+                <select asp-for="Locations" class="form-control">
+                    <option value="">Select Location</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                </select>
                 <span asp-validation-for="Locations" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
-                <label asp-for="ImagePath" class="form-label"></label>
-                <input asp-for="ImagePath" class="form-control" />
-                <span asp-validation-for="ImagePath" class="text-danger"></span>
+                <label asp-for="ImageFile" class="form-label"></label>
+                <input asp-for="ImageFile" class="form-control" type="file" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
 
             <div class="d-grid mb-3">
@@ -80,8 +144,11 @@
         </div>
     </div>
 </div>
-<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
 
 @if (TempData["Message"] != null)
 {
@@ -89,16 +156,6 @@
         toastr.error('@TempData["Message"]');
     </script>
 }
-
-<!-- Render validation scripts partial -->
-
-
-
-<!-- Include jQuery -->
-<!-- Include jQuery Validation plugin -->
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
-<!-- Include jQuery Unobtrusive Validation plugin -->
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {

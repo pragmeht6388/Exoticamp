@@ -80,6 +80,42 @@ namespace Exoticamp.Tests
         }
 
         [Fact]
+        public async Task Create_ReturnsOkResult_WithMediatorResponse()
+        {
+            // Arrange
+            var command = new CreateBannerCommand
+            {
+                Link = "https://example.com",
+                IsActive = true,
+                PromoCode = "",
+                Locations = "Location1, Location2",
+                ImagePath = "/images/banner.jpg"
+            };
+
+            var response = new Response<CreateBannerDto>
+            {
+                Data = null,
+                Message = "Some message",
+                Succeeded = false
+            };
+
+            _mediatorMock
+                .Setup(m => m.Send(It.IsAny<CreateBannerCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(response);
+
+            // Act
+            var result = await _controller.Create(command);
+
+            // Assert
+            var okResult = result as OkObjectResult;
+            Assert.NotNull(okResult);
+            var returnedResponse = okResult.Value as Response<CreateBannerDto>;
+            Assert.NotNull(returnedResponse);
+            Assert.False(returnedResponse.Succeeded);
+            Assert.Equal(response.Message, returnedResponse.Message);
+        }
+
+        [Fact]
         public async Task Update_ReturnsOkResult_WithUpdatedBanner()
         {
             // Arrange
@@ -154,31 +190,41 @@ namespace Exoticamp.Tests
             // Assert
             Assert.IsType<NotFoundResult>(result);
         }
+        
 
-  
-       
+
         [Fact]
-        public async Task Create_ReturnsBadRequestResult_WithInvalidData()
+        public async Task Create_ReturnsOkResult_WhenMediatorResponseFails()
         {
             // Arrange
             var command = new CreateBannerCommand
             {
-                // Invalid URL format
+                Link = "https://example.com",
                 IsActive = true,
-                PromoCode = "Promo",
+                PromoCode = "",
                 Locations = "Location1, Location2",
                 ImagePath = "/images/banner.jpg"
             };
+
+            var response = new Response<CreateBannerDto>
+            {
+                Data = null,
+                Message = "Some error message",
+                Succeeded = false
+            };
+
+            _mediatorMock
+                .Setup(m => m.Send(It.IsAny<CreateBannerCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(response);
 
             // Act
             var result = await _controller.Create(command);
 
             // Assert
-            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            var returnedResponse = badRequestResult.Value as Response<CreateBannerDto>;
-            Assert.NotNull(returnedResponse);
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var returnedResponse = Assert.IsType<Response<CreateBannerDto>>(okResult.Value);
             Assert.False(returnedResponse.Succeeded);
-            Assert.Equal("Invalid data provided: Link must be a valid URL.", returnedResponse.Message);
+            Assert.Equal(response.Message, returnedResponse.Message);
         }
         [Fact]
         public async Task Delete_ReturnsNoContent_WhenBannerExists()

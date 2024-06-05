@@ -27,5 +27,8 @@ namespace Exoticamp.Domain.Entities
 
         [Required]
         public string ImagePath { get; set; }
+
+        //[Required]
+        //public bool IsDeleted { get; set; } = false;
     }
 }
