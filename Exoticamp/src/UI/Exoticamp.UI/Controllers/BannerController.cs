@@ -29,7 +29,16 @@ namespace Exoticamp.UI.Controllers
         }
         public async Task<IActionResult> AddBanners(BannerViewModel model)
         {
+            var fileName = Path.GetFileName(model.ImageFile.FileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Banner/", fileName);
+
+            // Set the ImagePath property of the model
+            model.ImagePath = "/Assets/Images/Banner/" + fileName;
             var banners = await _bannerRepository.AddBanners(model);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await model.ImageFile.CopyToAsync(fileStream);
+            }
             if (banners.Message == "success")
             {
                 TempData["Message"] = banners.Message;
@@ -47,6 +56,7 @@ namespace Exoticamp.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> EditBanner(string id)
         {
+
             var bannerObj = await _bannerRepository.GetBannerById(id);
             return View(bannerObj.Data);
             }
@@ -54,17 +64,23 @@ namespace Exoticamp.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> EditBanner(string id,BannerViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model.ImageFile!=null)
             {
                 model.BannerId = Guid.Parse(id);
+                var fileName = Path.GetFileName(model.ImageFile.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Banner/", fileName);
+
+                // Set the ImagePath property of the model
+                model.ImagePath = "/Assets/Images/Banner/" + fileName;
                 var response = await _bannerRepository.EditBanner(model);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.ImageFile.CopyToAsync(fileStream);
+                }
+                
                 return RedirectToAction("AllBanners");
             }
-            else
-            {
-                ModelState.AddModelError("", "Oops! Some error occurred.");
-                return View(model);
-            }
+            return View(model);
         }
         public async Task<IActionResult> DeleteBanner(string id)
         {

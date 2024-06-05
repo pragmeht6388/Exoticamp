@@ -76,6 +76,7 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Product, UpdateProductCommand>().ReverseMap();
             CreateMap<Banner, CreateBannerCommand>().ReverseMap();
             CreateMap<Banner, CreateBannerDto>().ReverseMap();
+            CreateMap<Banner, UpdateBannerDto>().ReverseMap();
             CreateMap<Banner, UpdateBannerCommand>().ReverseMap();
 
             CreateMap<Banner, BannerDto>().ReverseMap();
