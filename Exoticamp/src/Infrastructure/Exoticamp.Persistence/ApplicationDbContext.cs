@@ -38,24 +38,30 @@ namespace Exoticamp.Persistence
         public DbSet<ChatbotResponse> ChatbotResponses { get; set; }
         public DbSet<UserQuery> UserQueries { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<EventActivities> EventActivities { get; set; }
+        public DbSet<EventLocation> EventLocations { get; set; }
 
 
         private IDbContextTransaction _transaction;
 
 
-       
-     
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Many to many Relationship mapping
-            modelBuilder.Entity<Event>()
-                .HasMany(e => e.Activities)
-                .WithMany(e => e.Events)
-                .UsingEntity<EventActivities>(
-                    l => l.HasOne<Activities>().WithMany().HasForeignKey(e => e.ActivityId),
-                    r => r.HasOne<Event>().WithMany().HasForeignKey(e => e.EventId));
+            // Many to many Relationship mapping for Event and Activities
+            //modelBuilder.Entity<Event>()
+            //    .HasMany(e => e.Activities)
+            //    .WithMany(e => e.Events)
+            //    .UsingEntity<EventActivities>(
+            //        l => l.HasOne<Activities>().WithMany().HasForeignKey(e => e.ActivityId),
+            //        r => r.HasOne<Event>().WithMany().HasForeignKey(e => e.EventId));
+            //// Many to many Relationship mapping for Event and Locations
+            //modelBuilder.Entity<Event>()
+            //    .HasMany(e => e.Locations)
+            //    .WithMany(e => e.Events)
+            //    .UsingEntity<EventLocation>(
+            //        l => l.HasOne<Location>().WithMany().HasForeignKey(e => e.LocationId),
+            //        r => r.HasOne<Event>().WithMany().HasForeignKey(e => e.EventId));
+
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 

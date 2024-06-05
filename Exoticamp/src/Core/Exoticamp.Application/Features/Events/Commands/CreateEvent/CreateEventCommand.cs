@@ -31,10 +31,10 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
         public string EventRules { get; set; }
         public Guid CampsiteId { get; set; }
 
-        public Domain.Entities.CampsiteDetails Campsite { get; set; }
+     
         public Guid ActivityId { get; set; }
 
-        public Domain.Entities.Activities activity { get; set; }
+        
         public string location { get; set; }
         public bool Status { get; set; } 
     }

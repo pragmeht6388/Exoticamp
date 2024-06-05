@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Exoticamp.Domain.Entities
 {
-    public class EventActivities
+    public class EventLocation
     {
         public Guid Id { get; set; }
-        public Guid ActivityId { get; set; }
-
         public Guid EventId { get; set; }
-        public ICollection<Activities> Activities { get; set; }
-        public ICollection<Event> Events { get; set; } 
+        public Guid LocationId {get;set; }
+        public ICollection<Location> Locations { get; set; }
+        public ICollection<Event> Events { get; set; }
     }
 }
