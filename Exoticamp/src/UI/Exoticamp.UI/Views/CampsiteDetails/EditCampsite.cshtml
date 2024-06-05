@@ -5,22 +5,76 @@
     Layout = "~/Views/Shared/_VendorLayout.cshtml";
 }
 
-<h1>EditCampsite</h1>
+<style>
+    /* wwwroot/css/site.css */
 
-<h4>CampsiteDetailsVM</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditCampsite">
+    .center-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+    }
+
+    .form-container {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .top-right-button {
+        position: absolute;
+        top: 100px;
+        right: 20px;
+    }
+
+</style>
+
+<h1 style="text-align:center">EditCampsite</h1>
+<div class="top-right-button">
+    <a asp-action="ShowCampsite" class="btn btn-secondary">Back to List</a>
+</div>
+
+<div class="row center-form">
+    <div class="col-md-12 form-container">
+        <form asp-action="EditCampsite" enctype='multipart/form-data'>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">Name<span class="text-danger">*</span></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
+                <label asp-for="Location" class="control-label">Location<span class="text-danger">*</span></label>
+                <select asp-for="Location" class="form-control">
+                    <option value="">-- Select State --</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                </select>
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -29,140 +83,148 @@
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="TentType" class="control-label"></label>
-                <input asp-for="TentType" class="form-control" />
+                <label asp-for="TentType" class="control-label">Tent Type<span class="text-danger">*</span></label>
+                <select asp-for="TentType" class="form-control">
+                    <option value="">-- Select Tent Type --</option>
+                    <option value="Traditional Indian Tents">Traditional Indian Tents</option>
+                    <option value="Dome Tents">Dome Tents</option>
+                    <option value="Geodesic Tents">Geodesic Tents</option>
+                    <option value="Pop-Up Tents">Pop-Up Tents</option>
+                    <option value="Tunnel Tents">Tunnel Tents</option>
+                    <option value="A-Frame Tents">A-Frame Tents</option>
+                    <option value="Cabin Tents">Cabin Tents</option>
+                    <option value="Backpacking Tents">Backpacking Tents</option>
+                </select>
                 <span asp-validation-for="TentType" class="text-danger"></span>
             </div>
+            @Html.HiddenFor(x => x.Images)
             <div class="form-group">
-                <label asp-for="Images" class="control-label"></label>
-                <input asp-for="Images" class="form-control" />
-                <span asp-validation-for="Images" class="text-danger"></span>
+                <label asp-for="ImageFile" class="control-label">Image File<span class="text-danger">*</span></label>
+                <input asp-for="ImageFile" class="form-control" type="file" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DateTime" class="control-label"></label>
+                <label asp-for="DateTime" class="control-label">Date & Time<span class="text-danger">*</span></label>
                 <input asp-for="DateTime" class="form-control" />
                 <span asp-validation-for="DateTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Highlights" class="control-label"></label>
+                <label asp-for="Highlights" class="control-label">Highlights<span class="text-danger">*</span></label>
                 <input asp-for="Highlights" class="form-control" />
                 <span asp-validation-for="Highlights" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Ratings" class="control-label"></label>
+                <label asp-for="Ratings" class="control-label">Ratings<span class="text-danger">*</span></label>
                 <input asp-for="Ratings" class="form-control" />
                 <span asp-validation-for="Ratings" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AboutCampsite" class="control-label"></label>
-                <input asp-for="AboutCampsite" class="form-control" />
+                <label asp-for="AboutCampsite" class="control-label">About Campsite<span class="text-danger">*</span></label>
+                <textarea asp-for="AboutCampsite" class="form-control" rows="4"></textarea>
                 <span asp-validation-for="AboutCampsite" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CampsiteRules" class="control-label"></label>
-                <input asp-for="CampsiteRules" class="form-control" />
+                <label asp-for="CampsiteRules" class="control-label">Campsite Rules<span class="text-danger">*</span></label>
+                <textarea asp-for="CampsiteRules" class="form-control" ></textarea>
                 <span asp-validation-for="CampsiteRules" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BestTimeToVisit" class="control-label"></label>
+                <label asp-for="BestTimeToVisit" class="control-label">Best Time to Visit<span class="text-danger">*</span></label>
                 <input asp-for="BestTimeToVisit" class="form-control" />
                 <span asp-validation-for="BestTimeToVisit" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HowToGetHere" class="control-label"></label>
-                <input asp-for="HowToGetHere" class="form-control" />
+                <label asp-for="HowToGetHere" class="control-label">How to Get There<span class="text-danger">*</span></label>
+                <textarea asp-for="HowToGetHere" class="form-control"></textarea> 
                 <span asp-validation-for="HowToGetHere" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="QuickSummary" class="control-label"></label>
-                <input asp-for="QuickSummary" class="form-control" />
+                <label asp-for="QuickSummary" class="control-label">Quick Summary<span class="text-danger">*</span></label>
+                <textarea asp-for="QuickSummary" class="form-control"></textarea> 
                 <span asp-validation-for="QuickSummary" class="text-danger"></span>
             </div>
             <div class="form-group">
-        <label asp-for="CategoryId" class="control-label">Category</label>
-        <select asp-for="CategoryId" class="form-control">
-            <option value="">-- Select Category --</option>
-            @foreach (var category in ViewBag.CategoryList)
-            {
-                <option value="@category.Value" >@category.Text</option>
-            }
-        </select>
-        <span asp-validation-for="CategoryId" class="text-danger"></span>
-    </div>
-
-    <!-- Dropdown for ActivitiesId -->
-    <div class="form-group">
-        <label asp-for="ActivitiesId" class="control-label">Activities</label>
-        <select asp-for="ActivitiesId" class="form-control">
-            <option value="">-- Select Activity --</option>
-            @foreach (var activity in ViewBag.ActivitiesList)
-            {
-                <option value="@activity.Value">@activity.Text</option>
-            }
-        </select>
-        <span asp-validation-for="ActivitiesId" class="text-danger"></span>
-    </div>
+                <label asp-for="CategoryId" class="control-label">Category<span class="text-danger">*</span></label>
+                <select asp-for="CategoryId" class="form-control">
+                    <option value="">-- Select Category --</option>
+                    @foreach (var category in ViewBag.CategoryList)
+                    {
+                        <option value="@category.Value">@category.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
             <div class="form-group">
-                <label asp-for="MealPlans" class="control-label"></label>
-                <input asp-for="MealPlans" class="form-control" />
+                <label asp-for="ActivitiesId" class="control-label">Activities<span class="text-danger">*</span></label>
+                <select asp-for="ActivitiesId" class="form-control">
+                    <option value="">-- Select Activity --</option>
+                    @foreach (var activity in ViewBag.ActivitiesList)
+                    {
+                        <option value="@activity.Value">@activity.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="ActivitiesId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MealPlans" class="control-label">Meal Plans<span class="text-danger">*</span></label>
+                <textarea asp-for="MealPlans" class="form-control"></textarea> 
                 <span asp-validation-for="MealPlans" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Itinerary" class="control-label"></label>
-                <input asp-for="Itinerary" class="form-control" />
+                <label asp-for="Itinerary" class="control-label">Itinerary<span class="text-danger">*</span></label>
+                <textarea asp-for="Itinerary" class="form-control"></textarea> 
                 <span asp-validation-for="Itinerary" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Inclusions" class="control-label"></label>
-                <input asp-for="Inclusions" class="form-control" />
+                <label asp-for="Inclusions" class="control-label">Inclusion<span class="text-danger">*</span></label>
+                <textarea asp-for="Inclusions" class="form-control"></textarea> 
                 <span asp-validation-for="Inclusions" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Exclusion" class="control-label"></label>
-                <input asp-for="Exclusion" class="form-control" />
+                <label asp-for="Exclusion" class="control-label">Exclusion<span class="text-danger">*</span></label>
+                <textarea asp-for="Exclusion" class="form-control" ></textarea>
                 <span asp-validation-for="Exclusion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Amenities" class="control-label"></label>
-                <input asp-for="Amenities" class="form-control" />
+                <label asp-for="Amenities" class="control-label">Amenities<span class="text-danger">*</span></label>
+                <textarea asp-for="Amenities" class="form-control"></textarea> 
                 <span asp-validation-for="Amenities" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Accommodation" class="control-label"></label>
-                <input asp-for="Accommodation" class="form-control" />
+                <label asp-for="Accommodation" class="control-label">Accommodation<span class="text-danger">*</span></label>
+                <textarea asp-for="Accommodation" class="form-control"></textarea>
                 <span asp-validation-for="Accommodation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Safety" class="control-label"></label>
-                <input asp-for="Safety" class="form-control" />
+                <label asp-for="Safety" class="control-label">Safety<span class="text-danger">*</span></label>
+                <textarea asp-for="Safety" class="form-control"></textarea> 
                 <span asp-validation-for="Safety" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DistanceWithMap" class="control-label"></label>
+                <label asp-for="DistanceWithMap" class="control-label">Distance With Map<span class="text-danger">*</span></label>
                 <input asp-for="DistanceWithMap" class="form-control" />
                 <span asp-validation-for="DistanceWithMap" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WhyExoticamp" class="control-label"></label>
-                <input asp-for="WhyExoticamp" class="form-control" />
+                <label asp-for="WhyExoticamp" class="control-label">Why Exoticamp<span class="text-danger">*</span></label>
+                <textarea asp-for="WhyExoticamp" class="form-control"></textarea>
                 <span asp-validation-for="WhyExoticamp" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FAQs" class="control-label"></label>
-                <input asp-for="FAQs" class="form-control" />
+                <label asp-for="FAQs" class="control-label">FAQs<span class="text-danger">*</span></label>
+                <textarea asp-for="FAQs" class="form-control" ></textarea>
                 <span asp-validation-for="FAQs" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HouseRules" class="control-label"></label>
-                <input asp-for="HouseRules" class="form-control" />
+                <label asp-for="HouseRules" class="control-label">House Rules<span class="text-danger">*</span></label>
+                <textarea asp-for="HouseRules" class="form-control"></textarea> 
                 <span asp-validation-for="HouseRules" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CancellationPolicy" class="control-label"></label>
+                <label asp-for="CancellationPolicy" class="control-label">Cancellation Policy<span class="text-danger">*</span></label>
                 <input asp-for="CancellationPolicy" class="form-control" />
                 <span asp-validation-for="CancellationPolicy" class="text-danger"></span>
             </div>
-           
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -170,10 +232,8 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
