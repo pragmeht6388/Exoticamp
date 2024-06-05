@@ -12,7 +12,7 @@ using Exoticamp.Domain.Entities;
 
 namespace Exoticamp.Application.Features.Events.Commands.Transaction
 {
-    public class TransactionCommandHandler : IRequestHandler<TransactionCommand, Response<Guid>>
+    public class TransactionCommandHandler : IRequestHandler<TransactionCommand, Response<TransactionCommandDto>>
     {
         private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ namespace Exoticamp.Application.Features.Events.Commands.Transaction
             _messageRepository = messageRepository;
         }
 
-        public async Task<Response<Guid>> Handle(TransactionCommand request, CancellationToken cancellationToken)
+        public async Task<Response<TransactionCommandDto>> Handle(TransactionCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Handle Initiated");
 
@@ -56,7 +56,7 @@ namespace Exoticamp.Application.Features.Events.Commands.Transaction
             //    _logger.LogError($"Mailing about event {@event.EventId} failed due to an error with the mail service: {ex.Message}");
             //}
 
-            var response = new Response<Guid>(@event.EventId, "Inserted successfully ");
+            var response = new Response<TransactionCommandDto>(_mapper.Map<TransactionCommandDto>(@event), "Inserted successfully ");
 
             _logger.LogInformation("Handle Completed");
 

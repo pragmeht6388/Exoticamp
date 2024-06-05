@@ -68,6 +68,9 @@
 
         #endregion
 
+        #region Location
 
+        public const string GetAllLocation = "/api/v1/Location/all";
+        #endregion
     }
 }

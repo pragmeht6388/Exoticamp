@@ -3,19 +3,36 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<style>
+    .details-section {
+        float: left;
+        padding-right: 15px; /* Add some space between sections */
+    }
+
+    .image-section {
+        float: right;
+    }
+
+    /* Clear float to prevent wrapping issues */
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+</style>
 
 <h1>Edit</h1>
 
 <h4>EventVM</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="post" enctype='multipart/form-data'>
+    <form asp-action="Edit" method="post" enctype='multipart/form-data' class="col-md-12">
+        <!-- Left div for details -->
+        <div class="details-section col-md-8">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-
                 <input asp-for="EventId" class="form-control" hidden />
-
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -34,49 +51,94 @@
             </div>
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control"  />
+                <input asp-for="StartDate" class="form-control" type="date" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
+                <input asp-for="EndDate" class="form-control" type="date" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control"  type="file"/>
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Highlights" class="control-label"></label>
-                <input asp-for="Highlights" class="form-control" />
+                <textarea asp-for="Highlights" class="form-control"></textarea>
                 <span asp-validation-for="Highlights" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EventRules" class="control-label"></label>
-                <input asp-for="EventRules" class="form-control" />
+                <textarea asp-for="EventRules" class="form-control"></textarea>
                 <span asp-validation-for="EventRules" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <button id="backButton" class="btn btn-primary" >Back</button>
+        </div>
+
+        <!-- Right div for image -->
+        <div class="image-section col-md-4">
+            <h4>Event Image</h4>
+            <hr />
+            <div>
+                <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="@Html.DisplayFor(model => model.Name)" class="img-fluid" style="max-height: 350px; max-width: 350px;" />
             </div>
-        </form>
+            <div class="form-group mt-3">
+                <button id="editImageButton" class="btn btn-warning">Edit Image</button>
+            </div>
+            <div class="form-group" id="imageUploadField" style="display: none;">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" class="form-control" type="file" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group col-md-12 text-center">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            
+        </div>
+       
+    </form>
+    <div class="form-group col-md-12 text-center">
+       
+        <button id="backButton" class="btn btn-secondary">Back</button>
     </div>
 </div>
 
-<div>
-    
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     <script>
+        // Set the min attribute for date inputs to today's date
+        document.addEventListener('DOMContentLoaded', function () {
+            var today = new Date().toISOString().split('T')[0];
+            document.querySelector('[name="StartDate"]').setAttribute('min', today);
+            document.querySelector('[name="EndDate"]').setAttribute('min', today);
+        });
+
+        // Client-side validation for StartDate and EndDate
+        document.querySelector('form').addEventListener('submit', function (e) {
+            var startDate = new Date(document.querySelector('[name="StartDate"]').value);
+            var endDate = new Date(document.querySelector('[name="EndDate"]').value);
+            var currentDate = new Date();
+
+            if (startDate <= currentDate) {
+                e.preventDefault();
+                alert('Start date must be greater than the current date.');
+            }
+
+            if (endDate <= startDate) {
+                e.preventDefault();
+                alert('End date must be greater than the start date.');
+            }
+        });
+
+        // Show the file input field for image when the edit button is clicked
+        document.getElementById('editImageButton').addEventListener('click', function () {
+            document.getElementById('imageUploadField').style.display = 'block';
+        });
+
+        // Back button functionality
         document.getElementById('backButton').addEventListener('click', function () {
             window.history.back();
         });
