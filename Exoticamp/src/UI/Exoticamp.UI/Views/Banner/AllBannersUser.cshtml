@@ -1,0 +1,169 @@
+﻿@model IEnumerable<Exoticamp.UI.Models.Banners.BannerViewModel>
+
+@{
+    ViewData["Title"] = "Banners";
+    
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .scroll-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+
+            .banner-container::-webkit-scrollbar {
+                display: none; /* Chrome, Safari, Opera */
+            }
+
+        .banner-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            min-width: 300px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            margin-right: 20px;
+        }
+
+            .banner-item:hover {
+                transform: scale(1.02);
+            }
+
+        .banner-image img {
+            width: 100%;
+            height: 200px; /* Set a uniform height for all images */
+            object-fit: cover; /* Ensure images are cropped to fit the container */
+        }
+
+        .banner-info {
+            padding: 15px;
+        }
+
+        .banner-link {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .banner-status {
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .banner-details {
+            text-align: center;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        .scroll-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .scroll-arrow-left {
+            left: 10px;
+        }
+
+        .scroll-arrow-right {
+            right: 10px;
+        }
+
+        .scroll-arrow:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Banners</h1>
+
+        <div class="scroll-container">
+            <button class="scroll-arrow scroll-arrow-left" onclick="scrollLeft()">
+                &larr;
+            </button>
+            <div class="banner-container" id="bannerContainer">
+                @foreach (var item in Model)
+                {
+                    <div class="banner-item">
+                        <div class="banner-image">
+                            <img src="@item.ImagePath" alt="Banner Image" />
+                        </div>
+                        <div class="banner-info">
+                            <div class="banner-link">
+                                @Html.DisplayFor(modelItem => item.Link)
+                            </div>
+                            <div class="banner-status">
+                                @if (item.IsActive)
+                                {
+                                    <span class="text-success"><i class="fas fa-check"></i> Active</span>
+                                }
+                                else
+                                {
+                                    <span class="text-danger"><i class="fas fa-times"></i> Inactive</span>
+                                }
+                            </div>
+                            <div class="banner-details">
+                                @Html.ActionLink("View", "ViewBanner", new { id = item.BannerId }, new { @class = "btn btn-info" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <button class="scroll-arrow scroll-arrow-right" onclick="scrollRight()">
+                &rarr;
+            </button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function scrollLeft() {
+            document.getElementById('bannerContainer').scrollBy({ left: -300, behavior: 'smooth' });
+        }
+
+        function scrollRight() {
+            document.getElementById('bannerContainer').scrollBy({ left: 300, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

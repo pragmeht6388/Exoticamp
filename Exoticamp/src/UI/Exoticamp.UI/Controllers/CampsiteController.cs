@@ -84,6 +84,9 @@ namespace Exoticamp.UI.Controllers
             
         }
 
-
+        public IActionResult AddCampsiteDetails()
+        {
+            return View();
+        }
     }
 }

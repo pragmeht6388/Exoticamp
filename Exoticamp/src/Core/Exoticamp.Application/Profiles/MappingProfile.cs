@@ -36,6 +36,7 @@ using Exoticamp.Application.Features.Activities.Commands.UpdateActivities;
 using Exoticamp.Application.Features.UserQueries.Commands.CreateUserQuery;
 using Exoticamp.Application.Features.UserQueries.Queries.GetUserQueryList;
 using Exoticamp.Application.Features.Users.Queries.GetUser;
+using Exoticamp.Application.Features.Users.Commands.UpdateUser;
 
 
 namespace Exoticamp.Application.Profiles
@@ -79,6 +80,7 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Product, UpdateProductCommand>().ReverseMap();
             CreateMap<Banner, CreateBannerCommand>().ReverseMap();
             CreateMap<Banner, CreateBannerDto>().ReverseMap();
+            CreateMap<Banner, UpdateBannerDto>().ReverseMap();
             CreateMap<Banner, UpdateBannerCommand>().ReverseMap();
 
             CreateMap<Banner, BannerDto>().ReverseMap();
@@ -109,6 +111,8 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Activities, Features.Activities.Query.GetActivityList.ActivityVM>().ReverseMap();
 
             CreateMap<RegistrationRequest, GetUserDto>().ReverseMap();
+            CreateMap<UpdateUserProfileCommand, GetUserDto>().ReverseMap();
+
 
         }
     }

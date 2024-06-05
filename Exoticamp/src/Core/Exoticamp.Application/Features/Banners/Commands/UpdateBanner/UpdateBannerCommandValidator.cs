@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Exoticamp.Application.Contracts.Persistence;
+using Exoticamp.Application.Helper;
 
 namespace Exoticamp.Application.Features.Banners.Commands.UpdateBanner
 {
@@ -11,15 +12,30 @@ namespace Exoticamp.Application.Features.Banners.Commands.UpdateBanner
         {
             _messageRepository = messageRepository;
 
-            RuleFor(x => x.Link)
-                .NotEmpty().WithMessage("Link is required.")
-                .MaximumLength(2048).WithMessage("Link cannot exceed 2048 characters.");
+            RuleFor(p => p.Link)
+                .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
+                .NotNull()
+                .MaximumLength(2048).WithMessage(GetMessage("2", ApplicationConstants.LANG_ENG));
 
-            RuleFor(x => x.Locations)
-                .NotEmpty().WithMessage("Locations are required.");
+            RuleFor(p => p.PromoCode)
+                .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
+                .NotNull()
+                .MaximumLength(50).WithMessage(GetMessage("2", ApplicationConstants.LANG_ENG));
 
-            RuleFor(x => x.ImagePath)
-                .NotEmpty().WithMessage("ImagePath is required.");
+            RuleFor(p => p.Locations)
+                .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
+                .NotNull();
+
+            RuleFor(p => p.ImagePath)
+                .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
+                .NotNull();
+        }
+
+        private string GetMessage(string code, string lang)
+        {
+            var messageTask = _messageRepository.GetMessage(code, lang);
+            var message = messageTask?.Result;
+            return message?.MessageContent?.ToString() ?? "Some Details are Invalid";
         }
     }
 }

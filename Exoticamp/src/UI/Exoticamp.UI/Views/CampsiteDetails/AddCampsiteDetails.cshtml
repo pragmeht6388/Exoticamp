@@ -45,11 +45,11 @@
 
 <div class="row justify-content-center">
     <div class="col-md-4" style="background-color:antiquewhite">
-        <form asp-action="AddCampsiteDetails" method="post">
+        <form asp-action="AddCampsiteDetails" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label">Name<span class="text-danger">*</span></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control"  />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -88,11 +88,9 @@
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
-                <label class="form-check-label" ><span class="text-danger">*</span></label>
-                    
+                <label class="form-check-label" ></label>
+          
                 <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
-                    
-                
             </div>
             <div class="form-group mb-3">
                 <label asp-for="CategoryId" class="control-label">Category <span class="text-danger">*</span></label>
@@ -122,9 +120,9 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Images" class="control-label">Images<span class="text-danger">*</span></label>
-                <input asp-for="Images" class="form-control" />
-                <span asp-validation-for="Images" class="text-danger"></span>
+                <label asp-for="ImageFile" class="control-label">Images<span class="text-danger">*</span></label>
+                <input asp-for="ImageFile" class="form-control" type="file"/>
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DateTime" class="control-label">DateTime<span class="text-danger">*</span></label>
@@ -143,12 +141,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="AboutCampsite" class="control-label">About Campsite<span class="text-danger">*</span></label>
-                <input asp-for="AboutCampsite" class="form-control" />
+                <textarea asp-for="AboutCampsite" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="AboutCampsite" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CampsiteRules" class="control-label">Campsite Rules<span class="text-danger">*</span></label>
-                <input asp-for="CampsiteRules" class="form-control" />
+                <textarea asp-for="CampsiteRules" class="form-control"></textarea> 
                 <span asp-validation-for="CampsiteRules" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -158,47 +156,47 @@
             </div>
             <div class="form-group">
                 <label asp-for="HowToGetHere" class="control-label">How To Get Here<span class="text-danger">*</span></label>
-                <input asp-for="HowToGetHere" class="form-control" />
+                <textarea asp-for="HowToGetHere" class="form-control"></textarea>
                 <span asp-validation-for="HowToGetHere" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="QuickSummary" class="control-label">Quick Summary<span class="text-danger">*</span></label>
-                <input asp-for="QuickSummary" class="form-control" />
+                <textarea asp-for="QuickSummary" class="form-control"></textarea> 
                 <span asp-validation-for="QuickSummary" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MealPlans" class="control-label">Meal Plans<span class="text-danger">*</span></label>
-                <input asp-for="MealPlans" class="form-control" />
+                <textarea asp-for="MealPlans" class="form-control" ></textarea>
                 <span asp-validation-for="MealPlans" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Itinerary" class="control-label">Itinerary<span class="text-danger">*</span></label>
-                <input asp-for="Itinerary" class="form-control" />
+                <textarea asp-for="Itinerary" class="form-control" ></textarea>
                 <span asp-validation-for="Itinerary" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Inclusions" class="control-label">Inclusions<span class="text-danger">*</span></label>
-                <input asp-for="Inclusions" class="form-control" />
+                <textarea asp-for="Inclusions" class="form-control" ></textarea>
                 <span asp-validation-for="Inclusions" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Exclusion" class="control-label">Exclusion<span class="text-danger">*</span></label>
-                <input asp-for="Exclusion" class="form-control" />
+                <textarea asp-for="Exclusion" class="form-control" ></textarea>
                 <span asp-validation-for="Exclusion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Amenities" class="control-label">Amenities<span class="text-danger">*</span></label>
-                <input asp-for="Amenities" class="form-control" />
+                <textarea asp-for="Amenities" class="form-control" ></textarea>
                 <span asp-validation-for="Amenities" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Accommodation" class="control-label">Accommodation<span class="text-danger">*</span></label>
-                <input asp-for="Accommodation" class="form-control" />
+                <textarea asp-for="Accommodation" class="form-control" ></textarea>
                 <span asp-validation-for="Accommodation" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Safety" class="control-label">Safety<span class="text-danger">*</span></label>
-                <input asp-for="Safety" class="form-control" />
+                <textarea asp-for="Safety" class="form-control" ></textarea>
                 <span asp-validation-for="Safety" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -208,17 +206,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="WhyExoticamp" class="control-label">Why Exoticamp<span class="text-danger"> *</span></label>
-                <input asp-for="WhyExoticamp" class="form-control" />
+                <textarea asp-for="WhyExoticamp" class="form-control" ></textarea>
                 <span asp-validation-for="WhyExoticamp" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FAQs" class="control-label">FAQs<span class="text-danger">*</span></label>
-                <input asp-for="FAQs" class="form-control" />
+                <textarea asp-for="FAQs" class="form-control" ></textarea>
                 <span asp-validation-for="FAQs" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HouseRules" class="control-label">House Rules<span class="text-danger">*</span></label>
-                <input asp-for="HouseRules" class="form-control" />
+                <textarea asp-for="HouseRules" class="form-control" ></textarea>
                 <span asp-validation-for="HouseRules" class="text-danger"></span>
             </div>
             <div class="form-group">

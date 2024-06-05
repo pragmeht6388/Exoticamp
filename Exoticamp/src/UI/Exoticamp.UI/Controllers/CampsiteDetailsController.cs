@@ -68,6 +68,15 @@ namespace Exoticamp.UI.Controllers
         }
         public async Task<IActionResult> AddCampsiteDetails(CampsiteDetailsVM campsite)
         {
+            var fileName = Path.GetFileName(campsite.ImageFile.FileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Campsite/", fileName);
+
+            campsite.Images = "/Assets/Images/Campsite/" + campsite.ImageFile.FileName;
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await campsite.ImageFile.CopyToAsync(fileStream);
+            }
 
             var result = await _campsiteRepository.AddCampsiteDetails(campsite);
 
@@ -117,19 +126,29 @@ namespace Exoticamp.UI.Controllers
             ViewBag.CategoryList = categoryList.Select(c => new SelectListItem { Value = c.CategoryId.ToString(), Text = c.Name });
             ViewBag.ActivitiesList = activitiesList.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name });
 
-               var result = await _campsiteRepository.EditCampsiteDetails(model);
+            if (model.ImageFile != null)
+            {
+                var fileName = Path.GetFileName(model.ImageFile.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Campsite/", fileName);
+
+                model.Images = "/Assets/Images/Campsite/" + model.ImageFile.FileName;
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.ImageFile.CopyToAsync(fileStream);
+                } 
+            }
+            model.IsActive = true;
+            var result = await _campsiteRepository.EditCampsiteDetails(model);
                 if (result.Succeeded)
                 {
                 TempData["SuccessMessage"] = "Campsite details Updated successfully.";
 
-                return RedirectToAction("ShowCampsite", new { id = model.Id });
+                return RedirectToAction("ShowCampsite");
                 }
                 ModelState.AddModelError("", "Unable to update campsite.");
             
-
-            
-
-            return View(model);
+            return RedirectToAction("ShowCampsite");
         }
 
         public async Task<IActionResult> DeleteCampsite(string id)

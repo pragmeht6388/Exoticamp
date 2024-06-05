@@ -32,23 +32,15 @@ namespace Exoticamp.Api.Controllers.v1
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Create([FromBody] CreateBannerCommand createBannerCommand)
         {
-            // Validate the Link property to ensure it is a well-formed URL
-            if (!Uri.IsWellFormedUriString(createBannerCommand.Link, UriKind.Absolute))
-            {
-                // Send the command through mediator
+     
+        
+   
                 var response = await _mediator.Send(createBannerCommand);
 
-                // Return the response
                 return Ok(response);
-                // Return BadRequest with a response object detailing the failure
+
                
-            }
-            var badResponse = new Response<CreateBannerDto>
-            {
-                Succeeded = false,
-                Message = "Invalid data provided: Link must be a valid URL."
-            };
-            return BadRequest(badResponse);
+         
 
 
         }

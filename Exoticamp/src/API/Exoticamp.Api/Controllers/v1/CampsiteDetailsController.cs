@@ -16,7 +16,7 @@ namespace Exoticamp.Api.Controllers.v1
 {
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiController]
+    [ApiController] 
     public class CampsiteDetailsController : ControllerBase
     {
         private readonly IMediator _mediator;
