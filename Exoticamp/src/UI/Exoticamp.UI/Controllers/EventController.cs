@@ -1,6 +1,7 @@
 ﻿using Exoticamp.UI.Models.Events;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Runtime.CompilerServices;
 
 namespace Exoticamp.UI.Controllers
@@ -10,8 +11,10 @@ namespace Exoticamp.UI.Controllers
         private readonly IEventRepository _eventRepository;
         private readonly ICampsiteDetailsRepository _campsiteRepository;
         private readonly IActivitiesRepository _activitiesRepository;
+        private readonly ILocationRepository _locationRepository;
 
-        public EventController(IEventRepository eventRepository, ICampsiteDetailsRepository campsiteRepository, IActivitiesRepository activitiesRepository)
+        public EventController(IEventRepository eventRepository, ICampsiteDetailsRepository campsiteRepository,
+            IActivitiesRepository activitiesRepository, ILocationRepository locationRepository)
         {
             _eventRepository = eventRepository;   
             _campsiteRepository = campsiteRepository;
@@ -31,8 +34,11 @@ namespace Exoticamp.UI.Controllers
         [HttpGet]
         public IActionResult AddEvent()
         {
-            ViewBag.Campsites=_campsiteRepository.GetAllCampsites();
-            ViewBag.Activities = _activitiesRepository.GetAllActivities();
+            var Campsites=_campsiteRepository.GetAllCampsites();
+            var Activities = _activitiesRepository.GetAllActivities();
+            //ViewBag.Campsites=new SelectList
+            //     ViewBag.Activities
+
             return View(); 
         }
         [HttpPost]
