@@ -1,4 +1,5 @@
-﻿using Exoticamp.Application.Models.Authentication;
+﻿using Exoticamp.Application.Features.Users.Queries.GetUser;
+using Exoticamp.Application.Models.Authentication;
 using Exoticamp.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace Exoticamp.Application.Contracts.Identity
     {
         Task<List< RegistrationRequest>> GetAllUserDetails();
         Task<RegistrationRequest> Delete(RegistrationRequest category);
-        Task<RegistrationRequest> GetUserDetailsById(string Id);
+        Task<GetUserDto> GetUserDetailsById(string Id);
+        Task<string> UpdateUser(GetUserDto model);
+
     }
 }

@@ -7,6 +7,7 @@ namespace Exoticamp.UI.Models.Users
     public class UsersVM
     {
       
+        public string Id {  get; set; }
         public string Name { get; set; }
 
 
@@ -24,5 +25,11 @@ namespace Exoticamp.UI.Models.Users
 
         [Required]
         public string Role { get; set; }
+        public string LocationId {  get; set; }
+        public string Location { get; set; }
+
+        public string PreferenceId { get; set; }
+        public string Preference { get; set; }
+
     }
 }
