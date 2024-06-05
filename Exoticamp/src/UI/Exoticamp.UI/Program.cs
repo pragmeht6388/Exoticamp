@@ -13,6 +13,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;  
 });
 var Configuration = builder.Configuration;
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 // ApiBaseUrl Keys
 builder.Services.Configure<ApiBaseUrl>(Configuration.GetSection("ApiBaseUrl"));

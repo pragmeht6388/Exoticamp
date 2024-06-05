@@ -1,8 +1,9 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Home";
+    var userName = HttpContextAccessor.HttpContext.Session.GetString("UserName");
+
 }
 
 
@@ -17,12 +18,16 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+
     <style>
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
         }
+
         body {
             font-family: Arial, sans-serif;
         }
@@ -40,6 +45,7 @@
             margin-right: calc(-.5* var(--bs-gutter-x));
             margin-left: calc(-.5* var(--bs-gutter-x));
         }
+
         .banner {
             background-image: url('banner.jpg');
             background-size: cover;
@@ -51,9 +57,9 @@
             padding: 0px;
             font-size: 1.2em;
         }
-    
+
         .menu-img {
-            width:35px; /* Adjust the width as needed */
+            width: 35px; /* Adjust the width as needed */
             height: 35px; /* Adjust the height as needed */
             object-fit: cover; /* Ensures the image covers the area without distortion */
             display: block;
@@ -97,7 +103,6 @@
         .abc-container {
             display: flex;
             gap: 20px; /* Space between abc-content elements */
-    
         }
 
         .abc-content {
@@ -105,7 +110,9 @@
             flex-direction: column;
             align-items: flex-start;
         }
+
         }
+
         footer ul {
             padding: 0;
             list-style: none;
@@ -146,33 +153,80 @@
         .bot-message {
             text-align: left;
         }
+
         .user-message {
-    text-align: right;
-}
+            text-align: right;
+        }
 
-.user-query {
-    margin-top: 10px;
-}
+        .user-query {
+            margin-top: 10px;
+        }
 
-.chat-option button {
-    border: none;
-    background: none;
-    text-decoration: none;
-    background: #dcefff;
-}
+        .chat-option button {
+            border: none;
+            background: none;
+            text-decoration: none;
+            background: #dcefff;
+        }
 
 
 
-.chat-message-style {
-    border: none;
-    background: none;
-    text-decoration: none;
-    background: #dcefff;
-    padding: 10px;
-    border-radius: 5px;
-    display: inline-block;
-}
+        .chat-message-style {
+            border: none;
+            background: none;
+            text-decoration: none;
+            background: #dcefff;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
 
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0;
+        }
+
+        .dropdown .dropdown-menu {
+            display: none;
+        }
+
+        .dropdown:hover .dropdown-toggle::after {
+            border-top: 0;
+            border-bottom: 0.3em solid;
+        }
+
+        #chatbot-window {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 30%;
+            height: 50%;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1050;
+            display: none;
+            flex-direction: column;
+        }
+
+        #chatbot-window .chatbot-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #chatbot-window .chatbot-body {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        #chatbot-window .chatbot-close {
+            cursor: pointer;
+        }
 
     </style>
 </head>
@@ -185,40 +239,51 @@
                 <span class="ml-2">Exoticamp</span>
             </div>
             <nav>
-                <a asp-action="Login" asp-controller="Account" class="text-white">Login/Signup</a>
                 <a href="#" class="text-white ml-3">Toll Free Number</a>
                 <a href="#" class="text-white ml-3">List My Site / Become a Host</a>
+                @if (string.IsNullOrEmpty(userName))
+                {
+                    <a asp-action="Login" asp-controller="Account" class="text-white">Login/Signup</a>
+                }
+                else
+                {
+                    <li class="nav-item dropdown list-unstyled">
+                        <a class="text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           aria-expanded="false">
+                            Welcome @userName!
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" asp-action="Profile" asp-controller="User">My Profile</a></li>
+                            <li><a class="dropdown-item" asp-action="Logout" asp-controller="Account">Another action</a></li>
+                            @* <li>
+                        <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li> *@
+                        </ul>
+                    </li>
+
+                }
+
             </nav>
         </div>
     </header>
 
-    
+
     <!-- Collapsible Content Sections -->
- 
-    
     <!-- Other Sections -->
     @RenderBody()
     <!-- Content Sections -->
-   
     </div>
     @* Code for chatbot. *@
     <div id="chatbot-icon" style="position:fixed; bottom:25px; right:25px; cursor:pointer; z-index:1000;">
         <img src="~/images/robot.png" alt="Chatbot" style="width:50px; height:50px;" />
     </div>
-    <div class="modal fade" id="chatbotModal" tabindex="-1" role="dialog" aria-labelledby="chatbotModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="chatbotModalLabel">Chatbot</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" id="close_Chatbot" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="chatbot-content"></div>
-                </div>
-            </div>
+    <div id="chatbot-window">
+        <div class="chatbot-header">
+            <h5 class="modal-title">Welcom @userName!</h5>
+            <span class="chatbot-close" aria-hidden="true">&times;</span>
         </div>
+        <div class="chatbot-body" id="chatbot-content"></div>
     </div>
 
     <!-- Footer -->
@@ -282,7 +347,7 @@
         document.getElementById('backButton').addEventListener('click', function () {
             window.history.back();
         });
-  
+
 
 
 
@@ -340,14 +405,18 @@
     <script>
         $(document).ready(function () {
             $('#chatbot-icon').click(function () {
+                debugger
                 $.get('@Url.Action("ChatbotPartial", "Chatbot")', function (data) {
                     $('#chatbot-content').html(data);
-                    $('#chatbotModal').modal('show');
+                    $('#chatbot-window').show();
                 });
-
-
             });
-        });</script>
+
+            $('.chatbot-close').click(function () {
+                $('#chatbot-window').hide();
+            });
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
