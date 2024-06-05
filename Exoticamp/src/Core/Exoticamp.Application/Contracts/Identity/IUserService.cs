@@ -14,5 +14,7 @@ namespace Exoticamp.Application.Contracts.Identity
         Task<List< RegistrationRequest>> GetAllUserDetails();
         Task<RegistrationRequest> Delete(RegistrationRequest category);
         Task<GetUserDto> GetUserDetailsById(string Id);
+        Task<string> UpdateUser(GetUserDto model);
+
     }
 }

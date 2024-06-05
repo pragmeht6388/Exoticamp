@@ -1,11 +1,14 @@
 ﻿using Exoticamp.UI.Helper;
 using Exoticamp.UI.Models.ResponseModels;
 using Exoticamp.UI.Models.ResponseModels.Users;
+using Exoticamp.UI.Models.UserQuery;
 using Exoticamp.UI.Models.Users;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace Exoticamp.UI.Services.Repositories
 {
@@ -71,6 +74,50 @@ namespace Exoticamp.UI.Services.Repositories
             }
 
             return events;
+        }
+
+        public async Task<Response<UsersVM>> GetUserByIdAsync(string UserId)
+        {
+            _apiRepository = new APIRepository(_configuration);
+
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(UserId, Newtonsoft.Json.Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+
+            var bytes = new ByteArrayContent(content);
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetUserById.Replace("{0}", UserId), HttpMethod.Get, bytes, _sToken);
+            if (response.data != null)
+            {
+                return (JsonConvert.DeserializeObject<Response<UsersVM>>(response.data));
+
+            }
+
+            return new Response<UsersVM>
+            {
+                Success = false,
+                Message = "User Not Found"
+            };
+        }
+
+        public async Task<Response<string>> UpdateProfile(UsersVM model)
+        {
+            _apiRepository = new APIRepository(_configuration);
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(model, Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+            var bytes = new ByteArrayContent(content);
+            _oApiResponse = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.UpdateProfile, HttpMethod.Put, bytes, _sToken);
+
+            if (_oApiResponse.data != null)
+            {
+                return JsonConvert.DeserializeObject<Response<string>>(_oApiResponse.data);
+            }
+
+            return new Response<string>()
+            {
+                Success = false,
+                Message = "Failed to add user query."
+            };
         }
     }
 }

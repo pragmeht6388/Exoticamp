@@ -104,5 +104,21 @@ namespace Exoticamp.Identity.Services
                 
             };
         }
+
+        public async Task<string> UpdateUser(GetUserDto model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
+            user.PhoneNumber = model.PhoneNumber;
+            user.Name = model.Name;
+            user.Email = model.Email;
+            user.ActivityId = model.PreferenceId;
+            user.LocationId = model.LocationId;
+
+            await _userManager.UpdateAsync(user);
+
+            return user.Id;
+
+
+        }
     }
 }
