@@ -18,14 +18,16 @@ namespace Exoticamp.Application.Features.Banners.Commands.CreateBanner
                 .MaximumLength(2048).WithMessage(GetMessage("2", ApplicationConstants.LANG_ENG));
 
             RuleFor(p => p.PromoCode)
-                .MaximumLength(50).WithMessage(GetMessage("3", ApplicationConstants.LANG_ENG));
+                .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
+                .NotNull()
+                .MaximumLength(50).WithMessage(GetMessage("2", ApplicationConstants.LANG_ENG));
 
             RuleFor(p => p.Locations)
-                .NotEmpty().WithMessage(GetMessage("4", ApplicationConstants.LANG_ENG))
+                .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
                 .NotNull();
 
             RuleFor(p => p.ImagePath)
-                .NotEmpty().WithMessage(GetMessage("5", ApplicationConstants.LANG_ENG))
+                .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
                 .NotNull();
         }
 
@@ -33,7 +35,7 @@ namespace Exoticamp.Application.Features.Banners.Commands.CreateBanner
         {
             var messageTask = _messageRepository.GetMessage(code, lang);
             var message = messageTask?.Result;
-            return message?.MessageContent?.ToString() ?? "Default error message.";
+            return message?.MessageContent?.ToString() ?? "Some Details are Invalid";
         }
     }
 }

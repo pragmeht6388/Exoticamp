@@ -18,11 +18,16 @@ namespace Exoticamp.UI.Services.Repositories
         private string _sToken = string.Empty;
         private readonly IOptions<ApiBaseUrl> _apiBaseUrl;
         private readonly IConfiguration _configuration;
-        public CampsiteDetailsRepository(IOptions<ApiBaseUrl> apiBaseUrl)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public CampsiteDetailsRepository(IOptions<ApiBaseUrl> apiBaseUrl, IHttpContextAccessor httpContextAccessor)
         {
             _apiBaseUrl = apiBaseUrl;
+            _httpContextAccessor = httpContextAccessor;
 
         }
+
+        private ISession Session => _httpContextAccessor.HttpContext.Session;
         public async Task<IEnumerable<CampsiteDetailsVM>> GetAllCampsites()
         {
             GetAllCampsiteDetailsResponseModels response = new GetAllCampsiteDetailsResponseModels();
@@ -72,7 +77,7 @@ namespace Exoticamp.UI.Services.Repositories
             var json = JsonConvert.SerializeObject(campsiteVM, Newtonsoft.Json.Formatting.Indented);
             byte[] content = Encoding.ASCII.GetBytes(json);
             var bytes = new ByteArrayContent(content);
-
+            _sToken = Session?.GetString("Token")?.ToString();
 
             response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.AddCampsiteDetails, HttpMethod.Post, bytes, _sToken);
 
