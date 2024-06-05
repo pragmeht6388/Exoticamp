@@ -51,6 +51,7 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Event, CreateEventCommandDto>().ReverseMap();
 
             CreateMap<Event, TransactionCommand>().ReverseMap();
+            CreateMap<Event, TransactionCommandDto>().ReverseMap();
             CreateMap<Event, UpdateEventCommand>().ReverseMap();
             CreateMap<UpdateEventCommand,UpdateEventDto>().ReverseMap();
             CreateMap<Event, EventDetailVm>().ReverseMap();
