@@ -8,9 +8,14 @@ namespace Exoticamp.UI.Controllers
     public class EventController : Controller
     {
         private readonly IEventRepository _eventRepository;
-        public EventController(IEventRepository eventRepository)
+        private readonly ICampsiteDetailsRepository _campsiteRepository;
+        private readonly IActivitiesRepository _activitiesRepository;
+
+        public EventController(IEventRepository eventRepository, ICampsiteDetailsRepository campsiteRepository, IActivitiesRepository activitiesRepository)
         {
             _eventRepository = eventRepository;   
+            _campsiteRepository = campsiteRepository;
+            _activitiesRepository = activitiesRepository;
         }
         public IActionResult Index()
         {
@@ -26,6 +31,8 @@ namespace Exoticamp.UI.Controllers
         [HttpGet]
         public IActionResult AddEvent()
         {
+            ViewBag.Campsites=_campsiteRepository.GetAllCampsites();
+            ViewBag.Activities = _activitiesRepository.GetAllActivities();
             return View(); 
         }
         [HttpPost]
