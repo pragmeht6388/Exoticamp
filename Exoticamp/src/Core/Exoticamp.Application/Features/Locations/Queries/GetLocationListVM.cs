@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Exoticamp.Domain.Entities
+namespace Exoticamp.Application.Features.Locations.Queries
 {
-    public class Location
+    public class GetLocationListVM
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
-
-      
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Exoticamp.UI.Models.Events;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Runtime.CompilerServices;
 
 namespace Exoticamp.UI.Controllers
@@ -8,9 +9,16 @@ namespace Exoticamp.UI.Controllers
     public class EventController : Controller
     {
         private readonly IEventRepository _eventRepository;
-        public EventController(IEventRepository eventRepository)
+        private readonly ICampsiteDetailsRepository _campsiteRepository;
+        private readonly IActivitiesRepository _activitiesRepository;
+        private readonly ILocationRepository _locationRepository;
+
+        public EventController(IEventRepository eventRepository, ICampsiteDetailsRepository campsiteRepository,
+            IActivitiesRepository activitiesRepository, ILocationRepository locationRepository)
         {
             _eventRepository = eventRepository;   
+            _campsiteRepository = campsiteRepository;
+            _activitiesRepository = activitiesRepository;
         }
         public IActionResult Index()
         {
@@ -26,6 +34,11 @@ namespace Exoticamp.UI.Controllers
         [HttpGet]
         public IActionResult AddEvent()
         {
+            var Campsites=_campsiteRepository.GetAllCampsites();
+            var Activities = _activitiesRepository.GetAllActivities();
+            //ViewBag.Campsites=new SelectList
+            //     ViewBag.Activities
+
             return View(); 
         }
         [HttpPost]
@@ -34,10 +47,10 @@ namespace Exoticamp.UI.Controllers
             if (ModelState.IsValid)
             {
 
-                var fileName = Path.GetFileName(model.Image.FileName);
+                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.Image.FileName)}";
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
 
-                model.ImageUrl = "/Assets/Images/Event/" + model.Image.FileName;
+                model.ImageUrl = "/Assets/Images/Event/" + fileName;
 
                 var response = await _eventRepository.AddEvent(model);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -71,10 +84,10 @@ namespace Exoticamp.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var fileName = Path.GetFileName(model.Image.FileName);
+                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.Image.FileName)}";
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
 
-                model.ImageUrl = "/Assets/Images/Event/" + model.Image.FileName;
+                model.ImageUrl = "/Assets/Images/Event/" + fileName;
 
                 var response = await _eventRepository.EditEvent(model);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -106,10 +119,6 @@ namespace Exoticamp.UI.Controllers
         }
 
         
-        public async Task<IActionResult> DeleteData(string id)
-        {
-            var eventObj = await _eventRepository.DeleteEvent(id);
-            return RedirectToAction("GetAllEvents" ,"Event");
-        }
+     
     }
 }

@@ -68,6 +68,8 @@ namespace Exoticamp.UI.Controllers
             HttpContext.Session.SetString("Token", response.Token);
             HttpContext.Session.SetString("UserRole", response.Role);
             HttpContext.Session.SetString("UserId", response.Id);
+            HttpContext.Session.SetString("UserName", response.UserName);
+
 
 
 

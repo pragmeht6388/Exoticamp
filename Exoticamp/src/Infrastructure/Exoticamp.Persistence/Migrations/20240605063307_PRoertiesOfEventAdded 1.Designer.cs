@@ -4,6 +4,7 @@ using Exoticamp.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Exoticamp.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240605063307_PRoertiesOfEventAdded 1")]
+    partial class PRoertiesOfEventAdded1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +37,6 @@ namespace Exoticamp.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("EventActivitiesId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -48,8 +48,6 @@ namespace Exoticamp.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EventActivitiesId");
 
                     b.ToTable("Activities");
                 });
@@ -401,12 +399,6 @@ namespace Exoticamp.Persistence.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("EventActivitiesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("EventLocationId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("EventRules")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -450,45 +442,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("EventActivitiesId");
-
-                    b.HasIndex("EventLocationId");
-
                     b.ToTable("Events");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.EventActivities", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ActivityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("EventId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EventActivities");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.EventLocation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("EventId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("LocationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EventLocations");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Location", b =>
@@ -497,16 +451,11 @@ namespace Exoticamp.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("EventLocationId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EventLocationId");
 
                     b.ToTable("Locations");
                 });
@@ -637,13 +586,6 @@ namespace Exoticamp.Persistence.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Exoticamp.Domain.Entities.Activities", b =>
-                {
-                    b.HasOne("Exoticamp.Domain.Entities.EventActivities", null)
-                        .WithMany("Activities")
-                        .HasForeignKey("EventActivitiesId");
-                });
-
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
                 {
                     b.HasOne("Exoticamp.Domain.Entities.Activities", "Activities")
@@ -675,22 +617,7 @@ namespace Exoticamp.Persistence.Migrations
                         .WithMany("Events")
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("Exoticamp.Domain.Entities.EventActivities", null)
-                        .WithMany("Events")
-                        .HasForeignKey("EventActivitiesId");
-
-                    b.HasOne("Exoticamp.Domain.Entities.EventLocation", null)
-                        .WithMany("Events")
-                        .HasForeignKey("EventLocationId");
-
                     b.Navigation("Campsite");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.Location", b =>
-                {
-                    b.HasOne("Exoticamp.Domain.Entities.EventLocation", null)
-                        .WithMany("Locations")
-                        .HasForeignKey("EventLocationId");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Activities", b =>
@@ -703,20 +630,6 @@ namespace Exoticamp.Persistence.Migrations
                     b.Navigation("CampsiteDetails");
 
                     b.Navigation("Events");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.EventActivities", b =>
-                {
-                    b.Navigation("Activities");
-
-                    b.Navigation("Events");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.EventLocation", b =>
-                {
-                    b.Navigation("Events");
-
-                    b.Navigation("Locations");
                 });
 #pragma warning restore 612, 618
         }
