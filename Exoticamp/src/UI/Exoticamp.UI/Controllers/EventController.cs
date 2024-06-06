@@ -1,5 +1,4 @@
-﻿using Exoticamp.UI.Models;
-using Exoticamp.UI.Models.Events;
+﻿using Exoticamp.UI.Models.Events;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -20,7 +19,6 @@ namespace Exoticamp.UI.Controllers
             _eventRepository = eventRepository;   
             _campsiteRepository = campsiteRepository;
             _activitiesRepository = activitiesRepository;
-            _locationRepository = locationRepository;
         }
         public IActionResult Index()
         {
@@ -34,20 +32,12 @@ namespace Exoticamp.UI.Controllers
             return View(events);
         }
         [HttpGet]
-        public async Task<IActionResult> AddEvent()
+        public IActionResult AddEvent()
         {
-            var Campsites=await _campsiteRepository.GetAllCampsites();
-            var Activities =await  _activitiesRepository.GetAllActivities();
-            var Locations = await _locationRepository.GetAllLocations();
-            if (Campsites==null || Activities==null|| Locations==null)
-            {
-                return View("Error", new ErrorViewModel { });
-            }
-
-            ViewBag.Campsites = new SelectList(Campsites ,"Id","Name");
-            ViewBag.Activities = new SelectList(Activities, "Id", "Name");
-            ViewBag.Locations = new SelectList(Locations,"Id","Name");
-
+            var Campsites=_campsiteRepository.GetAllCampsites();
+            var Activities = _activitiesRepository.GetAllActivities();
+            //ViewBag.Campsites=new SelectList
+            //     ViewBag.Activities
 
             return View(); 
         }
@@ -128,26 +118,7 @@ namespace Exoticamp.UI.Controllers
             return RedirectToAction("GetAllEvents", "Event");
         }
 
-        [HttpGet]
-        public async Task<JsonResult> GetCampsite(Guid CampsiteId)
-        {
-            // Fetch departments based on the selected hospital
-            var campsites = (await _campsiteRepository.GetAllCampsites())
-                                                    .Where(d => d.Id == CampsiteId)
-                                                    .ToList();
-            return Json(campsites);
-        }
-
-        //[HttpGet]
-        //public async Task<JsonResult> GetActivities(Guid locationId, Guid campsiteId)
-        //{
-        //    // Fetch doctors based on the selected department
-        //    var doctors =(await _activitiesRepository.GetAllActivities())
-        //                                    .Where(d => d.Id == departmentId && d.HospitalId == hospitalId)
-        //                                    .ToList();
-        //    return Json(doctors);
-        //}
-
-
+        
+     
     }
 }
