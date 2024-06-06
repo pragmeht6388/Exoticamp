@@ -10,32 +10,37 @@ namespace Exoticamp.UI.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IEventRepository _eventRepository;
+        private readonly ILocationRepository _locationRepository;
 
 
-        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository)
+
+        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository)
         {
             _logger = logger;
             _eventRepository = eventRepository;
+            _locationRepository = locationRepository;
         }
 
         public async Task<IActionResult> Index()
         {
             var locationId = HttpContext.Session.GetString("LocationId");
-            ViewBag.Locations = new List<LocationVM>()
-            {
-                new LocationVM()
-                {
-                    Id = "1",
-                    Name = "Mumbai"
-                },
-                new LocationVM()
-                {
-                    Id = "2",
-                    Name = "Pune"
-                },
-            };
+            ViewBag.Locations = await _locationRepository.GetAllLocations();
             ViewBag.Events = await _eventRepository.GetAllEvents();
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult SetLocationId(int locationId)
+        {
+            try
+            {
+                HttpContext.Session.SetInt32("LocationId", locationId);
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
 
         public IActionResult Privacy()
@@ -59,6 +64,15 @@ namespace Exoticamp.UI.Controllers
         public IActionResult InfoPage()
         {
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetLocations()
+        {
+            // Simulate fetching data from a database or API
+            var locations = await _locationRepository.GetAllLocations();
+
+            return Json(locations);
         }
     }
 }

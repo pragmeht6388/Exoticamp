@@ -1,4 +1,5 @@
 ﻿@model Exoticamp.UI.Models.Users.UsersVM
+@using Exoticamp.UI.Models.Location
 
 @{
     ViewData["Title"] = "My Profile";
@@ -34,8 +35,14 @@
                     <label for="location">Location</label>
                     <i class="edit-icon"></i>
                     <select id="preferences" asp-for="LocationId" class="form-control">
-                        <option value="0B90DA74-E54A-4FC3-A7B5-3DB5D7C9A103">Mumbai</option>
-                        <option value="664810DF-6AD5-4C65-83B9-AB6A4EEF7E27">Pune</option>
+                        @if (ViewBag.Locations is not null)
+                        {
+                            @foreach (var item in (IEnumerable<LocationVM>)ViewBag.Locations)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        }
+                        
                     </select>
                 </div>
                 <div class="form-group">

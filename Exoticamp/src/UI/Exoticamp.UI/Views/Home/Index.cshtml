@@ -161,7 +161,7 @@
                             <div class="abc-content">
                                 <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
                                 <h5 class="mt-3">@item.Name</h5>
-                                <button class="btn btn-info mt-2">View</button>
+                                <button class="btn btn-info mt-2 view-button" data-id="@item.Id">View</button>
                             </div>
                         }
                     }
@@ -700,5 +700,31 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        $(document).ready(function () {
+            $('.view-button').click(function () {
+                var locationId = $(this).data('id');
+
+                $.ajax({
+                    url: '@Url.Action("SetLocationId", "Home")',
+                    type: 'POST',
+                    data: { locationId: locationId },
+                    success: function (response) {
+                        if (response.success) {
+                            // Handle success - you can redirect or update the UI accordingly
+                            location.reload();
+                        } else {
+                            // Handle failure
+                            alert('Failed to set location ID.');
+                        }
+                    },
+                    error: function () {
+                        // Handle error
+                        alert('An error occurred while setting the location ID.');
+                    }
+                });
+            });
+        });
+    </script>
 }
 
