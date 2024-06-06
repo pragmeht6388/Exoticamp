@@ -55,6 +55,10 @@ namespace Exoticamp.Domain.Entities
         [ForeignKey("CampsiteId")]
         public virtual Domain.Entities.CampsiteDetails Campsite { get; set; }
 
+        public ICollection<EventActivities> EventActivities { get; set; } = new List<EventActivities>();
+        public ICollection<EventLocation> EventLocations { get; set; } = new List<EventLocation>();
+
+
 
         public static ValidationResult ValidateStartDate(DateTime startDate, ValidationContext context)
         {
