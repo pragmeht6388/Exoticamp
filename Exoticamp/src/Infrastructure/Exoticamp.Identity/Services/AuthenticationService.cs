@@ -35,6 +35,7 @@ namespace Exoticamp.Identity.Services
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
+            
             var role = await _userManager.GetRolesAsync(user);
             AuthenticationResponse response = new AuthenticationResponse();
 
@@ -46,12 +47,36 @@ namespace Exoticamp.Identity.Services
             }
 
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
+            if (user.IsLocked)
+            {
+                response.IsAuthenticated = false;
+                response.Message = $"Account for '{request.Email}' is locked. Please contact the administrator.";
+                return response;
+            }
 
             if (!result.Succeeded)
             {
-                throw new AuthenticationException($"Credentials for '{request.Email}' aren't valid'.");
-            }
+                user. LoginAttemptCount += 1;
 
+                if (user.LoginAttemptCount >= 3)
+                {
+                    user.IsLocked = true;
+                    response.IsAuthenticated = false;
+                    response.Message = $"Account for '{request.Email}' is locked due to multiple failed login attempts. Please contact the administrator.";
+
+                }
+                else
+                {
+                    response.IsAuthenticated = false;
+                    response.Message = $"Invalid password for '{request.Email}'. You have {3 - user.LoginAttemptCount} more attempts before your account is locked.";
+                }
+
+                await _userManager.UpdateAsync(user);
+                return response;
+                //throw new AuthenticationException($"Credentials for '{request.Email}' aren't valid'.");
+            }
+            user.LoginAttemptCount = 0;
+            await _userManager.UpdateAsync(user);
             JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
 
             if (user.RefreshTokens.Any(a => a.IsActive))
@@ -260,6 +285,61 @@ namespace Exoticamp.Identity.Services
             await _userManager.UpdateAsync(user);
             response.IsRevoked = true;
             response.Message = "Token revoked";
+            return response;
+        }
+
+        public async Task<Response<object>> MarkUserAsDeletedAsync(string userId)
+        {
+            var response = new Response<object>();
+
+            var user = await _userManager. FindByEmailAsync(userId);
+            if (user == null)
+            {
+                response.Succeeded = false;
+                response.Message = "User not found";
+                return response;
+            }
+
+            user.IsDeleted = true; // Assuming `IsDeleted` is a property in ApplicationUser
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                response.Succeeded = false;
+                response.Message = "Error marking user as deleted";
+                return response;
+            }
+
+            response.Succeeded = true;
+            response.Message = "User marked as deleted successfully";
+            return response;
+        }
+
+        public async Task<Response<object>> MarkUserUnlockedAsync(string userId)
+        {
+            var response = new Response<object>();
+
+            var user = await _userManager. FindByEmailAsync(userId);
+            if (user == null)
+            {
+                response.Succeeded = false;
+                response.Message = "User not found";
+                return response;
+            }
+
+            user.IsLocked = false;
+            user.LoginAttemptCount = 0;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                response.Succeeded = false;
+                response.Message = "Error unlocking user account";
+                return response;
+            }
+
+            response.Succeeded = true;
+            response.Message = "User account unlocked successfully";
             return response;
         }
     }

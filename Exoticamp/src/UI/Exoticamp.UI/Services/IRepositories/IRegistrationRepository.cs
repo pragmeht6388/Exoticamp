@@ -6,6 +6,8 @@ namespace Exoticamp.UI.Services.IRepositories
     public interface IRegistrationRepository
     {
         Task<CreateRegistrationUsResponse> CreateRegistration(RegistrationVM   registrationVM);
+        Task<CreateRegistrationUsResponse> CreateVendorRegistration(RegistrationVM registrationVM);
+         
     }
 }
  
