@@ -44,8 +44,13 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> ShowCampsite()
         {
             var campsiteDetail = await _campsiteRepository.GetAllCampsites();
-            return View(campsiteDetail);
+
+            // Filter the campsiteDetail to include only those with isActive set to true
+            var activeCampsites = campsiteDetail.Where(c => c.isActive == true).ToList();
+
+            return View(activeCampsites);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> EditCampsite(string id)
@@ -79,6 +84,9 @@ namespace Exoticamp.UI.Controllers
             
         }
 
-
+        public IActionResult AddCampsiteDetails()
+        {
+            return View();
+        }
     }
 }

@@ -23,22 +23,38 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
             _campsiteRepository = campsiteRepository;
             _logger = logger;
         }
-         
+
+        //public async Task<Response<IEnumerable<CampsiteDetailsVM>>> Handle(GetCampsiteDetailsListQuery request, CancellationToken cancellationToken)
+        //{
+        //    _logger.LogInformation("Handle Initiated");
+
+        //    var allCampsite = (await _campsiteRepository.GetAllCampsiteWithCategoryAndActivityDetails()).OrderBy(x=>x.Name);
+
+        //    var activeCampsites = allCampsite.Where(c => c.isActive == true);
+
+        //    var orderedCampsites = activeCampsites.OrderBy(x => x.Name);
+
+        //    //var campsiteVMs = _mapper.Map<IEnumerable<CampsiteDetailsVM>>(orderedCampsites);
+
+        //    _logger.LogInformation("Handle Completed");
+
+        //    return new Response<IEnumerable<CampsiteDetailsVM>>(allCampsite, "success");
+        //}
         public async Task<Response<IEnumerable<CampsiteDetailsVM>>> Handle(GetCampsiteDetailsListQuery request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Handle Initiated");
 
-            var allCampsite = (await _campsiteRepository.GetAllCampsiteWithCategoryAndActivityDetails()).OrderBy(x=>x.Name);
+            var allCampsite = await _campsiteRepository.GetAllCampsiteWithCategoryAndActivityDetails();
 
             var activeCampsites = allCampsite.Where(c => c.isActive == true);
 
             var orderedCampsites = activeCampsites.OrderBy(x => x.Name);
 
-            //var campsiteVMs = _mapper.Map<IEnumerable<CampsiteDetailsVM>>(orderedCampsites);
+            var campsiteVMs = _mapper.Map<IEnumerable<CampsiteDetailsVM>>(orderedCampsites);
 
-            _logger.LogInformation("Hanlde Completed");
+            _logger.LogInformation("Handle Completed");
 
-            return new Response<IEnumerable<CampsiteDetailsVM>>(allCampsite, "success");
+            return new Response<IEnumerable<CampsiteDetailsVM>>(campsiteVMs, "success");
         }
 
 

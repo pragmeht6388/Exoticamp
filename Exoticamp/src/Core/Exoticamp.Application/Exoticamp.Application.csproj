@@ -23,9 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Activities\" />
     <Folder Include="Features\Users\Commands\AddUser\" />
-    <Folder Include="Features\Users\Commands\UpdateUser\" />
   </ItemGroup>
 
 </Project>

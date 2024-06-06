@@ -2,39 +2,48 @@
 
 @{
     ViewData["Title"] = "ContactUs";
+    Layout = "~/Views/Shared/_VendorLayout.cshtml";
 }
 
-<h1>ContactUs</h1>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+</head>
 
+<h1 class="text-center">Contact Us</h1>
 <hr />
+
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <form asp-action="ContactUs" asp-controller="ContactUs" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-8">
+            <form asp-action="ContactUs" asp-controller="ContactUs" method="post" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="form-label">Name<span class="text-danger">*</span></label>
+                    <input asp-for="Name" class="form-control" required placeholder="Enter Your Name" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="Email" class="form-label">Email<span class="text-danger">*</span></label>
+                    <input asp-for="Email" type="email" class="form-control" required placeholder="Enter Your Email" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Message" class="control-label"></label>
-                    <input asp-for="Message" class="form-control" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="Message" class="form-label">Message<span class="text-danger">*</span></label>
+                    <textarea asp-for="Message" class="form-control" rows="5" required placeholder="Type Your Message here"></textarea>
                     <span asp-validation-for="Message" class="text-danger"></span>
                 </div>
+
                 <div class="form-group" style="display:none;">
-                    <label asp-for="SubmittedAt" class="control-label"></label>
+                    <label asp-for="SubmittedAt" class="form-label"></label>
                     <input asp-for="SubmittedAt" class="form-control" />
                     <span asp-validation-for="SubmittedAt" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>
@@ -45,4 +54,16 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        $(document).ready(function () {
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+                    toastr.success('@TempData["SuccessMessage"]');
+            </text>
+        }
+                });
+    </script>
 }

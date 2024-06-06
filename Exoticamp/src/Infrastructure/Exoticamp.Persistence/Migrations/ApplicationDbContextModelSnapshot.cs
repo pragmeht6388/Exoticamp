@@ -34,6 +34,9 @@ namespace Exoticamp.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("EventActivitiesId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -45,6 +48,8 @@ namespace Exoticamp.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EventActivitiesId");
 
                     b.ToTable("Activities");
                 });
@@ -79,59 +84,6 @@ namespace Exoticamp.Persistence.Migrations
                     b.HasKey("BannerId");
 
                     b.ToTable("Banners");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.Campsite", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ApprovedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ApprovededDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletededBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("TentType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Campsites");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
@@ -426,6 +378,9 @@ namespace Exoticamp.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("CampsiteId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
@@ -440,22 +395,34 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("varchar(500)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("EventActivitiesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("EventLocationId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("EventRules")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Highlights")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("varchar(450)");
@@ -465,6 +432,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
                     b.Property<decimal>("Price")
@@ -473,11 +441,74 @@ namespace Exoticamp.Persistence.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.HasKey("EventId");
+
+                    b.HasIndex("CampsiteId");
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("EventActivitiesId");
+
+                    b.HasIndex("EventLocationId");
+
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.EventActivities", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ActivityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventActivities");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.EventLocation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("LocationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventLocations");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Location", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("EventLocationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventLocationId");
+
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Message", b =>
@@ -498,39 +529,12 @@ namespace Exoticamp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("MessageId");
 
                     b.ToTable("Messages");
-
-                    b.HasData(
-                        new
-                        {
-                            MessageId = new Guid("253c75d5-32af-4dbf-ab63-1af449bde7bd"),
-                            Code = "1",
-                            Language = "en",
-                            MessageContent = "{PropertyName} is required.",
-                            Type = "Error"
-                        },
-                        new
-                        {
-                            MessageId = new Guid("ed0cc6b6-11f4-4512-a441-625941917502"),
-                            Code = "2",
-                            Language = "en",
-                            MessageContent = "{PropertyName} must not exceed {MaxLength} characters.",
-                            Type = "Error"
-                        },
-                        new
-                        {
-                            MessageId = new Guid("fafe649a-3e2a-4153-8fd8-9dcd0b87e6d8"),
-                            Code = "3",
-                            Language = "en",
-                            MessageContent = "An event with the same name and date already exists.",
-                            Type = "Error"
-                        });
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Order", b =>
@@ -567,71 +571,6 @@ namespace Exoticamp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("7e94bc5b-71a5-4c8c-bc3b-71bb7976237e"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(8926),
-                            OrderTotal = 400,
-                            UserId = new Guid("a441eb40-9636-4ee6-be49-a66c5ec1330b")
-                        },
-                        new
-                        {
-                            Id = new Guid("86d3a045-b42d-4854-8150-d6a374948b6e"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(8953),
-                            OrderTotal = 135,
-                            UserId = new Guid("ac3cfaf5-34fd-4e4d-bc04-ad1083ddc340")
-                        },
-                        new
-                        {
-                            Id = new Guid("771cca4b-066c-4ac7-b3df-4d12837fe7e0"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(8973),
-                            OrderTotal = 85,
-                            UserId = new Guid("d97a15fc-0d32-41c6-9ddf-62f0735c4c1c")
-                        },
-                        new
-                        {
-                            Id = new Guid("3dcb3ea0-80b1-4781-b5c0-4d85c41e55a6"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(9029),
-                            OrderTotal = 245,
-                            UserId = new Guid("4ad901be-f447-46dd-bcf7-dbe401afa203")
-                        },
-                        new
-                        {
-                            Id = new Guid("e6a2679c-79a3-4ef1-a478-6f4c91b405b6"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(9050),
-                            OrderTotal = 142,
-                            UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
-                        },
-                        new
-                        {
-                            Id = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(9071),
-                            OrderTotal = 40,
-                            UserId = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923")
-                        },
-                        new
-                        {
-                            Id = new Guid("ba0eb0ef-b69b-46fd-b8e2-41b4178ae7cb"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2024, 5, 31, 7, 52, 24, 847, DateTimeKind.Utc).AddTicks(9089),
-                            OrderTotal = 116,
-                            UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
-                        });
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Product", b =>
@@ -698,6 +637,13 @@ namespace Exoticamp.Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Activities", b =>
+                {
+                    b.HasOne("Exoticamp.Domain.Entities.EventActivities", null)
+                        .WithMany("Activities")
+                        .HasForeignKey("EventActivitiesId");
+                });
+
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
                 {
                     b.HasOne("Exoticamp.Domain.Entities.Activities", "Activities")
@@ -719,9 +665,32 @@ namespace Exoticamp.Persistence.Migrations
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
                 {
+                    b.HasOne("Exoticamp.Domain.Entities.CampsiteDetails", "Campsite")
+                        .WithMany()
+                        .HasForeignKey("CampsiteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Exoticamp.Domain.Entities.Category", null)
                         .WithMany("Events")
                         .HasForeignKey("CategoryId");
+
+                    b.HasOne("Exoticamp.Domain.Entities.EventActivities", null)
+                        .WithMany("Events")
+                        .HasForeignKey("EventActivitiesId");
+
+                    b.HasOne("Exoticamp.Domain.Entities.EventLocation", null)
+                        .WithMany("Events")
+                        .HasForeignKey("EventLocationId");
+
+                    b.Navigation("Campsite");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Location", b =>
+                {
+                    b.HasOne("Exoticamp.Domain.Entities.EventLocation", null)
+                        .WithMany("Locations")
+                        .HasForeignKey("EventLocationId");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Activities", b =>
@@ -734,6 +703,20 @@ namespace Exoticamp.Persistence.Migrations
                     b.Navigation("CampsiteDetails");
 
                     b.Navigation("Events");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.EventActivities", b =>
+                {
+                    b.Navigation("Activities");
+
+                    b.Navigation("Events");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.EventLocation", b =>
+                {
+                    b.Navigation("Events");
+
+                    b.Navigation("Locations");
                 });
 #pragma warning restore 612, 618
         }

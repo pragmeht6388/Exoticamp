@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30); 
@@ -31,6 +33,7 @@ builder.Services.AddScoped<IUserQueryRepository, UserQueryRepository>();
 
 builder.Services.AddScoped<ICampsiteDetailsRepository, CampsiteDetailsRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IActivitiesRepository, ActivitiesRepository>();
 
 var app = builder.Build();
 

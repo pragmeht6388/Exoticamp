@@ -1,0 +1,172 @@
+﻿@model Exoticamp.UI.Models.CampsiteDetails.CampsiteDetailsVM
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .back-to-list {
+            position: absolute;
+            top: 130px;
+            right: 20px;
+        }
+
+            .back-to-list a {
+                text-decoration: none;
+                color: white;
+                background-color: #007bff;
+                padding: 10px 20px;
+                border-radius: 5px;
+            }
+
+                .back-to-list a:hover {
+                    background-color: #0056b3;
+                }
+
+        .header {
+            text-align: center;
+            margin-top: 60px;
+            / Adjust margin-top to create space for the back-to-list button / margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="back-to-list">
+        <a asp-action="ShowCampsite">Back to List</a>
+    </div>
+
+    <div class="header">
+        <h1>Campsite Details</h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8" style="background-color:antiquewhite">
+            <form id="campsiteForm" asp-action="AddCampsiteDetails" method="post" enctype="multipart/form-data">
+                <div id="stepperForm">
+                    <div class="step">
+                        <h2>Step 1: Basic Information</h2>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label">Name<span class="text-danger">*</span></label>
+                            <input asp-for="Name" class="form-control" required />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Location" class="control-label">State<span class="text-danger">*</span></label>
+                            <select asp-for="Location" class="form-control" required>
+                                <option value="">-- Select State --</option>
+                                <!-- Add other options here -->
+                            </select>
+                            <span asp-validation-for="Location" class="text-danger"></span>
+                        </div>
+                        <!-- Add other inputs for step 1 -->
+                        <button type="button" class="btn btn-primary next-step">Next</button>
+                    </div>
+                    <div class="step">
+                        <h2>Step 2: Tent Details</h2>
+                        <div class="form-group">
+                            <label asp-for="TentType" class="control-label">Tent Type<span class="text-danger">*</span></label>
+                            <select asp-for="TentType" class="form-control">
+                                <option value="">-- Select Tent Type --</option>
+                                <!-- Add other options here -->
+                            </select>
+                            <span asp-validation-for="TentType" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ImageFile" class="control-label">Images<span class="text-danger">*</span></label>
+                            <input asp-for="ImageFile" class="form-control" type="file" />
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        </div>
+                        <!-- Add other inputs for step 2 -->
+                        <button type="button" class="btn btn-secondary prev-step">Previous</button>
+                        <button type="button" class="btn btn-primary next-step">Next</button>
+                    </div>
+                    <div class="step">
+                        <h2>Step 3: Activities and Amenities</h2>
+                        <div class="form-group">
+                            <label asp-for="ActivitiesId" class="control-label">Activities <span class="text-danger">*</span></label>
+                            <select asp-for="ActivitiesId" class="form-control" asp-items="@(ViewBag.ActivitiesList)" required></select>
+                            <span asp-validation-for="ActivitiesId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Amenities" class="control-label">Amenities<span class="text-danger">*</span></label>
+                            <textarea asp-for="Amenities" class="form-control"></textarea>
+                            <span asp-validation-for="Amenities" class="text-danger"></span>
+                        </div>
+                        <!-- Add other inputs for step 3 -->
+                        <button type="button" class="btn btn-secondary prev-step">Previous</button>
+                        <button type="button" class="btn btn-primary next-step">Next</button>
+                    </div>
+                    <div class="step">
+                        <h2>Step 4: Rules and Safety</h2>
+                        <div class="form-group">
+                            <label asp-for="CampsiteRules" class="control-label">Campsite Rules<span class="text-danger">*</span></label>
+                            <textarea asp-for="CampsiteRules" class="form-control"></textarea>
+                            <span asp-validation-for="CampsiteRules" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Safety" class="control-label">Safety<span class="text-danger">*</span></label>
+                            <textarea asp-for="Safety" class="form-control"></textarea>
+                            <span asp-validation-for="Safety" class="text-danger"></span>
+                        </div>
+                        <!-- Add other inputs for step 4 -->
+                        <button type="button" class="btn btn-secondary prev-step">Previous</button>
+                        <button type="button" class="btn btn-primary next-step">Next</button>
+                    </div>
+                    <div class="step">
+                        <h2>Step 5: Summary and Submit</h2>
+                        <div class="form-group">
+                            <label asp-for="QuickSummary" class="control-label">Quick Summary<span class="text-danger">*</span></label>
+                            <textarea asp-for="QuickSummary" class="form-control"></textarea>
+                            <span asp-validation-for="QuickSummary" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CancellationPolicy" class="control-label">Cancellation Policy<span class="text-danger">*</span></label>
+                            <input asp-for="CancellationPolicy" class="form-control" />
+                            <span asp-validation-for="CancellationPolicy" class="text-danger"></span>
+                        </div>
+                        <!-- Add other inputs for step 5 -->
+                        <button type="button" class="btn btn-secondary prev-step">Previous</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var currentStep = 0;
+            var steps = $(".step");
+
+            steps.hide();
+            steps.eq(currentStep).show();
+
+            $(".next-step").click(function () {
+                steps.eq(currentStep).hide();
+                currentStep++;
+                steps.eq(currentStep).show();
+            });
+
+            $(".prev-step").click(function () {
+                steps.eq(currentStep).hide();
+                currentStep--;
+                steps.eq(currentStep).show();
+            });
+
+            // Check if TempData contains the success message
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+                    toastr.success('@TempData["SuccessMessage"]');
+            </text>
+        }
+        });
+    </script>
+}

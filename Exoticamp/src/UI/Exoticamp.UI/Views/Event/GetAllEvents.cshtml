@@ -118,7 +118,7 @@
         }
 </style>
 
-<h1>All Events</h1>
+<h1>Events</h1>
 
 <!-- Add Event Button at the top right -->
 <div class="top-right-button">
@@ -158,13 +158,13 @@
                 <td>
                     <div class="action-links">
                         <a href="@Url.Action("Edit", new { id = item.EventId })" class="edit-link">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-edit"></i>  
                         </a>
                         <a href="@Url.Action("Delete", new { id = item.EventId })" class="delete-link" onclick="return confirmDelete();">
-                            <i class="fas fa-trash-alt"></i>
+                            <i class="fas fa-trash-alt"></i>  
                         </a>
                         <a href="@Url.Action("Details", new { id = item.EventId })" class="view-link">
-                            <i class="fas fa-eye"></i>
+                            <i class="fas fa-eye"></i>  
                         </a>
                     </div>
                 </td>
@@ -191,3 +191,4 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 }
+

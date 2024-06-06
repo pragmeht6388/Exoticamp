@@ -25,9 +25,11 @@ namespace Exoticamp.UI.Models.CampsiteDetails
 
         [JsonProperty("tentType")]
         public string TentType { get; set; }
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
 
         [JsonProperty("images")]
-        public string Images { get; set; }
+        public string? Images { get; set; }
 
         [JsonProperty("dateTime")]
         public DateTime DateTime { get; set; }
@@ -56,23 +58,19 @@ namespace Exoticamp.UI.Models.CampsiteDetails
         [JsonProperty("categoryId")]
         public Guid CategoryId { get; set; }
         [JsonProperty("CategoryName")]
-        //[IgnoreMember]
         public string CategoryName { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
-        //[JsonProperty("categories")]
-        //public ICollection<Category> Categories { get; set; }
-
+       
         [JsonProperty("activitiesId")]
         public Guid ActivitiesId { get; set; }
 
-        [JsonProperty("ActivityName")]
+        [JsonProperty("activitiesName")]
         //[IgnoreMember]
         public string ActivityName { get; set; }
 
         [ForeignKey(nameof(ActivitiesId))]
-        //[JsonProperty("activities")]
-        //public ICollection<Activities> Activities { get; set; }
+       
 
         [JsonProperty("mealPlans")]
         public string MealPlans { get; set; }

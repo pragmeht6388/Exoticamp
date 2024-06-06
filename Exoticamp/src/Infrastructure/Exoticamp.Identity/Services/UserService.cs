@@ -1,4 +1,5 @@
 ﻿using Exoticamp.Application.Contracts.Identity;
+using Exoticamp.Application.Features.Users.Queries.GetUser;
 using Exoticamp.Application.Models.Authentication;
 using Exoticamp.Identity.Models;
 using Microsoft.AspNetCore.Identity;
@@ -87,6 +88,37 @@ namespace Exoticamp.Identity.Services
                               }).ToListAsync();
 
             return data;
+        }
+
+        public async Task<GetUserDto> GetUserDetailsById(string Id)
+        {
+            var user = await _userManager.FindByIdAsync(Id);
+            return new GetUserDto()
+            {
+                Email = user.Email,
+                Name = user.Name,
+                PhoneNumber = user.PhoneNumber,
+                TermsandCondition = user.TermsandCondition,
+                LocationId = user.LocationId,
+                PreferenceId = user.ActivityId,
+                
+            };
+        }
+
+        public async Task<string> UpdateUser(GetUserDto model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
+            user.PhoneNumber = model.PhoneNumber;
+            user.Name = model.Name;
+            user.Email = model.Email;
+            user.ActivityId = model.PreferenceId;
+            user.LocationId = model.LocationId;
+
+            await _userManager.UpdateAsync(user);
+
+            return user.Id;
+
+
         }
     }
 }

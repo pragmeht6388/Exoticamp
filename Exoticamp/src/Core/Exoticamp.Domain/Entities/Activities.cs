@@ -14,6 +14,7 @@ namespace Exoticamp.Domain.Entities
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<CampsiteDetails> CampsiteDetails { get; set; }
+        public ICollection<CampsiteDetails> CampsiteDetails { get; set; }=new List<CampsiteDetails>();
+        
     }
 }

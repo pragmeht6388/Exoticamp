@@ -23,11 +23,7 @@
         public const string UpdateBanners = "/api/v1/Banner/UpdateBanner";
 
         public const string GetbyId = "/api/v1/Banner/{0}";
-        public const string CreateUserQuery = "/api/v1/UserQuery/add";
-        public const string GetAllUserQueries = "/api/v1/UserQuery/all";
-        public const string GetUserQueryById = "/api/v1/UserQuery/{0}";
-        public const string RespondToUserQuery = "/api/v1/UserQuery/respond";
-        public const string GetChatbotResponses = "/api/v1/Chatbot/all?id={0}";
+        
 
 
 
@@ -50,9 +46,31 @@
         public const string GetAllCampsiteDetails = "/api/v1/CampsiteDetails/all";
         public const string GetDetailsById = "/api/v1/CampsiteDetails/{0}";
         public const string AddCampsiteDetails = "/api/v1/CampsiteDetails";
-
+        public const string EditCampsiteDetails = "/api/v1/CampsiteDetails/UpdateCampsiteById";
+        public const string DeleteCampsiteById = "/api/v1/CampsiteDetails/{0}";
 
         public const string GetAllCategories = "/api/v1/Category/all";
 
+        public const string GetAllActivities = "/api/v1/Activities/all";
+
+
+        #region -UserQuery
+        public const string CreateUserQuery = "/api/v1/UserQuery/add";
+        public const string GetAllUserQueries = "/api/v1/UserQuery/all";
+        public const string GetUserQueryById = "/api/v1/UserQuery/{0}";
+        public const string RespondToUserQuery = "/api/v1/UserQuery/respond";
+        public const string GetChatbotResponses = "/api/v1/Chatbot/all?id={0}";
+        #endregion
+
+        #region -User
+        public const string GetUserById = "/api/v1/User/{0}";
+        public const string UpdateProfile = "/api/v1/User/edit-profile";
+
+        #endregion
+
+        #region Location
+
+        public const string GetAllLocation = "/api/v1/Location/all";
+        #endregion
     }
 }
