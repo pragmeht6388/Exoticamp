@@ -23,12 +23,20 @@
         public const string UpdateBanners = "/api/v1/Banner/UpdateBanner";
 
         public const string GetbyId = "/api/v1/Banner/{0}";
+        #region Admin
         public const string CreateUserQuery = "/api/v1/UserQuery/add";
         public const string GetAllUserQueries = "/api/v1/UserQuery/all";
         public const string GetAllVendorsQueries = "/api/v1/Admin/GetAllVendors";
         public const string GetUserQueryById = "/api/v1/UserQuery/{0}";
         public const string RespondToUserQuery = "/api/v1/UserQuery/respond";
+        public const string IsDeleteUser = "/api/v1/Admin/IsDeleteUsers?id={0}";
+        public const string IsLockedUser = "/api/v1/Admin/IsLockedUsers?id={0}";
+        public const string registerVendor = "/api/v1/Account/registerVendor";
+
+         
+        #endregion
         public const string GetChatbotResponses = "/api/v1/Chatbot/all?id={0}";
+
 
 
 

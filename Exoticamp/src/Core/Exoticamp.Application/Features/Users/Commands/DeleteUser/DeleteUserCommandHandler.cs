@@ -29,31 +29,31 @@ namespace Exoticamp.Application.Features.Users.Commands.DeleteUser
             _messageRepository = messageRepository;
         }
 
-        public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
-        {
-            try
-            {
-                var userToDelete = await _userRepository.GetByIdAsync(Guid.Parse(request.Id));
+        //public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+        //{
+        //    try
+        //    {
+        //        var userToDelete = await _userRepository.GetByIdAsync(Guid.Parse(request.Id));
 
-                if (userToDelete == null)
-                {
-                    throw new NotFoundException(nameof(Banner), request.Id);
-                }
+        //        if (userToDelete == null)
+        //        {
+        //            throw new NotFoundException(nameof(Banner), request.Id);
+        //        }
 
-                // Perform the deletion logic here
-                // For example, you can mark the banner as inactive or delete it from the database
-                userToDelete. = false; // Marking the banner as inactive
+        //        // Perform the deletion logic here
+        //        // For example, you can mark the banner as inactive or delete it from the database
+        //        userToDelete.IsDeleted= false; // Marking the banner as inactive
 
-                // Update the database
-                await _userRepository.UpdateAsync(userToDelete);
+        //        // Update the database
+        //        await _userRepository.UpdateAsync(userToDelete);
 
-                return Unit.Value;
-            }
-            catch (Exception ex)
-            {
-                // Log or handle the exception appropriately
-                throw; // Rethrow the exception to maintain consistency in error handling
-            }
-        }
+        //        return Unit.Value;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log or handle the exception appropriately
+        //        throw; // Rethrow the exception to maintain consistency in error handling
+        //    }
+        //}
     }
 }

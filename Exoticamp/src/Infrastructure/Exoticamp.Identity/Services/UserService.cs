@@ -1,4 +1,6 @@
 ﻿using Exoticamp.Application.Contracts.Identity;
+using Exoticamp.Application.Features.Users.Queries.GetUserList;
+using Exoticamp.Application.Features.Vendors.Queries.GetVendorList;
 using Exoticamp.Application.Models.Authentication;
 using Exoticamp.Identity.Models;
 using Microsoft.AspNetCore.Identity;
@@ -71,7 +73,7 @@ namespace Exoticamp.Identity.Services
     
 }
 
-        public async Task<List<RegistrationRequest>> GetAllUserDetails()
+        public async Task<List<GetUserListDto>> GetAllUserDetails()
         {
 
             //var data = await (from user in identityDbContext.Users
@@ -91,14 +93,17 @@ namespace Exoticamp.Identity.Services
                 var data = await (from user in identityDbContext.Users
                                   join userRole in identityDbContext.UserRoles on user.Id equals userRole.UserId
                                   join role in identityDbContext.Roles on userRole.RoleId equals role.Id
-                                  where role.Name == "User"
-                                  select new RegistrationRequest()
+                                  where role.Name == "User" && user.IsDeleted == false
+                                  select new GetUserListDto()
                                   {
                                       Email = user.Email,
                                       Name = user.Name,
                                       PhoneNumber = user.PhoneNumber,
                                       Role = role.Name,
-                                      TermsandCondition = user.TermsandCondition
+                                      TermsandCondition = user.TermsandCondition,
+                                      IsLocked = user.IsLocked,
+                                      LoginAttemptCount = user.LoginAttemptCount,
+
                                   }).ToListAsync();
 
                return data;
@@ -106,20 +111,24 @@ namespace Exoticamp.Identity.Services
 
         }
 
-        public async Task<List<RegistrationRequest>> GetAllVendorDetails()
+        public async Task<List<GetVendorListDto>> GetAllVendorDetails()
         {
 
             var data = await (from user in identityDbContext.Users
                               join userRole in identityDbContext.UserRoles on user.Id equals userRole.UserId
                               join role in identityDbContext.Roles on userRole.RoleId equals role.Id
-                              where role.Name == "Vendor"
-                              select new RegistrationRequest()
-                              {
+                              where role.Name == "Vendor" && user.IsDeleted ==  false
+                              select new GetVendorListDto()
+                              {    Id=user.Id,
                                   Email = user.Email,
                                   Name = user.Name,
                                   PhoneNumber = user.PhoneNumber,
                                   Role = role.Name,
-                                  TermsandCondition = user.TermsandCondition
+                                  TermsandCondition = user.TermsandCondition,
+                                  IsLocked = user.IsLocked,
+                                  LoginAttemptCount = user.LoginAttemptCount,
+                                  
+                                  
                               }).ToListAsync();
 
             return data;

@@ -116,7 +116,12 @@ namespace Exoticamp.Application.Profiles
              
 
             CreateMap<RegistrationRequest, GetUserDto>().ReverseMap();
+            CreateMap<GetVendorListDto,  GetVendorListQuery>().ReverseMap();
+            CreateMap<GetVendorListDto, GetUserListQuery>().ReverseMap();
 
+             
         }
+
+
     }
 }

@@ -10,6 +10,7 @@ namespace Exoticamp.Application.Features.Vendors.Queries.GetVendorList
 {
     public class GetVendorListDto
     {
+        public  string Id { get; set; }
         [Required]
         public string Name { get; set; }
 
@@ -31,5 +32,8 @@ namespace Exoticamp.Application.Features.Vendors.Queries.GetVendorList
 
         [Required]
         public string Role { get; set; }
+
+        public bool IsLocked { get; set; }
+        public int LoginAttemptCount { get; set; }
     }
 }

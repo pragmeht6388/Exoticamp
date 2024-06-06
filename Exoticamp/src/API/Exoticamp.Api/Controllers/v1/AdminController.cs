@@ -1,4 +1,6 @@
-﻿using Exoticamp.Application.Features.Banners.Commands.DeleteBanner;
+﻿using Azure.Core;
+using Exoticamp.Application.Contracts.Identity;
+using Exoticamp.Application.Features.Banners.Commands.DeleteBanner;
 using Exoticamp.Application.Features.Banners.Commands.UpdateBanner;
 using Exoticamp.Application.Features.Events.Queries.GetEventsList;
 using Exoticamp.Application.Features.Users.Commands.DeleteUser;
@@ -19,11 +21,13 @@ namespace Exoticamp.Api.Controllers.v1
     {
         private readonly IMediator _mediator;
         private readonly ILogger _logger;
+        private readonly IAuthenticationService _authenticationService;
 
-        public AdminController(IMediator mediator, ILogger<CategoryController> logger)
+        public AdminController(IMediator mediator, ILogger<CategoryController> logger, IAuthenticationService authenticationService)
         {
             _mediator = mediator;
             _logger = logger;
+            _authenticationService = authenticationService;
         }
 
 
@@ -43,13 +47,35 @@ namespace Exoticamp.Api.Controllers.v1
         }
         [HttpPut("IsDeleteUsers", Name = "IsDeleteUsers")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]  
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> IsDeleteUsers(string id)
+        public async Task<IActionResult> IsDeleteUsers(string id)
         {
-            var deleteUserCommand = new DeleteUserCommand() { Id = id };
-            await _mediator.Send(deleteUserCommand);
-            return NoContent();
+            var response = await _authenticationService.MarkUserAsDeletedAsync(id);
+
+            if (!response.Succeeded)
+            {
+                return NotFound(response.Message);
+            }
+
+            return Ok(response.Message);
         }
+        //IsLocked
+        [HttpPut("IsLockedUsers", Name = "IsLockedUsers")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> IsLockedUsers(string id)
+        {
+            var response = await _authenticationService.MarkUserUnlockedAsync(id);
+
+            if (!response.Succeeded)
+            {
+                return NotFound(response.Message);
+            }
+
+            return Ok(response.Message);
+        }
+
     }
 }

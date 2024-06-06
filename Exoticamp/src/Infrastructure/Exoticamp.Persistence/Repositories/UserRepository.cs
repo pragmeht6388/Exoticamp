@@ -45,10 +45,8 @@ namespace Exoticamp.Persistence.Repositories
         {
             throw new NotImplementedException();
         }
-        public async Task<RegistrationRequest> UpdateBanner(RegistrationRequest Users)
-        {
-            await UpdateAsync(Users);
-            return Users;
-        }
+        
+
+        
     }
 }

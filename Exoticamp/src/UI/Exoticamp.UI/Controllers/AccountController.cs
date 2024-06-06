@@ -62,12 +62,20 @@ namespace Exoticamp.UI.Controllers
             if (!response.IsAuthenticated || string.IsNullOrEmpty(response.Token))
             {
                 //ModelState.AddModelError(string.Empty, response.Message ?? " Wrong Email and Password, please try again.");
-                TempData["Message"] = " Wrong Email and Password, please try again.";
+                if(response.Message != null)
+                {
+                    TempData["Message"] = response.Message;
+                }
+                else
+                {
+                    TempData["Message"] = " Wrong Email  please try again.";
+                }
+                
                 return View(request);
             }
             HttpContext.Session.SetString("Token", response.Token);
             HttpContext.Session.SetString("UserRole", response.Role);
-            HttpContext.Session.SetString("UserId", response.UserId);
+            //HttpContext.Session.SetString("UserId", response.UserId);
 
 
 
@@ -76,12 +84,19 @@ namespace Exoticamp.UI.Controllers
                 case "User":
                     return RedirectToAction("Index", "Home");
                 case "Vendor":
-                    return RedirectToAction("Registration", "Account");
+                    return RedirectToAction("GetAllUsers", "Admin");
                 case "SuperAdmin":
-                    return RedirectToAction("Dashboard", "SuperAdmin");
+                    return RedirectToAction("GetAllUsers", "Admin");
                 default:
                     return RedirectToAction("Index", "Home");  
             }
+        }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Account");
         }
 
     }

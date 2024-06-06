@@ -30,9 +30,18 @@ namespace Exoticamp.Api.Controllers.v1
             return Ok(await _authenticationService.AuthenticateAsync(request));
         }
 
+
+
         [HttpPost("register")]
         public async Task<ActionResult<RegistrationResponse>> RegisterAsync(RegistrationRequest request)
         {
+            return Ok(await _authenticationService.RegisterAsync(request));
+        }
+
+        [HttpPost("registerVendor")]
+        public async Task<ActionResult<RegistrationResponse>> RegisterVendorAsync(RegistrationRequest request)
+        {
+            request.Role = "SuperAdmin";
             return Ok(await _authenticationService.RegisterAsync(request));
         }
 

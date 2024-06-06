@@ -90,6 +90,38 @@ namespace Exoticamp.UI.Services.Repositories
 
             return events;
         }
+
+        public async Task<UsersVM> IsDeleteAsync(string id)
+        {
+            _apiRepository = new APIRepository(_configuration);
+
+            var url = string.Format(URLHelper.IsDeleteUser, id);
+            var response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, url, HttpMethod.Put, null, _sToken);
+
+            if (response.data != null)
+            {
+                return JsonConvert.DeserializeObject<UsersVM>(response.data);
+            }
+
+            return null;
+        }
+
+        public async Task<UsersVM> IsLockedUsersAsync(string id)
+        {
+            _apiRepository = new APIRepository(_configuration);
+
+            var url = string.Format(URLHelper.IsLockedUser, id);
+            var response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, url, HttpMethod.Put, null, _sToken);
+
+            if (response.data != null)
+            {
+                return JsonConvert.DeserializeObject<UsersVM>(response.data);
+            }
+
+            return null;
+        }
+
+
     }
 }
 

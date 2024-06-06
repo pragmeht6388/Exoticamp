@@ -6,7 +6,7 @@ namespace Exoticamp.UI.Models.Users
 {
     public class UsersVM
     {
-      
+        public string UsersId { get; set; }
         public string Name { get; set; }
 
 
@@ -24,5 +24,7 @@ namespace Exoticamp.UI.Models.Users
 
         [Required]
         public string Role { get; set; }
+        public bool IsLocked { get; set; }
+        public int LoginAttemptCount { get; set; }
     }
 }
