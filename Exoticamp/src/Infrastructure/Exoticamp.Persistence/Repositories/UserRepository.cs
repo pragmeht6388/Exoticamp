@@ -1,5 +1,6 @@
 ﻿using Exoticamp.Application.Contracts.Persistence;
 using Exoticamp.Application.Models.Authentication;
+using Exoticamp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,5 +45,8 @@ namespace Exoticamp.Persistence.Repositories
         {
             throw new NotImplementedException();
         }
+        
+
+        
     }
 }

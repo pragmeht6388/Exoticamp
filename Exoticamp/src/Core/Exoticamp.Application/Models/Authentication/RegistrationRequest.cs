@@ -6,7 +6,7 @@ namespace Exoticamp.Application.Models.Authentication
     public class RegistrationRequest
     {
        
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [Required]
         public string  Name { get; set; }
@@ -28,6 +28,8 @@ namespace Exoticamp.Application.Models.Authentication
         public string Password { get; set; }
 
         public string? Role { get; set; }
+
+        
 
     }
 }

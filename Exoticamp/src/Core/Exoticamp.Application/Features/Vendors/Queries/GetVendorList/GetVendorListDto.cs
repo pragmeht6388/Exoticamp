@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Exoticamp.Application.Features.Users.Queries.GetUserList
+namespace Exoticamp.Application.Features.Vendors.Queries.GetVendorList
 {
-    public class GetUserListDto
+    public class GetVendorListDto
     {
+        public  string Id { get; set; }
         [Required]
         public string Name { get; set; }
 
@@ -31,6 +32,7 @@ namespace Exoticamp.Application.Features.Users.Queries.GetUserList
 
         [Required]
         public string Role { get; set; }
+
         public bool IsLocked { get; set; }
         public int LoginAttemptCount { get; set; }
     }
