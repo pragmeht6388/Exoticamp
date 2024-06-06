@@ -8,8 +8,5 @@ namespace Exoticamp.Domain.Common
         public DateTime CreatedDate { get; set; }
         public string? LastModifiedBy { get; set; }
         public DateTime? LastModifiedDate { get; set; }
-
-        public string? DeletedBy { get; set; }
-        public DateTime? DeletedOn { get; set; }
     }
 }

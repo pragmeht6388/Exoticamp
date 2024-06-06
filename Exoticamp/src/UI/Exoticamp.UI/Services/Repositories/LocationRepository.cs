@@ -23,7 +23,7 @@ namespace Exoticamp.UI.Services.Repositories
             _apiBaseUrl = apiBaseUrl;
 
         }
-        public async Task<IEnumerable<LocationVM>> GetAllLocations()
+        public async Task<IEnumerable<LocationVM>> GetAllEvents()
         {
             GetAllLocationResponseModel response = new GetAllLocationResponseModel();
             List<LocationVM> events = new List<LocationVM>();

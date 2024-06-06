@@ -54,10 +54,5 @@ namespace Exoticamp.Persistence.Repositories
             return @event;
         }
 
-        public async Task<Event> AddEvent(Event @event)
-        {
-            return @event;
-        }
-
     }
 }
