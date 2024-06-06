@@ -16,7 +16,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
     {
        
         public string Name { get; set; }
-        public string Location { get; set; }
+        public Guid LocationId {  get; set; }
         public bool Status { get; set; }
         public string TentType { get; set; }
 
@@ -64,6 +64,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
 
         public string CancellationPolicy { get; set; }
         public bool? isActive { get; set; }
+        public bool? isDeleted { get; set; }
         public string? ApprovedBy { get; set; }
         public DateTime? ApprovededDate { get; set; }
         public string? DeletededBy { get; set; }

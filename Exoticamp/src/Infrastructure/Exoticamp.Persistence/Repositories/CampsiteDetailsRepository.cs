@@ -42,12 +42,13 @@ namespace Exoticamp.Persistence.Repositories
         }
         public async Task<List<CampsiteDetailsVM>> GetAllCampsiteWithCategoryAndActivityDetails()
         {
-            var data = await this._dbContext.CampsiteDetails.Include(x => x.Categories).Include(x=>x.Activities).Select(request => new CampsiteDetailsVM()
+            var data = await this._dbContext.CampsiteDetails.Select(request => new CampsiteDetailsVM()
             {
 
                 Id = request.Id,
                 Name = request.Name,
-                Location = request.Location,
+                // Location = request.Location,
+                LocationId = request.LocationId,
                 Status = request.Status,
                 TentType = request.TentType,
                 isActive = request.isActive,
@@ -55,7 +56,7 @@ namespace Exoticamp.Persistence.Repositories
                 ApprovededDate = request.ApprovededDate,
                 DeletededBy = request.DeletededBy,
                 DeletedDate = request.DeletedDate,
-                CategoryName = request.Categories.Name,
+                //CategoryName = request.Categories.Name,
                 Images = request.Images,
                 DateTime = request.DateTime,
                 Highlights = request.Highlights,
@@ -73,13 +74,14 @@ namespace Exoticamp.Persistence.Repositories
                 Safety = request.Safety,
                 DistanceWithMap = request.DistanceWithMap,
                 CancellationPolicy = request.CancellationPolicy,
-                CategoryId = request.CategoryId,
-                ActivitiesId = request.ActivitiesId,
+               // CategoryId = request.CategoryId,
+                //ActivitiesId = request.ActivitiesId,
                 FAQs = request.FAQs,
                 HouseRules = request.HouseRules,
                 MealPlans = request.MealPlans,
                 WhyExoticamp = request.WhyExoticamp,
-                ActivitiesName=request.Activities.Name
+               // ActivitiesName = request.Activities.Name
+
                 //ActivitiesName=request.Activities.FirstOrDefault().Name
 
             }).ToListAsync();
