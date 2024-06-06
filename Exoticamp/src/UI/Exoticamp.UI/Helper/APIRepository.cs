@@ -10,7 +10,7 @@ namespace Exoticamp.UI.Helper
         private readonly IConfiguration _configuration;
         public IOptions<ApiBaseUrl> _apiBaseUrl { get; private set; }
 
-        public APIRepository(IConfiguration configuration)
+         public APIRepository(IConfiguration configuration)
         {
             _configuration = configuration;
         }

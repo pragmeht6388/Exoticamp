@@ -1,4 +1,6 @@
-﻿using Exoticamp.Application.Features.Users.Queries.GetUser;
+﻿using Exoticamp.Application.Features.Users.Queries.GetUserList;
+using Exoticamp.Application.Features.Vendors.Queries.GetVendorList;
+using Exoticamp.Application.Features.Users.Queries.GetUser;
 using Exoticamp.Application.Models.Authentication;
 using Exoticamp.Domain.Entities;
 using System;
@@ -11,7 +13,8 @@ namespace Exoticamp.Application.Contracts.Identity
 {
     public interface IUserService
     {
-        Task<List< RegistrationRequest>> GetAllUserDetails();
+        Task<List< GetUserListDto>> GetAllUserDetails();
+        Task<List< GetVendorListDto>> GetAllVendorDetails();
         Task<RegistrationRequest> Delete(RegistrationRequest category);
         Task<GetUserDto> GetUserDetailsById(string Id);
         Task<string> UpdateUser(GetUserDto model);
