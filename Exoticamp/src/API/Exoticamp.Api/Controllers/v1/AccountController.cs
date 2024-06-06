@@ -3,13 +3,16 @@ using System.Threading.Tasks;
 using Exoticamp.Application.Models.Authentication;
 using Exoticamp.Application.Contracts.Identity;
 using Exoticamp.Identity.Configurations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Exoticamp.Api.Controllers.v1
 {
+    
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-   
+    //[Authorize(Roles = "")]
+
     public class AccountController : ControllerBase
     {
     
@@ -27,9 +30,18 @@ namespace Exoticamp.Api.Controllers.v1
             return Ok(await _authenticationService.AuthenticateAsync(request));
         }
 
+
+
         [HttpPost("register")]
         public async Task<ActionResult<RegistrationResponse>> RegisterAsync(RegistrationRequest request)
         {
+            return Ok(await _authenticationService.RegisterAsync(request));
+        }
+
+        [HttpPost("registerVendor")]
+        public async Task<ActionResult<RegistrationResponse>> RegisterVendorAsync(RegistrationRequest request)
+        {
+            request.Role = "SuperAdmin";
             return Ok(await _authenticationService.RegisterAsync(request));
         }
 

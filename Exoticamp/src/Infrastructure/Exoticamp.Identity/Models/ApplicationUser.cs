@@ -8,6 +8,7 @@ namespace Exoticamp.Identity.Models
 {
     public class ApplicationUser : IdentityUser
     {
+
         public string Name { get; set; }
         
 
@@ -17,8 +18,8 @@ namespace Exoticamp.Identity.Models
         public List<RefreshToken> RefreshTokens { get; set; }
         public Guid LocationId { get; set; }
         public Guid ActivityId { get; set; }
-        public bool IsDeleted { get; set; }
-        public bool IsLocked { get; set; }
+        public bool IsDeleted { get; set; }=false;
+        public bool IsLocked { get; set; } = false;
         public int LoginAttemptCount { get; set; }
 
     }
