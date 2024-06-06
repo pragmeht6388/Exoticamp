@@ -6,7 +6,7 @@ namespace Exoticamp.UI.Models.Users
 {
     public class UsersVM
     {
-        public string UsersId { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
 
 
