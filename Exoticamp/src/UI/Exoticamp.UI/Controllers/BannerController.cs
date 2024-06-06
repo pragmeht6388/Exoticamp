@@ -1,6 +1,7 @@
 ﻿using Exoticamp.UI.Models.Banners;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,11 +10,13 @@ namespace Exoticamp.UI.Controllers
 {
     public class BannerController : Controller
     {
-        private readonly IBannerRepository _bannerRepository;
+        private readonly IBannerRepository _bannerRepository; 
+        private readonly ILocationRepository _locationRepository;
 
-        public BannerController(IBannerRepository bannerRepository)
+        public BannerController(IBannerRepository bannerRepository,ILocationRepository locationRepository)
         {
             _bannerRepository = bannerRepository;
+            _locationRepository = locationRepository;
         }
 
         public async Task<IActionResult> AllBanners()
@@ -23,8 +26,10 @@ namespace Exoticamp.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddBanners()
+        public async Task<IActionResult> AddBanners()
         {
+            var location = await _locationRepository.GetAllEvents();
+            ViewBag.LocationList = new SelectList(location, "LocationId", "Name");
             return View();
         }
         public async Task<IActionResult> AddBanners(BannerViewModel model)

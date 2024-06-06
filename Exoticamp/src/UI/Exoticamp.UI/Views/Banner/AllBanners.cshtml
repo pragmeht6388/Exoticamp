@@ -232,7 +232,7 @@
                 <th>Status</th>
                 <th>PromoCode</th>
                 <th>Locations</th>
-                <th>ImagePath</th>
+                <th>Image</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -259,15 +259,15 @@
                     <td>
                         @if (!string.IsNullOrEmpty(banner.PromoCode))
                         {
-                            <span class="text-success"><i class="bi bi-check-circle"></i></span>
+                            <span class="text-success">@banner.PromoCode</span>
                         }
                         else
                         {
-                            <span class="text-danger"><i class="bi bi-x-circle"></i></span>
+                            <span class="text-danger">N/A</span>
                         }
                     </td>
-                    <td>@banner.Locations</td>
-                    <td><img src="@banner.ImagePath" alt="Banner Image" width="100" height="100" /></td>
+                    <td>@banner.LocationName</td>
+                    <td><img src="@Url.Content(banner.ImagePath)" alt="Banner Image" width="100" height="100" /></td>
                     <td>
                         <a href="@Url.Action("EditBanner", new { id = banner.BannerId })" class="btn btn-warning btn-sm">
                             <i class="bi bi-pencil-fill"></i>
@@ -275,7 +275,6 @@
                         <a href="@Url.Action("DeleteBanner", new { id = banner.BannerId })" class="btn btn-danger btn-sm" onclick="return confirmDelete();">
                             <i class="bi bi-trash-fill"></i>
                         </a>
-
                         <a href="@Url.Action("ViewBanner", new { id = banner.BannerId })" class="btn btn-info btn-sm">
                             <i class="bi bi-eye"></i>
                         </a>
@@ -286,6 +285,7 @@
         </tbody>
     </table>
 </div>
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

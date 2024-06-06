@@ -25,6 +25,7 @@ builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 
 
 builder.Services.AddScoped<IBannerRepository,BannerRepository>();
+builder.Services.AddScoped<ILocationRepository,LocationRepository>();
 builder.Services.AddScoped<IContactUsRepository,ContactUsRepository>();
 builder.Services.AddScoped<ICampsiteRepository, CamsiteRepository>();
 builder.Services.AddScoped<IChatbotRepository, ChatbotRepository>();
