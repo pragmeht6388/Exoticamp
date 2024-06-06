@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace Exoticamp.Application.Contracts.Persistence
 {
-    
+
     public interface IUserRepository : IAsyncRepository<RegistrationRequest>
     {
         Task<List<RegistrationRequest>> GetAllUsers(bool includePassedEvents);
-        //Task<RegistrationRequest> AddProduct(Product product);
-        //Task<RegistrationRequest> Update(Product product);
-        //Task<Product> Delete(Product product);
-    }
+
+      //  public async Task<ApplicationUser> DeleteUsers(ApplicationUser Users);
+            //Task<RegistrationRequest> AddProduct(Product product);
+            //Task<RegistrationRequest> Update(Product product);
+            //Task<Product> Delete(Product product);
+        }
 }
