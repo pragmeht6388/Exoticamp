@@ -29,13 +29,15 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
         public string Highlights { get; set; }
 
         public string EventRules { get; set; }
+        public bool Status { get; set; } 
+        public bool IsDeleted { get; set; }
         public Guid CampsiteId { get; set; }
 
      
         public Guid ActivityId { get; set; }
 
         
-        public string location { get; set; }
-        public bool Status { get; set; } 
+        public Guid locationId { get; set; }
+      
     }
 }
