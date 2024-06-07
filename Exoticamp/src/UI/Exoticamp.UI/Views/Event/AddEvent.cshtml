@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>AddEvent</h1>
 
-<h4>EventVM</h4>
+
+<h4 class="text-center">Event</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row justify-content-center">
+    <div class="col-md-6">
         <form asp-action="AddEvent" method="post" enctype='multipart/form-data'>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -18,35 +18,43 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+           
             <div class="form-group">
                 <label for="LocationId">Select location:</label>
-                <select id="location" name="Id" class="form-control">
-                    @*onchange="updateCampsites()"*@
+                <select id="location" asp-for="LocationId" class="form-control">
                     <option value="">-- Select location --</option>
-                    @foreach (var location in ViewBag.Locations)
+                    @if (Model.Locations is not null)
                     {
-                        <option value="@location.Value">@location.Text</option>
+                        @foreach (var location in Model.Locations)
+                        {
+                            <option value="@location.Value">@location.Text</option>
+                        }
                     }
                 </select>
             </div>
             <div class="form-group">
                 <label for="CampsiteId">Select campsite:</label>
-                <select id="campsite" name="Id" class="form-control">
-                    @*onchange="updateActivities()"*@
+                <select id="campsite" asp-for="CampsiteId" class="form-control">
                     <option value="">-- Select campsite --</option>
-                    @foreach (var campsite in ViewBag.Campsites)
+                    @if (Model.Campsites is not null)
                     {
-                        <option value="@campsite.Value">@campsite.Text</option>
+                        @foreach (var campsite in Model.Campsites)
+                        {
+                            <option value="@campsite.Value">@campsite.Text</option>
+                        }
                     }
                 </select>
             </div>
             <div class="form-group">
                 <label for="ActivityId">Select activities:</label>
-                <select id="activity" name="Id" class="form-control" multiple="multiple">
+                <select id="activity" asp-for=ActivityId class="form-control" multiple="multiple">
                     <option value="">-- Select activities --</option>
-                    @foreach (var activity in ViewBag.Activities)
+                    @if (Model.ActivitiesVMs is not null)
                     {
-                        <option value="@activity.Value">@activity.Text</option>
+                        @foreach (var activity in Model.ActivitiesVMs)
+                        {
+                            <option value="@activity.Value">@activity.Text</option>
+                        }
                     }
                 </select>
             </div>
@@ -92,18 +100,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" type="checkbox" checked />
+                <input asp-for="Status" class="form-control" type="checkbox" checked hidden />
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group text-center">
                 <input type="submit" value="Add" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <button id="backButton">Back to List</button>
+<div class="text-center">
+    <button id="backButton" class="btn btn-secondary">Back to List</button>
 </div>
 @if (TempData["Message"] != null)
 {
@@ -116,7 +124,6 @@
 }
 
 @section Scripts {
- 
     <script>
         // Initialize Select2 for the activities dropdown
         $(document).ready(function () {
@@ -191,5 +198,4 @@
             window.history.back();
         });
     </script>
-
 }

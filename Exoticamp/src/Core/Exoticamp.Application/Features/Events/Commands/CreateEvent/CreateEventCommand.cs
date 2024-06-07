@@ -10,7 +10,6 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
     {
 
 
-        public Guid EventId { get; set; }
 
         [Required(ErrorMessage = "Please enter event name")]
         [StringLength(50, MinimumLength = 3)]

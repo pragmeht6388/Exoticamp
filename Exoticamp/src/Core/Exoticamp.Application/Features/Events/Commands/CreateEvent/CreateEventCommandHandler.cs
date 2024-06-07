@@ -42,18 +42,17 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
 
             if (validationResult.Errors.Count > 0)
                 throw new Exceptions.ValidationException(validationResult);
-           var campsite= _campsiteDetailsRepository.GetByIdAsync(request.CampsiteId);
             //var @event = _mapper.Map<Event>(request);
 
             
 
-            var @event = await _eventRepository.AddEvent(request);
+            var eventObj = await _eventRepository.AddEvent(request);
             Response<CreateEventCommandDto> response = null;
 
-            if (@event!=null)
+            if (eventObj!=null)
             {
 
-                 response = new Response<CreateEventCommandDto>(_mapper.Map<CreateEventCommandDto>(@event), "Inserted successfully");
+                 response = new Response<CreateEventCommandDto>(_mapper.Map<CreateEventCommandDto>(eventObj), "Inserted successfully");
                 _logger.LogInformation("Handle Completed");
                 return response;
             }

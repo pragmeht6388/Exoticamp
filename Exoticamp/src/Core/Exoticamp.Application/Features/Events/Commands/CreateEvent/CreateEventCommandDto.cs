@@ -28,9 +28,9 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
          public string EventRules { get; set; }
           public Guid CampsiteId { get; set; }
 
-        public List<Guid> ActivityId { get; set; }
+        public Guid ActivityId { get; set; }
 
-        public string location { get; set; }
+        public Guid LocationId { get; set; }
         public bool Status { get; set; }
         public bool IsDeleted { get; set; }
     }
