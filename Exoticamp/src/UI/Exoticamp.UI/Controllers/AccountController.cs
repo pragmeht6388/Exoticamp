@@ -86,7 +86,7 @@ namespace Exoticamp.UI.Controllers
                 case "User":
                     return RedirectToAction("Index", "Home");
                 case "Vendor":
-                    return RedirectToAction("GetAllUsers", "Admin");
+                    return RedirectToAction("Dashboard", "Home");
                 case "SuperAdmin":
                     return RedirectToAction("GetAllUsers", "Admin");
                 default:
