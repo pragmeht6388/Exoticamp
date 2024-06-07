@@ -223,8 +223,8 @@
             overflow-y: auto;
         }
         .btn-primary{
-        color: #060404;
-        background-color: #ffffff;
+        color:  #ffff;
+            background-color: #0d6efd;
         border-color: #939292;
         }
 
@@ -381,7 +381,7 @@
                     locationDropdown.empty(); // Clear any existing options
 
                     data.forEach(function (location) {
-                        locationDropdown.append('<li><a class="dropdown-item location-item" data-id="'+ location.id +'">' + location.name + '</a></li>');
+                        locationDropdown.append('<li><a class="dropdown-item, location-item" data-id="'+ location.id +'">' + location.name + '</a></li>');
                     });
                 },
                 error: function (error) {
