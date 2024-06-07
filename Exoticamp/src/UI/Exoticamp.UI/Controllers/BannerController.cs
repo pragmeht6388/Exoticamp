@@ -28,8 +28,8 @@ namespace Exoticamp.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> AddBanners()
         {
-            var location = await _locationRepository.GetAllEvents();
-            ViewBag.LocationList = new SelectList(location, "LocationId", "Name");
+            var location = await _locationRepository.GetAllLocations();
+            ViewBag.LocationList = new SelectList(location, "Id", "Name");
             return View();
         }
         public async Task<IActionResult> AddBanners(BannerViewModel model)
@@ -63,12 +63,22 @@ namespace Exoticamp.UI.Controllers
         {
 
             var bannerObj = await _bannerRepository.GetBannerById(id);
+            var location = await _locationRepository.GetAllLocations();
+            
+            if (location != null )
+            {
+                ViewBag.LocationList = location.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name });
+               
+            }
             return View(bannerObj.Data);
             }
 
         [HttpPost]
         public async Task<IActionResult> EditBanner(string id,BannerViewModel model)
         {
+            var location = await _locationRepository.GetAllLocations();
+            ViewBag.LocationList = location.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name });
+
             if (model.ImageFile!=null)
             {
                 model.BannerId = Guid.Parse(id);

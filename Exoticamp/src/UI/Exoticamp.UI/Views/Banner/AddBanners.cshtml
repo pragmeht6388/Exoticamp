@@ -98,7 +98,7 @@
                     <option value="">Select Location</option>
                     @foreach (var location in ViewBag.LocationList)
                     {
-                        <option value="@location.LocationId">@location.Name</option>
+                        <option value="@location.Value">@location.Text</option>
                     }
                 </select>
                 <span asp-validation-for="LocationId" class="text-danger"></span>
