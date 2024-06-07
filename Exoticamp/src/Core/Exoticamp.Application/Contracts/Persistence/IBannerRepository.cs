@@ -1,4 +1,5 @@
-﻿using Exoticamp.Domain.Entities;
+﻿using Exoticamp.Application.Features.Banners.Queries;
+using Exoticamp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace Exoticamp.Application.Contracts.Persistence
         Task<Banner> DeleteBanner(Banner banner);
 
         Task<Banner> GetBannerByLinkAsync(string link);
+
+        Task<List<BannerDto>> GetAllBannerWithLocation();
     }
 }
