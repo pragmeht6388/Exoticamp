@@ -240,7 +240,14 @@
                 data: { Email: Email },
                 success: function (result) {
                     alert('User deleted successfully.');
-                    location.reload();
+                    var row = $(this).parent().parent();
+
+
+                    $("#GetAllUsers").dataTable().fnDeleteRow(row);
+                    $("#GetAllUsers").dataTable().fnDraw();
+                    window.location.reload();
+                    
+                    //location.reload();
                 }
 
             });
