@@ -27,7 +27,7 @@
         /* Banner image styles */
         .banner-details img {
             max-width: 100%;
-            height: auto;
+            height: 200px;
             border-radius: 5px; /* Rounded corners */
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Shadow effect */
         }
@@ -62,7 +62,7 @@
             </div>
             <div class="col-md-6">
                 <h3>@Model.Link</h3>
-                <p>Locations: @Model.Locations</p>
+                <p>Locations: @Model.LocationName</p>
                 <p>Promo Code: @Model.PromoCode</p>
                 <p>Active: @(Model.IsActive ? "Yes" : "No")</p>
 

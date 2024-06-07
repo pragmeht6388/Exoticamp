@@ -74,5 +74,34 @@ namespace Exoticamp.UI.Controllers
 
             return Json(locations);
         }
+        public IActionResult MA()
+        {
+            return View();
+        }
+        public IActionResult MB()
+        {
+            return View();
+        }
+        public IActionResult BR()
+        {
+            return View();
+        }
+        public IActionResult MR()
+        {
+            return View();
+        }
+        public IActionResult Reports()
+        {
+            return View();
+        }
+        public IActionResult Settings()
+        {
+            return View();
+        }
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
+
     }
 }
