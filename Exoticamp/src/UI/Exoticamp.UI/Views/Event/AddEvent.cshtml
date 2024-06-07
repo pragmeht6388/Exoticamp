@@ -18,6 +18,37 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+          <div class="form-group">
+                <label for="LocationId">Select location:</label>
+                <select id="location" name="LocationId" onchange="getDoctors()">
+                    <option value="">-- Select location --</option>
+                    @foreach (var location in ViewBag.Locations)
+                    {
+                        <option value="@location.Id">@location.Name</option>
+                    }
+                </select>
+          </div>
+            <div class="form-group">
+                <label for="CampsiteId">Select location:</label>
+                <select id="campsite" name="CampsiteId" onchange="getDoctors()">
+                    <option value="">-- Select Campsite --</option>
+                    @foreach (var campsite in ViewBag.Campsites)
+                    {
+                        <option value="@campsite.Id">@campsite.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ActivityId">Select Activities:</label>
+                <select id="activity" name="ActivityId" onchange="getDoctors()">
+                    <option value="">-- Select Activities --</option>
+                    @foreach (var activity in ViewBag.Activities)
+                    {
+                        <option value="@activity.Id">@activity.Name</option>
+                    }
+                </select>
+            </div>
+        
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
@@ -57,6 +88,12 @@
                 <label asp-for="EventRules" class="control-label"></label>
                 <textarea asp-for="EventRules" class="form-control"></textarea>
                 <span asp-validation-for="EventRules" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" type="checkbox" checked/>
+                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Add" class="btn btn-primary" />
@@ -111,4 +148,37 @@
             window.history.back();
         });
     </script>
+
+
+    <script>
+
+
+        function getCampDetails() {
+            var locationId = document.getElementById("location").value;
+            var campsiteId = document.getElementById("campsite").value;
+            var activityId = document.getElementById("activity").value;
+
+            if (locationId != null && campsiteId != null && activityId!=null) {
+                $.ajax({
+                    url: "/Event/GetDoctors?DepartmentId=" + departmentId +"&HospitalId="+ hospitalId,
+                    type: "GET",
+                    success: function (result) {
+                        var options = '<option value="">-- Select Doctor --</option>';
+                        for (var i = 0; i < result.length; i++) {
+                            options += '<option value="' + result[i].doctorId + '">' + result[i].firstName + ' ' + result[i].lastName + '</option>';
+                        }
+                        $('#doctor').html(options);
+
+                        // Enable the submit button after doctor selection
+                        $('#appointmentForm button[type="submit"]').prop('disabled', false);
+                    }
+                });
+            }
+            else {
+                $('#doctor').html('<option value="">-- Select Doctor --</option>');
+            }
+        }
+    </script>
+
+
 }

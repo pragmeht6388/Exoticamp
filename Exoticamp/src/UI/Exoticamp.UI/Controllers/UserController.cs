@@ -8,9 +8,11 @@ namespace Exoticamp.UI.Controllers
     public class UserController : Controller
     {
         private readonly IUsersRepository _usersRepository;
-        public UserController(IUsersRepository usersRepository)
+        private readonly ILocationRepository _locationRepository;
+        public UserController(IUsersRepository usersRepository, ILocationRepository locationRepository)
         {
             _usersRepository = usersRepository;
+            _locationRepository = locationRepository;
         }
         public IActionResult Index()
         {
@@ -20,6 +22,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> Profile()
         {
             var UserId = HttpContext.Session.GetString("UserId");
+            ViewBag.Locations = await _locationRepository.GetAllLocations();
             var userDetails = await _usersRepository.GetUserByIdAsync(UserId);
             if (userDetails.data != null)
             {
