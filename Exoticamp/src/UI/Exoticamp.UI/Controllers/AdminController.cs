@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Exoticamp.UI.Controllers
 {
     [AdminAuthFilter]
+    [NoCache]
     public class AdminController : Controller
     {
         private readonly IRegistrationRepository _registrationRepository;
