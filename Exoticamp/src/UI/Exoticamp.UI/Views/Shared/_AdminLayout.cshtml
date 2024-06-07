@@ -58,8 +58,8 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search"  asp-action="Logout" asp-controller="Account" role="button">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    <a   class="nav-link" href="/Account/Logout" role="button">
+                        <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
                     @* <div class="navbar-search-block">
                     <form class="form-inline">
@@ -339,6 +339,23 @@
     <script src="~/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="~/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="~/adminlte/plugins/datatables-buttons/js/buttons.colvis.min.js"></script>
+  
+
+   @*  <Script type="text/javascript">
+        // window.history.forward();
+        // function noBack() { window.history.forward(); }
+        $(document).ready(function () {
+            setTimeout(function () { window.history.forward(); }, 0);
+            window.onunload = function () { null };
+            setTimeout("preventback() ", 0)
+        });
+    </Script> *@
+
+   @*  <Script type="text/javascript">
+        function preventback() { window.history.forward(); }
+        setTimeout("preventback() ", 0)
+        window.onunload = function () { null }
+    </Script> *@
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
