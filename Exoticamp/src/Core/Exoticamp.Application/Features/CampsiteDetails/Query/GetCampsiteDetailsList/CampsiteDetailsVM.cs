@@ -11,8 +11,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public Guid LocationId { get; set; }
-        public string LocationName {  get; set; }
+        public string Location { get; set; }
         public bool Status { get; set; }
         public string TentType { get; set; }
 
@@ -34,7 +33,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
         public string QuickSummary { get; set; }
 
         public Guid CategoryId { get; set; }
-        public string CategoryName { get; set; } 
+        public string CategoryName { get; set; }
         public Guid ActivitiesId { get; set; }
 
         public string ActivitiesName { get; set; }
@@ -61,7 +60,6 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
 
         public string CancellationPolicy { get; set; }
         public bool? isActive { get; set; }
-        public bool? isDeleted { get; set; }
         public string? ApprovedBy { get; set; }
         public DateTime? ApprovededDate { get; set; }
         public string? DeletededBy { get; set; }
