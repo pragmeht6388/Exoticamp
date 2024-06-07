@@ -22,7 +22,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> Profile()
         {
             var UserId = HttpContext.Session.GetString("UserId");
-            ViewBag.Locations = _locationRepository.GetAllLocations();
+            ViewBag.Locations = await _locationRepository.GetAllLocations();
             var userDetails = await _usersRepository.GetUserByIdAsync(UserId);
             if (userDetails.data != null)
             {
