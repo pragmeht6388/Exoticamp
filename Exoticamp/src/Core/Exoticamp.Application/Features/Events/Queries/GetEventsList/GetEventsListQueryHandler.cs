@@ -12,10 +12,10 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventsList
 {
     public class GetEventsListQueryHandler : IRequestHandler<GetEventsListQuery, Response<IEnumerable<EventListVm>>>
     {
-        private readonly IAsyncRepository<Event> _eventRepository;
+        private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
 
-        public GetEventsListQueryHandler(IMapper mapper, IAsyncRepository<Event> eventRepository)
+        public GetEventsListQueryHandler(IMapper mapper, IEventRepository eventRepository)
         {
             _mapper = mapper;
             _eventRepository = eventRepository;
@@ -23,9 +23,9 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventsList
 
         public async Task<Response<IEnumerable<EventListVm>>> Handle(GetEventsListQuery request, CancellationToken cancellationToken)
         {
-            var allEvents = (await _eventRepository.ListAllAsync()).OrderBy(x => x.StartDate);
-            var eventList = _mapper.Map<List<EventListVm>>(allEvents);
-            var response = new Response<IEnumerable<EventListVm>>(eventList);
+            var allEvents = (await _eventRepository.GetAllEvents()).OrderBy(x => x.StartDate);
+           // var eventList = _mapper.Map<List<EventListVm>>(allEvents);
+            var response = new Response<IEnumerable<EventListVm>>(allEvents);
             return response;
         }
     }

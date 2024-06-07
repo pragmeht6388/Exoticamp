@@ -1,6 +1,10 @@
 ﻿
 
 using Exoticamp.Domain.Entities;
+using Exoticamp.UI.Models.Activities;
+using Exoticamp.UI.Models.CampsiteDetails;
+using Exoticamp.UI.Models.Location;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -58,7 +62,7 @@ namespace Exoticamp.UI.Models.Events
         [Required(ErrorMessage = "Please select a location")]
         public Guid LocationId { get; set; }
         public bool Status { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } 
 
 
 
@@ -80,5 +84,11 @@ namespace Exoticamp.UI.Models.Events
             }
             return ValidationResult.Success;
         }
+
+        public SelectList? ActivitiesVMs { get; set; }
+        public SelectList? Locations { get; set; }
+        public SelectList? Campsites { get; set; }
+
+
     }
 }
