@@ -31,5 +31,7 @@ namespace Exoticamp.Application.Features.Users.Queries.GetUserList
 
         [Required]
         public string Role { get; set; }
+        public bool IsLocked { get; set; }
+        public int LoginAttemptCount { get; set; }
     }
 }

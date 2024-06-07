@@ -38,7 +38,7 @@ namespace Exoticamp.Tests
             var command = new AddCampsiteDetailsCommand
             {
                 Name = "Test Campsite",
-                Location = "Test Location",
+                Location = "Location",
                 Status = true,
                 TentType = "Test Tent",
                 Images = "test.jpg",
@@ -50,8 +50,7 @@ namespace Exoticamp.Tests
                 BestTimeToVisit = "Anytime",
                 HowToGetHere = "Test Directions",
                 QuickSummary = "Quick Summary",
-                CategoryId = Guid.NewGuid(),
-                ActivitiesId = Guid.NewGuid(),
+               
                 MealPlans = "Test Meal Plans",
                 Itinerary = "Test Itinerary",
                 Inclusions = "Test Inclusions",
@@ -64,7 +63,8 @@ namespace Exoticamp.Tests
                 FAQs = "Test FAQs",
                 HouseRules = "Test House Rules",
                 CancellationPolicy = "Test Policy",
-                isActive = true
+                isActive = true,
+                //isDeleted=false
             };
 
             var responseDto = new CampsiteDetailsDto
@@ -83,8 +83,7 @@ namespace Exoticamp.Tests
                 BestTimeToVisit = command.BestTimeToVisit,
                 HowToGetHere = command.HowToGetHere,
                 QuickSummary = command.QuickSummary,
-                CategoryId = command.CategoryId,
-                ActivitiesId = command.ActivitiesId,
+               
                 MealPlans = command.MealPlans,
                 Itinerary = command.Itinerary,
                 Inclusions = command.Inclusions,
@@ -97,7 +96,8 @@ namespace Exoticamp.Tests
                 FAQs = command.FAQs,
                 HouseRules = command.HouseRules,
                 CancellationPolicy = command.CancellationPolicy,
-                isActive = command.isActive
+                isActive = command.isActive,
+                //isDeleted= command.isDeleted,
             };
 
             var response = new Response<CampsiteDetailsDto>
@@ -149,6 +149,8 @@ namespace Exoticamp.Tests
             Assert.Equal(responseDto.HouseRules, returnedResponse.Data.HouseRules);
             Assert.Equal(responseDto.CancellationPolicy, returnedResponse.Data.CancellationPolicy);
             Assert.Equal(responseDto.isActive, returnedResponse.Data.isActive);
+            //Assert.Equal(responseDto.isDeleted, returnedResponse.Data.isDeleted);
+
         }
 
 
@@ -160,7 +162,7 @@ namespace Exoticamp.Tests
             {
                 Id = Guid.NewGuid(),
                 Name = "Updated Campsite",
-                Location = "Updated Location",
+                Location = "Location",
                 Status = true,
                 TentType = "Updated Tent",
                 Images = "updated.jpg",
@@ -186,7 +188,8 @@ namespace Exoticamp.Tests
                 FAQs = "Updated FAQs",
                 HouseRules = "Updated House Rules",
                 CancellationPolicy = "Updated Policy",
-                isActive = true
+                isActive = true,
+                //isDeleted=false
             };
 
             var responseDto = new UpdateCampsiteDetailsDto
@@ -219,7 +222,8 @@ namespace Exoticamp.Tests
                 FAQs = command.FAQs,
                 HouseRules = command.HouseRules,
                 CancellationPolicy = command.CancellationPolicy,
-                isActive = command.isActive
+                isActive = command.isActive,
+                //isDeleted=false
             };
 
             var response = new Response<UpdateCampsiteDetailsDto>
@@ -280,7 +284,7 @@ namespace Exoticamp.Tests
                 {
                     Id = Guid.NewGuid(),
                     Name = "Campsite 1",
-                    Location = "Location 1",
+                    Location = "Location",
                     Status = true,
                     TentType = "Tent Type 1",
                     Images = "Image 1",
@@ -309,6 +313,7 @@ namespace Exoticamp.Tests
                     HouseRules = "House Rules 1",
                     CancellationPolicy = "Policy 1",
                     isActive = true,
+                    //isDeleted=false,
                     ApprovedBy = "Admin",
                     ApprovededDate = DateTime.UtcNow,
                     DeletededBy = null,
@@ -349,7 +354,7 @@ namespace Exoticamp.Tests
                 {
                     Id = Guid.NewGuid(),
                     Name = "Campsite 1",
-                    Location = "Location 1", 
+                    Location ="Location", 
                     Status = true,
                     TentType = "Tent Type 1"
                     // Other properties...

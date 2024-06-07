@@ -8,8 +8,6 @@
     }
 
 
-
-
     .user-query {
         text-align: left;
         background: #f9f9f9;
@@ -93,12 +91,12 @@
         <h4>Submit a New Query:</h4>
         <form id="user-query-form" class="userForm">
             <div>
-                <label for="email">Email:</label>
+                <label for="email">Email<span class="text-danger">*</span>: </label>
                 <input type="email" name="email" required class="form-control" />
                 <span class="field-validation-valid" data-valmsg-for="email" data-valmsg-replace="true"></span>
             </div>
             <div>
-                <label for="query">Query:</label>
+                <label for="query">Query<span class="text-danger">*</span>:</label>
                 <textarea name="query" required class="form-control"></textarea>
                 <span class="field-validation-valid" data-valmsg-for="query" data-valmsg-replace="true"></span>
             </div>
@@ -127,8 +125,10 @@
             var userMessage = `<div class="message user-message"><p>${message}</p></div>`;
             $('#chatbox-messages').append(userMessage);
 
+
             if (concernId == 0) {
                 $('#query-form').removeClass('d-none');
+                $('#chatbox-messages').addClass('d-none');
             } else {
                 if (chatbotResponse == "" || chatbotResponse == undefined) {
                     $.get('@Url.Action("ChatbotPartial", "Chatbot")', { concernId: concernId }, function (responseData) {

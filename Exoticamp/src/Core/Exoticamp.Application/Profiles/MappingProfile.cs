@@ -35,6 +35,8 @@ using Exoticamp.Application.Features.Activities.Commands.AddActivities;
 using Exoticamp.Application.Features.Activities.Commands.UpdateActivities;
 using Exoticamp.Application.Features.UserQueries.Commands.CreateUserQuery;
 using Exoticamp.Application.Features.UserQueries.Queries.GetUserQueryList;
+using Exoticamp.Application.Features.Vendors.Queries.GetVendorList;
+using Exoticamp.Application.Features.Users.Commands.DeleteUser;
 using Exoticamp.Application.Features.Users.Queries.GetUser;
 using Exoticamp.Application.Features.Users.Commands.UpdateUser;
 using Exoticamp.Application.Features.Locations.Queries;
@@ -112,12 +114,22 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Activities, UpdateActivitiesCommand>().ReverseMap();
             CreateMap<Activities, Features.Activities.Query.GetActivityList.ActivityVM>().ReverseMap();
 
+
+            CreateMap< RegistrationRequest, GetUserListDto>().ReverseMap();
+            CreateMap<RegistrationRequest,  GetVendorListDto>().ReverseMap();
+             
+
             CreateMap<RegistrationRequest, GetUserDto>().ReverseMap();
+            CreateMap<GetVendorListDto,  GetVendorListQuery>().ReverseMap();
+            CreateMap<GetVendorListDto, GetUserListQuery>().ReverseMap();
             CreateMap<UpdateUserProfileCommand, GetUserDto>().ReverseMap();
             CreateMap<GetLocationListVM, Location>().ReverseMap();
 
 
 
+             
         }
+
+
     }
 }

@@ -14,7 +14,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
 {
     public class AddCampsiteDetailsCommand : IRequest<Response<CampsiteDetailsDto>>
     {
-       
+
         public string Name { get; set; }
         public string Location { get; set; }
         public bool Status { get; set; }

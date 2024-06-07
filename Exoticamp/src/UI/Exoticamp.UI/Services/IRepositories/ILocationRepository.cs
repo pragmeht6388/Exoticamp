@@ -1,4 +1,5 @@
-﻿using Exoticamp.UI.Models.Location;
+﻿
+using Exoticamp.UI.Models.Location;
 
 namespace Exoticamp.UI.Services.IRepositories
 {

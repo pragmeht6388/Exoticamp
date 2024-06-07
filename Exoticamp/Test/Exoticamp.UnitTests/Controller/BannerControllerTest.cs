@@ -37,7 +37,9 @@ namespace Exoticamp.Tests
                 Link = "https://example.com",
                 IsActive = true,
                 PromoCode = "",
-                Locations = "Location1, Location2",
+                IsDeleted = false,
+
+                LocationId = Guid.NewGuid(),
                 ImagePath = "/images/banner.jpg"
             };
 
@@ -47,7 +49,8 @@ namespace Exoticamp.Tests
                 Link = command.Link,
                 IsActive = command.IsActive,
                 PromoCode = command.PromoCode,
-                Locations = command.Locations,
+                IsDeleted = false,
+                LocationId = Guid.NewGuid(),
                 ImagePath = command.ImagePath
             };
 
@@ -75,7 +78,7 @@ namespace Exoticamp.Tests
             Assert.Equal(responseDto.Link, returnedResponse.Data.Link);
             Assert.Equal(responseDto.IsActive, returnedResponse.Data.IsActive);
             Assert.Equal(responseDto.PromoCode, returnedResponse.Data.PromoCode);
-            Assert.Equal(responseDto.Locations, returnedResponse.Data.Locations);
+            Assert.Equal(responseDto.LocationId, returnedResponse.Data.LocationId);
             Assert.Equal(responseDto.ImagePath, returnedResponse.Data.ImagePath);
         }
 
@@ -88,7 +91,8 @@ namespace Exoticamp.Tests
                 Link = "https://example.com",
                 IsActive = true,
                 PromoCode = "",
-                Locations = "Location1, Location2",
+                LocationId = Guid.NewGuid(),
+                IsDeleted=false,
                 ImagePath = "/images/banner.jpg"
             };
 
@@ -125,7 +129,9 @@ namespace Exoticamp.Tests
                 Link = "http://example.com",
                 IsActive = true,
                 PromoCode = "PROMO123",
-                Locations = "Location1, Location2",
+                LocationId = Guid.NewGuid(),
+                IsDeleted = false,
+
                 ImagePath = "path/to/image"
             };
 
@@ -135,8 +141,9 @@ namespace Exoticamp.Tests
                 Link = command.Link,
                 IsActive = command.IsActive,
                 PromoCode = command.PromoCode,
-                Locations = command.Locations,
-                ImagePath = command.ImagePath
+                LocationId = command.LocationId,
+                ImagePath = command.ImagePath,
+                IsDeleted = command.IsDeleted
             };
 
             var response = new Response<UpdateBannerDto>
@@ -162,7 +169,7 @@ namespace Exoticamp.Tests
             Assert.Equal(responseDto.Link, returnedResponse.Data.Link);
             Assert.Equal(responseDto.IsActive, returnedResponse.Data.IsActive);
             Assert.Equal(responseDto.PromoCode, returnedResponse.Data.PromoCode);
-            Assert.Equal(responseDto.Locations, returnedResponse.Data.Locations);
+            Assert.Equal(responseDto.LocationId, returnedResponse.Data.LocationId);
             Assert.Equal(responseDto.ImagePath, returnedResponse.Data.ImagePath);
         }
 
@@ -176,8 +183,9 @@ namespace Exoticamp.Tests
                 Link = "http://example.com",
                 IsActive = true,
                 PromoCode = "PROMO123",
-                Locations = "Location1, Location2",
-                ImagePath = "path/to/image"
+                LocationId = Guid.NewGuid(),
+                ImagePath = "path/to/image",
+                IsDeleted =false
             };
 
             _mediatorMock
@@ -202,7 +210,9 @@ namespace Exoticamp.Tests
                 Link = "https://example.com",
                 IsActive = true,
                 PromoCode = "",
-                Locations = "Location1, Location2",
+                LocationId = Guid.NewGuid(),
+                IsDeleted = true,
+
                 ImagePath = "/images/banner.jpg"
             };
 

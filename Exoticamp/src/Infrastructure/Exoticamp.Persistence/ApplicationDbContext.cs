@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 using Exoticamp.Application.Contracts;
 using Exoticamp.Domain.Entities;
 using Exoticamp.Domain.Common;
-
+using Exoticamp.Persistence.Migrations;
+using CampsiteDetailsEntity = Exoticamp.Domain.Entities.CampsiteDetails;
 namespace Exoticamp.Persistence
 {
     public class ApplicationDbContext : DbContext
@@ -34,13 +35,14 @@ namespace Exoticamp.Persistence
         public DbSet<Banner> Banners { get; set; }
         public DbSet<ContactUs> ContactUs { get; set; }
         public DbSet<Activities> Activities { get; set; }
-        public DbSet<CampsiteDetails> CampsiteDetails { get; set; }
+        public DbSet<CampsiteDetailsEntity> CampsiteDetails { get; set; }
         public DbSet<ChatbotResponse> ChatbotResponses { get; set; }
         public DbSet<UserQuery> UserQueries { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<EventActivities> EventActivities { get; set; }
         public DbSet<EventLocation> EventLocations { get; set; }
 
+        public DbSet<CampsiteActivities> CampsiteActivities { get; set; }
 
         private IDbContextTransaction _transaction;
 
@@ -79,9 +81,6 @@ namespace Exoticamp.Persistence
                 .WithMany(a => a.EventActivities)
                 .HasForeignKey(ea => ea.ActivityId);
 
-
-            base.OnModelCreating(modelBuilder);
-
             // Configuring the many-to-many relationship
             modelBuilder.Entity<EventLocation>()
                 .HasKey(ea => ea.Id);
@@ -101,6 +100,25 @@ namespace Exoticamp.Persistence
              .WithMany()
              .HasForeignKey(e => e.CampsiteId)
              .OnDelete(DeleteBehavior.Restrict); // Specify delete behavior
+
+            modelBuilder.Entity<CampsiteActivities>()
+            .HasKey(ca => new { ca.CampsiteId, ca.ActivityId });
+
+            modelBuilder.Entity<CampsiteActivities>()
+                .HasOne(ca => ca.CampsiteDetails)
+                .WithMany(cd => cd.CampsiteActivities)
+                .HasForeignKey(ca => ca.CampsiteId);
+
+            modelBuilder.Entity<CampsiteActivities>()
+                .HasOne(ca => ca.Activities)
+                .WithMany(a => a.CampsiteActivities)
+                .HasForeignKey(ca => ca.ActivityId);
+
+            //    modelBuilder.Entity<Domain.Entities.CampsiteDetails>()
+            //.HasOne(cd => cd.Activities)
+            //.WithMany(a => a.Campsites)
+            //.HasForeignKey(cd => cd.ActivitiesId)
+            //.OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 

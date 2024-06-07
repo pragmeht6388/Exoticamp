@@ -76,6 +76,56 @@ namespace Exoticamp.UI.Services.Repositories
             return events;
         }
 
+        public async Task<IEnumerable<UsersVM>> GetAllVendorsAsync()
+        {
+            UsersResponse response = new UsersResponse();
+            List<UsersVM> events = new List<UsersVM>();
+            _apiRepository = new APIRepository(_configuration);
+
+            _oApiResponse = new Response<string>();
+            byte[] content = Array.Empty<byte>();
+            var bytes = new ByteArrayContent(content);
+            _oApiResponse = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetAllVendorsQueries, HttpMethod.Get, bytes, _sToken);
+            if (_oApiResponse.data != null)
+            {
+                events = (JsonConvert.DeserializeObject<UsersResponse>(_oApiResponse.data)).Data.ToList();
+            }
+
+            return events;
+        }
+
+        public async Task<UsersVM> IsDeleteAsync(string id)
+        {
+            _apiRepository = new APIRepository(_configuration);
+
+            var url = string.Format(URLHelper.IsDeleteUser, id);
+            var response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, url, HttpMethod.Put, null, _sToken);
+
+            if (response.data != null)
+            {
+                return JsonConvert.DeserializeObject<UsersVM>(response.data);
+            }
+
+            return null;
+        }
+
+        public async Task<UsersVM> IsLockedUsersAsync(string id)
+        {
+            _apiRepository = new APIRepository(_configuration);
+
+            var url = string.Format(URLHelper.IsLockedUser, id);
+            var response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, url, HttpMethod.Put, null, _sToken);
+
+            if (response.data != null)
+            {
+                return JsonConvert.DeserializeObject<UsersVM>(response.data);
+            }
+
+            return null;
+        }
+
+
+
         public async Task<Response<UsersVM>> GetUserByIdAsync(string UserId)
         {
             _apiRepository = new APIRepository(_configuration);

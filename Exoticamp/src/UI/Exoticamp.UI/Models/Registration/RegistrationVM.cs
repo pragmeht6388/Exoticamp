@@ -22,7 +22,11 @@ namespace Exoticamp.UI.Models.Registration
         [Required(ErrorMessage = "You must accept the terms and conditions")]
         public bool TermsandCondition { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is required.")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 100 characters long.")]
+        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$", ErrorMessage = "Password must contain at least one letter, one number, and be at least 6 characters long.")]
         public string Password { get; set; }
+        public string? Role { get; set; }
+
     }
 }

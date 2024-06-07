@@ -6,12 +6,12 @@ namespace Exoticamp.UI.Services.IRepositories
 {
     public interface ICampsiteDetailsRepository
     {
-       Task<CreateCampsiteDetailsResponseModel> AddCampsiteDetails(CampsiteDetailsVM campsiteVM);
+        Task<CreateCampsiteDetailsResponseModel> AddCampsiteDetails(CampsiteDetailsVM campsiteVM);
         Task<IEnumerable<CampsiteDetailsVM>> GetAllCampsites();
 
         Task<GetCampsiteDetailsByIdResponseModel> GetCampsiteById(string Id);
 
-       Task<EditCampsiteDetailsResopnseModel> EditCampsiteDetails(CampsiteDetailsVM campsiteVM);
+        Task<EditCampsiteDetailsResopnseModel> EditCampsiteDetails(CampsiteDetailsVM campsiteVM);
         Task<DeleteCampsiteDetailsResponseModel> DeleteCampsite(string Id);
     }
 }
