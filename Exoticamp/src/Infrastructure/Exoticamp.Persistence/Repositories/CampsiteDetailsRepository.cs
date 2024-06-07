@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace Exoticamp.Persistence.Repositories
 {
-    public class CampsiteDetailsRepository:BaseRepository<CampsiteDetails>, ICampsiteDetailsRepository
+    public class CampsiteDetailsRepository : BaseRepository<CampsiteDetails>, ICampsiteDetailsRepository
     {
         private readonly ILogger _logger;
-       // private readonly ApplicationDbContext _dbContext;
+        // private readonly ApplicationDbContext _dbContext;
         public CampsiteDetailsRepository(ApplicationDbContext dbContext, ILogger<CampsiteDetails> logger) : base(dbContext, logger)
         {
             _logger = logger;
-           // _dbContext = dbContext;
+            // _dbContext = dbContext;
         }
 
         public Task<CampsiteDetails> AddCampsite(CampsiteDetails campsite)
@@ -42,13 +42,12 @@ namespace Exoticamp.Persistence.Repositories
         }
         public async Task<List<CampsiteDetailsVM>> GetAllCampsiteWithCategoryAndActivityDetails()
         {
-            var data = await this._dbContext.CampsiteDetails.Select(request => new CampsiteDetailsVM()
+            var data = await this._dbContext.CampsiteDetails.Include(x => x.CampsiteActivities).Select(request => new CampsiteDetailsVM()
             {
 
                 Id = request.Id,
                 Name = request.Name,
-                // Location = request.Location,
-                LocationId = request.LocationId,
+                Location = request.Location,
                 Status = request.Status,
                 TentType = request.TentType,
                 isActive = request.isActive,
@@ -56,7 +55,7 @@ namespace Exoticamp.Persistence.Repositories
                 ApprovededDate = request.ApprovededDate,
                 DeletededBy = request.DeletededBy,
                 DeletedDate = request.DeletedDate,
-                //CategoryName = request.Categories.Name,
+               // CategoryName = request.Categories.Name,
                 Images = request.Images,
                 DateTime = request.DateTime,
                 Highlights = request.Highlights,
@@ -74,14 +73,13 @@ namespace Exoticamp.Persistence.Repositories
                 Safety = request.Safety,
                 DistanceWithMap = request.DistanceWithMap,
                 CancellationPolicy = request.CancellationPolicy,
-               // CategoryId = request.CategoryId,
-                //ActivitiesId = request.ActivitiesId,
+                //CategoryId = request.CategoryId,
+                //CampsiteActivities = request.CampsiteActivities,
                 FAQs = request.FAQs,
                 HouseRules = request.HouseRules,
                 MealPlans = request.MealPlans,
                 WhyExoticamp = request.WhyExoticamp,
-               // ActivitiesName = request.Activities.Name
-
+                //ActivitiesName = request.Activities.Name
                 //ActivitiesName=request.Activities.FirstOrDefault().Name
 
             }).ToListAsync();

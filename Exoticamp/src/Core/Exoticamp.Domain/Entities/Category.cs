@@ -10,8 +10,8 @@ namespace Exoticamp.Domain.Entities
         [Key]
         public Guid CategoryId { get; set; }
         public string Name { get; set; }
-        public ICollection<Event> Events { get; set; }
-        public ICollection<CampsiteDetails> CampsiteDetails { get; set; }
+        //public ICollection<Event> Events { get; set; }
+        //public ICollection<CampsiteDetails> CampsiteDetails { get; set; }
 
 
     }

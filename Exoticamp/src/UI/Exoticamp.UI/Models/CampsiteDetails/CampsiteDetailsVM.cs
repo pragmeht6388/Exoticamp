@@ -61,7 +61,7 @@ namespace Exoticamp.UI.Models.CampsiteDetails
         public string CategoryName { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
-       
+
         [JsonProperty("activitiesId")]
         public Guid ActivitiesId { get; set; }
 
@@ -70,7 +70,7 @@ namespace Exoticamp.UI.Models.CampsiteDetails
         public string ActivityName { get; set; }
 
         [ForeignKey(nameof(ActivitiesId))]
-       
+
 
         [JsonProperty("mealPlans")]
         public string MealPlans { get; set; }

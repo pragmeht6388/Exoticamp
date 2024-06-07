@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -9,16 +10,12 @@ namespace Exoticamp.Domain.Entities
 {
     public class CampsiteActivities
     {
+        [Key]
         public Guid Id { get; set; }
-        public Guid ActivitiesId { get; set; }
-
-        [ForeignKey("ActivitiesId")]
-        public Activities Activities { get; set; }
-        public Guid CampsiteDetailsId {  get; set; }
-
-        [ForeignKey("CampsiteDetailsId")]
+        public Guid CampsiteId { get; set; }
         public CampsiteDetails CampsiteDetails { get; set; }
 
-
+        public Guid ActivityId { get; set; }
+        public Activities Activities { get; set; }
     }
 }
