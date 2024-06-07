@@ -1,4 +1,5 @@
 ﻿using Exoticamp.Application.Contracts.Persistence;
+using Exoticamp.Application.Features.Banners.Queries;
 using Exoticamp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -46,5 +47,26 @@ namespace Exoticamp.Persistence.Repositories
         {
             return await _dbContext.Banners.FirstOrDefaultAsync(b => b.Link == link);
         }
+        public async Task<List<BannerDto>> GetAllBannerWithLocation()
+        {
+            var data = await this._dbContext.Banners.Include(x => x.Location).Select(request => new BannerDto()
+            {
+
+                BannerId = request.BannerId,
+                LocationId = request.LocationId,
+                IsActive = request.IsActive,
+                IsDeleted= request.IsDeleted,
+                LocationName=request.Location.Name,
+                PromoCode=request.PromoCode,
+                Link=request.Link,
+                ImagePath=request.ImagePath,
+        
+
+                //ActivitiesName=request.Activities.FirstOrDefault().Name
+
+            }).ToListAsync();
+            return data;
+        }
+
     }
 }

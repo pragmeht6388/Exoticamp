@@ -41,9 +41,9 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
             }
             else
             {
-                var campsite = new Domain.Entities.CampsiteDetails { Name = request.Name, Location = request.Location, Status = request.Status, TentType = request.TentType, isActive = true, ApprovedBy = request.ApprovedBy, ApprovededDate = request.ApprovededDate, DeletededBy = request.DeletededBy, DeletedDate = request.DeletedDate  ,Images=request.Images,
+                var campsite = new Domain.Entities.CampsiteDetails { Name = request.Name, LocationId = request.LocationId, Status = request.Status, TentType = request.TentType, isActive = true,isDeleted=request.isDeleted, ApprovedBy = request.ApprovedBy, ApprovededDate = request.ApprovededDate, DeletededBy = request.DeletededBy, DeletedDate = request.DeletedDate  ,Images=request.Images,
                 DateTime=request.DateTime,Highlights=request.Highlights,Ratings=request.Ratings,AboutCampsite=request.AboutCampsite,CampsiteRules=request.CampsiteRules,BestTimeToVisit=request.BestTimeToVisit,HowToGetHere=request.HowToGetHere,QuickSummary=request.QuickSummary,Itinerary=request.Itinerary,Inclusions=request.Inclusions,Exclusion=request.Exclusion,Amenities=request.Amenities,
-                Accommodation=request.Accommodation,Safety=request.Safety,DistanceWithMap=request.DistanceWithMap,CancellationPolicy=request.CancellationPolicy,CategoryId=request.CategoryId,ActivitiesId=request.ActivitiesId,FAQs=request.FAQs,HouseRules=request.HouseRules,MealPlans=request.MealPlans,WhyExoticamp=request.WhyExoticamp};
+                Accommodation=request.Accommodation,Safety=request.Safety,DistanceWithMap=request.DistanceWithMap,CancellationPolicy=request.CancellationPolicy,FAQs=request.FAQs,HouseRules=request.HouseRules,MealPlans=request.MealPlans,WhyExoticamp=request.WhyExoticamp};
                 campsite = await _campsiteRepository.AddAsync(campsite);
                 addCampsiteCommandResponse = new Response<CampsiteDetailsDto>(_mapper.Map<CampsiteDetailsDto>(campsite), "success");
             }

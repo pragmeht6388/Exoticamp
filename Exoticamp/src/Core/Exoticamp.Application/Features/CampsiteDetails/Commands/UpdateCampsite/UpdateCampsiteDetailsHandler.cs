@@ -56,10 +56,11 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.UpdateCampsite
             {
                 Id=request.Id,
                 Name = request.Name,
-                Location = request.Location,
+                LocationId = request.LocationId,
                 Status = request.Status,
                 TentType = request.TentType,
                 isActive = request.isActive,///change is true
+                isDeleted= request.isDeleted,
                 ApprovedBy = request.ApprovedBy,
                 ApprovededDate = request.ApprovededDate,
                 DeletededBy = request.DeletededBy,

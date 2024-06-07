@@ -1,9 +1,10 @@
-﻿using Exoticamp.UI.Models.Location;
+﻿
+using Exoticamp.UI.Models.Location;
 
 namespace Exoticamp.UI.Services.IRepositories
 {
     public interface ILocationRepository
     {
-        Task<IEnumerable<LocationVM>> GetAllEvents();
+        Task<IEnumerable<LocationVM>> GetAllLocations();
     }
 }

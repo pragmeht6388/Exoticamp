@@ -4,6 +4,7 @@ using Exoticamp.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Exoticamp.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240606072018_Added mapping for event Location Activity2")]
+    partial class AddedmappingforeventLocationActivity2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,16 +71,14 @@ namespace Exoticamp.Persistence.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Link")
                         .IsRequired()
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
-                    b.Property<Guid>("LocationId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Locations")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PromoCode")
                         .IsRequired()
@@ -86,51 +87,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("BannerId");
 
-                    b.HasIndex("LocationId");
-
                     b.ToTable("Banners");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteActivities", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ActivitiesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CampsiteDetailsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ActivitiesId");
-
-                    b.HasIndex("CampsiteDetailsId");
-
-                    b.ToTable("CampsiteActivities");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteCategories", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CampsiteDetailsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CampsiteDetailsId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("CampsiteCategories");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
@@ -147,7 +104,7 @@ namespace Exoticamp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ActivitiesId")
+                    b.Property<Guid>("ActivitiesId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Amenities")
@@ -172,7 +129,7 @@ namespace Exoticamp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("CategoryId")
+                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedBy")
@@ -238,8 +195,9 @@ namespace Exoticamp.Persistence.Migrations
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("LocationId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MealPlans")
                         .IsRequired()
@@ -275,16 +233,11 @@ namespace Exoticamp.Persistence.Migrations
                     b.Property<bool?>("isActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ActivitiesId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("LocationId");
 
                     b.ToTable("CampsiteDetails");
                 });
@@ -659,72 +612,23 @@ namespace Exoticamp.Persistence.Migrations
                     b.ToTable("UserQueries");
                 });
 
-            modelBuilder.Entity("Exoticamp.Domain.Entities.Banner", b =>
-                {
-                    b.HasOne("Exoticamp.Domain.Entities.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Location");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteActivities", b =>
+            modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
                 {
                     b.HasOne("Exoticamp.Domain.Entities.Activities", "Activities")
-                        .WithMany()
+                        .WithMany("CampsiteDetails")
                         .HasForeignKey("ActivitiesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Exoticamp.Domain.Entities.CampsiteDetails", "CampsiteDetails")
-                        .WithMany("campsiteActivities")
-                        .HasForeignKey("CampsiteDetailsId")
+                    b.HasOne("Exoticamp.Domain.Entities.Category", "Categories")
+                        .WithMany("CampsiteDetails")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Activities");
 
-                    b.Navigation("CampsiteDetails");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteCategories", b =>
-                {
-                    b.HasOne("Exoticamp.Domain.Entities.CampsiteDetails", "CampsiteDetails")
-                        .WithMany("campsiteCategories")
-                        .HasForeignKey("CampsiteDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Exoticamp.Domain.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CampsiteDetails");
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
-                {
-                    b.HasOne("Exoticamp.Domain.Entities.Activities", null)
-                        .WithMany("CampsiteDetails")
-                        .HasForeignKey("ActivitiesId");
-
-                    b.HasOne("Exoticamp.Domain.Entities.Category", null)
-                        .WithMany("CampsiteDetails")
-                        .HasForeignKey("CategoryId");
-
-                    b.HasOne("Exoticamp.Domain.Entities.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Location");
+                    b.Navigation("Categories");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
@@ -785,13 +689,6 @@ namespace Exoticamp.Persistence.Migrations
                     b.Navigation("CampsiteDetails");
 
                     b.Navigation("EventActivities");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
-                {
-                    b.Navigation("campsiteActivities");
-
-                    b.Navigation("campsiteCategories");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>

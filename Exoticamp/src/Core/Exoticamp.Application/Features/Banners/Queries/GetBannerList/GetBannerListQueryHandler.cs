@@ -30,7 +30,7 @@ namespace Exoticamp.Application.Features.Banners.Handlers.Queries
             _logger.LogInformation("Handle Initiated");
 
             // Retrieve all banners from the repository
-            var allBanners = await _bannerRepository.ListAllAsync();
+            var allBanners = await _bannerRepository.GetAllBannerWithLocation();
 
             // Filter banners where IsActive is true
             var activeBanners = allBanners.Where(b => b.IsActive);

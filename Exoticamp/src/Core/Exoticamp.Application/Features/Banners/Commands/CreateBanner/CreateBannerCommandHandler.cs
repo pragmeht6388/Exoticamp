@@ -50,8 +50,9 @@ namespace Exoticamp.Application.Features.Banners.Commands.CreateBanner
                     Link = request.Link,
                     IsActive = request.IsActive,
                     PromoCode = request.PromoCode,
-                    Locations = request.Locations,
-                    ImagePath = request.ImagePath
+                    LocationId = request.LocationId,
+                    ImagePath = request.ImagePath,
+                    IsDeleted =request.IsDeleted
                 };
                 banner = await _bannerRepository.AddAsync(banner);
                 addBannerCommandResponse = new Response<CreateBannerDto>(_mapper.Map<CreateBannerDto>(banner), "success");
