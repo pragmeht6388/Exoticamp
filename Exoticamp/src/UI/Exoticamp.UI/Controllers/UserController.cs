@@ -9,21 +9,26 @@ namespace Exoticamp.UI.Controllers
     {
         private readonly IUsersRepository _usersRepository;
         private readonly ILocationRepository _locationRepository;
-        public UserController(IUsersRepository usersRepository, ILocationRepository locationRepository)
+        private readonly IActivitiesRepository _activitiesRepository;
+        public UserController(IUsersRepository usersRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository)
         {
             _usersRepository = usersRepository;
             _locationRepository = locationRepository;
+            _activitiesRepository = activitiesRepository;
         }
         public IActionResult Index()
         {
             return View();
         }
 
+
         public async Task<IActionResult> Profile()
         {
             var UserId = HttpContext.Session.GetString("UserId");
             ViewBag.Locations = await _locationRepository.GetAllLocations();
             var userDetails = await _usersRepository.GetUserByIdAsync(UserId);
+            ViewBag.Preferences = await _activitiesRepository.GetAllActivities();
+
             if (userDetails.data != null)
             {
                 return View(userDetails.data);
