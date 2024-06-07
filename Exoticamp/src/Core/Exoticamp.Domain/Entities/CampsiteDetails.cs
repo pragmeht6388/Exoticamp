@@ -36,12 +36,7 @@ namespace Exoticamp.Domain.Entities
 
         public string QuickSummary { get; set; }
 
-
-
-
-       // public Guid ActivitiesId { get; set; }
-
-
+       // public Guid CategoryId { get; set; }
         public string MealPlans { get; set; }
 
         public string Itinerary { get; set; }
@@ -70,8 +65,8 @@ namespace Exoticamp.Domain.Entities
         public string? DeletededBy { get; set; }
         public DateTime? DeletedDate { get; set; }
 
-
-
+        //[ForeignKey("CategoryId")]
+        //public Category Category { get; set; }
         public ICollection<CampsiteActivities> CampsiteActivities { get; set; }
     }
 }

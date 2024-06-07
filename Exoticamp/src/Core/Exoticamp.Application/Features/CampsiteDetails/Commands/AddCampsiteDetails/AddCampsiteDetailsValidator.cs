@@ -20,7 +20,9 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
             RuleFor(p => p.Name)
                .NotEmpty().WithMessage("{PropertyName} is required.")
                .NotNull()
-               .MaximumLength(100).WithMessage("{PropertyName} must not exceed 100 characters.");
+               .MaximumLength(100).WithMessage("{PropertyName} must not exceed 100 characters.")
+               .Matches(@"^[^\d]*$").WithMessage("{PropertyName} should not contain numeric values."); // Custom validation
+            ;
 
             RuleFor(p => p.Location)
                 .NotEmpty().WithMessage("{PropertyName} is required.")

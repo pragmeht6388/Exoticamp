@@ -1,4 +1,5 @@
-﻿using Exoticamp.UI.Models;
+﻿using Exoticamp.UI.AuthFilter;
+using Exoticamp.UI.Models;
 using Exoticamp.UI.Models.CampsiteDetails;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,8 @@ using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace Exoticamp.UI.Controllers
 {
+    //[VendorAuthFilter]
+    //[]
     public class CampsiteDetailsController : Controller
     {
         private readonly ICampsiteDetailsRepository _campsiteRepository;
