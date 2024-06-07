@@ -3,6 +3,7 @@ using Exoticamp.Application.Contracts.Persistence;
 using Exoticamp.Application.Exceptions;
 using Exoticamp.Application.Features.Campsite.Commands.UpdateCampsite;
 using Exoticamp.Application.Responses;
+using Exoticamp.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,14 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.UpdateCampsite
             }
 
             _mapper.Map(request, campsiteToUpdate);
+            var campsiteActivities = new CampsiteActivities()
+            {
+                Id = Guid.NewGuid(),
+                ActivityId = request.ActivitiesId,
+                CampsiteId = request.Id,
+
+            };
+            //await  Set<CampsiteActivities>().AddAsync(campsiteActivities);
 
             await _campsiteRepository.UpdateAsync(campsiteToUpdate);
 
@@ -89,6 +98,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.UpdateCampsite
                 WhyExoticamp = request.WhyExoticamp
 
             };
+
 
             return new Response<UpdateCampsiteDetailsDto>(dto, "Updated successfully");
         }
