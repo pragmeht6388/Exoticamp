@@ -1,10 +1,17 @@
-﻿using Exoticamp.UI.Models.Login;
+﻿using Exoticamp.UI.AuthFilter;
+using Exoticamp.UI.Models.Login;
 using Exoticamp.UI.Models.Registration;
 using Exoticamp.UI.Services.IRepositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
+ 
+
 
 namespace Exoticamp.UI.Controllers
 {
+    [OutputCache(NoStore = true, Duration = 0)]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class AccountController : Controller
     {
         private readonly IRegistrationRepository _registrationRepository;
@@ -86,7 +93,7 @@ namespace Exoticamp.UI.Controllers
                 case "User":
                     return RedirectToAction("Index", "Home");
                 case "Vendor":
-                    return RedirectToAction("GetAllUsers", "Admin");
+                    return RedirectToAction("Dashboard", "Home");
                 case "SuperAdmin":
                     return RedirectToAction("GetAllUsers", "Admin");
                 default:
@@ -95,9 +102,19 @@ namespace Exoticamp.UI.Controllers
         }
 
         [HttpGet]
+        [NoCache]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
+
+            if (HttpContext.Request.Cookies.ContainsKey(".AspNetCore.Cookies"))
+            {
+                HttpContext.Response.Cookies.Append(".AspNetCore.Cookies", "", new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddDays(-1)
+                });
+            }
+
             return RedirectToAction("Login", "Account");
         }
 
