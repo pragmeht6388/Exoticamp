@@ -1,5 +1,7 @@
 ﻿@using System.Collections
 @using Exoticamp.UI.Models.Events
+@using Exoticamp.UI.Models.Location
+
 @{
     ViewData["Title"] = "Home Page";
     Layout = "_LayoutLandingPage";
@@ -152,6 +154,17 @@
             <div class="card card-body">
                 <!-- Container for multiple abc-content elements -->
                 <div class="abc-container">
+                    @if (ViewBag.Locations is not null)
+                    {
+                        @foreach (var item in (IEnumerable<LocationVM>)ViewBag.Locations)
+                        {
+                            <div class="abc-content">
+                                <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
+                                <h5 class="mt-3">@item.Name</h5>
+                                <button class="btn btn-info mt-2 view-button" data-id="@item.Id">View</button>
+                            </div>
+                        }
+                    }
                     <!-- Dummy content 1 -->
                     <div class="abc-content">
                         <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
@@ -229,7 +242,7 @@
                         <h5 class="mt-3">Dummy Name</h5>
                         <button class="btn btn-info mt-2">View</button>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -687,5 +700,31 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        $(document).ready(function () {
+            $('.view-button').click(function () {
+                var locationId = $(this).data('id');
+
+                $.ajax({
+                    url: '@Url.Action("SetLocationId", "Home")',
+                    type: 'POST',
+                    data: { locationId: locationId },
+                    success: function (response) {
+                        if (response.success) {
+                            // Handle success - you can redirect or update the UI accordingly
+                            location.reload();
+                        } else {
+                            // Handle failure
+                            alert('Failed to set location ID.');
+                        }
+                    },
+                    error: function () {
+                        // Handle error
+                        alert('An error occurred while setting the location ID.');
+                    }
+                });
+            });
+        });
+    </script>
 }
 

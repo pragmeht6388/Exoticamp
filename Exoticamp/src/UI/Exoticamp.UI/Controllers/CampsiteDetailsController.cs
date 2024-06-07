@@ -15,7 +15,7 @@ namespace Exoticamp.UI.Controllers
 
 
 
-        public CampsiteDetailsController(ICampsiteDetailsRepository campsiteRepository, ICategoryRepository categoryRepository,IActivitiesRepository activitiesRepository)
+        public CampsiteDetailsController(ICampsiteDetailsRepository campsiteRepository, ICategoryRepository categoryRepository, IActivitiesRepository activitiesRepository)
         {
             _campsiteRepository = campsiteRepository;
             _categoryRepository = categoryRepository;
@@ -42,7 +42,7 @@ namespace Exoticamp.UI.Controllers
             return View(campsiteDetail.Data);
         }
 
-        
+
 
         [HttpGet]
         public async Task<IActionResult> AddCampsiteDetails()
@@ -55,7 +55,7 @@ namespace Exoticamp.UI.Controllers
             if (categories == null)
             {
                 // Log the error or handle the null case as required
-                return View("Error", new ErrorViewModel {  });
+                return View("Error", new ErrorViewModel { });
             }
 
             // Populate the ViewBag with a SelectList for the dropdown
@@ -136,18 +136,18 @@ namespace Exoticamp.UI.Controllers
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await model.ImageFile.CopyToAsync(fileStream);
-                } 
+                }
             }
             model.IsActive = true;
             var result = await _campsiteRepository.EditCampsiteDetails(model);
-                if (result.Succeeded)
-                {
+            if (result.Succeeded)
+            {
                 TempData["SuccessMessage"] = "Campsite details Updated successfully.";
 
                 return RedirectToAction("ShowCampsite");
-                }
-                ModelState.AddModelError("", "Unable to update campsite.");
-            
+            }
+            ModelState.AddModelError("", "Unable to update campsite.");
+
             return RedirectToAction("ShowCampsite");
         }
 
@@ -163,7 +163,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> ShowCampsiteUser()
         {
             var campsiteDetail = await _campsiteRepository.GetAllCampsites();
-           
+
             return View(campsiteDetail);
         }
 

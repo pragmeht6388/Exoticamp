@@ -57,8 +57,8 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    <a class="nav-link" href="/Account/Logout" role="button">
+                        <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
                     @* <div class="navbar-search-block">
                         <form class="form-inline">
@@ -338,7 +338,9 @@
     <script src="~/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="~/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="~/adminlte/plugins/datatables-buttons/js/buttons.colvis.min.js"></script>
+   
+  
     @await RenderSectionAsync("Scripts", required: false)
-
+    
 </body>
 </html>

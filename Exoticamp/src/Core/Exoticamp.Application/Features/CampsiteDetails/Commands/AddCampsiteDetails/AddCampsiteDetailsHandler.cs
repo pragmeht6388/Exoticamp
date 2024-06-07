@@ -20,7 +20,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
         private readonly IActivitiesRepository _activitiesRepository;
         private readonly IMessageRepository _messageRepository;
 
-        public AddCampsiteDetailsHandler(IMapper mapper, ICampsiteDetailsRepository campsiteRepository, IMessageRepository messageRepository,IActivitiesRepository activitiesRepository)
+        public AddCampsiteDetailsHandler(IMapper mapper, ICampsiteDetailsRepository campsiteRepository, IMessageRepository messageRepository, IActivitiesRepository activitiesRepository)
         {
             _mapper = mapper;
             _campsiteRepository = campsiteRepository;
@@ -30,7 +30,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
 
         public async Task<Response<CampsiteDetailsDto>> Handle(AddCampsiteDetailsCommand request, CancellationToken cancellationToken)
         {
-            Response<CampsiteDetailsDto> addCampsiteCommandResponse = new Response<CampsiteDetailsDto>() ;
+            Response<CampsiteDetailsDto> addCampsiteCommandResponse = new Response<CampsiteDetailsDto>();
 
             var validator = new AddCampsiteDetailsCommandValidator(_messageRepository);
             var validationResult = await validator.ValidateAsync(request);
@@ -41,9 +41,41 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
             }
             else
             {
-                var campsite = new Domain.Entities.CampsiteDetails { Name = request.Name, LocationId = request.LocationId, Status = request.Status, TentType = request.TentType, isActive = true,isDeleted=request.isDeleted, ApprovedBy = request.ApprovedBy, ApprovededDate = request.ApprovededDate, DeletededBy = request.DeletededBy, DeletedDate = request.DeletedDate  ,Images=request.Images,
-                DateTime=request.DateTime,Highlights=request.Highlights,Ratings=request.Ratings,AboutCampsite=request.AboutCampsite,CampsiteRules=request.CampsiteRules,BestTimeToVisit=request.BestTimeToVisit,HowToGetHere=request.HowToGetHere,QuickSummary=request.QuickSummary,Itinerary=request.Itinerary,Inclusions=request.Inclusions,Exclusion=request.Exclusion,Amenities=request.Amenities,
-                Accommodation=request.Accommodation,Safety=request.Safety,DistanceWithMap=request.DistanceWithMap,CancellationPolicy=request.CancellationPolicy,FAQs=request.FAQs,HouseRules=request.HouseRules,MealPlans=request.MealPlans,WhyExoticamp=request.WhyExoticamp};
+                var campsite = new Domain.Entities.CampsiteDetails
+                {
+                    Name = request.Name,
+                    Location = request.Location,
+                    Status = request.Status,
+                    TentType = request.TentType,
+                    isActive = true,
+                    ApprovedBy = request.ApprovedBy,
+                    ApprovededDate = request.ApprovededDate,
+                    DeletededBy = request.DeletededBy,
+                    DeletedDate = request.DeletedDate,
+                    Images = request.Images,
+                    DateTime = request.DateTime,
+                    Highlights = request.Highlights,
+                    Ratings = request.Ratings,
+                    AboutCampsite = request.AboutCampsite,
+                    CampsiteRules = request.CampsiteRules,
+                    BestTimeToVisit = request.BestTimeToVisit,
+                    HowToGetHere = request.HowToGetHere,
+                    QuickSummary = request.QuickSummary,
+                    Itinerary = request.Itinerary,
+                    Inclusions = request.Inclusions,
+                    Exclusion = request.Exclusion,
+                    Amenities = request.Amenities,
+                    Accommodation = request.Accommodation,
+                    Safety = request.Safety,
+                    DistanceWithMap = request.DistanceWithMap,
+                    CancellationPolicy = request.CancellationPolicy,
+                    //CategoryId = request.CategoryId,
+                   // ActivitiesId = request.ActivitiesId,
+                    FAQs = request.FAQs,
+                    HouseRules = request.HouseRules,
+                    MealPlans = request.MealPlans,
+                    WhyExoticamp = request.WhyExoticamp
+                };
                 campsite = await _campsiteRepository.AddAsync(campsite);
                 addCampsiteCommandResponse = new Response<CampsiteDetailsDto>(_mapper.Map<CampsiteDetailsDto>(campsite), "success");
             }

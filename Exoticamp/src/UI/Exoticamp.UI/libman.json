@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "cdnjs",
+      "library": "select2@4.0.13",
+      "destination": "wwwroot/lib/select2/"
+    }
+  ]
+}
