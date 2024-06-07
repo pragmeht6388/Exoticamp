@@ -36,7 +36,10 @@ namespace Exoticamp.Domain.Entities
 
         public string QuickSummary { get; set; }
 
-       // public Guid CategoryId { get; set; }
+     
+      
+       
+
         public string MealPlans { get; set; }
 
         public string Itinerary { get; set; }

@@ -17,17 +17,17 @@ namespace Exoticamp.Application.Features.Events.Commands.UpdateEvent
                 .MaximumLength(50).WithMessage("Name shold not exceed 50 characters");
 
             RuleFor(p => p.StartDate)
-                .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
-                .NotNull()
+                .NotEmpty().WithMessage("Event Start date is required")
+                .NotNull().WithMessage("Event Start date is required")
                 .GreaterThan(DateTime.Now);
             RuleFor(p => p.EndDate)
-              .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
+              .NotEmpty().WithMessage("Event End date date is required")
               .NotNull()
               .GreaterThan((p => p.StartDate)).WithMessage("End date should be greater than start date");
 
         
             RuleFor(p => p.Price)
-                .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
+                .NotEmpty().WithMessage("Event price is required")
                 .GreaterThan(0).WithMessage("Event price shold be greater than Zero");
 
             RuleFor(p => p.Capacity)

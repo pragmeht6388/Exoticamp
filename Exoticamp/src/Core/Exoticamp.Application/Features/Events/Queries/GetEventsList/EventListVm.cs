@@ -6,27 +6,30 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventsList
 {
     public class EventListVm
     {
-        public string EventId { get; set; }
-        [Required]
+        public Guid EventId { get; set; }
+
         public string Name { get; set; }
-        [Required]
+
         public decimal Price { get; set; }
-        [Required]
+
         public int Capacity { get; set; }
-        [Required]
+
         public DateTime StartDate { get; set; }
-        [Required]
         public DateTime EndDate { get; set; }
-        [Required]
 
         public string Description { get; set; }
-      
-     
-
         public string? ImageUrl { get; set; }
-        [Required]
+
         public string Highlights { get; set; }
-        [Required]
+
         public string EventRules { get; set; }
+        public Guid CampsiteId { get; set; }
+
+        public Guid ActivityId { get; set; }
+
+        public Guid LocationId { get; set; }
+        public bool Status { get; set; }
+        public bool IsDeleted { get; set; }
+
     }
 }

@@ -25,12 +25,12 @@ namespace Exoticamp.Application.Features.Events.Commands.UpdateEvent
 
         public async Task<Response<UpdateEventDto>> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
         {
-            var eventToUpdate = await _eventRepository.GetByIdAsync(request.EventId);
+           // var eventToUpdate = await _eventRepository.GetByIdAsync(request.EventId);
 
-            if (eventToUpdate == null)
-            {
-                throw new NotFoundException(nameof(Event), request.EventId);
-            }
+            //if (eventToUpdate == null)
+            //{
+            //    throw new NotFoundException(nameof(Event), request.EventId);
+            //}
 
             var validator = new UpdateEventCommandValidator(_messageRepository);
             var validationResult = await validator.ValidateAsync(request);
@@ -38,11 +38,13 @@ namespace Exoticamp.Application.Features.Events.Commands.UpdateEvent
             if (validationResult.Errors.Count > 0)
                 throw new ValidationException(validationResult);
 
-            _mapper.Map(request, eventToUpdate, typeof(UpdateEventCommand), typeof(Event));
+          //  _mapper.Map(request, eventToUpdate, typeof(UpdateEventCommand), typeof(Event));
 
-            await _eventRepository.UpdateAsync(eventToUpdate);
+          var dto =await _eventRepository.UpdateEvent(request);
 
-            return new Response<UpdateEventDto>(_mapper.Map<UpdateEventDto>(request), "Updated successfully ");
+            return new Response<UpdateEventDto>(dto, "Updated successfully ");
+
+
 
         }
     }

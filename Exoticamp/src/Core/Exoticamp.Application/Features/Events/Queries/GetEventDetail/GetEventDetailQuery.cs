@@ -6,6 +6,6 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventDetail
 {
     public class GetEventDetailQuery : IRequest<Response<EventDetailVm>>
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
     }
 }
