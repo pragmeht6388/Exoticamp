@@ -15,6 +15,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;  
 });
 var Configuration = builder.Configuration;
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 // ApiBaseUrl Keys
 builder.Services.Configure<ApiBaseUrl>(Configuration.GetSection("ApiBaseUrl"));
@@ -25,6 +26,7 @@ builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 
 
 builder.Services.AddScoped<IBannerRepository,BannerRepository>();
+builder.Services.AddScoped<ILocationRepository,LocationRepository>();
 builder.Services.AddScoped<IContactUsRepository,ContactUsRepository>();
 builder.Services.AddScoped<ICampsiteRepository, CamsiteRepository>();
 builder.Services.AddScoped<IChatbotRepository, ChatbotRepository>();
@@ -35,7 +37,6 @@ builder.Services.AddScoped<ICampsiteDetailsRepository, CampsiteDetailsRepository
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IActivitiesRepository, ActivitiesRepository>();
 builder.Services.AddScoped<ILocationRepository, LocationRepository>();
-
 
 var app = builder.Build();
 

@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Availibility";
+    Layout = "~/Views/Shared/_VendorLayout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Booking</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="mb-4">Manage Booking</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label for="date">Date:</label>
+                        <input type="date" class="form-control" id="date">
+                    </div>
+                    <div class="form-group">
+                        <label for="start-time">Start Time:</label>
+                        <input type="time" class="form-control" id="start-time">
+                    </div>
+                    <div class="form-group">
+                        <label for="end-time">End Time:</label>
+                        <input type="time" class="form-control" id="end-time">
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-name">Customer Name:</label>
+                        <input type="text" class="form-control" id="customer-name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Book Appointment</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <!-- Display booked appointments here -->
+                <h4>Booked Appointments</h4>
+                <ul class="list-group">
+                    <!-- Dummy data -->
+                    <li class="list-group-item">Date: 2024-06-30 | Start Time: 09:00 | End Time: 10:00 | Customer: John Doe</li>
+                    <li class="list-group-item">Date: 2024-07-01 | Start Time: 10:00 | End Time: 11:00 | Customer: Jane Smith</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

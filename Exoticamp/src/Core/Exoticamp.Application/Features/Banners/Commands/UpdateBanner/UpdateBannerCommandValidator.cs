@@ -13,29 +13,18 @@ namespace Exoticamp.Application.Features.Banners.Commands.UpdateBanner
             _messageRepository = messageRepository;
 
             RuleFor(p => p.Link)
-                .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
-                .NotNull()
-                .MaximumLength(2048).WithMessage(GetMessage("2", ApplicationConstants.LANG_ENG));
+                            .NotEmpty().WithMessage("Link is required.")
+                            .NotNull()
+                            .MaximumLength(2048).WithMessage("Link cannot exceed 2048 characters.");
 
             RuleFor(p => p.PromoCode)
-                .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
+                .NotEmpty().WithMessage("PromoCode is required.")
                 .NotNull()
-                .MaximumLength(50).WithMessage(GetMessage("2", ApplicationConstants.LANG_ENG));
-
-            RuleFor(p => p.Locations)
-                .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
-                .NotNull();
+                .MaximumLength(50).WithMessage("PromoCode cannot exceed 50 characters.");
 
             RuleFor(p => p.ImagePath)
-                .NotEmpty().WithMessage(GetMessage("1", ApplicationConstants.LANG_ENG))
+                .NotEmpty().WithMessage("ImagePath is required.")
                 .NotNull();
-        }
-
-        private string GetMessage(string code, string lang)
-        {
-            var messageTask = _messageRepository.GetMessage(code, lang);
-            var message = messageTask?.Result;
-            return message?.MessageContent?.ToString() ?? "Some Details are Invalid";
         }
     }
 }
