@@ -129,24 +129,24 @@ namespace Exoticamp.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetCampsite(Guid CampsiteId)
+        public async Task<JsonResult> GetCampsitesByLocation(Guid locationId)
         {
             // Fetch departments based on the selected hospital
             var campsites = (await _campsiteRepository.GetAllCampsites())
-                                                    .Where(d => d.Id == CampsiteId)
+                                                    .Where(d => d.Id == locationId)
                                                     .ToList();
             return Json(campsites);
         }
 
-        //[HttpGet]
-        //public async Task<JsonResult> GetActivities(Guid locationId, Guid campsiteId)
-        //{
-        //    // Fetch doctors based on the selected department
-        //    var doctors =(await _activitiesRepository.GetAllActivities())
-        //                                    .Where(d => d.Id == departmentId && d.HospitalId == hospitalId)
-        //                                    .ToList();
-        //    return Json(doctors);
-        //}
+        [HttpGet]
+        public async Task<JsonResult> GetActivitiesByCampsite(Guid campsiteId)
+        {
+            // Fetch doctors based on the selected department
+            var activities = (await _activitiesRepository.GetAllActivities())
+                                            .Where(d => d.Id == campsiteId)
+                                            .ToList();
+            return Json(activities);
+        }
 
 
     }

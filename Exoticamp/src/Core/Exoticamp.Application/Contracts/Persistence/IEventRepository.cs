@@ -1,4 +1,5 @@
-﻿using Exoticamp.Domain.Entities;
+﻿using Exoticamp.Application.Features.Events.Commands.CreateEvent;
+using Exoticamp.Domain.Entities;
 using System;
 using System.Threading.Tasks;
 
@@ -8,5 +9,6 @@ namespace Exoticamp.Application.Contracts.Persistence
     {
         Task<bool> IsEventNameAndDateUnique(string name, DateTime eventDate);
         Task<Event> AddEventWithCategory(Event @event);
+        Task<Event> AddEvent(CreateEventCommand request);
     }
 }

@@ -53,7 +53,7 @@ namespace Exoticamp.UI.Models.Events
         public Guid CampsiteId { get; set; }
 
         [Required(ErrorMessage = "Please select activities")]
-        public ICollection<Guid> ActivityId { get; set; }
+        public Guid ActivityId { get; set; }
        
         [Required(ErrorMessage = "Please select a location")]
         public Guid LocationId { get; set; }

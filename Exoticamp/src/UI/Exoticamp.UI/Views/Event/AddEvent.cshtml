@@ -20,7 +20,8 @@
             </div>
             <div class="form-group">
                 <label for="LocationId">Select location:</label>
-                <select id="location" name="Id" class="form-control" onchange="updateCampsites()">
+                <select id="location" name="Id" class="form-control">
+                    @*onchange="updateCampsites()"*@
                     <option value="">-- Select location --</option>
                     @foreach (var location in ViewBag.Locations)
                     {
@@ -30,14 +31,23 @@
             </div>
             <div class="form-group">
                 <label for="CampsiteId">Select campsite:</label>
-                <select id="campsite" name="Id" class="form-control" onchange="updateActivities()">
+                <select id="campsite" name="Id" class="form-control">
+                    @*onchange="updateActivities()"*@
                     <option value="">-- Select campsite --</option>
+                    @foreach (var campsite in ViewBag.Campsites)
+                    {
+                        <option value="@campsite.Value">@campsite.Text</option>
+                    }
                 </select>
             </div>
             <div class="form-group">
                 <label for="ActivityId">Select activities:</label>
                 <select id="activity" name="Id" class="form-control" multiple="multiple">
                     <option value="">-- Select activities --</option>
+                    @foreach (var activity in ViewBag.Activities)
+                    {
+                        <option value="@activity.Value">@activity.Text</option>
+                    }
                 </select>
             </div>
             <div class="form-group">
