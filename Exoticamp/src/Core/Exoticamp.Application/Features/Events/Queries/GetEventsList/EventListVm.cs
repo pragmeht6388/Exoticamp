@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Exoticamp.Application.Features.Events.Queries.GetEventDetail;
 
 namespace Exoticamp.Application.Features.Events.Queries.GetEventsList
 {
@@ -30,6 +31,8 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventsList
         public Guid LocationId { get; set; }
         public bool Status { get; set; }
         public bool IsDeleted { get; set; }
+        public EventLocationDto EventLocationDto { get; set; }
+        public EventActivityDto EventActivityDto { get; set; }
 
     }
 }

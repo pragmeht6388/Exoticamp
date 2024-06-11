@@ -57,13 +57,55 @@
             font-size: 1.2em;
         }
 
-        .menu-img {
-            width: 35px; /* Adjust the width as needed */
-            height: 35px; /* Adjust the height as needed */
-            object-fit: cover; /* Ensures the image covers the area without distortion */
-            display: block;
-            margin: 0 auto 10px; /* Centers the image and adds some space below it */
+ 
+
+        #slides {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 400px;
+            overflow: hidden;
         }
+
+        #slide-show {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+            .text-overlay h1, .text-overlay p {
+                margin: 0;
+            }
+        /* Custom styles for the menu buttons */
+        .menu-button {
+            background-color: white; /* White background */
+            color: black; /* Black text */
+            border: 1px solid black; /* Black border */
+        }
+
+            .menu-button:hover {
+                background-color: lightgray; /* Light gray background on hover */
+                color: black; /* Keep the text color black */
+            }
+
+        /* Custom styles for the menu images */
+        .menu-img {
+            width: 50px; /* Adjust as needed */
+            height: 50px; /* Adjust as needed */
+        }
+
 
         .dummy-content {
             text-align: center;
@@ -82,6 +124,13 @@
             width: 50px;
         }
 
+        .carousel-item img {
+            width: 100%;
+            height: 300px; /* Adjust as needed */
+            object-fit: cover;
+        }
+
+      
         .d-none {
             display: none;
         }
