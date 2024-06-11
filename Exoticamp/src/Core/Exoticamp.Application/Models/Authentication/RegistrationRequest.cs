@@ -26,8 +26,11 @@ namespace Exoticamp.Application.Models.Authentication
 
         [Required]
         public string Password { get; set; }
-
+        
+        public Guid LocationId { get; set; }
         public string? Role { get; set; }
+
+
 
         
 
