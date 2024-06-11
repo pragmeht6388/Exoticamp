@@ -11,21 +11,23 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .scroll-container {
+        .scroll-container1 {
             position: relative;
             overflow: hidden;
+            /* margin-right:20px; */
         }
 
-        .campsite-container {
+        .campsite-container1{
             display: flex;
             flex-wrap: nowrap;
             overflow-x: auto;
+            width:100%;
             scroll-behavior: smooth;
             -ms-overflow-style: none; /* IE and Edge */
             scrollbar-width: none; /* Firefox */
         }
 
-            .campsite-container::-webkit-scrollbar {
+            .campsite-container1::-webkit-scrollbar {
                 display: none; /* Chrome, Safari, Opera */
             }
 
@@ -75,7 +77,7 @@
             color: #555;
         }
 
-        .campsite-details {
+        .campsite-details1 {
             text-align: center;
         }
 
@@ -128,16 +130,16 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container1">
        @*  <h1>CampingSites</h1> *@
 
 
 
-        <div class="scroll-container">
+        <div class="scroll-container1">
             <button class="scroll-arrow scroll-arrow-left" onclick="scrollLeft()">
                 &larr;
             </button>
-            <div class="campsite-container" id="campsiteContainer">
+            <div class="campsite-container1" id="campsiteContainer">
                 @foreach (var item in Model)
                 {
                     <div class="campsite-item">
@@ -160,7 +162,7 @@
                                 </div>
                             </div>
                             <div class="campsite-details">
-                                @Html.ActionLink("View", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+                                @Html.ActionLink("View", "DetailsUser", new { id = item.Id }, new { @class = "btn btn-info" })
                             </div>
                         </div>
                     </div>

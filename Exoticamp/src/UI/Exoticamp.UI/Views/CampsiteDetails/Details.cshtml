@@ -101,26 +101,34 @@
  *@
 
      @model Exoticamp.UI.Models.CampsiteDetails.CampsiteDetailsVM
-
+     @using Exoticamp.UI.Models.CampsiteDetails
 @{
     ViewData["Title"] = "Campsite Details";
     Layout = "~/Views/Shared/_VendorLayout.cshtml";
+    IEnumerable<CampsiteDetailsVM> allCampsites = ViewBag.CampsiteCorousel;
 }
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
-<h1 style="text-align:center">Campsite Details</h1>
+</head>
+<h1 style="text-align:center;color:black">Campsite Details</h1>
 <p>
     <a asp-action="ShowCampsite" class="btn btn-primary">Back to List</a>
+    <a asp-action="ShowCampsite" style="margin-left:820px;background-color:limegreen;position:fixed" class="btn btn-primary">Book Now</a>
 </p>
 
 <div class="campsite-details">
     <div class="campsite-header">
         <h2 style="text-align:center;">@Model.Name</h2>
         <p style="text-align:center;">
-            <strong>Highlights:</strong> @Model.Highlights &nbsp; | &nbsp;
-            <i class="bi bi-geo-alt" style="font-size: 1.5rem;"></i> <strong>Location:</strong> @Model.Location &nbsp; | &nbsp;
+            <strong>Highlights:</strong> @Model.Highlights &nbsp;  &nbsp;
+            <i class="bi bi-geo-alt" style="font-size: 1.5rem;"></i> <strong></strong> @Model.Location &nbsp;  &nbsp;
             <strong>Ratings:</strong>
             @{
                 int rating = Model.Ratings != null ? int.Parse(Model.Ratings) : 0;
+                string formattedRating = rating.ToString("0.0"); // Format to one decimal place
+
                 for (int i = 0; i < rating; i++)
                 {
                     @:<i class="bi bi-star-fill" style="font-size: 1.5rem; color: gold;"></i>
@@ -129,21 +137,36 @@
                 {
                     @:<i class="bi bi-star" style="font-size: 1.5rem; color: gray;"></i>
                 }
+                @:<span style="margin-left: 5px;">(@formattedRating/5.0)</span>
             }
+
+
         </p>
-        <img src="@Model.Images" alt="Campsite Image" class="campsite-image" />
-        <p style="font-size: 1.5rem; text-align: center;">
+        <br />
+        @* <img src="@Model.Images" alt="Campsite Image" class="campsite-image" /> *@
+        <div class="container">
+            <div class="single-image">
+                <img src="@Model.Images" alt="Campsite Image" class="campsite-image" />
+            </div>
+            <div class="vertical-images">
+                <img src="https://i.pinimg.com/originals/91/a2/80/91a28035d4ec8a688f285b405b7081ca.jpg" alt="Image 1" class="vertical-image" />
+                <img src="https://typewriter.imgix.net/u/234af096-141a-4b8e-b9d0-94bd20d4b54e/p/37553/camping-at-keystone-camp-for-girls.jpg?ixlib=rails-2.1.4&auto=format%2Ccompress&crop=faces&fit=crop&h=3375&w=4500" alt="Image 2" class="vertical-image" />
+                <img src="https://cdn.cheapism.com/images/846-20160429-050516-3509-041415_c.2e16d0ba.fill-1440x754.jpg" alt="Image 3" class="vertical-image" />
+            </div>
+        </div>
+
+        <p style="font-size: 1.5rem; text-align: center;color:black">
             <i class="bi bi-person"></i> <strong>2 Pax. per Tent</strong> &nbsp; | &nbsp;
             <i class="bi bi-truck"></i> <strong>Jeep Pickup</strong> &nbsp; | &nbsp;
-            <i class="bi bi-clock"></i> <strong>12.30 p.m.</strong> &nbsp; | &nbsp;
-            <i class="bi bi-clock"></i> <strong>11.00 a.m.</strong> &nbsp; | &nbsp;
-            <i class="bi bi-file-earmark-text"></i> <strong>Valid ID Required</strong> &nbsp; | &nbsp;
+            <i class="bi bi-clock"></i> <strong>Time</strong> &nbsp; | &nbsp;
+@*             <i class="bi bi-clock"></i> <strong>11.00 a.m.</strong> &nbsp; | &nbsp;
+ *@            <i class="bi bi-file-earmark-text"></i> <strong>Valid ID Required</strong> &nbsp; | &nbsp;
             <i class="bi bi-trash"></i> <strong>No Littering</strong>
         </p>
-    </div>
+    </div><hr />
 
     <div class="campsite-info">
-        <h3 style="text-align:center;">About Campsite</h3>
+        <h3 style="text-align:center;">Important Information About Campsite</h3><br />
         @* <p>@Model.AboutCampsite</p>
 
         <h3 style="text-align:center;">Amenities</h3>
@@ -172,32 +195,239 @@
         <h3 style="text-align:center;">Cancellation Policy</h3>
         <p>@Model.CancellationPolicy</p> *@
 
-        <p><strong>About Campsite:</strong> @Model.AboutCampsite</p>
-        <p><strong>Campsite Rules:</strong> @Model.CampsiteRules</p>
-        <p><strong>Best Time to Visit:</strong> @Model.BestTimeToVisit</p>
-        <p><strong>How to Get Here:</strong> @Model.HowToGetHere</p>
-        <p><strong>Quick Summary:</strong> @Model.QuickSummary</p>
-        <p><strong>Meal Plans:</strong> @Model.MealPlans</p>
-        <p><strong>Itinerary:</strong> @Model.Itinerary</p>
-        <p><strong>Inclusions:</strong> @Model.Inclusions</p>
-        <p><strong>Exclusion:</strong> @Model.Exclusion</p>
-        <p><strong>Amenities:</strong> @Model.Amenities</p>
-        <p><strong>Accommodation:</strong> @Model.Accommodation</p>
-        <p><strong>Safety:</strong> @Model.Safety</p>
-        <p><strong>Distance With Map:</strong> @Model.DistanceWithMap</p>
-        <p><strong>Why Exoticamp:</strong> @Model.WhyExoticamp</p>
-        <p><strong>FAQs:</strong> @Model.FAQs</p>
-        <p><strong>House Rules:</strong> @Model.HouseRules</p>
-        <p><strong>Cancellation Policy:</strong> @Model.CancellationPolicy</p>
+        @* <p><strong>About Campsite:</strong><br /><br /> @Model.AboutCampsite</p> *@
+        <div class="content-with-map">
+            <p><strong>About Campsite:</strong><br /><br /> @Model.AboutCampsite</p>
+            <iframe class="map"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345096197!2d144.96305781531876!3d-37.81627917975162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f48bd223%3A0x1d1fd8e9db74e8fd!2sFederation%20Square!5e0!3m2!1sen!2sau!4v1620364482650!5m2!1sen!2sau"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <p><strong>Campsite Rules:</strong><br /> @Model.CampsiteRules</p>
+        @* <div class="icon-group">
+            <i class="bi bi-shield" style="font-size: 1.5rem;"></i> <i class="bi bi-exclamation-triangle" style="font-size: 1.5rem;"></i>
+        </div> *@
+        <div class="icon-group">
+            <div class="icon-item">
+                <i class="bi bi-shield" title="Security"></i>
+                <span>Security</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-exclamation-triangle" title="Warning"></i>
+                <span>Warning</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-lightning" title="Electricity"></i>
+                <span>Electricity</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-umbrella" title="Protection"></i>
+                <span>Protection</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-sun" title="Sunlight"></i>
+                <span>Sunlight</span>
+            </div>
+        </div>
+        <p><strong>Best Time to Visit:</strong><br /> @Model.BestTimeToVisit</p>
+        <p><strong>How to Get Here:</strong><br /> @Model.HowToGetHere</p>
+        <div class="icon-group">
+            <div class="icon-item">
+                <i class="bi bi-car-front" title="Car"></i>
+                <span>Car</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-bus-front" title="Bus"></i>
+                <span>Bus</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-bicycle" title="Bicycle"></i>
+                <span>Bicycle</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-person-walking" title="Walking"></i>
+                <span>Walking</span>
+            </div>
+        </div><hr />
+        <p><strong>Quick Summary:</strong><br /> @Model.QuickSummary</p>
+        <div class="icon-group">
+            <div class="icon-item">
+                <i class="bi bi-tree" title="Hiking"></i>
+                <span>Hiking</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-droplet" title="Waterfall Visit"></i>
+                <span>Waterfall Visit</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-fire" title="Campfire"></i>
+                <span>Campfire</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-stars" title="Stargazing"></i>
+                <span>Stargazing</span>
+            </div>
+        </div>
+        <p><strong>Meal Plans:</strong><br /> @Model.MealPlans</p>
+        <p><strong>Itinerary:</strong><br /> @Model.Itinerary</p>
+        
+
+        <p><strong>Inclusions:</strong><br /> @Model.Inclusions</p>
+        <p><strong>Exclusion:</strong><br /> @Model.Exclusion</p><hr />
+        <p><strong>Amenities:</strong><br /> @Model.Amenities</p>
+        <div class="icon-group">
+            <div class="icon-item">
+                <i class="bi bi-person" title="Western Toilets"></i>
+                <span>Western Toilets</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-person-lines-fill" title="Bedding & Blanket"></i>
+                <span>Bedding & Blanket</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-signpost-2" title="Parking Facility"></i>
+                <span>Parking Facility</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-house-door" title="Stay in Dome Tents"></i>
+                <span>Stay in Dome Tents</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-cup-hot" title="Meals"></i>
+                <span>Meals</span>
+            </div>
+        </div>
+        <p><strong>Accommodation:</strong><br /> @Model.Accommodation</p>
+       
+        <p><strong>Safety:</strong><br />  @Model.Safety</p>
+        <div class="icon-group">
+            <div class="icon-item">
+                <i class="bi bi-shield" title="Security"></i>
+                <span>Security</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-exclamation-triangle" title="Warning"></i>
+                <span>Warning</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-lightning" title="Electricity"></i>
+                <span>Electricity</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-umbrella" title="Protection"></i>
+                <span>Protection</span>
+            </div>
+            <div class="icon-item">
+                <i class="bi bi-sun" title="Sunlight"></i>
+                <span>Sunlight</span>
+            </div>
+        </div><br />
+        <p><strong>Distance With Map:</strong><br /> @Model.DistanceWithMap</p><hr />
+        <p><strong>Why Exoticamp:</strong><br /> @Model.WhyExoticamp</p>
+
+        <p><strong>FAQs:</strong><br /> @Model.FAQs</p>
+        <p><strong>House Rules:</strong><br /> @Model.HouseRules</p>
+        <p><strong>Cancellation Policy:</strong><br /> @Model.CancellationPolicy</p>
     </div>
 </div>
+<br />
+<br />
+<h1>View Similar Campsites</h1>
+<br />
+<br />
+<div id="campsite-corousel" style="border: 1px solid black; padding: 20px;">
+    @{
+        await Html.RenderPartialAsync("_PartialCampsiteCorousel", allCampsites);
+    }
+</div>
+
 
 <style>
+    body {
+        color: brown; /* Change text color to brown */
+    }
+    .container {
+        display: grid;
+        grid-template-columns: 70% 25%; /* Set the columns width */
+        grid-gap: 20px; /* Adjust spacing between divs */
+    }
+
+    .single-image,
+    .vertical-images {
+        display: flex;
+        flex-direction: column; /* Stack images vertically */
+        height: 100%; /* Make both divs same height */
+    }
+
+    .campsite-image,
+    .vertical-image {
+        max-width: 100%;
+        height: auto;
+        flex: 1; /* Distribute remaining space evenly */
+        margin-bottom: 10px; /* Adjust spacing between images */
+    }
+
+
+
+
+
+    .icon-group {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+        color:black;
+    }
+
+    .icon-item {
+        text-align: center;
+    }
+
+        .icon-item i {
+            font-size: 2rem; /* Adjust icon size */
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .icon-item span {
+            display: block;
+            font-size: 1rem; /* Adjust text size */
+        }
+
+        .icon-item:hover {
+            transform: translateY(-5px); /* Move up on hover */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+        }
+
+            .icon-item:hover i {
+                color: #007bff; /* Change icon color on hover */
+            }
+
+            .icon-item:hover span {
+                color: #007bff; /* Change text color on hover */
+            }
+
+    .content-with-map {
+        display: flex;
+        gap: 20px; /* Space between content and map */
+        align-items: start;
+         /* Border on all sides */
+    }
+
+        .content-with-map .map {
+            width: 300px; /* Width of the map */
+            height: 200px; /* Height of the map */
+            border: 1px solid black;
+        }
+
+    
     .campsite-details {
         max-width: 800px;
         margin: 0 auto;
         padding: 20px;
-        border: 1px solid #ddd;
+        border: 1px  solid #ddd;
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
@@ -250,5 +480,6 @@
             background-color: #0056b3;
         }
 </style>
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css" />

@@ -94,14 +94,12 @@
             </div>
             <div class="form-group mb-3">
                 <label asp-for="CategoryId" class="control-label">Category <span class="text-danger">*</span></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="@(ViewBag.CategoryList)" required></select>
+                <select asp-for="CategoryId" class="form-control" asp-items="@(ViewBag.CategoryList)" required>
+                    <option value="">-- Select Category --</option>
+                </select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
-            <div class="form-group mb-3">
-                <label asp-for="ActivitiesId" class="control-label">Activities <span class="text-danger">*</span></label>
-                <select asp-for="ActivitiesId" class="form-control" asp-items="@(ViewBag.ActivitiesList)" required></select>
-                <span asp-validation-for="ActivitiesId" class="text-danger"></span>
-            </div>
+            
 
             <div class="form-group">
                 <label asp-for="TentType" class="control-label">Tent Type<span class="text-danger">*</span></label>
@@ -133,6 +131,13 @@
                 <label asp-for="Highlights" class="control-label">Highlights<span class="text-danger">*</span></label>
                 <input asp-for="Highlights" class="form-control" />
                 <span asp-validation-for="Highlights" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ActivitiesId" class="control-label">Activities <span class="text-danger">*</span></label>
+                <select asp-for="ActivitiesId" class="form-control" asp-items="@(ViewBag.ActivitiesList)" required>
+                    <option value="">-- Select Activity --</option>
+                </select>
+                <span asp-validation-for="ActivitiesId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Ratings" class="control-label">Ratings<span class="text-danger">*</span></label>

@@ -38,6 +38,8 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> Details(string id)
         {
             var campsiteDetail = await _campsiteRepository.GetCampsiteById(id);
+            ViewBag.CampsiteCorousel = await _campsiteRepository.GetAllCampsites();
+
             if (campsiteDetail == null)
             {
                 return NotFound();
@@ -169,12 +171,14 @@ namespace Exoticamp.UI.Controllers
         {
             var campsiteDetail = await _campsiteRepository.GetAllCampsites();
 
-            return View(campsiteDetail);
+            return PartialView("_PartialCampsiteCorousel", campsiteDetail);
         }
 
         public async Task<IActionResult> DetailsUser(string id)
         {
             var campsiteDetail = await _campsiteRepository.GetCampsiteById(id);
+            ViewBag.CampsiteCorousel = await _campsiteRepository.GetAllCampsites();
+
             if (campsiteDetail == null)
             {
                 return NotFound();
