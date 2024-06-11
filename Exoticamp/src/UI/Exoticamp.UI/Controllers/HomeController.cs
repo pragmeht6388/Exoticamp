@@ -11,14 +11,17 @@ namespace Exoticamp.UI.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IEventRepository _eventRepository;
         private readonly ILocationRepository _locationRepository;
+        private readonly IActivitiesRepository _activitiesRepository;
 
 
 
-        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository)
+
+        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository)
         {
             _logger = logger;
             _eventRepository = eventRepository;
             _locationRepository = locationRepository;
+            _activitiesRepository = activitiesRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -26,6 +29,7 @@ namespace Exoticamp.UI.Controllers
             var locationId = HttpContext.Session.GetString("LocationId");
             ViewBag.Locations = await _locationRepository.GetAllLocations();
             ViewBag.Events = await _eventRepository.GetAllEvents();
+            ViewBag.Preferences = await _activitiesRepository.GetAllActivities();
             return View();
         }
 

@@ -1,4 +1,7 @@
-﻿using Exoticamp.Application.Contracts.Persistence;
+﻿using Azure.Core;
+using Exoticamp.Application.Contracts.Persistence;
+using Exoticamp.Application.Exceptions;
+using Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDetails;
 using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetailsList;
 using Exoticamp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -21,10 +24,82 @@ namespace Exoticamp.Persistence.Repositories
             // _dbContext = dbContext;
         }
 
-        public Task<CampsiteDetails> AddCampsite(CampsiteDetails campsite)
+        public async Task<CampsiteDetails> AddCampsite(AddCampsiteDetailsCommand request)
         {
-            throw new NotImplementedException();
+            var campsite = new CampsiteDetails();
+            _dbContext.BeginTransaction();
+            try
+            {
+
+                var activity = await _dbContext.Activities.FirstOrDefaultAsync(x => x.Id == request.ActivitiesId);
+
+
+                if (activity == null)
+                    throw new NotFoundException("Activity not found", activity);
+
+
+                campsite = new Domain.Entities.CampsiteDetails
+                {
+                    Name = request.Name,
+                    Location = request.Location,
+                    Status = request.Status,
+                    TentType = request.TentType,
+                    isActive = true,
+                    ApprovedBy = request.ApprovedBy,
+                    ApprovededDate = request.ApprovededDate,
+                    DeletededBy = request.DeletededBy,
+                    DeletedDate = request.DeletedDate,
+                    Images = request.Images,
+                    DateTime = request.DateTime,
+                    Highlights = request.Highlights,
+                    Ratings = request.Ratings,
+                    AboutCampsite = request.AboutCampsite,
+                    CampsiteRules = request.CampsiteRules,
+                    BestTimeToVisit = request.BestTimeToVisit,
+                    HowToGetHere = request.HowToGetHere,
+                    QuickSummary = request.QuickSummary,
+                    Itinerary = request.Itinerary,
+                    Inclusions = request.Inclusions,
+                    Exclusion = request.Exclusion,
+                    Amenities = request.Amenities,
+                    Accommodation = request.Accommodation,
+                    Safety = request.Safety,
+                    DistanceWithMap = request.DistanceWithMap,
+                    CancellationPolicy = request.CancellationPolicy,
+                    FAQs = request.FAQs,
+                    HouseRules = request.HouseRules,
+                    MealPlans = request.MealPlans,
+                    WhyExoticamp = request.WhyExoticamp
+                };
+                await _dbContext.Set<CampsiteDetails>().AddAsync(campsite);
+                //await _dbContext.SaveChangesAsync();
+
+                if (activity == null)
+                { throw new NotFoundException("Activity not found", campsite); }
+
+
+                var campsiteActivities = new CampsiteActivities()
+                {
+                    Id = Guid.NewGuid(),
+                    ActivityId = request.ActivitiesId,
+                    CampsiteId = campsite.Id,
+
+                };
+                await _dbContext.Set<CampsiteActivities>().AddAsync(campsiteActivities);
+               
+                await _dbContext.SaveChangesAsync();
+                _dbContext.Commit();
+
+            }
+            catch (Exception ex)
+            {
+
+                _dbContext.Rollback();
+            }
+            return campsite;
         }
+
+
 
         public Task<CampsiteDetails> Delete(CampsiteDetails campsite)
         {
@@ -55,7 +130,7 @@ namespace Exoticamp.Persistence.Repositories
                 ApprovededDate = request.ApprovededDate,
                 DeletededBy = request.DeletededBy,
                 DeletedDate = request.DeletedDate,
-               // CategoryName = request.Categories.Name,
+                // ActivitiesName = request.CampsiteActivities.FirstOrDefault().,
                 Images = request.Images,
                 DateTime = request.DateTime,
                 Highlights = request.Highlights,

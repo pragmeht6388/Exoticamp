@@ -12,6 +12,8 @@ namespace Exoticamp.UI.Models.ContactUs
         [JsonProperty("name")]
         [Required(ErrorMessage = "Name is Required")]
         [StringLength(100)]
+        [RegularExpression(@"^[^\d]*$", ErrorMessage = "Name should not contain numeric values")] // Regular expression to disallow digits
+
         public string Name { get; set; }
 
         [JsonProperty("Email")]
