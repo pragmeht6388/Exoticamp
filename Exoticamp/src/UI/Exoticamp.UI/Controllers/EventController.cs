@@ -148,7 +148,11 @@ namespace Exoticamp.UI.Controllers
                                             .ToList();
             return Json(activities);
         }
-
+        public async Task<IActionResult> GetAllEventsUser()
+        {
+            var events = await _eventRepository.GetAllEvents();
+            return View(events);
+        }
 
     }
 }

@@ -16,16 +16,19 @@ namespace Exoticamp.UI.Controllers
     {
         private readonly IRegistrationRepository _registrationRepository;
         private readonly ILoginRepository _loginRepository;
-        public AccountController(IRegistrationRepository registrationRepository, ILoginRepository loginRepository)
+        private readonly ILocationRepository _locationRepository;
+        public AccountController(IRegistrationRepository registrationRepository, ILoginRepository loginRepository, ILocationRepository locationRepository)
         {
             _registrationRepository = registrationRepository;
             _loginRepository = loginRepository;
+            _locationRepository = locationRepository;
         }
                         
 
         [HttpGet]
-        public IActionResult Registration()
+        public async Task<IActionResult> Registration()
         {
+            ViewBag.Locations = await _locationRepository.GetAllLocations();
             return View();
         }
         [HttpPost]
