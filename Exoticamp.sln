@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exoticamp.UI", "Exoticamp\s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{ABED06EB-175F-47F5-81A7-C37B0B9F4C15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exoticamp.UnitTests", "Exoticamp\Test\Exoticamp.UnitTests\Exoticamp.UnitTests.csproj", "{F87FEC6B-2D2F-4F78-872E-E18311D723B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exoticamp.UnitTests", "Exoticamp\Test\Exoticamp.UnitTests\Exoticamp.UnitTests.csproj", "{F87FEC6B-2D2F-4F78-872E-E18311D723B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
