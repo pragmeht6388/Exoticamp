@@ -13,12 +13,12 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventDetail
 {
     public class GetEventDetailQueryHandler : IRequestHandler<GetEventDetailQuery, Response<EventDetailVm>>
     {
-        private readonly IAsyncRepository<Event> _eventRepository;
+        private readonly IEventRepository _eventRepository;
         private readonly IAsyncRepository<Category> _categoryRepository;
         private readonly IMapper _mapper;
 
         private readonly IDataProtector _protector;
-        public GetEventDetailQueryHandler(IMapper mapper, IAsyncRepository<Event> eventRepository, IAsyncRepository<Category> categoryRepository, IDataProtectionProvider provider)
+        public GetEventDetailQueryHandler(IMapper mapper, IEventRepository eventRepository, IAsyncRepository<Category> categoryRepository, IDataProtectionProvider provider)
         {
             _mapper = mapper;
             _eventRepository = eventRepository;
@@ -28,10 +28,9 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventDetail
 
         public async Task<Response<EventDetailVm>> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
         {
-           // string id = _protector.Unprotect(request.Id);
+            // string id = _protector.Unprotect(request.Id);
 
-            var @event = await _eventRepository.GetByIdAsync(new Guid(request.Id));
-            var eventDetailDto = _mapper.Map<EventDetailVm>(@event);
+            var eventDetailDto= await _eventRepository.GetEventById(request.Id);
 
             //var category = await _categoryRepository.GetByIdAsync(@event.CategoryId);
 
@@ -39,7 +38,7 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventDetail
             //{
             //    throw new NotFoundException(nameof(Category), @event.CategoryId);
             //}
-           // eventDetailDto.Category = _mapper.Map<CategoryDto>(category);
+            // eventDetailDto.Category = _mapper.Map<CategoryDto>(category);
 
             var response = new Response<EventDetailVm>(eventDetailDto);
             return response;

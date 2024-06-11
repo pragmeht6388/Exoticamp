@@ -198,7 +198,7 @@
                 </div>
 
                 <!-- SidebarSearch Form -->
-                <div class="form-inline">
+                @* <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
                         <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
                         <div class="input-group-append">
@@ -207,23 +207,25 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> *@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Dashboard -->
                         <li class="nav-item active">
                             <a class="nav-link" href="/Home/Dashboard">
-                                <i class="fas fa-fw fa-tachometer-alt"></i>
+                                <i class="fas fa-tachometer-alt"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
 
                         <hr class="sidebar-divider">
 
+                        <!-- Manage Campsite -->
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="/CampsiteDetails/ShowCampsite" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                <i class="fas fa-fw fa-cog"></i>
+                                <i class="fas fa-campground"></i>
                                 <span>Manage Campsite</span>
                             </a>
                             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -234,9 +236,10 @@
                             </div>
                         </li>
 
+                        <!-- Manage Availability -->
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="/Home/MA" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                                <i class="fas fa-fw fa-wrench"></i>
+                                <i class="fas fa-calendar-alt"></i>
                                 <span>Manage Availability</span>
                             </a>
                             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -249,9 +252,10 @@
 
                         <hr class="sidebar-divider">
 
+                        <!-- Manage Booking -->
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="/Home/MB" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                                <i class="fas fa-fw fa-folder"></i>
+                                <i class="fas fa-book"></i>
                                 <span>Manage Booking</span>
                             </a>
                             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -262,38 +266,42 @@
                             </div>
                         </li>
 
+                        <!-- Booking Request -->
                         <li class="nav-item">
                             <a class="nav-link" href="/Home/BR">
-                                <i class="fas fa-fw fa-chart-area"></i>
+                                <i class="fas fa-clipboard-list"></i>
                                 <span>Booking Request</span>
                             </a>
                         </li>
 
+                        <!-- My Reviews -->
                         <li class="nav-item">
                             <a class="nav-link" href="/Home/MR">
-                                <i class="fas fa-fw fa-table"></i>
+                                <i class="fas fa-star"></i>
                                 <span>My Reviews</span>
                             </a>
                         </li>
 
+                        <!-- Reports -->
                         <li class="nav-item">
                             <a class="nav-link" href="/Home/Reports">
-                                <i class="fas fa-fw fa-table"></i>
+                                <i class="fas fa-chart-line"></i>
                                 <span>Reports</span>
                             </a>
                         </li>
 
+                        <!-- Settings -->
                         <li class="nav-item">
                             <a class="nav-link" href="/Home/Settings">
-                                <i class="fa fa-cog"></i>
+                                <i class="fas fa-cog"></i>
                                 <span>Settings</span>
                             </a>
                         </li>
 
                         <hr class="sidebar-divider d-none d-md-block">
                     </ul>
-
                 </nav>
+
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
