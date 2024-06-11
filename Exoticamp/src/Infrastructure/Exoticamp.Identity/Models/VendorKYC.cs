@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Exoticamp.Identity.Models
 {
-    public class UserKYC
+    public class VendorKYC
     {
         public Guid Id { get; set; }
         public string IDCard { get; set; }
@@ -18,7 +18,7 @@ namespace Exoticamp.Identity.Models
 
         [ForeignKey("UserID")]
         public ApplicationUser User { get; set; }
-        public string UserID { get; set; }
+         public Guid UserID { get; set; }
 
     }
 }

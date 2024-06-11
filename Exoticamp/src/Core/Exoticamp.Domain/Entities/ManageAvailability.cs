@@ -14,10 +14,8 @@ namespace Exoticamp.Domain.Entities
         public DateTime EndDate { get; set; }
         public int NoOfPerson {  get; set; }
         public string Reason {  get; set; }
-        public Guid CampsiteId { get; set; }
         public Guid? GlapmingId { get; set; }
         public virtual Glamping Glamping { get; set; }
 
-        public CampsiteDetails CampsiteDetails { get; set; }
     }
 }

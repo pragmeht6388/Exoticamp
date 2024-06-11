@@ -20,11 +20,9 @@ namespace Exoticamp.Domain.Entities
         public bool Status { get; set; }
 
         public Guid BookingId { get; set; }
-        public Guid CampsiteId { get; set; }
         public Guid UserId { get; set; }
 
         public virtual Booking Booking { get; set; }
-        public virtual CampsiteDetails CampsiteDetails { get; set; }
 
     }
 }

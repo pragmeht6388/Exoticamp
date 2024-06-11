@@ -17,6 +17,6 @@ namespace Exoticamp.Identity.Models
 
         [ForeignKey("UserID")]
         public  ApplicationUser  User { get; set; }
-        public Guid UserID { get; set; }
+        public string UserID { get; set; }
     }
 }
