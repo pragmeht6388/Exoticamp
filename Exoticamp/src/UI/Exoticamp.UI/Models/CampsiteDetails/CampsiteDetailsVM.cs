@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using Exoticamp.UI.Models.Activities;
 
 namespace Exoticamp.UI.Models.CampsiteDetails
 {
@@ -66,7 +67,6 @@ namespace Exoticamp.UI.Models.CampsiteDetails
         public Guid ActivitiesId { get; set; }
 
         [JsonProperty("activitiesName")]
-        //[IgnoreMember]
         public string ActivityName { get; set; }
 
         [ForeignKey(nameof(ActivitiesId))]
@@ -122,5 +122,8 @@ namespace Exoticamp.UI.Models.CampsiteDetails
 
         [JsonProperty("deletedDate")]
         public DateTime? DeletedDate { get; set; }
+
+        [JsonProperty("activities")]
+        public List<ActivitiesVM> Activities { get; set; }
     }
 }
