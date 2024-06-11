@@ -6,8 +6,7 @@ using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace Exoticamp.UI.Controllers
 {
-    [VendorAuthFilter]
-    [NoCache]
+
     public class ContactUsController : Controller
     {
         private readonly IContactUsRepository _contactUsRepository;
