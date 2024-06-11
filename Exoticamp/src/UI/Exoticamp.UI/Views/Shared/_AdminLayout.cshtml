@@ -17,7 +17,7 @@
 </head>
 <style>
     .info {
-        /* background-image: url("path_to_your_background_image"); */
+        / background-image: url("path_to_your_background_image"); /
         background-size: cover;
         padding: 20px;
         border-radius: 10px;
@@ -28,11 +28,11 @@
     }
 
     .logo {
-        width: 100%; /* Adjust the width of the logo as needed */
+        width: 100%; / Adjust the width of the logo as needed /
         height: auto;
         display: block;
         margin: 0 auto;
-        filter: brightness(50%); /* Adjust the brightness to blend with the background */
+        filter: brightness(50%); / Adjust the brightness to blend with the background /
     }
 
 </style>
@@ -199,7 +199,7 @@
                 </div>
 
                 <!-- SidebarSearch Form -->
-                <div class="form-inline">
+                @* <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
                         <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
                         <div class="input-group-append">
@@ -208,93 +208,138 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> *@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Dashboard -->
                         <li class="nav-item active">
                             <a class="nav-link" href="/Home/Dashboard">
-                                <i class="fas fa-fw fa-tachometer-alt"></i>
+                                <i class="fas fa-tachometer-alt"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
 
                         <hr class="sidebar-divider">
 
+                        <!-- Manage Content -->
                         <li class="nav-item">
-                            <a class="nav-link collapsed" href="/CampsiteDetails/ShowCampsite" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                <i class="fas fa-fw fa-cog"></i>
-                                <span>Manage Campsite</span>
+                            <a class="nav-link" href="/Home/ManageContent">
+                                <i class="fas fa-edit"></i>
+                                <span>Manage Content</span>
                             </a>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                                <div class="bg-white py-2 collapse-inner rounded">
-                                    <a class="collapse-item" href="#">Sublink 1</a>
-                                    <a class="collapse-item" href="#">Sublink 2</a>
-                                </div>
-                            </div>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="/Home/MA" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                                <i class="fas fa-fw fa-wrench"></i>
-                                <span>Manage Availability</span>
-                            </a>
-                            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                                <div class="bg-white py-2 collapse-inner rounded">
-                                    <a class="collapse-item" href="#">Sublink 1</a>
-                                    <a class="collapse-item" href="#">Sublink 2</a>
-                                </div>
-                            </div>
-                        </li>
+                       
+
+                        
 
                         <hr class="sidebar-divider">
 
+                        <!-- Manage Users -->
                         <li class="nav-item">
-                            <a class="nav-link collapsed" href="/Home/MB" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                                <i class="fas fa-fw fa-folder"></i>
-                                <span>Manage Booking</span>
-                            </a>
-                            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                                <div class="bg-white py-2 collapse-inner rounded">
-                                    <a class="collapse-item" href="#">Sublink 1</a>
-                                    <a class="collapse-item" href="#">Sublink 2</a>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Home/BR">
-                                <i class="fas fa-fw fa-chart-area"></i>
-                                <span>Booking Request</span>
+                            <a class="nav-link" href="/Home/ManageUsers">
+                                <i class="fas fa-users"></i>
+                                <span>Manage Users</span>
                             </a>
                         </li>
 
+                        <!-- Manage Campsites -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home/MR">
-                                <i class="fas fa-fw fa-table"></i>
-                                <span>My Reviews</span>
+                            <a class="nav-link" href="/Home/ManageCampsites">
+                                <i class="fas fa-campground"></i>
+                                <span>Manage Campsites</span>
                             </a>
                         </li>
 
+                        <!-- Manage Bookings -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home/Reports">
-                                <i class="fas fa-fw fa-table"></i>
-                                <span>Reports</span>
+                            <a class="nav-link" href="/Home/ManageBookings">
+                                <i class="fas fa-book"></i>
+                                <span>Manage Bookings</span>
                             </a>
                         </li>
 
+                        <!-- Manage Events -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/ManageEvents">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Manage Events</span>
+                            </a>
+                        </li>
+
+                        <!-- Manage Commission -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/ManageCommission">
+                                <i class="fas fa-percentage"></i>
+                                <span>Manage Commission</span>
+                            </a>
+                        </li>
+
+                        <!-- Manage Reviews -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/ManageReviews">
+                                <i class="fas fa-star"></i>
+                                <span>Manage Reviews</span>
+                            </a>
+                        </li>
+
+                        <!-- Manage Masters -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/ManageMasters">
+                                <i class="fas fa-th"></i>
+                                <span>Manage Masters</span>
+                            </a>
+                        </li>
+
+                        <!-- Manage Banner -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Banner/AllBanners">
+                                <i class="fas fa-images"></i>
+                                <span>Manage Banner</span>
+                            </a>
+                        </li>
+
+                        <!-- Notifications -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Notifications">
+                                <i class="fas fa-bell"></i>
+                                <span>Notifications</span>
+                            </a>
+                        </li>
+
+                        
+
+                        <!-- Settings -->
                         <li class="nav-item">
                             <a class="nav-link" href="/Home/Settings">
-                                <i class="fa fa-cog"></i>
+                                <i class="fas fa-cog"></i>
                                 <span>Settings</span>
                             </a>
                         </li>
 
+                        <!-- Reports -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Reports">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Reports</span>
+                            </a>
+                        </li>
+                        <!-- Logout -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+
+
                         <hr class="sidebar-divider d-none d-md-block">
                     </ul>
-
                 </nav>
+
+
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
@@ -325,7 +370,7 @@
     <!-- AdminLTE App -->
     <script src="~/adminlte/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    @* <script src="~/adminlte/dist/js/demo.js"></script> *@
+    <script src="~/adminlte/dist/js/demo.js"></script> 
     <script src="~/adminlte/plugins/datatables/jquery.datatables.min.js"></script>
     <script src="~/adminlte/plugins/datatables-bs4/js/datatables.bootstrap4.min.js"></script>
     <script src="~/adminlte/plugins/datatables-responsive/js/datatables.responsive.min.js"></script>

@@ -165,12 +165,7 @@
                             </div>
                         }
                     }
-                    <!-- Dummy content 1 -->
-                    <div class="abc-content">
-                        <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
-                        <h5 class="mt-3">Dummy Name</h5>
-                        <button class="btn btn-info mt-2">View</button>
-                    </div>
+                   
                     @*     @foreach(var item in (IEnumerable<EventVM>)ViewBag.Events){
                     <div class="abc-content">
 
@@ -192,11 +187,17 @@
 
                 <div class="abc-container">
                     <!-- Dummy content 1 -->
-                    <div class="abc-content">
-                        <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
-                        <h5 class="mt-3">Dummy Name</h5>
-                        <button class="btn btn-info mt-2">View</button>
-                    </div>
+                    @if (ViewBag.Locations is not null)
+                    {
+                        @foreach (var item in (IEnumerable<LocationVM>)ViewBag.Locations)
+                        {
+                            <div class="abc-content">
+                                <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
+                                <h5 class="mt-3">@item.Name</h5>
+                                <button class="btn btn-info mt-2 view-button" data-id="@item.Id">View</button>
+                            </div>
+                        }
+                    }
                     @*     @foreach(var item in (IEnumerable<EventVM>)ViewBag.Events){
                     <div class="abc-content">
 

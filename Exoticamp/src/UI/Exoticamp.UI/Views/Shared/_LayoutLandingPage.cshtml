@@ -337,7 +337,6 @@
                         <li><a href="#" class="text-white">Blogs</a></li>
                         <li><a href="#" class="text-white">Investors</a></li>
                         <li><a href="#" class="text-white">Affiliation MSME</a></li>
-                        <li><a href="#" class="text-white">FAQ</a></li>
                         <li><a href="#" class="text-white">About Us</a></li>
                         <li><a href="#" class="text-white">News & Media</a></li>
                     </ul>
@@ -381,7 +380,7 @@
                     locationDropdown.empty(); // Clear any existing options
 
                     data.forEach(function (location) {
-                        locationDropdown.append('<li><a class="dropdown-item location-item" data-id="'+ location.id +'">' + location.name + '</a></li>');
+                        locationDropdown.append('<li><a class="dropdown-item, location-item" data-id="'+ location.id +'">' + location.name + '</a></li>');
                     });
                 },
                 error: function (error) {

@@ -15,7 +15,7 @@ namespace Exoticamp.UI.Models.Banners
         [JsonProperty("LocationName")]
         public string LocationName { get; set; }
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
         public string? ImagePath { get; set; }
     }
 }

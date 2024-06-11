@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exoticamp.Application.Features.Activities.Query.GetActivityList;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,8 +12,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        //public string Location { get; set; }
-        public Guid LocationId {  get; set; }
+        public string Location { get; set; }
         public bool Status { get; set; }
         public string TentType { get; set; }
 
@@ -33,11 +33,11 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
 
         public string QuickSummary { get; set; }
 
-        public Guid CategoryId { get; set; }
-        [ForeignKey(nameof(CategoryId))]
+        //public Guid CategoryId { get; set; }
+        //[ForeignKey(nameof(CategoryId))]
 
-        public Guid ActivitiesId { get; set; }
-        [ForeignKey(nameof(ActivitiesId))]
+        //public Guid ActivitiesId { get; set; }
+        //[ForeignKey(nameof(ActivitiesId))]
 
         public string MealPlans { get; set; }
 
@@ -62,10 +62,11 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
 
         public string CancellationPolicy { get; set; }
         public bool? isActive { get; set; }
-        public bool? isDeleted { get; set; }
         public string? ApprovedBy { get; set; }
         public DateTime? ApprovededDate { get; set; }
         public string? DeletededBy { get; set; }
         public DateTime? DeletedDate { get; set; }
+        public List<ActivityVM> Activities { get; set; }
+
     }
 }

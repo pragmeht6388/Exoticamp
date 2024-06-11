@@ -15,6 +15,8 @@ namespace Exoticamp.Domain.Entities
 
         [Required(ErrorMessage ="Name is Required")]
         [StringLength(100)]
+        [RegularExpression(@"^[^\d]*$", ErrorMessage = "Name should not contain numeric values")] // Regular expression to disallow digits
+
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Email is Required")]
@@ -27,5 +29,8 @@ namespace Exoticamp.Domain.Entities
         public string Message { get; set; }
 
         public DateTime SubmittedAt { get; set; } = DateTime.Now;
+
+
+
     }
 }

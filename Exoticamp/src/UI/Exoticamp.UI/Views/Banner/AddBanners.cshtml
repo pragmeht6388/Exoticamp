@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Banners";
-    Layout = "~/Views/Shared/_VendorLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <!-- Include Bootstrap CSS for styling -->
@@ -11,74 +11,65 @@
 
 <!-- Custom CSS for styling the form card -->
 <style>
-    .form-container {
+    body {
+        background-color: #f8f9fa; /* Light grey background */
+    }
+
+    .card {
+        border-radius: 10px;
+        border: none;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #007bff;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .text-danger {
+        font-size: 0.875em;
+    }
+
+    .container {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 100vh;
-        background-color: #f8f9fa;
+        min-height: 100vh; /* Full viewport height */
     }
 
-    .form-card {
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    .form-container {
+        width: 100%;
+        max-width: 600px; /* Max width for the form */
         padding: 20px;
-        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        background: white;
+        border-radius: 10px;
     }
-
-        .form-card h1 {
-            color: #343a40;
-            margin-bottom: 20px;
-        }
-
-        .form-card .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-
-            .form-card .btn-primary:hover {
-                background-color: #0056b3;
-                border-color: #004085;
-            }
-
-        .form-card .form-group label {
-            font-weight: bold;
-        }
-
-        .form-card .form-control {
-            border-radius: 5px;
-        }
-
-        .form-card .btn-block {
-            border-radius: 5px;
-        }
-
-        .form-card .text-center a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-            .form-card .text-center a:hover {
-                text-decoration: underline;
-            }
 </style>
 
-<div class="form-container">
-    <div class="card form-card col-md-6 col-lg-4">
-        <h1 class="text-center">Banners</h1>
-        <hr />
-        <form asp-action="AddBanners" enctype="multipart/form-data">
+<div class="container">
+    <div class="form-container">
+        <form asp-action="AddBanner" id="addBannerForm" enctype="multipart/form-data">
+            <h1 class="text-center">Add Banner</h1>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group mb-3">
-                <label asp-for="Link" class="form-label">Link<span class="text-danger">*</span></label>
+                <label asp-for="Link" class="control-label">Link<span class="text-danger">*</span></label>
                 <input asp-for="Link" class="form-control" data-val="true" data-val-regex="The link must end with .com or .in." data-val-regex-pattern="^(.*\.com|.*\.in)$" />
                 <span asp-validation-for="Link" class="text-danger"></span>
             </div>
 
             <div class="form-group form-check mb-3">
                 <input class="form-check-input" asp-for="IsActive" />
-                <label class="form-check-label" asp-for="IsActive"></label>
+                <label class="form-check-label" asp-for="IsActive">@Html.DisplayNameFor(model => model.IsActive)</label>
             </div>
 
             <div class="form-group mb-3">
@@ -105,18 +96,18 @@
             </div>
 
             <div class="form-group mb-3">
-                <label asp-for="ImageFile" class="form-label"></label>
-                <input asp-for="ImageFile" class="form-control" type="file" />
+                <label asp-for="ImageFile" class="form-label">Upload Image</label>
+                <input asp-for="ImageFile" class="form-control" type="file" required />
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
 
-            <div class="d-grid mb-3">
-                <input type="submit" value="Create" class="btn btn-primary btn-block" />
+            <div class="form-group mb-3">
+                <input type="submit" value="Create" class="btn btn-primary w-100" />
             </div>
         </form>
 
-        <div class="text-center">
-            <a asp-action="AllBanners">Back to List</a>
+        <div class="text-center mt-3">
+            <a asp-action="AllBanners" class="btn btn-secondary w-100">Back to List</a>
         </div>
     </div>
 </div>

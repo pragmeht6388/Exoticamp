@@ -10,13 +10,12 @@ using System.Threading.Tasks;
 
 namespace Exoticamp.Domain.Entities
 {
-    public class CampsiteDetails:AuditableEntity
+    public class CampsiteDetails : AuditableEntity
     {
         [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public Guid LocationId { get; set; }
-        public Location Location { get; set; }
+        public string Location { get; set; }
         public bool Status { get; set; }
         public string TentType { get; set; }
 
@@ -37,8 +36,8 @@ namespace Exoticamp.Domain.Entities
 
         public string QuickSummary { get; set; }
 
-       
-       
+     
+      
        
 
         public string MealPlans { get; set; }
@@ -63,23 +62,14 @@ namespace Exoticamp.Domain.Entities
         public string HouseRules { get; set; }
 
         public string CancellationPolicy { get; set; }
-        public bool? isActive { get; set; } 
-        public bool? isDeleted { get; set; }
+        public bool? isActive { get; set; }
         public string? ApprovedBy { get; set; }
         public DateTime? ApprovededDate { get; set; }
         public string? DeletededBy { get; set; }
         public DateTime? DeletedDate { get; set; }
 
         //[ForeignKey("CategoryId")]
-       // public Category Categories { get; set; }
-
-        //[ForeignKey("ActivitiesId")]
-        //public Activities Activities { get; set; }
-
-        //[ForeignKey("LocationId")]
-        //public Location Location { get; set; }  
-
-        public ICollection<CampsiteActivities> campsiteActivities { get; set; }
-        public ICollection<CampsiteCategories> campsiteCategories { get; set;}
+        //public Category Category { get; set; }
+        public ICollection<CampsiteActivities> CampsiteActivities { get; set; }
     }
 }

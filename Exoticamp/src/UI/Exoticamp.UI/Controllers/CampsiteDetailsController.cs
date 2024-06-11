@@ -1,12 +1,16 @@
-﻿using Exoticamp.UI.Models;
+﻿using Exoticamp.UI.AuthFilter;
+using Exoticamp.UI.Models;
 using Exoticamp.UI.Models.CampsiteDetails;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace Exoticamp.UI.Controllers
 {
+    //[VendorAuthFilter]
+    //[]
     public class CampsiteDetailsController : Controller
     {
         private readonly ICampsiteDetailsRepository _campsiteRepository;
@@ -15,7 +19,7 @@ namespace Exoticamp.UI.Controllers
 
 
 
-        public CampsiteDetailsController(ICampsiteDetailsRepository campsiteRepository, ICategoryRepository categoryRepository,IActivitiesRepository activitiesRepository)
+        public CampsiteDetailsController(ICampsiteDetailsRepository campsiteRepository, ICategoryRepository categoryRepository, IActivitiesRepository activitiesRepository)
         {
             _campsiteRepository = campsiteRepository;
             _categoryRepository = categoryRepository;
@@ -27,7 +31,6 @@ namespace Exoticamp.UI.Controllers
             var campsiteDetail = await _campsiteRepository.GetAllCampsites();
             if (TempData.ContainsKey("SuccessMessage"))
             {
-                // Retrieve the success message from TempData
                 ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
             }
             return View(campsiteDetail);
@@ -42,28 +45,22 @@ namespace Exoticamp.UI.Controllers
             return View(campsiteDetail.Data);
         }
 
-        
+
 
         [HttpGet]
         public async Task<IActionResult> AddCampsiteDetails()
         {
-            // Fetch all categories from the repository
             var categories = await _categoryRepository.GetAllCategory();
             var activities = await _activitiesRepository.GetAllActivities();
 
-            // Check if categories are null
             if (categories == null)
             {
-                // Log the error or handle the null case as required
-                return View("Error", new ErrorViewModel {  });
+                return View("Error", new ErrorViewModel { });
             }
 
-            // Populate the ViewBag with a SelectList for the dropdown
             ViewBag.CategoryList = new SelectList(categories, "CategoryId", "Name");
             ViewBag.ActivitiesList = new SelectList(activities, "Id", "Name");
 
-
-            // Return the view
             return View();
         }
         public async Task<IActionResult> AddCampsiteDetails(CampsiteDetailsVM campsite)
@@ -101,14 +98,24 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> EditCampsite(string id)
         {
             var eventObj = await _campsiteRepository.GetCampsiteById(id);
-
-            var categoryList = await _categoryRepository.GetAllCategory();
+            eventObj.Data.ActivitiesId = eventObj.Data.Activities[0].Id;
+            //var categoryList = await _categoryRepository.GetAllCategory();
             var activitiesList = await _activitiesRepository.GetAllActivities();
+           // var Activities = await _activitiesRepository.GetAllActivities();
 
-            if (categoryList != null && activitiesList != null)
+            if (activitiesList != null)
             {
-                ViewBag.CategoryList = categoryList.Select(c => new SelectListItem { Value = c.CategoryId.ToString(), Text = c.Name });
-                ViewBag.ActivitiesList = activitiesList.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name });
+                //ViewBag.CategoryList = categoryList.Select(c => new SelectListItem { Value = c.CategoryId.ToString(), Text = c.Name });
+                //var activitiesSelectList = activitiesList.Select(a => new SelectListItem
+                //{
+                //    Value = a.Id.ToString(),
+                //    Text = a.Name,
+                //    Selected = eventObj.Data.ActivitiesId == a.Id
+                //}).ToList();
+
+                //ViewBag.ActivitiesList = activitiesSelectList;
+                ViewBag.ActivitiesList = new SelectList(activitiesList, "Id", "Name");
+
             }
             else
             {
@@ -136,18 +143,16 @@ namespace Exoticamp.UI.Controllers
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await model.ImageFile.CopyToAsync(fileStream);
-                } 
+                }
             }
             model.IsActive = true;
             var result = await _campsiteRepository.EditCampsiteDetails(model);
-                if (result.Succeeded)
-                {
-                TempData["SuccessMessage"] = "Campsite details Updated successfully.";
-
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Campsite details updated successfully.";
                 return RedirectToAction("ShowCampsite");
-                }
-                ModelState.AddModelError("", "Unable to update campsite.");
-            
+            }
+            TempData["ErrorMessage"] = "Unable to update campsite.";
             return RedirectToAction("ShowCampsite");
         }
 
@@ -163,7 +168,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> ShowCampsiteUser()
         {
             var campsiteDetail = await _campsiteRepository.GetAllCampsites();
-           
+
             return View(campsiteDetail);
         }
 

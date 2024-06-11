@@ -23,6 +23,9 @@ builder.Services.AddScoped<IEventRepository,EventRepository>();
 builder.Services.AddScoped< IRegistrationRepository,  RegistrationRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+builder.Services.AddScoped<ILocationRepository , LocationRepository>();
+
+
 
 
 builder.Services.AddScoped<IBannerRepository,BannerRepository>();

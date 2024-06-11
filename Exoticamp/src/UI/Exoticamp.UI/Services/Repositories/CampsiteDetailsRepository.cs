@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Exoticamp.UI.Services.Repositories
 {
-    public class CampsiteDetailsRepository:ICampsiteDetailsRepository
+    public class CampsiteDetailsRepository : ICampsiteDetailsRepository
     {
         private APIRepository _apiRepository;
 
@@ -41,7 +41,7 @@ namespace Exoticamp.UI.Services.Repositories
             if (_oApiResponse.data != null)
             {
                 events = (JsonConvert.DeserializeObject<GetAllCampsiteDetailsResponseModels>(_oApiResponse.data)).Data.ToList();
-               // events = response.Data.Where(c => c.IsActive==true).ToList();
+                // events = response.Data.Where(c => c.IsActive==true).ToList();
             }
 
             return events;

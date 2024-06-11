@@ -14,8 +14,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
         [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
-       // public string Location { get; set; }
-       public Guid LocationId { get; set; }
+        public string Location { get; set; }
         public bool Status { get; set; }
         public string TentType { get; set; }
 
@@ -39,9 +38,6 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
         public Guid CategoryId { get; set; }
         [ForeignKey(nameof(CategoryId))]
         public ICollection<Category> Categories { get; set; }
-
-        [ForeignKey("LocationId")]
-        public Location Location { get; set; }
 
         public Guid ActivitiesId { get; set; }
         [ForeignKey(nameof(ActivitiesId))]
@@ -70,7 +66,6 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
 
         public string CancellationPolicy { get; set; }
         public bool? isActive { get; set; }
-        public bool? isDeleted { get; set; }
         public string? ApprovedBy { get; set; }
         public DateTime? ApprovededDate { get; set; }
         public string? DeletededBy { get; set; }

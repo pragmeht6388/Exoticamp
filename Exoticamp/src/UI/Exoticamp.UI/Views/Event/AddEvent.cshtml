@@ -2,15 +2,15 @@
 
 @{
     ViewData["Title"] = "AddEvent";
-    Layout = "_AdminLayout";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>AddEvent</h1>
 
-<h4>EventVM</h4>
+
+<h4 class="text-center">Event</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row justify-content-center">
+    <div class="col-md-6">
         <form asp-action="AddEvent" method="post" enctype='multipart/form-data'>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -18,37 +18,46 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-          <div class="form-group">
+           
+            <div class="form-group">
                 <label for="LocationId">Select location:</label>
-                <select id="location" name="LocationId" onchange="getDoctors()">
+                <select id="location" asp-for="LocationId" class="form-control">
                     <option value="">-- Select location --</option>
-                    @foreach (var location in ViewBag.Locations)
+                    @if (Model.Locations is not null)
                     {
-                        <option value="@location.Id">@location.Name</option>
-                    }
-                </select>
-          </div>
-            <div class="form-group">
-                <label for="CampsiteId">Select location:</label>
-                <select id="campsite" name="CampsiteId" onchange="getDoctors()">
-                    <option value="">-- Select Campsite --</option>
-                    @foreach (var campsite in ViewBag.Campsites)
-                    {
-                        <option value="@campsite.Id">@campsite.Name</option>
+                        @foreach (var location in Model.Locations)
+                        {
+                            <option value="@location.Value">@location.Text</option>
+                        }
                     }
                 </select>
             </div>
             <div class="form-group">
-                <label for="ActivityId">Select Activities:</label>
-                <select id="activity" name="ActivityId" onchange="getDoctors()">
-                    <option value="">-- Select Activities --</option>
-                    @foreach (var activity in ViewBag.Activities)
+                <label for="CampsiteId">Select campsite:</label>
+                <select id="campsite" asp-for="CampsiteId" class="form-control">
+                    <option value="">-- Select campsite --</option>
+                    @if (Model.Campsites is not null)
                     {
-                        <option value="@activity.Id">@activity.Name</option>
+                        @foreach (var campsite in Model.Campsites)
+                        {
+                            <option value="@campsite.Value">@campsite.Text</option>
+                        }
                     }
                 </select>
             </div>
-        
+            <div class="form-group">
+                <label for="ActivityId">Select activities:</label>
+                <select id="activity" asp-for=ActivityId class="form-control" multiple="multiple">
+                    <option value="">-- Select activities --</option>
+                    @if (Model.ActivitiesVMs is not null)
+                    {
+                        @foreach (var activity in Model.ActivitiesVMs)
+                        {
+                            <option value="@activity.Value">@activity.Text</option>
+                        }
+                    }
+                </select>
+            </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
@@ -88,22 +97,21 @@
                 <label asp-for="EventRules" class="control-label"></label>
                 <textarea asp-for="EventRules" class="form-control"></textarea>
                 <span asp-validation-for="EventRules" class="text-danger"></span>
-
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" type="checkbox" checked/>
+                <input asp-for="Status" class="form-control" type="checkbox" checked hidden />
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group text-center">
                 <input type="submit" value="Add" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <button id="backButton">Back to List</button>
+<div class="text-center">
+    <button id="backButton" class="btn btn-secondary">Back to List</button>
 </div>
 @if (TempData["Message"] != null)
 {
@@ -116,10 +124,51 @@
 }
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
     <script>
+        // Initialize Select2 for the activities dropdown
+        $(document).ready(function () {
+            $('#activity').select2();
+        });
+
+        function updateCampsites() {
+            var locationId = $('#location').val();
+            if (locationId) {
+                $.ajax({
+                    url: '/Event/GetCampsitesByLocation/' + locationId,
+                    type: 'GET',
+                    success: function (data) {
+                        var options = '<option value="">-- Select campsite --</option>';
+                        data.forEach(function (campsite) {
+                            options += '<option value="' + campsite.id + '">' + campsite.name + '</option>';
+                        });
+                        $('#campsite').html(options);
+                    }
+                });
+            } else {
+                $('#campsite').html('<option value="">-- Select campsite --</option>');
+                $('#activity').html('<option value="">-- Select activities --</option>');
+            }
+        }
+
+        function updateActivities() {
+            var campsiteId = $('#campsite').val();
+            if (campsiteId) {
+                $.ajax({
+                    url: '/Event/GetActivitiesByCampsite/' + campsiteId,
+                    type: 'GET',
+                    success: function (data) {
+                        var options = '';
+                        data.forEach(function (activity) {
+                            options += '<option value="' + activity.id + '">' + activity.name + '</option>';
+                        });
+                        $('#activity').html(options).trigger('change');
+                    }
+                });
+            } else {
+                $('#activity').html('<option value="">-- Select activities --</option>');
+            }
+        }
+
         // Set the min attribute for date inputs to today's date
         document.addEventListener('DOMContentLoaded', function () {
             var today = new Date().toISOString().split('T')[0];
@@ -143,42 +192,10 @@
                 alert('End date must be greater than the start date.');
             }
         });
+
         // Back button functionality
         document.getElementById('backButton').addEventListener('click', function () {
             window.history.back();
         });
     </script>
-
-
-    <script>
-
-
-        function getCampDetails() {
-            var locationId = document.getElementById("location").value;
-            var campsiteId = document.getElementById("campsite").value;
-            var activityId = document.getElementById("activity").value;
-
-            if (locationId != null && campsiteId != null && activityId!=null) {
-                $.ajax({
-                    url: "/Event/GetDoctors?DepartmentId=" + departmentId +"&HospitalId="+ hospitalId,
-                    type: "GET",
-                    success: function (result) {
-                        var options = '<option value="">-- Select Doctor --</option>';
-                        for (var i = 0; i < result.length; i++) {
-                            options += '<option value="' + result[i].doctorId + '">' + result[i].firstName + ' ' + result[i].lastName + '</option>';
-                        }
-                        $('#doctor').html(options);
-
-                        // Enable the submit button after doctor selection
-                        $('#appointmentForm button[type="submit"]').prop('disabled', false);
-                    }
-                });
-            }
-            else {
-                $('#doctor').html('<option value="">-- Select Doctor --</option>');
-            }
-        }
-    </script>
-
-
 }

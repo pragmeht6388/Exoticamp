@@ -20,7 +20,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
         private readonly IActivitiesRepository _activitiesRepository;
         private readonly IMessageRepository _messageRepository;
 
-        public AddCampsiteDetailsHandler(IMapper mapper, ICampsiteDetailsRepository campsiteRepository, IMessageRepository messageRepository,IActivitiesRepository activitiesRepository)
+        public AddCampsiteDetailsHandler(IMapper mapper, ICampsiteDetailsRepository campsiteRepository, IMessageRepository messageRepository, IActivitiesRepository activitiesRepository)
         {
             _mapper = mapper;
             _campsiteRepository = campsiteRepository;
@@ -30,9 +30,10 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
 
         public async Task<Response<CampsiteDetailsDto>> Handle(AddCampsiteDetailsCommand request, CancellationToken cancellationToken)
         {
-            Response<CampsiteDetailsDto> addCampsiteCommandResponse = new Response<CampsiteDetailsDto>() ;
+            Response<CampsiteDetailsDto> addCampsiteCommandResponse = new Response<CampsiteDetailsDto>();
 
             var validator = new AddCampsiteDetailsCommandValidator(_messageRepository);
+            
             var validationResult = await validator.ValidateAsync(request);
 
             if (validationResult.Errors.Count > 0)
@@ -44,7 +45,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
                 var campsite = new Domain.Entities.CampsiteDetails
                 {
                     Name = request.Name,
-                    LocationId = request.LocationId,
+                    Location = request.Location,
                     Status = request.Status,
                     TentType = request.TentType,
                     isActive = true,
@@ -76,8 +77,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
                     MealPlans = request.MealPlans,
                     WhyExoticamp = request.WhyExoticamp
                 };
-
-                campsite = await _campsiteRepository.AddAsync(campsite);
+                campsite = await _campsiteRepository.AddCampsite(request);
                 addCampsiteCommandResponse = new Response<CampsiteDetailsDto>(_mapper.Map<CampsiteDetailsDto>(campsite), "success");
             }
 
