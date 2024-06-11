@@ -44,6 +44,8 @@ namespace Exoticamp.Persistence
 
         public DbSet<CampsiteActivities> CampsiteActivities { get; set; }
 
+
+
         private IDbContextTransaction _transaction;
 
 
