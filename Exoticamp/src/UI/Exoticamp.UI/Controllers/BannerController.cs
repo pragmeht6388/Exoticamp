@@ -126,7 +126,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> AllBannersUser()
         {
             var banners = await _bannerRepository.GetAllBanners();
-            return View(banners);
+            return PartialView("_PartialForAllBanners",banners);
         }
     }
 }
