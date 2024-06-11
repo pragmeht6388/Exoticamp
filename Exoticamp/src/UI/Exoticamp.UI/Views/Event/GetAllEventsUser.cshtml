@@ -1,0 +1,144 @@
+﻿@model IEnumerable<Exoticamp.UI.Models.Events.EventVM>
+
+@{
+    ViewData["Title"] = "GetAllEvents";
+    Layout = "~/Views/Shared/_LayoutLandingPage.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+
+<style>
+    .event-card {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .event-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .event-card .card-body {
+            padding: 20px;
+        }
+
+    .action-links {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .view-all-btn {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .view-all-btn:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<h1 class="text-center">Events</h1>
+
+<!-- Card Slider Container -->
+<div class="card-slider">
+    @foreach (var item in Model)
+    {
+        <div class="event-card">
+            <div class="card">
+                <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text"><strong>Price:</strong> @item.Price</p>
+                    <p class="card-text"><strong>Capacity:</strong> @item.Capacity</p>
+                    <p class="card-text"><strong>Start Date:</strong> @item.StartDate.ToShortDateString()</p>
+                    <p class="card-text"><strong>End Date:</strong> @item.EndDate.ToShortDateString()</p>
+                    <p class="card-text">@item.Description</p>
+                    <div class="action-links">
+                        <a href="@Url.Action("Details", new { id = item.EventId })" class="view-link btn btn-primary">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        <a href="@Url.Action("Edit", new { id = item.EventId })" class="edit-link btn btn-success">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a href="@Url.Action("Delete", new { id = item.EventId })" class="delete-link btn btn-danger" onclick="return confirmDelete();">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- View All Button -->
+<a href="@Url.Action("AllEvents", "Event")" class="view-all-btn">View All Events</a>
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        toastr.success('@TempData["Message"]');
+    </script>
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $(".card-slider").slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+
+            $("#editBannerForm").validate();
+        });
+
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this event?');
+        }
+    </script>
+}

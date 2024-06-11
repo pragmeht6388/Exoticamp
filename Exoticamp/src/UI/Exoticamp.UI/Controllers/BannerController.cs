@@ -1,4 +1,5 @@
-﻿using Exoticamp.UI.Models.Banners;
+﻿using Exoticamp.UI.AuthFilter;
+using Exoticamp.UI.Models.Banners;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace Exoticamp.UI.Controllers
 {
+    [AdminAuthFilter]
+    [NoCache]
     public class BannerController : Controller
     {
         private readonly IBannerRepository _bannerRepository; 
