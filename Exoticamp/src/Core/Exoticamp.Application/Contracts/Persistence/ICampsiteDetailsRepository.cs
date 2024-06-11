@@ -17,5 +17,7 @@ namespace Exoticamp.Application.Contracts.Persistence
         Task<CampsiteDetails> Delete(CampsiteDetails campsiteDetails);
 
         Task<List<CampsiteDetailsVM>> GetAllCampsiteWithCategoryAndActivityDetails();
+        Task<Application.Features.CampsiteDetails.Query.GetCampsiteDetails.CampsiteDetailsVM> GetCampsiteByIdWithCategoryAndActivityDetails(Guid campsiteId);
+
     }
 }

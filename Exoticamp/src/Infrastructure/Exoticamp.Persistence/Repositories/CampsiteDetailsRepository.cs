@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using Exoticamp.Application.Contracts.Persistence;
 using Exoticamp.Application.Exceptions;
+using Exoticamp.Application.Features.Activities.Query.GetActivityList;
 using Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDetails;
 using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetailsList;
 using Exoticamp.Domain.Entities;
@@ -117,50 +118,105 @@ namespace Exoticamp.Persistence.Repositories
         }
         public async Task<List<CampsiteDetailsVM>> GetAllCampsiteWithCategoryAndActivityDetails()
         {
-            var data = await this._dbContext.CampsiteDetails.Include(x => x.CampsiteActivities).Select(request => new CampsiteDetailsVM()
-            {
+            var data = await this._dbContext.CampsiteDetails
+                .Include(x => x.CampsiteActivities)
+                .ThenInclude(ca => ca.Activities)
+                .Select(request => new CampsiteDetailsVM()
+                {
+                    Id = request.Id,
+                    Name = request.Name,
+                    Location = request.Location,
+                    Status = request.Status,
+                    TentType = request.TentType,
+                    isActive = request.isActive,
+                    ApprovedBy = request.ApprovedBy,
+                    ApprovededDate = request.ApprovededDate,
+                    DeletededBy = request.DeletededBy,
+                    DeletedDate = request.DeletedDate,
+                    Images = request.Images,
+                    DateTime = request.DateTime,
+                    Highlights = request.Highlights,
+                    Ratings = request.Ratings,
+                    AboutCampsite = request.AboutCampsite,
+                    CampsiteRules = request.CampsiteRules,
+                    BestTimeToVisit = request.BestTimeToVisit,
+                    HowToGetHere = request.HowToGetHere,
+                    QuickSummary = request.QuickSummary,
+                    Itinerary = request.Itinerary,
+                    Inclusions = request.Inclusions,
+                    Exclusion = request.Exclusion,
+                    Amenities = request.Amenities,
+                    Accommodation = request.Accommodation,
+                    Safety = request.Safety,
+                    DistanceWithMap = request.DistanceWithMap,
+                    CancellationPolicy = request.CancellationPolicy,
+                    FAQs = request.FAQs,
+                    HouseRules = request.HouseRules,
+                    MealPlans = request.MealPlans,
+                    WhyExoticamp = request.WhyExoticamp,
 
-                Id = request.Id,
-                Name = request.Name,
-                Location = request.Location,
-                Status = request.Status,
-                TentType = request.TentType,
-                isActive = request.isActive,
-                ApprovedBy = request.ApprovedBy,
-                ApprovededDate = request.ApprovededDate,
-                DeletededBy = request.DeletededBy,
-                DeletedDate = request.DeletedDate,
-                // ActivitiesName = request.CampsiteActivities.FirstOrDefault().,
-                Images = request.Images,
-                DateTime = request.DateTime,
-                Highlights = request.Highlights,
-                Ratings = request.Ratings,
-                AboutCampsite = request.AboutCampsite,
-                CampsiteRules = request.CampsiteRules,
-                BestTimeToVisit = request.BestTimeToVisit,
-                HowToGetHere = request.HowToGetHere,
-                QuickSummary = request.QuickSummary,
-                Itinerary = request.Itinerary,
-                Inclusions = request.Inclusions,
-                Exclusion = request.Exclusion,
-                Amenities = request.Amenities,
-                Accommodation = request.Accommodation,
-                Safety = request.Safety,
-                DistanceWithMap = request.DistanceWithMap,
-                CancellationPolicy = request.CancellationPolicy,
-                //CategoryId = request.CategoryId,
-                //CampsiteActivities = request.CampsiteActivities,
-                FAQs = request.FAQs,
-                HouseRules = request.HouseRules,
-                MealPlans = request.MealPlans,
-                WhyExoticamp = request.WhyExoticamp,
-                //ActivitiesName = request.Activities.Name
-                //ActivitiesName=request.Activities.FirstOrDefault().Name
-
-            }).ToListAsync();
+                    // Include activity details
+                    Activities = request.CampsiteActivities.Select(ca => new ActivityVM
+                    {
+                        Id = ca.Id,
+                        Name = ca.Activities.Name
+                    }).ToList()
+                })
+                .ToListAsync();
             return data;
         }
 
+        public async Task<Application.Features.CampsiteDetails.Query.GetCampsiteDetails.CampsiteDetailsVM> GetCampsiteByIdWithCategoryAndActivityDetails(Guid campsiteId)
+        {
+            var data = await this._dbContext.CampsiteDetails
+                .Include(x => x.CampsiteActivities)
+                .ThenInclude(ca => ca.Activities)
+                .Where(request => request.Id == campsiteId)
+                .Select(request => new Application.Features.CampsiteDetails.Query.GetCampsiteDetails.CampsiteDetailsVM
+                {
+                    // Map properties...
+                    Id = request.Id,
+                    Name = request.Name,
+                    Location = request.Location,
+                    Status = request.Status,
+                    TentType = request.TentType,
+                    isActive = request.isActive,
+                    ApprovedBy = request.ApprovedBy,
+                    ApprovededDate = request.ApprovededDate,
+                    DeletededBy = request.DeletededBy,
+                    DeletedDate = request.DeletedDate,
+                    Images = request.Images,
+                    DateTime = request.DateTime,
+                    Highlights = request.Highlights,
+                    Ratings = request.Ratings,
+                    AboutCampsite = request.AboutCampsite,
+                    CampsiteRules = request.CampsiteRules,
+                    BestTimeToVisit = request.BestTimeToVisit,
+                    HowToGetHere = request.HowToGetHere,
+                    QuickSummary = request.QuickSummary,
+                    Itinerary = request.Itinerary,
+                    Inclusions = request.Inclusions,
+                    Exclusion = request.Exclusion,
+                    Amenities = request.Amenities,
+                    Accommodation = request.Accommodation,
+                    Safety = request.Safety,
+                    DistanceWithMap = request.DistanceWithMap,
+                    CancellationPolicy = request.CancellationPolicy,
+                    FAQs = request.FAQs,
+                    HouseRules = request.HouseRules,
+                    MealPlans = request.MealPlans,
+                    WhyExoticamp = request.WhyExoticamp,
+                    // Include activity details
+                    Activities = request.CampsiteActivities.Select(ca => new ActivityVM
+                    {
+                        Id = ca.ActivityId,
+                        Name = ca.Activities.Name
+                    }).ToList()
+                })
+                .FirstOrDefaultAsync();
+
+            return data;
+        }
 
     }
 }
