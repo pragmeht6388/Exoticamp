@@ -21,6 +21,22 @@ namespace Exoticamp.Identity.Models
         public bool IsDeleted { get; set; }=false;
         public bool IsLocked { get; set; } = false;
         public int LoginAttemptCount { get; set; }
+        public DateTime CreatedOn { get; set; }
+
+        public string? UserProfileURl { get; set; }
+
+        public string? AltEmail { get; set; }
+
+        public string? AltPhoneNumber { get; set; }
+
+        public string? Address  { get; set; }
+
+        public string? AltAddress { get; set; }
+
+        public  bool? Status { get; set; }
+
+
+
 
     }
 }

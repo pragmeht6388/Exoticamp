@@ -130,6 +130,7 @@ namespace Exoticamp.Identity.Services
                 PhoneNumber = request.PhoneNumber,
                 TermsandCondition =  true,
                 EmailConfirmed = true,
+                LocationId=request.LocationId,
             };
 
             var existingEmail = await _userManager.FindByEmailAsync(request.Email);

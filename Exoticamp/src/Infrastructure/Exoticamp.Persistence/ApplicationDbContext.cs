@@ -1,5 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Exoticamp.Application.Contracts;
+using Exoticamp.Domain.Common;
+using Exoticamp.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using CampsiteDetailsEntity = Exoticamp.Domain.Entities.CampsiteDetails;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -9,8 +13,8 @@ using System.Threading.Tasks;
 using Exoticamp.Application.Contracts;
 using Exoticamp.Domain.Entities;
 using Exoticamp.Domain.Common;
-//using Exoticamp.Persistence.Migrations;
-using CampsiteDetailsEntity = Exoticamp.Domain.Entities.CampsiteDetails;
+ 
+ 
 namespace Exoticamp.Persistence
 {
     public class ApplicationDbContext : DbContext
@@ -41,7 +45,12 @@ namespace Exoticamp.Persistence
         public DbSet<Location> Locations { get; set; }
         public DbSet<EventActivities> EventActivities { get; set; }
         public DbSet<EventLocation> EventLocations { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<GuestDetails> GuestDetails { get; set; }
+        public DbSet<ManageAvailability> ManageAvailabilities { get; set; }
+        public DbSet<Reviews>  Reviews { get; set; }
 
+        public DbSet< ReviewReply>  ReviewReplies { get; set; }
         public DbSet<CampsiteActivities> CampsiteActivities { get; set; }
 
 
