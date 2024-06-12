@@ -14,6 +14,7 @@
         .scroll-container {
             position: relative;
             overflow: hidden;
+            width: 144%;
         }
 
         .campsite-container {
@@ -45,7 +46,7 @@
 
         .campsite-image img {
             width: 100%;
-            height: auto;
+            height: 200px;
             display: block;
         }
 
@@ -129,12 +130,12 @@
 </head>
 <body>
     <div class="container">
-       @*  <h1>CampingSites</h1> *@
+        @*  <h1>CampingSites</h1> *@
 
 
 
         <div class="scroll-container">
-            <button class="scroll-arrow scroll-arrow-left" onclick="scrollLeft()">
+            <button class="scroll-arrow scroll-arrow-left" onclick="sLeft()">
                 &larr;
             </button>
             <div class="campsite-container" id="campsiteContainer">
@@ -160,7 +161,7 @@
                                 </div>
                             </div>
                             <div class="campsite-details">
-                                @Html.ActionLink("View", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+                                @Html.ActionLink("View", "DetailsUser","CampsiteDetails", new { id = item.Id }, new { @class = "btn btn-info" })
                             </div>
                         </div>
                     </div>
@@ -176,7 +177,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        function scrollLeft() {
+        function sLeft() {
             document.getElementById('campsiteContainer').scrollBy({ left: -300, behavior: 'smooth' });
         }
 

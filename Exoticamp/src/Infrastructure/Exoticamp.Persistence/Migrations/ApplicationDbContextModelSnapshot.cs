@@ -944,7 +944,7 @@ namespace Exoticamp.Persistence.Migrations
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
                 {
                     b.HasOne("Exoticamp.Domain.Entities.Category", "Category")
-                        .WithMany()
+                        .WithMany("CampsiteDetails")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1055,6 +1055,11 @@ namespace Exoticamp.Persistence.Migrations
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
                 {
                     b.Navigation("CampsiteActivities");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("CampsiteDetails");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
