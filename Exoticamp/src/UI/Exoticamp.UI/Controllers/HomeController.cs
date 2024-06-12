@@ -18,6 +18,9 @@ namespace Exoticamp.UI.Controllers
 
 
 
+      
+
+
         public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository,IBannerRepository bannerRepository)
         {
             _logger = logger;
@@ -34,8 +37,11 @@ namespace Exoticamp.UI.Controllers
             ViewBag.Locations = await _locationRepository.GetAllLocations();
             ViewBag.Events = events;
             ViewBag.Preferences = await _activitiesRepository.GetAllActivities();
-            ViewBag.Banners = await _bannersRepository.GetAllBanners();
+
             ViewBag.sortedEvents = events.Where(x => x.StartDate <= DateTime.Now.AddDays(10) && x.StartDate >= DateTime.Now).OrderBy(x => x.StartDate).ToList();
+
+            ViewBag.Banners = await _bannersRepository.GetAllBanners();
+
             return View();
         }
 
