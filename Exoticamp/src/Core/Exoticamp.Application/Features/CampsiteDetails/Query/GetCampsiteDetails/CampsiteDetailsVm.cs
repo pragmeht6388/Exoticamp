@@ -33,7 +33,8 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
 
         public string QuickSummary { get; set; }
 
-        //public Guid CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
+        public Domain.Entities.Category  Categories { get; set; }
         //[ForeignKey(nameof(CategoryId))]
 
         //public Guid ActivitiesId { get; set; }
