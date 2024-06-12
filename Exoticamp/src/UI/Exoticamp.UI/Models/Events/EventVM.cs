@@ -54,13 +54,13 @@ namespace Exoticamp.UI.Models.Events
         [StringLength(100)]
         public string EventRules { get; set; }
         [Required(ErrorMessage = "Please select the  campsite")]
-        public Guid CampsiteId { get; set; }
+        public Guid? CampsiteId { get; set; }
 
         [Required(ErrorMessage = "Please select activities")]
-        public Guid ActivityId { get; set; }
+        public Guid? ActivityId { get; set; }
        
         [Required(ErrorMessage = "Please select a location")]
-        public Guid LocationId { get; set; }
+        public Guid? LocationId { get; set; }
         public bool Status { get; set; }
         public bool IsDeleted { get; set; } 
 

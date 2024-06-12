@@ -30,6 +30,7 @@ namespace Exoticamp.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> GetAllEvents()
+        
         {
             var dtos = await _mediator.Send(new GetEventsListQuery());
             return Ok(dtos);
@@ -46,15 +47,10 @@ namespace Exoticamp.Api.Controllers.v1
         public async Task<ActionResult> Create([FromBody] CreateEventCommand createEventCommand)
         {
             var dto = await _mediator.Send(createEventCommand);
-            if (dto.Succeeded == true)
-            {
+         
                 return Ok(dto);
-            }
-            else
-            {
-                dto.Message=$"{dto.Errors}";
-                return BadRequest();
-            }
+           
+          
         }
 
         [HttpPost("TransactionDemo", Name = "TransactionDemo")]
