@@ -126,7 +126,7 @@ namespace Exoticamp.Persistence.Repositories
                 await _dbContext.Set<EventLocation>().AddAsync(eventLocation);
                 //await _dbContext.SaveChangesAsync();
 
-
+                
                 await _dbContext.SaveChangesAsync();
                 _dbContext.Commit();
 
@@ -140,6 +140,7 @@ namespace Exoticamp.Persistence.Repositories
             {
 
                 _dbContext.Rollback();
+                return null;
             }
             return @event;
         }

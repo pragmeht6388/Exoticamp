@@ -50,7 +50,7 @@ namespace Exoticamp.UI.Controllers
             model.Locations = new SelectList(Locations,"Id","Name");
 
 
-            return View(model); 
+            return RedirectToAction("GetAllEvents","Event"); 
         }
         [HttpPost]
         public async Task<ActionResult> AddEvent(EventVM model)
