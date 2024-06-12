@@ -91,6 +91,75 @@ namespace Exoticamp.Persistence.Migrations
                     b.ToTable("Banners");
                 });
 
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Booking", b =>
+                {
+                    b.Property<Guid>("BookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CampsiteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CheckIn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CheckOut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GlampingType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("LocationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("NoOfAdults")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NoOfChildrens")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NoOfTents")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BookingId");
+
+                    b.HasIndex("CampsiteId");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("Bookings");
+                });
+
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteActivities", b =>
                 {
                     b.Property<Guid>("CampsiteId")
@@ -459,6 +528,63 @@ namespace Exoticamp.Persistence.Migrations
                     b.ToTable("EventLocations");
                 });
 
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Glamping", b =>
+                {
+                    b.Property<Guid>("GlampingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CampsiteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("GlampingId");
+
+                    b.HasIndex("CampsiteId");
+
+                    b.ToTable("Glamping");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.GuestDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FoodPreference")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("MobileNo")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SpecialRequest")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GuestDetails");
+                });
+
             modelBuilder.Entity("Exoticamp.Domain.Entities.Location", b =>
                 {
                     b.Property<Guid>("Id")
@@ -490,6 +616,56 @@ namespace Exoticamp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.ManageAvailability", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("GlampingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("GlapmingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NoOfPerson")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GlampingId");
+
+                    b.ToTable("ManageAvailabilities");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Message", b =>
@@ -596,6 +772,101 @@ namespace Exoticamp.Persistence.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("Exoticamp.Domain.Entities.ReviewReply", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Reply")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ReviewId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ReviewsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewsId");
+
+                    b.ToTable("ReviewReplies");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Reviews", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Ratings")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookingId");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("Exoticamp.Domain.Entities.UserQuery", b =>
                 {
                     b.Property<Guid>("Id")
@@ -632,6 +903,25 @@ namespace Exoticamp.Persistence.Migrations
                     b.Navigation("Location");
                 });
 
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Booking", b =>
+                {
+                    b.HasOne("Exoticamp.Domain.Entities.CampsiteDetails", "Campsite")
+                        .WithMany()
+                        .HasForeignKey("CampsiteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Exoticamp.Domain.Entities.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Campsite");
+
+                    b.Navigation("Location");
+                });
+
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteActivities", b =>
                 {
                     b.HasOne("Exoticamp.Domain.Entities.Activities", "Activities")
@@ -653,13 +943,13 @@ namespace Exoticamp.Persistence.Migrations
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
                 {
-                    b.HasOne("Exoticamp.Domain.Entities.Category", "Categories")
+                    b.HasOne("Exoticamp.Domain.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Categories");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
@@ -709,6 +999,50 @@ namespace Exoticamp.Persistence.Migrations
                     b.Navigation("Event");
 
                     b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Glamping", b =>
+                {
+                    b.HasOne("Exoticamp.Domain.Entities.CampsiteDetails", "Campsite")
+                        .WithMany()
+                        .HasForeignKey("CampsiteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Campsite");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.ManageAvailability", b =>
+                {
+                    b.HasOne("Exoticamp.Domain.Entities.Glamping", "Glamping")
+                        .WithMany()
+                        .HasForeignKey("GlampingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Glamping");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.ReviewReply", b =>
+                {
+                    b.HasOne("Exoticamp.Domain.Entities.Reviews", "Reviews")
+                        .WithMany()
+                        .HasForeignKey("ReviewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Reviews", b =>
+                {
+                    b.HasOne("Exoticamp.Domain.Entities.Booking", "Booking")
+                        .WithMany()
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Activities", b =>

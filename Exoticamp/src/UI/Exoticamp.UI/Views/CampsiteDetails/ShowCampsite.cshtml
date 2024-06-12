@@ -27,8 +27,9 @@
                     <th>Tent</th>
                     <th>Images</th>
                     <th>Date Time</th>
-                    <th>Category</th>
+                    @* <th>Category</th> *@
                     <th>Activity</th>
+                    <th>Location</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -41,8 +42,17 @@
                         <td>@Html.DisplayFor(modelItem => item.TentType)</td>
                         <td><img src="@item.Images" alt="Campsite Image" style="max-width:100px;max-height:100px;" /></td>
                         <td>@Html.DisplayFor(modelItem => item.DateTime)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
-                        <td>@Html.DisplayFor(modelItem => item.ActivityName)</td>
+                        @* <td>@Html.DisplayFor(modelItem=>item.ActivityName)</td> *@
+                        @* <td>@Html.DisplayFor(modelItem => item.CategoryName)</td> *@
+                        <td>
+                            @foreach (var activity in item.Activities)
+                            {
+                                <span>@activity.Name</span>
+
+                                <br />
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Location)</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Campsite Actions">
                                 <a href="@Url.Action("Details", "CampsiteDetails", new { id = item.Id })" class="btn btn-info" title="Details">

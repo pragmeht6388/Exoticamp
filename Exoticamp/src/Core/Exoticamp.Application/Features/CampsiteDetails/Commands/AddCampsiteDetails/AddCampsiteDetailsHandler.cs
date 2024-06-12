@@ -33,6 +33,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
             Response<CampsiteDetailsDto> addCampsiteCommandResponse = new Response<CampsiteDetailsDto>();
 
             var validator = new AddCampsiteDetailsCommandValidator(_messageRepository);
+            
             var validationResult = await validator.ValidateAsync(request);
 
             if (validationResult.Errors.Count > 0)
@@ -76,7 +77,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
                     MealPlans = request.MealPlans,
                     WhyExoticamp = request.WhyExoticamp
                 };
-                campsite = await _campsiteRepository.AddAsync(campsite);
+                campsite = await _campsiteRepository.AddCampsite(request);
                 addCampsiteCommandResponse = new Response<CampsiteDetailsDto>(_mapper.Map<CampsiteDetailsDto>(campsite), "success");
             }
 

@@ -18,14 +18,16 @@ namespace Exoticamp.Application.Features.ContactUs.Command.AddContactUs
             _messageRepository = messageRepository;
 
             RuleFor(p => p.Name)
-               .NotEmpty().WithMessage("{PropertyName} is required.")
-               .NotNull()
-               .MaximumLength(100).WithMessage("{PropertyName} must not exceed 100 characters.");
+              .NotEmpty().WithMessage("{PropertyName} is required.")
+              .NotNull()
+              .MaximumLength(100).WithMessage("{PropertyName} must not exceed 100 characters.")
+              .Matches(@"^[^\d]*$").WithMessage("{PropertyName} should not contain numeric values."); // Custom validation
 
             RuleFor(p => p.Email)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
                 .NotNull()
-                .MaximumLength(100).WithMessage("{PropertyName} must not exceed 100 characters."); ;
+                .MaximumLength(100).WithMessage("{PropertyName} must not exceed 100 characters.")
+                .EmailAddress().WithMessage("Invalid {PropertyName} format."); // Added email format validation
 
             RuleFor(p => p.Message)
                .NotEmpty().WithMessage("{PropertyName} is required.")

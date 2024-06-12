@@ -2,7 +2,8 @@
 
 @{
     ViewData["Title"] = "Banners";
-    Layout = "~/Views/Shared/_VendorLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
 }
 <style>
     body {
@@ -31,64 +32,81 @@
     .text-danger {
         font-size: 0.875em;
     }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; /* Full viewport height */
+    }
+
+    .form-container {
+        width: 100%;
+        max-width: 600px; /* Max width for the form */
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        background: white;
+        border-radius: 10px;
+    }
 </style>
 
-<hr />
+<div class="container">
+    <div class="form-container">
+        <form asp-action="EditBanner" id="editBannerForm" enctype="multipart/form-data">
+            <h1 class="text-center">Edit Banner</h1>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<div class="container d-flex justify-content-center">
-    <div class="col-md-6">
-        <div class="card shadow-sm p-4">
-            <form asp-action="EditBanner" id="editBannerForm" enctype="multipart/form-data">
-                <h1>Banners</h1>
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="Link" class="control-label">Link<span class="text-danger">*</span></label>
+                <input asp-for="Link" class="form-control" data-val="true" data-val-regex="The link must end with .com or .in." data-val-regex-pattern="^(.*\.com|.*\.in)$" />
+                <span asp-validation-for="Link" class="text-danger"></span>
+            </div>
 
-                <div class="form-group mb-3">
-                    <label asp-for="Link" class="control-label">Link<span class="text-danger">*</span></label>
-                    <input asp-for="Link" class="form-control" data-val="true" data-val-regex="The link must end with .com or .in." data-val-regex-pattern="^(.*\.com|.*\.in)$" />
-                    <span asp-validation-for="Link" class="text-danger"></span>
-                </div>
-                <div class="form-group form-check mb-3">
-                    <input class="form-check-input" asp-for="IsActive" />
-                    <label class="form-check-label" asp-for="IsActive">@Html.DisplayNameFor(model => model.IsActive)</label>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="PromoCode" class="form-label">PromoCode<span class="text-danger">*</span></label>
-                    <select asp-for="PromoCode" class="form-control">
-                        <option value="">Select Promo Type</option>
-                        <option value="Normal Banner">Normal Banner</option>
-                        <option value="Big Banner">Big Banner</option>
-                        <option value="Short Banner">Short Banner</option>
-                    </select>
-                    <span asp-validation-for="PromoCode" class="text-danger"></span>
-                </div>
+            <div class="form-group form-check mb-3">
+                <input class="form-check-input" asp-for="IsActive" />
+                <label class="form-check-label" asp-for="IsActive">@Html.DisplayNameFor(model => model.IsActive)</label>
+            </div>
 
-                <div class="form-group mb-3">
-                    <label asp-for="LocationId" class="form-label">Location<span class="text-danger">*</span></label>
-                    <select asp-for="LocationId" class="form-control">
-                        <option value="">Select Location</option>
-                        @foreach (var location in ViewBag.LocationList)
-                        {
-                            <option value="@location.Value">@location.Text</option>
-                        }
-                    </select>
-                    <span asp-validation-for="LocationId" class="text-danger"></span>
-                </div>
+            <div class="form-group mb-3">
+                <label asp-for="PromoCode" class="form-label">PromoCode<span class="text-danger">*</span></label>
+                <select asp-for="PromoCode" class="form-control">
+                    <option value="">Select Promo Type</option>
+                    <option value="Normal Banner">Normal Banner</option>
+                    <option value="Big Banner">Big Banner</option>
+                    <option value="Short Banner">Short Banner</option>
+                </select>
+                <span asp-validation-for="PromoCode" class="text-danger"></span>
+            </div>
 
-                <div class="form-group mb-3">
-                    <label asp-for="ImageFile" class="form-label"></label>
-                    <input asp-for="ImageFile" class="form-control" type="file" />
-                    <span asp-validation-for="ImageFile" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <input type="submit" value="Save" class="btn btn-primary w-100" />
-                </div>
-            </form>
+            <div class="form-group mb-3">
+                <label asp-for="LocationId" class="form-label">Location<span class="text-danger">*</span></label>
+                <select asp-for="LocationId" class="form-control">
+                    <option value="">Select Location</option>
+                    @foreach (var location in ViewBag.LocationList)
+                    {
+                        <option value="@location.Value">@location.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="LocationId" class="text-danger"></span>
+            </div>
+
+            @Html.HiddenFor(x => x.ImagePath)
+
+            <div class="form-group mb-3">
+                <label asp-for="ImageFile" class="form-label">Upload Image</label>
+                <input asp-for="ImageFile" class="form-control" type="file" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <input type="submit" value="Save" class="btn btn-primary w-100" />
+            </div>
+        </form>
+
+        <div class="text-center mt-3">
+            <a asp-action="AllBanners" class="btn btn-secondary w-100">Back to List</a>
         </div>
     </div>
-</div>
-
-<div class="text-center mt-3">
-    <a asp-action="AllBanners">Back to List</a>
 </div>
 
 @section Scripts {

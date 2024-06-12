@@ -2,8 +2,12 @@
 
 @{
     ViewData["Title"] = "Banners";
-    Layout = "~/Views/Shared/_VendorLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+<!-- Bootstrap and FontAwesome CSS for icons and styling -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 <style>
     /* Container styles */
@@ -17,7 +21,7 @@
 
     /* Banner details card styles */
     .banner-details {
-        max-width: 400px;
+        max-width: 600px;
         background-color: #fff; /* White background */
         padding: 30px;
         border-radius: 10px;
@@ -27,9 +31,10 @@
         /* Banner image styles */
         .banner-details img {
             max-width: 100%;
-            height: 200px;
+            height: auto;
             border-radius: 5px; /* Rounded corners */
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            margin-bottom: 20px;
         }
 
     /* Button styles */
@@ -50,6 +55,11 @@
             background-color: #c82333; /* Dark red */
             border-color: #c82333;
         }
+
+    /* Icon styles */
+    .banner-details .fa {
+        margin-right: 10px;
+    }
 </style>
 
 <div class="container">
@@ -57,17 +67,17 @@
         <h2 class="card-title text-center mt-3 mb-4">Banner Details</h2>
 
         <div class="row">
-            <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <div class="col-12 d-flex justify-content-center align-items-center">
                 <img src="@Model.ImagePath" class="img-fluid rounded" alt="Banner Image">
             </div>
-            <div class="col-md-6">
-                <h3>@Model.Link</h3>
-                <p>Locations: @Model.LocationName</p>
-                <p>Promo Code: @Model.PromoCode</p>
-                <p>Active: @(Model.IsActive ? "Yes" : "No")</p>
+            <div class="col-12 mt-4">
+                <h5><i class="fas fa-link"></i>@Model.Link</h5>
+                <p><i class="fas fa-map-marker-alt"></i> Location: @Model.LocationName</p>
+                <p><i class="fas fa-tag"></i> Promo Code: @Model.PromoCode</p>
+                <p><i class="fas fa-check-circle"></i> Active: @(Model.IsActive ? "Yes" : "No")</p>
 
                 <!-- Cancel button to go back -->
-                <a href="@Url.Action("AllBanners")" class="btn btn-cancel">Cancel</a>
+                <a href="@Url.Action("AllBanners")" class="btn btn-cancel"><i class="fas fa-times"></i> Cancel</a>
             </div>
         </div>
     </div>

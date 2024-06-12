@@ -1,4 +1,5 @@
-﻿using Exoticamp.UI.Models.Banners;
+﻿using Exoticamp.UI.AuthFilter;
+using Exoticamp.UI.Models.Banners;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace Exoticamp.UI.Controllers
 {
+    [AdminAuthFilter]
+    [NoCache]
     public class BannerController : Controller
     {
         private readonly IBannerRepository _bannerRepository; 
@@ -78,24 +81,28 @@ namespace Exoticamp.UI.Controllers
         {
             var location = await _locationRepository.GetAllLocations();
             ViewBag.LocationList = location.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name });
+            model.BannerId = Guid.Parse(id);
 
             if (model.ImageFile!=null)
             {
-                model.BannerId = Guid.Parse(id);
+                
                 var fileName = Path.GetFileName(model.ImageFile.FileName);
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Banner/", fileName);
 
                 // Set the ImagePath property of the model
                 model.ImagePath = "/Assets/Images/Banner/" + fileName;
-                var response = await _bannerRepository.EditBanner(model);
+                
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await model.ImageFile.CopyToAsync(fileStream);
                 }
                 
-                return RedirectToAction("AllBanners");
+                
             }
-            return View(model);
+            TempData["Message"] = "Banners Updated successfully.";
+            var response = await _bannerRepository.EditBanner(model);
+            return RedirectToAction("AllBanners");
+
         }
         public async Task<IActionResult> DeleteBanner(string id)
         {

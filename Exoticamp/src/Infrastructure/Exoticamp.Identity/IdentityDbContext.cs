@@ -22,5 +22,10 @@ namespace Exoticamp.Identity
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(typeof(IdentityDbContext).Assembly);
         }
+
+        public DbSet<UserKYC>  UserKYC { get; set; }
+
+        public DbSet<BankDetails> BankDetails { get; set; }
+
     }
 }

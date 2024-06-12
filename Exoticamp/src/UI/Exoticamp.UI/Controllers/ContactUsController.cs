@@ -1,10 +1,12 @@
-﻿using Exoticamp.UI.Models.ContactUs;
+﻿using Exoticamp.UI.AuthFilter;
+using Exoticamp.UI.Models.ContactUs;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace Exoticamp.UI.Controllers
 {
+
     public class ContactUsController : Controller
     {
         private readonly IContactUsRepository _contactUsRepository;
