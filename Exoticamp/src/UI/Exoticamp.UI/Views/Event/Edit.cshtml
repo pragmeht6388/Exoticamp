@@ -1,7 +1,8 @@
-﻿@model Exoticamp.UI.Models.Events.EventVM
+﻿@* @model Exoticamp.UI.Models.Events.EventVM
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "_AdminLayout";
 }
 <style>
     .details-section {
@@ -21,10 +22,11 @@
     }
 
 </style>
+<h2 class="head col-md-12 text-center">Event</h2>
+<div class="form-group col-md-12 text">
 
-<h1>Edit</h1>
-
-<h4>EventVM</h4>
+    <button id="backButton" class="btn btn-secondary">Back</button>
+</div>
 <hr />
 <div class="row">
     <form asp-action="Edit" method="post" enctype='multipart/form-data' class="col-md-12">
@@ -78,7 +80,7 @@
 
         <!-- Right div for image -->
         <div class="image-section col-md-4">
-            <h4>Event Image</h4>
+            <h4>Image</h4>
             <hr />
             <div>
                 <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="@Html.DisplayFor(model => model.Name)" class="img-fluid" style="max-height: 350px; max-width: 350px;" />
@@ -98,9 +100,152 @@
         </div>
        
     </form>
-    <div class="form-group col-md-12 text-center">
-       
+   
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Set the min attribute for date inputs to today's date
+        document.addEventListener('DOMContentLoaded', function () {
+            var today = new Date().toISOString().split('T')[0];
+            document.querySelector('[name="StartDate"]').setAttribute('min', today);
+            document.querySelector('[name="EndDate"]').setAttribute('min', today);
+        });
+
+        // Client-side validation for StartDate and EndDate
+        document.querySelector('form').addEventListener('submit', function (e) {
+            var startDate = new Date(document.querySelector('[name="StartDate"]').value);
+            var endDate = new Date(document.querySelector('[name="EndDate"]').value);
+            var currentDate = new Date();
+
+            if (startDate <= currentDate) {
+                e.preventDefault();
+                alert('Start date must be greater than the current date.');
+            }
+
+            if (endDate <= startDate) {
+                e.preventDefault();
+                alert('End date must be greater than the start date.');
+            }
+        });
+
+        // Show the file input field for image when the edit button is clicked
+        document.getElementById('editImageButton').addEventListener('click', function () {
+            document.getElementById('imageUploadField').style.display = 'block';
+        });
+
+        // Back button functionality
+        document.getElementById('backButton').addEventListener('click', function () {
+            window.history.back();
+        });
+    </script>
+}
+ *@
+
+                @model Exoticamp.UI.Models.Events.EventVM
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_AdminLayout";
+}
+<style>
+    .details-section {
+        padding-right: 15px; /* Add some space between sections */
+    }
+
+    .image-section {
+        text-align: center; /* Center the image and button */
+    }
+
+        .image-section img {
+            display: block;
+            margin: 0 auto;
+            max-height: 350px;
+            max-width: 350px;
+        }
+</style>
+<div class="container">
+    <h2 class="head col-md-12 text-center">Event</h2>
+    <div class="form-group col-md-12 text">
         <button id="backButton" class="btn btn-secondary">Back</button>
+    </div>
+    <hr />
+    <div class="row justify-content-center">
+        <form asp-action="Edit" method="post" enctype='multipart/form-data' class="col-md-10">
+            <!-- Left div for details -->
+            <div class="details-section col-md-8 float-left">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="EventId" class="form-control" hidden />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Capacity" class="control-label"></label>
+                    <input asp-for="Capacity" class="form-control" type="text" pattern="[0-9]{5}" />
+                    <span asp-validation-for="Capacity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StartDate" class="control-label"></label>
+                    <input asp-for="StartDate" class="form-control" type="date" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EndDate" class="control-label"></label>
+                    <input asp-for="EndDate" class="form-control" type="date" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Highlights" class="control-label"></label>
+                    <textarea asp-for="Highlights" class="form-control"></textarea>
+                    <span asp-validation-for="Highlights" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EventRules" class="control-label"></label>
+                    <textarea asp-for="EventRules" class="form-control"></textarea>
+                    <span asp-validation-for="EventRules" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12 text-center">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+           
+
+            <!-- Right div for image -->
+            <div class="image-section col-md-4 float-right">
+                <h4>Image</h4>
+                <hr />
+                <div>
+                    <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="@Html.DisplayFor(model => model.Name)" class="img-fluid" />
+                </div>
+                <div class="form-group mt-3">
+                    <button id="editImageButton" type="button" class="btn btn-warning">Edit Image</button>
+                </div>
+                <div class="form-group" id="imageUploadField" style="display: none;">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input asp-for="Image" class="form-control" type="file" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+            </div>
+
+           
+        </form>
     </div>
 </div>
 

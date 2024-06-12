@@ -30,6 +30,7 @@ namespace Exoticamp.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> GetAllEvents()
+        
         {
             var dtos = await _mediator.Send(new GetEventsListQuery());
             return Ok(dtos);

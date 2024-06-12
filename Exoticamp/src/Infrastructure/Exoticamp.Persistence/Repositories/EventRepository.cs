@@ -207,19 +207,19 @@ namespace Exoticamp.Persistence.Repositories
                 Status = x.Status,
                 IsDeleted = x.IsDeleted,
                 CampsiteId = x.CampsiteId,
-                EventLocationDto = new EventLocationDto
-                {
-                    Id = x.EventLocations.FirstOrDefault()!.Id,
-                    LocationId = x.EventLocations.FirstOrDefault()!.LocationId,
-                    LocationDetails = new LocationDetails { Name = x.EventLocations.FirstOrDefault(y => y.Id == x.EventLocations.FirstOrDefault()!.Id)!.Location.Name }
+                //EventLocationDto = new EventLocationDto
+                //{
+                //    Id = x.EventLocations.FirstOrDefault()!.Id,
+                //    LocationId = x.EventLocations.FirstOrDefault()!.LocationId,
+                //    LocationDetails = new LocationDetails { Name = x.EventLocations.FirstOrDefault(y => y.Id == x.EventLocations.FirstOrDefault()!.Id)!.Location.Name }
 
-                },
-                EventActivityDto = new EventActivityDto
-                {
-                    Id = x.EventActivities.FirstOrDefault()!.Id,
-                    ActivityId = x.EventActivities.FirstOrDefault()!.ActivityId,
-                    ActivityDetails = new ActivityDetails { Name = x.EventActivities.FirstOrDefault(y => y.Id == x.EventActivities.FirstOrDefault()!.Id)!.Activity.Name }
-                }
+                //},
+                //EventActivityDto = new EventActivityDto
+                //{
+                //    Id = x.EventActivities.FirstOrDefault()!.Id,
+                //    ActivityId = x.EventActivities.FirstOrDefault()!.ActivityId,
+                //    ActivityDetails = new ActivityDetails { Name = x.EventActivities.FirstOrDefault(y => y.Id == x.EventActivities.FirstOrDefault()!.Id)!.Activity.Name }
+                //}
 
 
 

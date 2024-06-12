@@ -1,7 +1,8 @@
-﻿@model Exoticamp.UI.Models.Events.EventVM
+﻿@* @model Exoticamp.UI.Models.Events.EventVM
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "_AdminLayout";
 }
 
 <h1>Details</h1>
@@ -79,6 +80,103 @@
     @Html.ActionLink("Delete", "Delete", new { id = Model?.EventId }, new { @class = "btn btn-danger mr-2" }) |
 
     <button id="backButton" class="btn btn-secondary">Back</button>
+</div>
+
+<script>
+    document.getElementById('backButton').addEventListener('click', function () {
+        window.history.back();
+    });
+</script>
+ *@
+
+            @model Exoticamp.UI.Models.Events.EventVM
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_AdminLayout";
+}
+
+<h1 class="text-center">Details</h1>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Event Details</h4>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Name)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Name)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Price)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Price)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Capacity)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Capacity)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.StartDate)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.StartDate)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.EndDate)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.EndDate)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Description)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Highlights)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Highlights)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.EventRules)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.EventRules)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4>Event Image</h4>
+                    <hr />
+                    <div>
+                        <img src="@Model.ImageUrl" alt="@Model.Name" height="350" width="350" class="img-fluid" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8 text-center">
+            @Html.ActionLink("Edit", "Edit", new { id = Model?.EventId }, new { @class = "btn btn-primary mr-2" })
+            @Html.ActionLink("Delete", "Delete", new { id = Model?.EventId }, new { @class = "btn btn-danger mr-2" })
+            <button id="backButton" class="btn btn-secondary">Back</button>
+        </div>
+    </div>
 </div>
 
 <script>

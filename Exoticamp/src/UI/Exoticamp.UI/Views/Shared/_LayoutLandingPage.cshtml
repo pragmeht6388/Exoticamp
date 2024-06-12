@@ -57,7 +57,7 @@
             font-size: 1.2em;
         }
 
- 
+
 
         #slides {
             position: relative;
@@ -130,7 +130,7 @@
             object-fit: cover;
         }
 
-      
+
         .d-none {
             display: none;
         }
@@ -257,24 +257,25 @@
             flex-direction: column;
         }
 
-        #chatbot-window .chatbot-header {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+            #chatbot-window .chatbot-header {
+                background-color: #007bff;
+                color: white;
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
 
-        #chatbot-window .chatbot-body {
-            flex-grow: 1;
-            padding: 10px;
-            overflow-y: auto;
-        }
-        .btn-primary{
-        color:  #ffff;
+            #chatbot-window .chatbot-body {
+                flex-grow: 1;
+                padding: 10px;
+                overflow-y: auto;
+            }
+
+        .btn-primary {
+            color: #ffff;
             background-color: #0d6efd;
-        border-color: #939292;
+            border-color: #939292;
         }
 
 
@@ -286,36 +287,36 @@
 </head>
 <body>
     <!-- Header -->
-   @*  <header class="bg-primary text-white text-center p-3">
-        <div class="container d-flex justify-content-between align-items-center">
-            <div>
-                <img src="/Assets/Icons/Exoticamp.png" alt="Exoticamp Logo" class="logo">
-            </div>
-            <nav>
-                <a href="#" class="text-white ml-3">Toll Free Number</a>
-                <a href="#" class="text-white ml-3">List My Site / Become a Host</a>
-                @if (string.IsNullOrEmpty(userName))
-                {
-                    <a asp-action="Login" asp-controller="Account" class="text-white">Login/Signup</a>
-                }
-                else
-                {
-                    <li class="nav-item dropdown list-unstyled">
-                        <a class="text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           aria-expanded="false">
-                            Welcome @userName!
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" asp-action="Profile" asp-controller="User">My Profile</a></li>
-                            <li><a class="dropdown-item" asp-action="Logout" asp-controller="Account">Another action</a></li>
-                            
-                        </ul>
-                    </li>
+    @*  <header class="bg-primary text-white text-center p-3">
+    <div class="container d-flex justify-content-between align-items-center">
+    <div>
+    <img src="/Assets/Icons/Exoticamp.png" alt="Exoticamp Logo" class="logo">
+    </div>
+    <nav>
+    <a href="#" class="text-white ml-3">Toll Free Number</a>
+    <a href="#" class="text-white ml-3">List My Site / Become a Host</a>
+    @if (string.IsNullOrEmpty(userName))
+    {
+    <a asp-action="Login" asp-controller="Account" class="text-white">Login/Signup</a>
+    }
+    else
+    {
+    <li class="nav-item dropdown list-unstyled">
+    <a class="text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
+    aria-expanded="false">
+    Welcome @userName!
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <li><a class="dropdown-item" asp-action="Profile" asp-controller="User">My Profile</a></li>
+    <li><a class="dropdown-item" asp-action="Logout" asp-controller="Account">Another action</a></li>
 
-                }
+    </ul>
+    </li>
 
-            </nav>
-        </div>
+    }
+
+    </nav>
+    </div>
     </header> *@
 
     <header class="bg-primary text-white text-center p-3">
@@ -356,7 +357,7 @@
         </div>
     </header>
 
-    
+
 
 
     <!-- Collapsible Content Sections -->
@@ -429,7 +430,7 @@
                     locationDropdown.empty(); // Clear any existing options
 
                     data.forEach(function (location) {
-                        locationDropdown.append('<li><a class="dropdown-item, location-item" data-id="'+ location.id +'">' + location.name + '</a></li>');
+                        locationDropdown.append('<li><a class="dropdown-item, location-item" data-id="' + location.id + '">' + location.name + '</a></li>');
                     });
                 },
                 error: function (error) {
@@ -549,3 +550,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
