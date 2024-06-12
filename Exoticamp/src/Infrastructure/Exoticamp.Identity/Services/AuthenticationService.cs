@@ -99,6 +99,7 @@ namespace Exoticamp.Identity.Services
             response.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             response.Email = user.Email;
             response.UserName = user.UserName;
+            response.Name= user.Name;
             if (role.Count > 0)
             {
                 response.Role = role[0];
@@ -128,9 +129,10 @@ namespace Exoticamp.Identity.Services
                 Email = request.Email,
                 Name = request.Name,
                 PhoneNumber = request.PhoneNumber,
-                TermsandCondition =  true,
+                TermsandCondition = true,
                 EmailConfirmed = true,
-                LocationId=request.LocationId,
+                LocationId = request.LocationId,
+                
             };
 
             var existingEmail = await _userManager.FindByEmailAsync(request.Email);
