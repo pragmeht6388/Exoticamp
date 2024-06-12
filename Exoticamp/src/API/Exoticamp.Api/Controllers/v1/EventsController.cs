@@ -37,9 +37,10 @@ namespace Exoticamp.Api.Controllers.v1
         }
 
         [HttpGet("{id}", Name = "GetEventById")]
-        public async Task<ActionResult> GetEventById(Guid id)
+        public async Task<ActionResult> GetEventById(string id)
         {
-            var getEventDetailQuery = new GetEventDetailQuery() { Id = id };
+            var guidId = new Guid(id);
+            var getEventDetailQuery = new GetEventDetailQuery() { Id = guidId };
             return Ok(await _mediator.Send(getEventDetailQuery));
         }
 
