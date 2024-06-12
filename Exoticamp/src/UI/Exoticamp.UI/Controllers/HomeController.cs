@@ -17,13 +17,13 @@ namespace Exoticamp.UI.Controllers
         private readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
 
 
-        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository,IBannerRepository bannerRepository, ICampsiteDetailsRepository campsiteDetailsRepository)
+       // public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository, IBannerRepository bannerRepository, ICampsiteDetailsRepository campsiteDetailsRepository)
 
 
       
 
 
-        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository,IBannerRepository bannerRepository)
+        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository,IBannerRepository bannerRepository,ICampsiteDetailsRepository campsiteDetailsRepository)
         {
             _logger = logger;
             _eventRepository = eventRepository;
