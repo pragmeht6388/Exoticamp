@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Exoticamp.Application.Contracts;
 using Exoticamp.Domain.Entities;
 using Exoticamp.Domain.Common;
-using Exoticamp.Persistence.Migrations;
+//using Exoticamp.Persistence.Migrations;
 using CampsiteDetailsEntity = Exoticamp.Domain.Entities.CampsiteDetails;
 namespace Exoticamp.Persistence
 {

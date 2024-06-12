@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Exoticamp.UI.Controllers
 {
-    [AdminAuthFilter]
-    [NoCache]
+    //[AdminAuthFilter]
+    //[NoCache]
     public class BannerController : Controller
     {
         private readonly IBannerRepository _bannerRepository; 
