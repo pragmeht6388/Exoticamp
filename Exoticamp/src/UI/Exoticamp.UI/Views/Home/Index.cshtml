@@ -516,7 +516,7 @@
                             <!-- Add other sections similarly -->
 
 
-   @*  <h2 class="mt-5">Promotional Banners</h2> *@
+    @* <h2 class="mt-5">Promotional Banners</h2> *@
     <div id="promotional-banners" class="row">
         @{
             await Html.RenderPartialAsync("_PartialForAllBanners", Banners);
@@ -527,8 +527,8 @@
     @* <h2 class="mt-5">Why Choose Exoticamp?</h2> *@
 @*     <div id="why-exoticamp" class="row"></div>
  *@
-    <h2 class="mt-5">Campsite Details</h2>
-    <div id="promotional-banners" class="row">
+    @* <h2 class="mt-5">Campsite Details</h2> *@
+    <div id="promotional-banners" class="row" style="max-width:100%">
         @{
             await Html.RenderPartialAsync("_ShowCampsiteEndUser", campsiteDetailsVMs);
         }
