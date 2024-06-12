@@ -1,8 +1,8 @@
 ﻿@model Exoticamp.UI.Models.Banners.BannerViewModel
 
 @{
-    ViewData["Title"] = "Banners";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Banner Details";
+    Layout = null;
 }
 
 <!-- Bootstrap and FontAwesome CSS for icons and styling -->
@@ -10,56 +10,71 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 <style>
-    /* Container styles */
     .container {
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        background-color: #f8f9fa; /* Light gray background */
+        background: linear-gradient(135deg, #f8f9fa, #e2e2e2);
     }
 
-    /* Banner details card styles */
     .banner-details {
         max-width: 600px;
-        background-color: #fff; /* White background */
+        background: #fff;
         padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
     }
 
-        /* Banner image styles */
+        .banner-details:hover {
+            transform: translateY(-10px);
+        }
+
         .banner-details img {
             max-width: 100%;
             height: auto;
-            border-radius: 5px; /* Rounded corners */
-            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
 
-    /* Button styles */
     .btn-cancel {
-        background-color: #dc3545; /* Red */
+        background-color: #dc3545;
         border-color: #dc3545;
-        color: #fff; /* White text */
-        border-radius: 5px; /* Rounded corners */
+        color: #fff;
+        border-radius: 5px;
         font-size: 16px;
-        width: 100%; /* Full width */
-        padding: 10px; /* Padding */
-        margin-top: 20px; /* Margin top */
-        transition: background-color 0.3s ease; /* Smooth transition */
+        width: 100%;
+        padding: 10px;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
     }
 
-        /* Button hover effect */
         .btn-cancel:hover {
-            background-color: #c82333; /* Dark red */
+            background-color: #c82333;
             border-color: #c82333;
         }
 
-    /* Icon styles */
     .banner-details .fa {
         margin-right: 10px;
     }
+
+    .banner-details h2 {
+        font-family: 'Montserrat', sans-serif;
+        color: #333;
+    }
+
+    .banner-details h5,
+    .banner-details p {
+        font-family: 'Roboto', sans-serif;
+        color: #555;
+    }
+
+        .banner-details h5 i,
+        .banner-details p i {
+            color: #17a2b8;
+        }
 </style>
 
 <div class="container">
@@ -71,14 +86,17 @@
                 <img src="@Model.ImagePath" class="img-fluid rounded" alt="Banner Image">
             </div>
             <div class="col-12 mt-4">
-                <h5><i class="fas fa-link"></i>@Model.Link</h5>
+                <h5><i class="fas fa-link"></i> @Model.Link</h5>
                 <p><i class="fas fa-map-marker-alt"></i> Location: @ViewBag.LocationName</p>
                 <p><i class="fas fa-tag"></i> Promo Code: @Model.PromoCode</p>
                 <p><i class="fas fa-check-circle"></i> Active: @(Model.IsActive ? "Yes" : "No")</p>
 
-                <!-- Cancel button to go back -->
-                <a href="@Url.Action("AllBanners")" class="btn btn-cancel"><i class="fas fa-times"></i> Cancel</a>
+                <a href="/Home/Index" class="btn btn-cancel"><i class="fas fa-times"></i> Cancel</a>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
