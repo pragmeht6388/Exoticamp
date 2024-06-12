@@ -178,6 +178,12 @@ namespace Exoticamp.UI.Controllers
 
             return PartialView("_PartialCampsiteCorousel", campsiteDetail);
         }
+        public async Task<IActionResult> ShowCampsiteEndUser()
+        {
+            var campsiteDetail = await _campsiteRepository.GetAllCampsites();
+
+            return PartialView("_ShowCampsiteEndUser", campsiteDetail);
+        }
 
         public async Task<IActionResult> DetailsUser(string id)
         {

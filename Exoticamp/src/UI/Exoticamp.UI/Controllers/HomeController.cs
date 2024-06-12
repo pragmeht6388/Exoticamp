@@ -14,17 +14,17 @@ namespace Exoticamp.UI.Controllers
         private readonly ILocationRepository _locationRepository;
         private readonly IActivitiesRepository _activitiesRepository;
         private readonly IBannerRepository _bannersRepository;
+        private readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
 
 
-
-
-        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository,IBannerRepository bannerRepository)
+        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository,IBannerRepository bannerRepository, ICampsiteDetailsRepository campsiteDetailsRepository)
         {
             _logger = logger;
             _eventRepository = eventRepository;
             _locationRepository = locationRepository;
             _activitiesRepository = activitiesRepository;
             _bannersRepository = bannerRepository;
+            _campsiteDetailsRepository = campsiteDetailsRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -34,6 +34,8 @@ namespace Exoticamp.UI.Controllers
             ViewBag.Events = await _eventRepository.GetAllEvents();
             ViewBag.Preferences = await _activitiesRepository.GetAllActivities();
             ViewBag.Banners = await _bannersRepository.GetAllBanners();
+            ViewBag.CampsiteDetails = await _campsiteDetailsRepository.GetAllCampsites();
+
             return View();
         }
 

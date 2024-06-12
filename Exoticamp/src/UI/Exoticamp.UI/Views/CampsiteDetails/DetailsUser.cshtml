@@ -116,8 +116,8 @@
 </head>
 <h1 style="text-align:center;color:black">Campsite Details</h1>
 <p>
-    <a asp-action="ShowCampsite" style="margin-left:100px" class="btn btn-primary">Back to List</a>
-    <a asp-action="ShowCampsite" style="margin-left:820px;background-color:limegreen;position:fixed" class="btn btn-primary">Book Now</a>
+    <a href="/Home/Index" style="margin-left:200px" class="btn btn-primary">Back to List</a>
+    <a asp-action="ShowCampsite" style="margin-left:810px;background-color:limegreen;position:fixed" class="btn btn-primary">Book Now</a>
 </p>
 
 <div class="campsite-details">
@@ -335,12 +335,12 @@
 </div>
 <br />
 <br />
-<h1>View Similar Campsites</h1>
+<h1 style="text-align:center">View Similar Campsites</h1>
 <br />
 <br />
 <div id="campsite-corousel" style="border: 1px solid black; padding: 20px;">
     @{
-        await Html.RenderPartialAsync("_PartialCampsiteCorousel", allCampsites);
+        await Html.RenderPartialAsync("_ShowCampsiteEndUser", allCampsites);
     }
 </div>
 

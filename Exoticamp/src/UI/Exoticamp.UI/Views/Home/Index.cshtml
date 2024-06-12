@@ -1,4 +1,5 @@
 ﻿@using System.Collections
+@using Exoticamp.UI.Models.CampsiteDetails
 @using Exoticamp.UI.Models.Events
 @using Exoticamp.UI.Models.Location
 @using Exoticamp.UI.Models.Banners
@@ -7,6 +8,8 @@
     ViewData["Title"] = "Home Page";
     Layout = "_LayoutLandingPage";
     IEnumerable<BannerViewModel> Banners = ViewBag.Banners;
+    IEnumerable<CampsiteDetailsVM> campsiteDetailsVMs = ViewBag.CampsiteDetails;
+
 }
 
 @* <div class="text-center">
@@ -683,9 +686,16 @@
         }
     </div>
 
-    <h2 class="mt-5">Why Choose Exoticamp?</h2>
-    <div id="why-exoticamp" class="row"></div>
 
+    @* <h2 class="mt-5">Why Choose Exoticamp?</h2> *@
+@*     <div id="why-exoticamp" class="row"></div>
+ *@
+    <h2 class="mt-5">Campsite Details</h2>
+    <div id="promotional-banners" class="row">
+        @{
+            await Html.RenderPartialAsync("_ShowCampsiteEndUser", campsiteDetailsVMs);
+        }
+    </div>
     <h2 class="mt-5">News & Media</h2>
     <div id="news-media" class="row"></div>
 
