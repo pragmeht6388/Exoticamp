@@ -62,7 +62,7 @@ namespace Exoticamp.Persistence.Repositories
                 ImagePath=request.ImagePath,
         
 
-                //ActivitiesName=request.Activities.FirstOrDefault().Name
+               
 
             }).ToListAsync();
             return data;
