@@ -2,6 +2,7 @@ using Exoticamp.UI.Models;
 using Exoticamp.UI.Models.Location;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 
 namespace Exoticamp.UI.Controllers
@@ -12,16 +13,18 @@ namespace Exoticamp.UI.Controllers
         private readonly IEventRepository _eventRepository;
         private readonly ILocationRepository _locationRepository;
         private readonly IActivitiesRepository _activitiesRepository;
+        private readonly IBannerRepository _bannersRepository;
 
 
 
 
-        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository)
+        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository,IBannerRepository bannerRepository)
         {
             _logger = logger;
             _eventRepository = eventRepository;
             _locationRepository = locationRepository;
             _activitiesRepository = activitiesRepository;
+            _bannersRepository = bannerRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -30,6 +33,7 @@ namespace Exoticamp.UI.Controllers
             ViewBag.Locations = await _locationRepository.GetAllLocations();
             ViewBag.Events = await _eventRepository.GetAllEvents();
             ViewBag.Preferences = await _activitiesRepository.GetAllActivities();
+            ViewBag.Banners = await _bannersRepository.GetAllBanners();
             return View();
         }
 
@@ -45,6 +49,25 @@ namespace Exoticamp.UI.Controllers
             {
                 return Json(new { success = false, message = ex.Message });
             }
+        }
+        public async Task<IActionResult> ViewBannerUser(string id)
+        {
+         
+            var banner = await _bannersRepository.GetBannerById(id);
+
+            if (banner == null)
+            {
+                return NotFound(); 
+            }
+
+            
+            var locations = await _locationRepository.GetAllLocations();
+            var location = locations.FirstOrDefault(l => l.Id.ToString() == banner.Data.LocationId.ToString());
+
+          
+            ViewBag.LocationName = location != null ? location.Name : "Unknown";
+
+            return View(banner.Data);
         }
 
         public IActionResult Privacy()
