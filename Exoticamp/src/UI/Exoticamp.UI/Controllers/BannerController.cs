@@ -120,7 +120,11 @@ namespace Exoticamp.UI.Controllers
             {
                 return NotFound(); // Return 404 if the banner is not found
             }
+            var locations = await _locationRepository.GetAllLocations();
+            var location = locations.FirstOrDefault(l => l.Id.ToString() == banner.Data.LocationId.ToString());
 
+            // Pass the location name to ViewBag
+            ViewBag.LocationName = location != null ? location.Name : "Unknown";
             return View(banner.Data);
         }
         public async Task<IActionResult> AllBannersUser()
@@ -128,5 +132,6 @@ namespace Exoticamp.UI.Controllers
             var banners = await _bannerRepository.GetAllBanners();
             return PartialView("_PartialForAllBanners",banners);
         }
+        
     }
 }

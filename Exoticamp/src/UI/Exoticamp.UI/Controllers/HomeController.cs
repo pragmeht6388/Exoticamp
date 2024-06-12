@@ -2,6 +2,7 @@ using Exoticamp.UI.Models;
 using Exoticamp.UI.Models.Location;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 
 namespace Exoticamp.UI.Controllers
@@ -48,6 +49,25 @@ namespace Exoticamp.UI.Controllers
             {
                 return Json(new { success = false, message = ex.Message });
             }
+        }
+        public async Task<IActionResult> ViewBannerUser(string id)
+        {
+         
+            var banner = await _bannersRepository.GetBannerById(id);
+
+            if (banner == null)
+            {
+                return NotFound(); 
+            }
+
+            
+            var locations = await _locationRepository.GetAllLocations();
+            var location = locations.FirstOrDefault(l => l.Id.ToString() == banner.Data.LocationId.ToString());
+
+          
+            ViewBag.LocationName = location != null ? location.Name : "Unknown";
+
+            return View(banner.Data);
         }
 
         public IActionResult Privacy()
