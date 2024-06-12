@@ -70,12 +70,13 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
                     Safety = request.Safety,
                     DistanceWithMap = request.DistanceWithMap,
                     CancellationPolicy = request.CancellationPolicy,
-                    //CategoryId = request.CategoryId,
+                    CategoryId = request.CategoryId,
                    // ActivitiesId = request.ActivitiesId,
                     FAQs = request.FAQs,
                     HouseRules = request.HouseRules,
                     MealPlans = request.MealPlans,
-                    WhyExoticamp = request.WhyExoticamp
+                    WhyExoticamp = request.WhyExoticamp,
+                    
                 };
                 campsite = await _campsiteRepository.AddCampsite(request);
                 addCampsiteCommandResponse = new Response<CampsiteDetailsDto>(_mapper.Map<CampsiteDetailsDto>(campsite), "success");
