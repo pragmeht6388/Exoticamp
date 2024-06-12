@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Exoticamp.UI.Models.Location;
 
 namespace Exoticamp.UI.Models.Registration
 {
@@ -18,8 +19,9 @@ namespace Exoticamp.UI.Models.Registration
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string Email { get; set; }
 
-        
+
         [Required(ErrorMessage = "You must accept the terms and conditions")]
+        [RegularExpression("True", ErrorMessage = "You must accept the terms and conditions.")]
         public bool TermsandCondition { get; set; }
 
         [Required(ErrorMessage = "Password is required.")]
@@ -30,6 +32,7 @@ namespace Exoticamp.UI.Models.Registration
         [Required(ErrorMessage = "Location is required.")]
         public string LocationId { get; set; }
         public string? Role { get; set; }
+        public IEnumerable<LocationVM> Locations { get; set; }
 
     }
 }
