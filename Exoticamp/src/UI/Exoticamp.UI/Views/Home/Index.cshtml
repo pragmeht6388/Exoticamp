@@ -1,10 +1,12 @@
 ﻿@using System.Collections
 @using Exoticamp.UI.Models.Events
 @using Exoticamp.UI.Models.Location
+@using Exoticamp.UI.Models.Banners
 
 @{
     ViewData["Title"] = "Home Page";
     Layout = "_LayoutLandingPage";
+    IEnumerable<BannerViewModel> Banners = ViewBag.Banners;
 }
 
 @* <div class="text-center">
@@ -535,7 +537,11 @@
 
 
     <h2 class="mt-5">Promotional Banners</h2>
-    <div id="promotional-banners" class="row"></div>
+    <div id="promotional-banners" class="row">
+        @{
+            await Html.RenderPartialAsync("_PartialForAllBanners", Banners);
+        }
+    </div>
 
     <h2 class="mt-5">Why Choose Exoticamp?</h2>
     <div id="why-exoticamp" class="row"></div>
