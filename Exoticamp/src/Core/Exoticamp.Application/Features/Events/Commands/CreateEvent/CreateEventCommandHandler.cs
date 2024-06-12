@@ -47,7 +47,7 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
             
 
             var eventObj = await _eventRepository.AddEvent(request);
-            Response<CreateEventCommandDto> response = null;
+            Response<CreateEventCommandDto> response = new Response<CreateEventCommandDto>();
 
             if (eventObj!=null)
             {
