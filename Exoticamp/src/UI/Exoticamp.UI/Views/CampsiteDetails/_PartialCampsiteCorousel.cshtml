@@ -11,22 +11,22 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .scroll-container1 {
+        .scroll-container {
             position: relative;
             overflow: hidden;
+            width:144%;
         }
 
-        .campsite-container1 {
+        .campsite-container {
             display: flex;
             flex-wrap: nowrap;
             overflow-x: auto;
-            width: 100%;
             scroll-behavior: smooth;
             -ms-overflow-style: none; /* IE and Edge */
             scrollbar-width: none; /* Firefox */
         }
 
-            .campsite-container1::-webkit-scrollbar {
+            .campsite-container::-webkit-scrollbar {
                 display: none; /* Chrome, Safari, Opera */
             }
 
@@ -34,35 +34,24 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             overflow: hidden;
-            width: 400px; /* Fixed width */
-            height: 400px; /* Fixed height */
+            min-width: 300px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
             margin-right: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center align content */
-            justify-content: space-between; /* Space out content */
         }
 
             .campsite-item:hover {
                 transform: scale(1.02);
             }
 
-        .campsite-image {
+        .campsite-image img {
             width: 100%;
-            height: 200px; /* Fixed height for image container */
+            height: 200px;
+            display: block;
         }
-
-            .campsite-image img {
-                width: 100%;
-                height: 100%; /* Fill the container */
-                object-fit: cover; /* Ensure the image covers the area */
-            }
 
         .campsite-info {
             padding: 15px;
-            width: 100%; /* Ensure info section takes full width */
         }
 
         .campsite-name {
@@ -140,12 +129,16 @@
     </style>
 </head>
 <body>
-    <div class="container1">
-        <div class="scroll-container1">
-            <button class="scroll-arrow scroll-arrow-left" onclick="scrollLeft()">
+    <div class="container">
+        @*  <h1>CampingSites</h1> *@
+
+
+
+        <div class="scroll-container">
+            <button class="scroll-arrow scroll-arrow-left" onclick="sLeft()">
                 &larr;
             </button>
-            <div class="campsite-container1" id="campsiteContainer">
+            <div class="campsite-container" id="campsiteContainer">
                 @foreach (var item in Model)
                 {
                     <div class="campsite-item">
@@ -168,7 +161,7 @@
                                 </div>
                             </div>
                             <div class="campsite-details">
-                                @Html.ActionLink("View", "DetailsUser", new { id = item.Id }, new { @class = "btn btn-info" })
+                                @Html.ActionLink("View", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
                             </div>
                         </div>
                     </div>
@@ -184,12 +177,12 @@
     <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        function scrollLeft() {
-            document.getElementById('campsiteContainer').scrollBy({ left: -400, behavior: 'smooth' }); /* Updated scroll amount */
+        function sLeft() {
+            document.getElementById('campsiteContainer').scrollBy({ left: -300, behavior: 'smooth' });
         }
 
         function scrollRight() {
-            document.getElementById('campsiteContainer').scrollBy({ left: 400, behavior: 'smooth' }); /* Updated scroll amount */
+            document.getElementById('campsiteContainer').scrollBy({ left: 300, behavior: 'smooth' });
         }
     </script>
 </body>
