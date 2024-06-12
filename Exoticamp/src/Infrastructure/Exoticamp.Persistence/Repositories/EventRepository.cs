@@ -2,19 +2,17 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Exoticamp.Application.Contracts.Persistence;
 using Exoticamp.Domain.Entities;
-using Exoticamp.Persistence;
-using Microsoft.EntityFrameworkCore.Update.Internal;
+
 using Exoticamp.Application.Features.Events.Commands.CreateEvent;
-using System.Diagnostics;
+
 using Exoticamp.Application.Exceptions;
 using Exoticamp.Application.Features.Events.Queries.GetEventDetail;
 using Exoticamp.Application.Features.Events.Queries.GetEventsList;
 using Exoticamp.Application.Features.Events.Commands.UpdateEvent;
-using Exoticamp.Application.Features.Activities.Query.GetActivityList;
+
 
 namespace Exoticamp.Persistence.Repositories
 {
@@ -128,7 +126,7 @@ namespace Exoticamp.Persistence.Repositories
                 await _dbContext.Set<EventLocation>().AddAsync(eventLocation);
                 //await _dbContext.SaveChangesAsync();
 
-
+                
                 await _dbContext.SaveChangesAsync();
                 _dbContext.Commit();
 
@@ -142,6 +140,7 @@ namespace Exoticamp.Persistence.Repositories
             {
 
                 _dbContext.Rollback();
+                return null;
             }
             return @event;
         }
@@ -207,7 +206,21 @@ namespace Exoticamp.Persistence.Repositories
                 EventRules = x.EventRules,
                 Status = x.Status,
                 IsDeleted = x.IsDeleted,
-                CampsiteId = x.CampsiteId
+                CampsiteId = x.CampsiteId,
+                //EventLocationDto = new EventLocationDto
+                //{
+                //    Id = x.EventLocations.FirstOrDefault()!.Id,
+                //    LocationId = x.EventLocations.FirstOrDefault()!.LocationId,
+                //    LocationDetails = new LocationDetails { Name = x.EventLocations.FirstOrDefault(y => y.Id == x.EventLocations.FirstOrDefault()!.Id)!.Location.Name }
+
+                //},
+                //EventActivityDto = new EventActivityDto
+                //{
+                //    Id = x.EventActivities.FirstOrDefault()!.Id,
+                //    ActivityId = x.EventActivities.FirstOrDefault()!.ActivityId,
+                //    ActivityDetails = new ActivityDetails { Name = x.EventActivities.FirstOrDefault(y => y.Id == x.EventActivities.FirstOrDefault()!.Id)!.Activity.Name }
+                //}
+
 
 
             }).ToListAsync();
@@ -327,106 +340,6 @@ namespace Exoticamp.Persistence.Repositories
         }
 
 
-        //public async Task<UpdateEventDto> UpdateEvent(UpdateEventCommand request)
-        //{
-        //    _dbContext.BeginTransaction();
-        //    var @event = new Event();
-        //    try
-        //    {
-        //        //    var eventObj = await _dbContext.Events.FirstOrDefaultAsync(x => x.EventId == request.EventId);
-        //        //    var campsite = await _dbContext.CampsiteDetails.FirstOrDefaultAsync(x => x.Id == request.CampsiteId);
-        //        //    var activity = await _dbContext.Activities.FirstOrDefaultAsync(x => x.Id == request.ActivityId);
-
-        //        //    var location = await _dbContext.Locations.FirstOrDefaultAsync(x => x.Id == request.locationId);
-
-
-
-        //        //    eventObj.Name = request.Name;
-        //        //    eventObj.Price = request.Price;
-        //        //    eventObj.Capacity = request.Capacity;
-        //        //    eventObj.StartDate = request.StartDate;
-        //        //    eventObj.EndDate = request.EndDate;
-        //        //    eventObj.Description = request.Description;
-        //        //    eventObj.ImageUrl = request.ImageUrl;
-        //        //    eventObj.Highlights = request.Highlights;
-        //        //    eventObj.EventRules = request.EventRules;
-        //        //    eventObj.Status = request.Status;
-        //        //    eventObj.IsDeleted = request.IsDeleted;
-        //        //    eventObj.Campsite = campsite;
-        //        //    eventObj.CampsiteId = request.CampsiteId;
-        //        //    eventObj.eve
-
-
-
-
-
-
-        //        //    await _dbContext.Set<Event>().AddAsync(@event);
-
-        //        //    //await _dbContext.SaveChangesAsync();
-
-        //        //    await _dbContext.SaveChangesAsync();
-        //        //    _dbContext.Commit();
-
-
-
-        //        //    //return @event;
-
-
-
-
-
-        //    var data = await _dbContext.Events.Include(x => x.EventLocations).Include(x => x.EventActivities).Where(x => x.EventId == request.EventId).Select(x => new UpdateEventCommand
-        //    {
-        //        ActivityId = x.EventActivities.FirstOrDefault()!.ActivityId,
-        //        LocationId = x.EventLocations.FirstOrDefault()!.LocationId,
-        //        EventId = x.EventId,
-        //        Name = x.Name,
-        //        Price = x.Price,
-        //        Capacity = x.Capacity,
-        //        StartDate = x.StartDate,
-        //        EndDate = x.EndDate,
-        //        Description = x.Description,
-        //        ImageUrl = x.ImageUrl,
-        //        Highlights = x.Highlights,
-        //        EventRules = x.EventRules,
-        //        Status = x.Status,
-        //        IsDeleted = x.IsDeleted,
-        //        CampsiteId = x.CampsiteId,
-        //        EventLocationDTO = new EventLocationDTO
-        //        {
-        //            EventLocationId = x.EventLocations.FirstOrDefault()!.Id,
-        //            LocationId = x.EventLocations.FirstOrDefault()!.LocationId,
-
-        //        },
-        //        EventActivityDTO = new EventActivityDTO
-        //        {
-        //            EventActivityId = x.EventActivities.FirstOrDefault()!.Id,
-        //            ActivityId = x.EventActivities.FirstOrDefault()!.ActivityId
-        //        }
-        //    }).FirstOrDefaultAsync();
-
-
-        //        @event.EventId = request.EventId;
-        //        @event.Name = request.Name;
-        //        @event.Price = request.Price;
-        //        @event.Capacity = request.Capacity;
-        //        @event.StartDate = request.StartDate;
-        //        @event.EndDate = request.EndDate;
-        //        @event.Description = request.Description;
-        //        @event.ImageUrl = request.ImageUrl;
-        //        @event.Highlights = request.Highlights;
-        //        @event.EventRules = request.EventRules;
-        //        @event.Status = request.Status;
-        //        @event.IsDeleted = request.IsDeleted;
-        //        @event.CampsiteId = request.CampsiteId;
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        _dbContext.Rollback();
-        //    }
-        //    return @event;
-        //}
+   
     }
 }
