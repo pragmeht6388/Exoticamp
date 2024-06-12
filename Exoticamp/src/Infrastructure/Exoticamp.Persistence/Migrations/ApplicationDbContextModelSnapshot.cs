@@ -1057,6 +1057,11 @@ namespace Exoticamp.Persistence.Migrations
                     b.Navigation("CampsiteActivities");
                 });
 
+            modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("CampsiteDetails");
+                });
+
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
                 {
                     b.Navigation("EventActivities");
