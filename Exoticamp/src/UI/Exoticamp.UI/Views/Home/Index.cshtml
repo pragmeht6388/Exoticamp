@@ -23,8 +23,8 @@
     <a href="#">
         <img src="images/u1.jpg" alt="Banners" class="slide" id="slide-show">
         <div class="text-overlay" id="text-overlay">
-            <h1 id="slide-heading">Heading 1</h1>
-            <p id="slide-message">Message 1</p>
+            <h1 id="slide-heading"></h1>
+            <p id="slide-message"></p>
         </div>
     </a>
 </div>
@@ -375,7 +375,7 @@
 </div>
 
 
-    <h2 class="mt-5">Nearest Camping Sites</h2>
+@*     <h2 class="mt-5">Nearest Camping Sites</h2>
     <div id="nearestSitesCarousel" class="carousel slide" data-interval="false">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -512,11 +512,11 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-</div>
+</div> *@
                             <!-- Add other sections similarly -->
 
 
-    <h2 class="mt-5">Promotional Banners</h2>
+   @*  <h2 class="mt-5">Promotional Banners</h2> *@
     <div id="promotional-banners" class="row">
         @{
             await Html.RenderPartialAsync("_PartialForAllBanners", Banners);
@@ -533,14 +533,14 @@
             await Html.RenderPartialAsync("_ShowCampsiteEndUser", campsiteDetailsVMs);
         }
     </div>
-    <h2 class="mt-5">News & Media</h2>
+@*     <h2 class="mt-5">News & Media</h2>
     <div id="news-media" class="row"></div>
 
     <h2 class="mt-5">Safety</h2>
     <div id="safety" class="row"></div>
 
     <h2 class="mt-5">Rating & Reviews</h2>
-    <div id="reviews" class="row"></div>
+    <div id="reviews" class="row"></div> *@
 </div>
 @if (TempData["Message"] != null)
 {
@@ -556,9 +556,9 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const slides = [
-                { src: 'images/u1.jpg', heading: 'Heading 1', message: 'Message 1' },
-                { src: 'images/u2.png', heading: 'Heading 2', message: 'Message 2' },
-                { src: 'images/u3.png', heading: 'Heading 3', message: 'Message 3' }
+                { src: 'images/u1.jpg', heading: 'Camping is where the adventure begins.', message: 'Message 1' },
+                { src: 'images/u2.png', heading: 'Camping: where the only thing that runs on batteries is your flashlight.', message: 'Message 2' },
+                { src: 'images/u3.png', heading: 'Camp more. Worry less.', message: 'Message 3' }
             ];
             let i = 0;
             const slideshowNode = document.getElementById('slide-show');
