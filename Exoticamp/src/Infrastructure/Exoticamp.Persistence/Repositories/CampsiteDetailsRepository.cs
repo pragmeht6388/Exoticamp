@@ -64,6 +64,7 @@ namespace Exoticamp.Persistence.Repositories
                     Exclusion = request.Exclusion,
                     Amenities = request.Amenities,
                     Accommodation = request.Accommodation,
+                    CategoryId=request.CategoryId,
                     Safety = request.Safety,
                     DistanceWithMap = request.DistanceWithMap,
                     CancellationPolicy = request.CancellationPolicy,
@@ -118,7 +119,7 @@ namespace Exoticamp.Persistence.Repositories
         }
         public async Task<List<CampsiteDetailsVM>> GetAllCampsiteWithCategoryAndActivityDetails()
         {
-            var data = await this._dbContext.CampsiteDetails
+            var data = await this._dbContext.CampsiteDetails.Include(x=>x.Category)
                 .Include(x => x.CampsiteActivities)
                 .ThenInclude(ca => ca.Activities)
                 .Select(request => new CampsiteDetailsVM()
@@ -150,10 +151,12 @@ namespace Exoticamp.Persistence.Repositories
                     Safety = request.Safety,
                     DistanceWithMap = request.DistanceWithMap,
                     CancellationPolicy = request.CancellationPolicy,
+                    CategoryId=request.CategoryId,
                     FAQs = request.FAQs,
                     HouseRules = request.HouseRules,
                     MealPlans = request.MealPlans,
                     WhyExoticamp = request.WhyExoticamp,
+                    
 
                     // Include activity details
                     Activities = request.CampsiteActivities.Select(ca => new ActivityVM
@@ -206,6 +209,7 @@ namespace Exoticamp.Persistence.Repositories
                     HouseRules = request.HouseRules,
                     MealPlans = request.MealPlans,
                     WhyExoticamp = request.WhyExoticamp,
+                    CategoryId = request.CategoryId,
                     // Include activity details
                     Activities = request.CampsiteActivities.Select(ca => new ActivityVM
                     {

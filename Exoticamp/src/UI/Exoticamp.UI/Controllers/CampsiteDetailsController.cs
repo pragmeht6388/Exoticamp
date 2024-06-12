@@ -101,19 +101,19 @@ namespace Exoticamp.UI.Controllers
         {
             var eventObj = await _campsiteRepository.GetCampsiteById(id);
             eventObj.Data.ActivitiesId = eventObj.Data.Activities[0].Id;
-            //var categoryList = await _categoryRepository.GetAllCategory();
+            var categoryList = await _categoryRepository.GetAllCategory();
             var activitiesList = await _activitiesRepository.GetAllActivities();
            // var Activities = await _activitiesRepository.GetAllActivities();
 
             if (activitiesList != null)
             {
-                //ViewBag.CategoryList = categoryList.Select(c => new SelectListItem { Value = c.CategoryId.ToString(), Text = c.Name });
-                //var activitiesSelectList = activitiesList.Select(a => new SelectListItem
-                //{
-                //    Value = a.Id.ToString(),
-                //    Text = a.Name,
-                //    Selected = eventObj.Data.ActivitiesId == a.Id
-                //}).ToList();
+                ViewBag.CategoryList = categoryList.Select(c => new SelectListItem { Value = c.CategoryId.ToString(), Text = c.Name });
+                var activitiesSelectList = activitiesList.Select(a => new SelectListItem
+                {
+                    Value = a.Id.ToString(),
+                    Text = a.Name,
+                    Selected = eventObj.Data.ActivitiesId == a.Id
+                }).ToList();
 
                 //ViewBag.ActivitiesList = activitiesSelectList;
                 ViewBag.ActivitiesList = new SelectList(activitiesList, "Id", "Name");
@@ -132,7 +132,12 @@ namespace Exoticamp.UI.Controllers
             var categoryList = await _categoryRepository.GetAllCategory();
             var activitiesList = await _activitiesRepository.GetAllActivities();
 
-            ViewBag.CategoryList = categoryList.Select(c => new SelectListItem { Value = c.CategoryId.ToString(), Text = c.Name });
+            ViewBag.CategoryList = categoryList.Select(c => new SelectListItem
+            {
+                Value = c.CategoryId.ToString(),
+                Text = c.Name
+            }).ToList(); 
+
             ViewBag.ActivitiesList = activitiesList.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name });
 
             if (model.ImageFile != null)
