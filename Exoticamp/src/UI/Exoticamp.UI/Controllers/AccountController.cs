@@ -34,9 +34,9 @@ namespace Exoticamp.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Registration( RegistrationVM registrationVM )
         {
-
+            registrationVM.LocationId = "7F9CC3C6-301D-4504-AF3F-1C460C74ABE4";
             var result = await _registrationRepository. CreateRegistration(registrationVM);
-
+            
             if (result.Message != null)
             {
                 // ModelState.AddModelError(string.Empty, result.Message);
@@ -86,7 +86,7 @@ namespace Exoticamp.UI.Controllers
             HttpContext.Session.SetString("Token", response.Token);
             HttpContext.Session.SetString("UserRole", response.Role);
             HttpContext.Session.SetString("UserId", response.Id);
-            HttpContext.Session.SetString("UserName", response.UserName);
+            HttpContext.Session.SetString("UserName", response.Name);
 
 
 
@@ -98,7 +98,7 @@ namespace Exoticamp.UI.Controllers
                 case "Vendor":
                     return RedirectToAction("Dashboard", "Home");
                 case "SuperAdmin":
-                    return RedirectToAction("GetAllUsers", "Admin");
+                    return RedirectToAction("AdminPage", "Home");
                 default:
                     return RedirectToAction("Index", "Home");  
             }

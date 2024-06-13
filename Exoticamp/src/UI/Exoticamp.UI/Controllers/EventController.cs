@@ -88,6 +88,19 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> Edit(string id)
         {
           var eventObj=await  _eventRepository.GetEventById(id);
+            
+            var Campsites = await _campsiteRepository.GetAllCampsites();
+            var Activities = await _activitiesRepository.GetAllActivities();
+            var Locations = await _locationRepository.GetAllLocations();
+            if (Campsites == null || Activities == null || Locations == null)
+            {
+                return View("Error", new ErrorViewModel { });
+            }
+
+            eventObj.Data.Campsites = new SelectList(Campsites, "Id", "Name");
+            eventObj.Data.ActivitiesVMs = new SelectList(Activities, "Id", "Name");
+            eventObj.Data.Locations = new SelectList(Locations, "Id", "Name");
+
             return View(eventObj.Data);
         }
         [HttpPost]

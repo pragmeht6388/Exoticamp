@@ -96,11 +96,11 @@
         </div>
         <div class="form-group col-md-12 text-center">
             <input type="submit" value="Save" class="btn btn-primary" />
-            
+
         </div>
-       
+
     </form>
-   
+
 </div>
 
 @section Scripts {
@@ -145,7 +145,7 @@
 }
  *@
 
-                @model Exoticamp.UI.Models.Events.EventVM
+@model Exoticamp.UI.Models.Events.EventVM
 
 @{
     ViewData["Title"] = "Edit";
@@ -187,13 +187,45 @@
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label for="LocationId">Select location:</label>
+                    <select id="location" asp-for="LocationId" class="form-control">
+                        <option value="">-- Select location --</option>
+                        @if (Model.Locations != null)
+                        {
+                            @foreach (var location in Model.Locations)
+                            {
+                                <option value="@location.Value" >@location.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="CampsiteId">Select campsite:</label>
+                    <select id="campsite" asp-for="CampsiteId" class="form-control">
+                        <option value="">-- Select campsite --</option>
+                        @if (Model.Campsites != null)
+                        {
+                            @foreach (var campsite in Model.Campsites)
+                            {
+                                <option value="@campsite.Value">@campsite.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ActivityId">Select activities:</label>
+                    <select id="activity" asp-for="ActivityId" class="form-control" asp-items="Model.ActivitiesVMs">
+                        <option value="">-- Select activities --</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label asp-for="Price" class="control-label"></label>
                     <input asp-for="Price" class="form-control" />
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Capacity" class="control-label"></label>
-                    <input asp-for="Capacity" class="form-control" type="text" pattern="[0-9]{5}" />
+                    <input asp-for="Capacity" class="form-control" />
                     <span asp-validation-for="Capacity" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -221,12 +253,20 @@
                     <textarea asp-for="EventRules" class="form-control"></textarea>
                     <span asp-validation-for="EventRules" class="text-danger"></span>
                 </div>
+               @*  <div class="form-group">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input asp-for="Image" class="form-control" type="file" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div> *@
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label"></label>
+                    <input asp-for="Status" class="form-control" type="checkbox"  />
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
                 <div class="form-group col-md-12 text-center">
                     <input type="submit" value="Save" class="btn btn-primary" />
                 </div>
             </div>
-           
-
             <!-- Right div for image -->
             <div class="image-section col-md-4 float-right">
                 <h4>Image</h4>
@@ -243,8 +283,6 @@
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
             </div>
-
-           
         </form>
     </div>
 </div>
@@ -278,14 +316,25 @@
             }
         });
 
-        // Show the file input field for image when the edit button is clicked
-        document.getElementById('editImageButton').addEventListener('click', function () {
-            document.getElementById('imageUploadField').style.display = 'block';
-        });
+        // // Show the file input field for image when the edit button is clicked
+        // document.getElementById('editImageButton').addEventListener('click', function () {
+        //     document.getElementById('imageUploadField').style.display = 'block';
+        // });
 
         // Back button functionality
         document.getElementById('backButton').addEventListener('click', function () {
             window.history.back();
+        });
+    </script>
+    <!-- Script to toggle the image upload field -->
+    <script>
+        document.getElementById('editImageButton').addEventListener('click', function () {
+            var imageUploadField = document.getElementById('imageUploadField');
+            if (imageUploadField.style.display === 'none') {
+                imageUploadField.style.display = 'block';
+            } else {
+                imageUploadField.style.display = 'none';
+            }
         });
     </script>
 }

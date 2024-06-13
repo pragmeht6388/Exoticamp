@@ -944,7 +944,7 @@ namespace Exoticamp.Persistence.Migrations
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
                 {
                     b.HasOne("Exoticamp.Domain.Entities.Category", "Category")
-                        .WithMany("CampsiteDetails")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

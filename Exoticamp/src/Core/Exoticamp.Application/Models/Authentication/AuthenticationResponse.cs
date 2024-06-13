@@ -4,6 +4,7 @@ namespace Exoticamp.Application.Models.Authentication
 {
     public class AuthenticationResponse
     {
+        public string Name { get; set; }
         public string Message { get; set; }
         public bool IsAuthenticated { get; set; }
         public string Id { get; set; }
@@ -12,6 +13,8 @@ namespace Exoticamp.Application.Models.Authentication
         public string Token { get; set; }
         public string RefreshToken { get; set; }
          public string Role { get; set; }
+
+        public Guid LocationId { get; set; }
         public DateTime? RefreshTokenExpiration { get; set; }
     }
 }
