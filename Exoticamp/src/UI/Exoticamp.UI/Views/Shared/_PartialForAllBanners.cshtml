@@ -15,15 +15,9 @@
         .banner-container {
             display: flex;
             flex-wrap: nowrap;
-            overflow-x: auto;
+            overflow-x: hidden;
             scroll-behavior: smooth;
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
         }
-
-            .banner-container::-webkit-scrollbar {
-                display: none; /* Chrome, Safari, Opera */
-            }
 
         .banner-item {
             border: 1px solid #ddd;
@@ -34,7 +28,12 @@
             transition: transform 0.2s;
             margin-right: 20px;
             position: relative;
+            display: none; /* Hide all items initially */
         }
+
+            .banner-item.visible {
+                display: block; /* Show only visible items */
+            }
 
             .banner-item:hover {
                 transform: scale(1.02);
@@ -101,7 +100,7 @@
         <h1>Banners</h1>
 
         <div class="scroll-container">
-            <button class="scroll-arrow scroll-arrow-left" onclick="sLeft()">
+            <button class="scroll-arrow scroll-arrow-left" onclick="scrollLeft()">
                 &larr;
             </button>
             <div class="banner-container" id="bannerContainer">
@@ -127,13 +126,35 @@
     <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        function sLeft() {
-            document.getElementById('bannerContainer').scrollBy({ left: -300, behavior: 'smooth' });
+        const container = document.getElementById('bannerContainer');
+        const items = container.getElementsByClassName('banner-item');
+        let startIndex = 0;
+
+        function updateVisibleItems() {
+            for (let i = 0; i < items.length; i++) {
+                items[i].classList.remove('visible');
+            }
+            for (let i = startIndex; i < startIndex + 3 && i < items.length; i++) {
+                items[i].classList.add('visible');
+            }
+        }
+
+        function scrollLeft() {
+            if (startIndex > 0) {
+                startIndex--;
+                updateVisibleItems();
+            }
         }
 
         function scrollRight() {
-            document.getElementById('bannerContainer').scrollBy({ left: 300, behavior: 'smooth' });
+            if (startIndex < items.length - 3) {
+                startIndex++;
+                updateVisibleItems();
+            }
         }
+
+        // Initialize the visible items
+        updateVisibleItems();
     </script>
 </body>
 </html>
