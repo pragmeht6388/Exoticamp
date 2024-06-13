@@ -31,7 +31,9 @@ namespace Exoticamp.UI.Controllers
         {
             var events = await _eventRepository.GetAllEvents();
             var locationId = HttpContext.Session.GetString("LocationId");
-            ViewBag.Locations = await _locationRepository.GetAllLocations();
+            var locationList = await _locationRepository.GetAllLocations();
+            var locationNameUser = locationList.FirstOrDefault(x => x.Id.ToString() == locationId);
+            ViewBag.Locations = locationList;
             ViewBag.Events = events;
             ViewBag.Preferences = await _activitiesRepository.GetAllActivities();
 
@@ -42,6 +44,14 @@ namespace Exoticamp.UI.Controllers
            // var activeBanners = ViewBag.Banners.Where(b => ).ToList();
 
             ViewBag.CampsiteDetails = await _campsiteDetailsRepository.GetAllCampsites();
+            ViewBag.Banners = await _bannersRepository.GetAllBanners();
+            if(locationId is not null)
+                //ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetAllCampsites()).Where(c => c.ApprovedBy != null && c.Location == locationNameUser.Name).ToList();
+                ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetAllCampsites()).Where(c => c.ApprovedBy != null && c.Location == locationNameUser.Name).ToList();
+
+            else
+                ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetAllCampsites()).Where(c => c.ApprovedBy != null).ToList();
+
 
             return View();
         }
