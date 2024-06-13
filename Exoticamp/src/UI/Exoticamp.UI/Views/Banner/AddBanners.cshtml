@@ -63,7 +63,8 @@
 
             <div class="form-group mb-3">
                 <label asp-for="Link" class="control-label">Link<span class="text-danger">*</span></label>
-                <input asp-for="Link" class="form-control" data-val="true" data-val-regex="The link must end with .com or .in." data-val-regex-pattern="^(.*\.com|.*\.in)$" />
+                <input asp-for="Link" class="form-control" data-val="true" data-val-regex="The link must end with .com or .in." data-val-regex-pattern="^(.*\.com|.*\.in)$" required data-val-required="Link is required." />
+
                 <span asp-validation-for="Link" class="text-danger"></span>
             </div>
 
@@ -130,3 +131,18 @@
         $("#addBannerForm").validate();
     });
 </script>
+$(document).ready(function () {
+    $("#addBannerForm").validate({
+        rules: {
+            Link: {
+                required: true,
+                regex: /^(.*\.com|.*\.in)$/
+            }
+        },
+        messages: {
+            Link: {
+                required: "Link is required."
+            }
+        }
+    });
+});
