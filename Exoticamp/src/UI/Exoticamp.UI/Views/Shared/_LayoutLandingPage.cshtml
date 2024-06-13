@@ -100,11 +100,27 @@
             }
 
         /* Custom styles for the menu images */
-        .menu-img {
-            width: 50px; /* Adjust as needed */
-            height: 50px; /* Adjust as needed */
+     
+
+        .img-dimensions {
+            width: 150px;
+            height: 150px;
         }
 
+        .menu-button-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+
+            .menu-button-container .col-auto {
+                flex: 0 0 auto;
+            }
+
+        .menu-img {
+            width: 30px; /* Adjust width to fit in one line */
+            height: 30px; /* Adjust height to fit in one line */
+        }
 
         .dummy-content {
             text-align: center;
@@ -145,6 +161,11 @@
             border-radius: .25rem;
             max-width: 100px;
             height: 100px;
+        }
+
+        .img-dimensions {
+            width: 150px;
+            height: 150px;
         }
 
         .abc-container {
@@ -282,6 +303,8 @@
             cursor: pointer;
         }
 
+         
+
     </style>
 </head>
 <body>
@@ -317,15 +340,16 @@
     </nav>
     </div>
     </header> *@
+     
 
     <header id="Foothead" class="bg-primar text-white text-center p-3">
         <div class="container d-flex justify-content-between align-items-center">
             <div>
-                <img src="https://www.exoticamp.com/img/white-logo.png" alt="Exoticamp Logo" class="logo">
+                <a asp-action="Index" asp-controller="Home"> <img src="https://www.exoticamp.com/img/white-logo.png" alt="Exoticamp Logo" class="logo"></a>
             </div>
             <nav class="d-flex align-items-center gap-2">
-                <a href="#" class="text-white ml-3">Toll Free Number</a>
-                <a href="#" class="text-white ml-3">List My Site / Become a Host</a>
+                @* <a href="#" class="text-white ml-3">Toll Free Number</a> *@
+                @* <a href="#" class="text-white ml-3">List My Site / Become a Host</a> *@
                 <div class="nav-item dropdown ml-3">
                     <a class="text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -335,9 +359,13 @@
                         <!-- Locations will be dynamically populated here -->
                     </ul>
                 </div>
+                <div class="d-flex align-items-center ml-3">
+                    <i class="fas fa-map-marker-alt location-icon"></i>
+                    <span>Mumbai</span>
+                </div>
                 @if (string.IsNullOrEmpty(userName))
                 {
-                    <a asp-action="Login" asp-controller="Account" class="text-white ml-3">Login/Signup</a>
+                    <a asp-action="Login" asp-controller="Account" class="text-white ml-3">Login</a>
                 }
                 else
                 {
@@ -353,6 +381,7 @@
                     </div>
                 }
             </nav>
+             
         </div>
     </header>
 
@@ -364,7 +393,7 @@
     @RenderBody()
     <!-- Content Sections -->
     </div>
-    @* Code for chatbot. *@
+   <!-- Code for chatbot.-->
     <div id="chatbot-icon" style="position:fixed; bottom:25px; right:25px; cursor:pointer; z-index:1000;">
         <img src="~/images/robot.png" alt="Chatbot" style="width:50px; height:50px;" />
     </div>
@@ -421,7 +450,7 @@
 
         $(document).ready(function () {
 
-            $.ajax({
+            $ajax({
                 url: '@Url.Action("GetLocations", "Home")',
                 type: 'GET',
                 success: function (data) {
@@ -429,7 +458,7 @@
                     locationDropdown.empty(); // Clear any existing options
 
                     data.forEach(function (location) {
-                        locationDropdown.append('<li><a class="dropdown-item, location-item" data-id="' + location.id + '">' + location.name + '</a></li>');
+                        locationDropdown.append('<li><a class="dropdown-item, location-item" data-id="'+ location.id +'">' + location.name + '</a></li>');
                     });
                 },
                 error: function (error) {
@@ -440,7 +469,7 @@
             $(document).on('click', '.location-item', function () {
                 var locationId = $(this).data('id');
 
-                $.ajax({
+                $ajax({
                     url: '@Url.Action("SetLocationId", "Home")',
                     type: 'POST',
                     data: { locationId: locationId },
@@ -459,9 +488,55 @@
                     }
                 });
             });
+        //     // Collapsible js
+        //     $('.collapse-content').addClass('d-none').removeClass('d-block');
 
+        //     $('.menu-button').on('click', function () {
+        //         var target = $(this).data('target');
+
+        //         // Hide all other collapse-content elements
+        //         $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
+
+        //         // Toggle the targeted element
+        //         $(target).toggleClass('d-none d-block');
+        //     });
+        // });
+
+
+        <script>
+$(document).ready(function() {
+    // Initialize all collapse-content as hidden
+    $('.collapse-content').addClass('d-none').removeClass('d-block');
+
+    // Handle click event for menu buttons
+    $('.menu-button').on('click', function() {
+        var target = $(this).data('target');
+
+        // Hide all other collapse-content elements
+        $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
+
+        // Toggle the targeted element
+        $(target).toggleClass('d-none d-block');
+    });
+});
+</script>
+        //back button<script>
+        document.getElementById('backButton').addEventListener('click', function () {
+            window.history.back();
+        });
+
+
+
+
+
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Initialize all collapse-content as hidden
             $('.collapse-content').addClass('d-none').removeClass('d-block');
 
+            // Handle click event for menu buttons
             $('.menu-button').on('click', function () {
                 var target = $(this).data('target');
 
@@ -472,70 +547,12 @@
                 $(target).toggleClass('d-none d-block');
             });
         });
-        //back button<script>
-        document.getElementById('backButton').addEventListener('click', function () {
-            window.history.back();
-        });
-
-
-
-
-        // Example data fetching (to be replaced with real data fetching)
-        document.addEventListener('DOMContentLoaded', () => {
-            const events = [
-                { title: 'Camping Event 1', location: 'Location 1' },
-                { title: 'Camping Event 2', location: 'Location 2' },
-            ];
-
-            const nearestSites = [
-                { name: 'Campsite 1', distance: '5 km' },
-                { name: 'Campsite 2', distance: '10 km' },
-            ];
-
-            const trendingDestinations = [
-                { name: 'Destination 1' },
-                { name: 'Destination 2' },
-            ];
-
-            const glampingLocations = [
-                { name: 'Glamping Site 1' },
-                { name: 'Glamping Site 2' },
-            ];
-
-            const promotionalBanners = [
-                { image: 'promo1.jpg' },
-                { image: 'promo2.jpg' },
-            ];
-
-            const reviews = [
-                { name: 'User 1', review: 'Great experience!', rating: 5 },
-                { name: 'User 2', review: 'Amazing!', rating: 4 },
-            ];
-
-            populateSection('events', events, 'title', 'location');
-            populateSection('nearest-sites', nearestSites, 'name', 'distance');
-            populateSection('trending-destinations', trendingDestinations, 'name');
-            populateSection('glamping-locations', glampingLocations, 'name');
-            populateSection('promotional-banners', promotionalBanners, 'image');
-            populateSection('reviews', reviews, 'name', 'review', 'rating');
-        });
-
-        function populateSection(sectionId, data, ...fields) {
-            const section = document.getElementById(sectionId);
-            data.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'col-md-4 mb-3';
-                div.innerHTML = fields.map(field => `<p>${item[field]}</p>`).join('');
-                section.appendChild(div);
-            });
-        }
-
     </script>
     <script>
         $(document).ready(function () {
             $('#chatbot-icon').click(function () {
                 debugger
-                $.get('@Url.Action("ChatbotPartial", "Chatbot")', function (data) {
+                $get('@Url.Action("ChatbotPartial", "Chatbot")', function (data) {
                     $('#chatbot-content').html(data);
                     $('#chatbot-window').show();
                 });
@@ -549,4 +566,3 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-

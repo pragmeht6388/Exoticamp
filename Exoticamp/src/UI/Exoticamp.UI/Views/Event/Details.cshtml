@@ -164,7 +164,11 @@
                     <h4>Event Image</h4>
                     <hr />
                     <div>
-                        <img src="@Model.ImageUrl" alt="@Model.Name" height="350" width="350" class="img-fluid" />
+                        @if(Model.ImageUrl is not null)
+                        {
+                            <img src="@Model.ImageUrl" alt="@Model.Name" height="350" width="350" class="img-fluid" />
+
+                        }
                     </div>
                 </div>
             </div>

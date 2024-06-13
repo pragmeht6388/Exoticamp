@@ -23,8 +23,8 @@
     <a href="#">
         <img src="images/u1.jpg" alt="Banners" class="slide" id="slide-show">
         <div class="text-overlay" id="text-overlay">
-            <h1 id="slide-heading">Heading 1</h1>
-            <p id="slide-message">Message 1</p>
+            <h1 id="slide-heading"></h1>
+            <p id="slide-message"></p>
         </div>
     </a>
 </div>
@@ -34,9 +34,8 @@
 <div class="search-bar container mt-4">
     <input type="text" class="form-control" placeholder="Search for campsites, activities...">
 </div>
-
 <div class="container mt-3">
-    <div class="row justify-content-center" id="row">
+    <div class="row justify-content-center menu-button-container" id="row">
         <div class="col-auto">
             <p class="d-inline-flex gap-1">
                 <button class="btn menu-button" type="button" data-target="#locationsContent">
@@ -103,20 +102,12 @@
         </div>
    @*      <div class="col-auto">
             <p class="d-inline-flex gap-1">
-                <button class="btn menu-button" type="button" data-target="#FiltersContent">
-                    <img src="/Assets/Icons/FiltersIcon.png" alt="Filters" class="menu-img"><br />
-                    Filters
-                </button>
-            </p>
-        </div> *@
-        <div class="col-auto">
-            <p class="d-inline-flex gap-1">
                 <button class="btn menu-button" type="button" data-target="#FAQsContent">
                     <img src="/Assets/Icons/FaqsIcon.png" alt="FAQs" class="menu-img"><br />
                     FAQs
                 </button>
             </p>
-        </div>
+        </div> *@
         <div class="col-auto">
             <p class="d-inline-flex gap-1">
                 <button class="btn menu-button" type="button" data-target="#SafetyContent">
@@ -126,7 +117,7 @@
             </p>
         </div>
         <div class="col-auto">
-            <p class="d-inline-flex gap-1">
+            <p class="d-inline-flex gap-1 ">
                 <button class="btn menu-button" type="button" data-target="#ReviewsContent">
                     <img src="/Assets/Icons/ReviewIcon.png" alt="Reviews" class="menu-img"><br />
                     Reviews
@@ -141,9 +132,8 @@
     <div id="collapseContainer">
         <div id="locationsContent" class="collapse-content d-none">
             <div class="card card-body">
-                <!-- Container for multiple abc-content elements -->
                 <div class="abc-container">
-                    @if (ViewBag.Locations is not null)
+                    @if (ViewBag.Locations != null)
                     {
                         @foreach (var item in (IEnumerable<LocationVM>)ViewBag.Locations)
                         {
@@ -160,9 +150,8 @@
         <div id="activitiesContent" class="collapse-content d-none">
             <div class="card card-body">
                 Content for Activities
-
                 <div class="abc-container">
-                    @if (ViewBag.Locations is not null)
+                    @if (ViewBag.Locations != null)
                     {
                         @foreach (var item in (IEnumerable<LocationVM>)ViewBag.Locations)
                         {
@@ -179,13 +168,12 @@
         <div id="EventsContent" class="collapse-content d-none">
             <div class="card card-body">
                 Content for Events
-
                 <div class="abc-container">
                     @foreach (var item in (IEnumerable<EventVM>)ViewBag.Events)
                     {
                         <div class="abc-content">
-                            <img src="@item.ImageUrl" alt=" @item.Name" class="img-thumbnail img-dimensions">
-                            <h5 class="mt-3"> @item.Name</h5>
+                            <img src="@item.ImageUrl" alt="@item.Name" class="img-thumbnail img-dimensions">
+                            <h5 class="mt-3">@item.Name</h5>
                             <a class="btn btn-info mt-2" asp-action="Details" asp-controller="Event" asp-route-id="@item.EventId">View</a>
                         </div>
                     }
@@ -252,18 +240,6 @@
                 </div>
             </div>
         </div>
-        <div id="FiltersContent" class="collapse-content d-none">
-            <div class="card card-body">
-                Content for Filters
-                <div class="abc-container">
-                    <div class="abc-content">
-                        <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
-                        <h5 class="mt-3">Dummy Name</h5>
-                        <button class="btn btn-info mt-2">View</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div id="FAQsContent" class="collapse-content d-none">
             <div class="card card-body">
                 Content for FAQs
@@ -302,6 +278,7 @@
         </div>
     </div>
 </div>
+
 @* 
 <div class="container mt-5">
     <h2>Upcoming Camping Events</h2>
@@ -398,7 +375,7 @@
 </div>
 
 
-    <h2 class="mt-5">Nearest Camping Sites</h2>
+@*     <h2 class="mt-5">Nearest Camping Sites</h2>
     <div id="nearestSitesCarousel" class="carousel slide" data-interval="false">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -535,11 +512,11 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-</div>
+</div> *@
                             <!-- Add other sections similarly -->
 
 
-    <h2 class="mt-5">Promotional Banners</h2>
+    @* <h2 class="mt-5">Promotional Banners</h2> *@
     <div id="promotional-banners" class="row">
         @{
             await Html.RenderPartialAsync("_PartialForAllBanners", Banners);
@@ -550,24 +527,23 @@
     @* <h2 class="mt-5">Why Choose Exoticamp?</h2> *@
 @*     <div id="why-exoticamp" class="row"></div>
  *@
-    <h2 class="mt-5">Campsite Details</h2>
-    <div id="promotional-banners" class="row">
+    @* <h2 class="mt-5">Campsite Details</h2> *@
+    <div id="promotional-banners" class="row" style="max-width:100%">
         @{
             await Html.RenderPartialAsync("_ShowCampsiteEndUser", campsiteDetailsVMs);
         }
     </div>
-    <h2 class="mt-5">News & Media</h2>
+@*     <h2 class="mt-5">News & Media</h2>
     <div id="news-media" class="row"></div>
 
     <h2 class="mt-5">Safety</h2>
     <div id="safety" class="row"></div>
 
     <h2 class="mt-5">Rating & Reviews</h2>
-    <div id="reviews" class="row"></div>
+    <div id="reviews" class="row"></div> *@
 </div>
 @if (TempData["Message"] != null)
 {
-    <script src="/lib/jquery//dist/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script type="text/javascript">
         toastr.error('@TempData["Message"]');
@@ -580,9 +556,9 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const slides = [
-                { src: 'images/u1.jpg', heading: 'Heading 1', message: 'Message 1' },
-                { src: 'images/u2.png', heading: 'Heading 2', message: 'Message 2' },
-                { src: 'images/u3.png', heading: 'Heading 3', message: 'Message 3' }
+                { src: 'images/u1.jpg', heading: 'Camping is where the adventure begins.', message: 'Message 1' },
+                { src: 'images/u2.png', heading: 'Camping: where the only thing that runs on batteries is your flashlight.', message: 'Message 2' },
+                { src: 'images/u3.png', heading: 'Camp more. Worry less.', message: 'Message 3' }
             ];
             let i = 0;
             const slideshowNode = document.getElementById('slide-show');
@@ -597,12 +573,24 @@
             }, 2000);
         });
     </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    @* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script> *@
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- JavaScript -->
 
     <script>
-
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     debugger
+        //     document.querySelectorAll('.menu-button').forEach(button => {
+        //         button.addEventListener('click', function () {
+        //             const targetId = button.getAttribute('data-target');
+        //             document.querySelectorAll('.collapse-content').forEach(content => {
+        //                 if (content.id === targetId) {
+        //                     content.classList.toggle('d-none');
+        //                 } else {
+        //                     content.classList.add('d-none');
+        //                 }
+        //             });
+        //         });
+        //     });
+        // });
         $(document).ready(function () {
             $('.view-button').click(function () {
                 var locationId = $(this).data('id');

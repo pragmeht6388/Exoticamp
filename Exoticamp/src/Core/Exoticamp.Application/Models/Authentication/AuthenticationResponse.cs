@@ -4,6 +4,7 @@ namespace Exoticamp.Application.Models.Authentication
 {
     public class AuthenticationResponse
     {
+        public string Name { get; set; }
         public string Message { get; set; }
         public bool IsAuthenticated { get; set; }
         public string Id { get; set; }
