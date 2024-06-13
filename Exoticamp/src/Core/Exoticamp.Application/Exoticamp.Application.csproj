@@ -23,8 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Reviews\Query\GetAllReviews\" />
-    <Folder Include="Features\Reviews\Query\GetReviewsById\" />
     <Folder Include="Features\Users\Commands\AddUser\" />
     <Folder Include="Features\Users\Commands\UpdateUser\" />
     <Folder Include="Features\Vendors\Commands\" />

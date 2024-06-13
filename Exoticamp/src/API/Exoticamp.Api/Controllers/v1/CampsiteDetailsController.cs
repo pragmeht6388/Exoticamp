@@ -1,4 +1,5 @@
-﻿using Exoticamp.Application.Features.Campsite.Commands.AddCampsite;
+﻿using Exoticamp.Application.Contracts.Persistence;
+using Exoticamp.Application.Features.Campsite.Commands.AddCampsite;
 using Exoticamp.Application.Features.Campsite.Commands.DeleteCampsite;
 using Exoticamp.Application.Features.Campsite.Commands.UpdateCampsite;
 using Exoticamp.Application.Features.Campsite.Query.GetCampsite;
@@ -8,6 +9,9 @@ using Exoticamp.Application.Features.CampsiteDetails.Commands.DeleteCampsiteDeta
 using Exoticamp.Application.Features.CampsiteDetails.Commands.UpdateCampsite;
 using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetails;
 using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetailsList;
+using Exoticamp.Application.Features.Locations.Queries;
+using Exoticamp.Application.Features.Locations.Queries.GetLocation;
+using Exoticamp.Domain.Entities;
 using Exoticamp.Identity.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -25,14 +29,16 @@ namespace Exoticamp.Api.Controllers.v1
         private readonly IMediator _mediator;
         private readonly ILogger _logger;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILoactionRepository _loactionRepository;
        // private readonly 
 
-        public CampsiteDetailsController(IMediator mediator, ILogger<CampsiteDetailsController> logger, UserManager<ApplicationUser> userManager)
+        public CampsiteDetailsController(IMediator mediator, ILogger<CampsiteDetailsController> logger, UserManager<ApplicationUser> userManager, ILoactionRepository loactionRepository)
 
         {
             _mediator = mediator;
             _logger = logger;
             _userManager = userManager;
+            _loactionRepository = loactionRepository;
         }
 
         [HttpPost(Name = "AddCampsiteDetails")]
@@ -80,42 +86,15 @@ namespace Exoticamp.Api.Controllers.v1
             return Ok(await _mediator.Send(getCampsiteDetailQuery));
         }
 
-        //[HttpGet("{name}", Name = "GetCampsiteDetailsByName")]
-        //public async Task<ActionResult> GetCampsiteByName(string name)
-        //{
-        //    var getCampsiteDetailQuery = new GetCampsiteDetailsNamedQuery() { Name = name };
-        //    return Ok(await _mediator.Send(getCampsiteDetailQuery));
-        //}
+        [HttpGet("Location/{LocationId}")]
+        public async Task<ActionResult> GetLocationById(string LocationId)
+        {
+            var getLocationIdQuery = new GetLocationIdQuery() { Id = LocationId };
+            return Ok(await _mediator.Send(getLocationIdQuery));
+        }
 
 
 
-        //[HttpGet("all", Name = "GetAllCampsiteDetails1")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<ActionResult> GetAllCampsite1()
-        //{
-        //    _logger.LogInformation("GetAllCampsite Initiated");
-
-        //    // Fetch campsite details along with user information
-        //    var dtos = await _mediator.Send(new GetCampsiteDetailsListQuery());
-
-        //    // Join the User and Location tables based on LocationId
-        //    var joinedData = from campsite in dtos
-        //                     join user in _userManager.Users on campsite.UserId equals user.Id
-        //                     join location in _dbContext.Locations on user.LocationId equals location.Id
-        //                     select new
-        //                     {
-        //                         Campsite = campsite,
-        //                         LocationName = location.Name
-        //                     };
-
-        //    // Filter campsites based on the location name
-        //    var filteredCampsites = joinedData.Where(j => j.LocationName == j.Campsite.LocationName)
-        //                                      .Select(j => j.Campsite)
-        //                                      .ToList();
-
-        //    _logger.LogInformation("GetAllCampsite Completed");
-        //    return Ok(filteredCampsites);
-        //}
 
 
 
