@@ -32,11 +32,12 @@ namespace Exoticamp.Application.Features.Banners.Handlers.Queries
             // Retrieve all banners from the repository
             var allBanners = await _bannerRepository.GetAllBannerWithLocation();
 
-            // Filter banners where IsActive is true
-            var activeBanners = allBanners.Where(b => b.IsActive && !b.IsDeleted);
+            // Filter banners where IsDeleted is false
+            var notDeletedBanners = allBanners
+                .Where(b => !b.IsDeleted);
 
             // Map the filtered banners to BannerDto
-            var bannerDtos = _mapper.Map<IEnumerable<BannerDto>>(activeBanners);
+            var bannerDtos = _mapper.Map<IEnumerable<BannerDto>>(notDeletedBanners);
 
             _logger.LogInformation("Handle Completed");
 

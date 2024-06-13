@@ -37,7 +37,10 @@ namespace Exoticamp.UI.Controllers
 
             ViewBag.sortedEvents = events.Where(x => x.StartDate <= DateTime.Now.AddDays(10) && x.StartDate >= DateTime.Now).OrderBy(x => x.StartDate).ToList();
 
-            ViewBag.Banners = await _bannersRepository.GetAllBanners();
+            // Retrieve all banners and filter where IsActive is true
+            ViewBag.Banners = (await _bannersRepository.GetAllBanners()).Where(c=>c.IsActive==true).ToList();
+           // var activeBanners = ViewBag.Banners.Where(b => ).ToList();
+
             ViewBag.CampsiteDetails = await _campsiteDetailsRepository.GetAllCampsites();
 
             return View();
@@ -135,6 +138,17 @@ namespace Exoticamp.UI.Controllers
         {
             return View();
         }
-
+        public IActionResult AdminCampsite()
+        {
+            return View();
+        }
+        public IActionResult AdminContent()
+        {
+            return View();
+        }
+        public IActionResult ToDo()
+        {
+            return View();
+        }
     }
 }
