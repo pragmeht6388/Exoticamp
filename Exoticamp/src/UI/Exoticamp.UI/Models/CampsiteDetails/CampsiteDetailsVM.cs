@@ -21,6 +21,9 @@ namespace Exoticamp.UI.Models.CampsiteDetails
         [Required(ErrorMessage = "Location is Required")]
         public string Location { get; set; }
 
+        [JsonProperty("locationId")]
+        public Guid LocationId { get; set; }
+
         [JsonProperty("status")]
         public bool Status { get; set; }
 

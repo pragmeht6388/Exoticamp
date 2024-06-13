@@ -51,7 +51,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
             var campsite = await _campsiteRepository1.GetCampsiteByIdWithCategoryAndActivityDetails(new Guid(request.Id));
 
             // Check if the campsite is null or not active
-            if (campsite == null || !campsite.isActive.GetValueOrDefault())
+            if (campsite == null || !campsite.isActive.GetValueOrDefault() )
             {
                 throw new NotFoundException(nameof(Domain.Entities.Campsite), request.Id);
             }

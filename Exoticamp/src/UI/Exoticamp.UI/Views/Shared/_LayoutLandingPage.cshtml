@@ -110,7 +110,7 @@
             }
 
         /* Custom styles for the menu images */
-     
+
 
         .img-dimensions {
             width: 150px;
@@ -289,11 +289,10 @@
             cursor: pointer;
         }
 
-         
 
     </style>
 </head>
-<body>
+
     <!-- Header -->
     @*  <header class="bg-primary text-white text-center p-3">
     <div class="container d-flex justify-content-between align-items-center">
@@ -326,7 +325,7 @@
     </nav>
     </div>
     </header> *@
-     
+
 
     <header id="Foothead" class="bg-primar text-white text-center p-3">
         <div class="container d-flex justify-content-between align-items-center">
@@ -367,7 +366,7 @@
                     </div>
                 }
             </nav>
-             
+
         </div>
     </header>
 
@@ -379,7 +378,7 @@
     @RenderBody()
     <!-- Content Sections -->
     </div>
-   <!-- Code for chatbot.-->
+    <!-- Code for chatbot.-->
     <div id="chatbot-icon" style="position:fixed; bottom:25px; right:25px; cursor:pointer; z-index:1000;">
         <img src="~/images/robot.png" alt="Chatbot" style="width:50px; height:50px;" />
     </div>
@@ -394,22 +393,19 @@
     <!-- Footer -->
     <footer id="Foothead1" class="bg-primar text-white text-center p-2 mt-2">
         <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h5>Quick Links</h5>  
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Blogs</a></li>
-                        <li><a href="#" class="text-white">Investors</a></li>
-                        <li><a href="#" class="text-white">Affiliation MSME</a></li>
-                        <li><a href="#" class="text-white">About Us</a></li>
-                        <li><a href="#" class="text-white">News & Media</a></li>
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <h5 class="text-uppercase small">Quick Links</h5>
+                    <ul class="list-unstyled d-flex justify-content-center">
+                        <li class="mx-2"><a href="/Home/InfoPage" class="text-white small">About Us</a></li>
+                        <li class="mx-2"><a href="/Home/InfoPage" class="text-white small">About Team</a></li>
                     </ul>
                 </div>
                 <div class="col-auto">
                     <h5 class="text-uppercase small">Contact</h5>
                     <ul class="list-unstyled d-flex justify-content-center">
                         <li class="mx-2"><a href="#" class="text-white small">Terms of Use</a></li>
-                        <li class="mx-2"><a asp-action="ContactUsAll" asp-controller="ContactUs" class="text-white small">Contact Us</a></li>
+                        <li class="mx-2"><a asp-action="ContactUs" asp-controller="ContactUs" class="text-white small">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="col-auto">
@@ -438,7 +434,31 @@
 
         $(document).ready(function () {
 
-            $ajax({
+            // Initialize all collapse-content as hidden
+            $('.collapse-content').addClass('d-none').removeClass('d-block');
+
+            // Handle click event for menu buttons
+            $('.menu-button').on('click', function () {
+                var target = $(this).data('target');
+
+                // Hide all other collapse-content elements
+                $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
+
+                // Toggle the targeted element
+                $(target).toggleClass('d-none d-block');
+            });
+            $('#chatbot-icon').click(function () {
+                debugger
+                $get('@Url.Action("ChatbotPartial", "Chatbot")', function (data) {
+                    $('#chatbot-content').html(data);
+                    $('#chatbot-window').show();
+                });
+            });
+
+            $('.chatbot-close').click(function () {
+                $('#chatbot-window').hide();
+            });
+            $.ajax({
                 url: '@Url.Action("GetLocations", "Home")',
                 type: 'GET',
                 success: function (data) {
@@ -446,7 +466,7 @@
                     locationDropdown.empty(); // Clear any existing options
 
                     data.forEach(function (location) {
-                        locationDropdown.append('<li><a class="dropdown-item, location-item" data-id="'+ location.id +'">' + location.name + '</a></li>');
+                        locationDropdown.append('<li><a class="dropdown-item, location-item" data-id="' + location.id + '">' + location.name + '</a></li>');
                     });
                 },
                 error: function (error) {
@@ -457,7 +477,7 @@
             $(document).on('click', '.location-item', function () {
                 var locationId = $(this).data('id');
 
-                $ajax({
+                $.ajax({
                     url: '@Url.Action("SetLocationId", "Home")',
                     type: 'POST',
                     data: { locationId: locationId },
@@ -476,49 +496,39 @@
                     }
                 });
             });
-        //     // Collapsible js
-        //     $('.collapse-content').addClass('d-none').removeClass('d-block');
+            //     // Collapsible js
+            //     $('.collapse-content').addClass('d-none').removeClass('d-block');
 
-        //     $('.menu-button').on('click', function () {
-        //         var target = $(this).data('target');
+            //     $('.menu-button').on('click', function () {
+            //         var target = $(this).data('target');
 
-        //         // Hide all other collapse-content elements
-        //         $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
+            //         // Hide all other collapse-content elements
+            //         $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
 
-        //         // Toggle the targeted element
-        //         $(target).toggleClass('d-none d-block');
-        //     });
-        // });
+            //         // Toggle the targeted element
+            //         $(target).toggleClass('d-none d-block');
+            //     });
+            // });
 
 
-        <script>
+ <script>
 $(document).ready(function() {
     // Initialize all collapse-content as hidden
     $('.collapse-content').addClass('d-none').removeClass('d-block');
 
-    // Handle click event for menu buttons
-    $('.menu-button').on('click', function() {
-        var target = $(this).data('target');
+            // Handle click event for menu buttons
+            $('.menu-button').on('click', function () {
+                var target = $(this).data('target');
 
-        // Hide all other collapse-content elements
-        $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
+                // Hide all other collapse-content elements
+                $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
 
         // Toggle the targeted element
         $(target).toggleClass('d-none d-block');
     });
 });
 </script>
-        //back button<script>
-        document.getElementById('backButton').addEventListener('click', function () {
-            window.history.back();
-        });
-
-
-
-
-
-
-    </script>
+  
     <script>
         $(document).ready(function () {
             // Initialize all collapse-content as hidden
@@ -531,26 +541,7 @@ $(document).ready(function() {
                 // Hide all other collapse-content elements
                 $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
 
-                // Toggle the targeted element
-                $(target).toggleClass('d-none d-block');
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#chatbot-icon').click(function () {
-                debugger
-                $get('@Url.Action("ChatbotPartial", "Chatbot")', function (data) {
-                    $('#chatbot-content').html(data);
-                    $('#chatbot-window').show();
-                });
-            });
 
-            $('.chatbot-close').click(function () {
-                $('#chatbot-window').hide();
-            });
-        });
-    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

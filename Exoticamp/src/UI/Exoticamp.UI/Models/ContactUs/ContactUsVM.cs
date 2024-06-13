@@ -10,7 +10,7 @@ namespace Exoticamp.UI.Models.ContactUs
         public Guid Id { get; set; }
 
         [JsonProperty("name")]
-        [Required(ErrorMessage = "Name is Required")]
+       // [Required(ErrorMessage = "Name is Required")]
         [StringLength(100)]
         [RegularExpression(@"^[^\d]*$", ErrorMessage = "Name should not contain numeric values")] // Regular expression to disallow digits
 
