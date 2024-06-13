@@ -46,7 +46,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
 
             var allCampsite = await _campsiteRepository.GetAllCampsiteWithCategoryAndActivityDetails();
 
-            var activeCampsites = allCampsite.Where(c => c.isActive == true);
+            var activeCampsites = allCampsite.Where(c => c.isActive == true );
 
             var orderedCampsites = activeCampsites.OrderBy(x => x.Name);
 
