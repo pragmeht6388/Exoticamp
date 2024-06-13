@@ -235,7 +235,7 @@
 
                         <!-- Manage Content -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home/ManageContent">
+                            <a class="nav-link" href="/Home/AdminContent">
                                 <i class="fas fa-edit"></i>
                                 <span>Manage Content</span>
                             </a>
@@ -248,16 +248,26 @@
                         <hr class="sidebar-divider">
 
                         <!-- Manage Users -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Home/ManageUsers">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="manageUsersDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-users"></i>
                                 <span>Manage Users</span>
                             </a>
+                            <div class="dropdown-menu" aria-labelledby="manageUsersDropdown">
+                                <a class="dropdown-item" href="/Home/ManageEndUser">
+                                    <i class="fas fa-user"></i>
+                                    <span>Manage End User</span>
+                                </a>
+                                <a class="dropdown-item" href="/Home/ManageVendor">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>Manage Vendor</span>
+                                </a>
+                            </div>
                         </li>
 
                         <!-- Manage Campsites -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home/ManageCampsites">
+                            <a class="nav-link" href="/Home/AdminCampsite">
                                 <i class="fas fa-campground"></i>
                                 <span>Manage Campsites</span>
                             </a>
@@ -265,7 +275,7 @@
 
                         <!-- Manage Bookings -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home/ManageBookings">
+                            <a class="nav-link" href="/Home/AdminContent">
                                 <i class="fas fa-book"></i>
                                 <span>Manage Bookings</span>
                             </a>
@@ -281,7 +291,7 @@
 
                         <!-- Manage Commission -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home/ManageCommission">
+                            <a class="nav-link" href="/Home/ToDo">
                                 <i class="fas fa-percentage"></i>
                                 <span>Manage Commission</span>
                             </a>
@@ -289,7 +299,7 @@
 
                         <!-- Manage Reviews -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home/ManageReviews">
+                            <a class="nav-link" href="/Home/ToDo">
                                 <i class="fas fa-star"></i>
                                 <span>Manage Reviews</span>
                             </a>
@@ -297,7 +307,7 @@
 
                         <!-- Manage Masters -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home/ManageMasters">
+                            <a class="nav-link" href="/Home/ToDo">
                                 <i class="fas fa-th"></i>
                                 <span>Manage Masters</span>
                             </a>
@@ -313,7 +323,7 @@
 
                         <!-- Notifications -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home/Notifications">
+                            <a class="nav-link" href="/Home/ToDo">
                                 <i class="fas fa-bell"></i>
                                 <span>Notifications</span>
                             </a>
@@ -323,7 +333,7 @@
 
                         <!-- Settings -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home/Setting">
+                            <a class="nav-link" href="/Home/ToDo">
                                 <i class="fas fa-cog"></i>
                                 <span>Settings</span>
                             </a>
@@ -331,7 +341,7 @@
 
                         <!-- Reports -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home/Report">
+                            <a class="nav-link" href="/Home/ToDo">
                                 <i class="fas fa-chart-line"></i>
                                 <span>Reports</span>
                             </a>

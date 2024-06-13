@@ -1,0 +1,108 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Work</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa; /* Light grey background */
+        }
+        
+        .work-container {
+            width: 100%;
+            max-width: 1300px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: auto;
+            height: 100vh;
+        }
+
+        .table-container {
+            margin-top: 20px;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #999;
+        }
+        
+        /* Make the table responsive */
+        .table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <div class="container work-container">
+        <h1 class="text-center">Pending Work</h1>
+        <div class="table-container">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Task ID</th>
+                        <th>Task Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="workList">
+                    <tr>
+                        <td>1</td>
+                        <td>Finish the project documentation</td>
+                        <td>
+                            <button class="btn btn-success btn-sm complete-btn"><i class="fas fa-check"></i></button>
+                            <button class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Update the project status report</td>
+                        <td>
+                            <button class="btn btn-success btn-sm complete-btn"><i class="fas fa-check"></i></button>
+                            <button class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Handle complete button click
+            $('#workList').on('click', '.complete-btn', function () {
+                var row = $(this).closest('tr');
+                row.find('td:nth-child(2)').toggleClass('completed');
+            });
+
+            // Handle delete button click
+            $('#workList').on('click', '.delete-btn', function () {
+                var row = $(this).closest('tr');
+                row.remove();
+            });
+        });
+    </script>
+</body>
+</html>
