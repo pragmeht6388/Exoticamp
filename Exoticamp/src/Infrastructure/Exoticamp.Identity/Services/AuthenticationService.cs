@@ -100,6 +100,7 @@ namespace Exoticamp.Identity.Services
             response.Email = user.Email;
             response.UserName = user.UserName;
             response.Name= user.Name;
+            response.LocationId=user.LocationId;
             if (role.Count > 0)
             {
                 response.Role = role[0];
