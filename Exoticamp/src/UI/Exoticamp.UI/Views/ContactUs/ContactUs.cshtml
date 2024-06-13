@@ -15,25 +15,28 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form asp-action="ContactUs" asp-controller="ContactUs" method="post" class="needs-validation" novalidate>
+            <form id="contactUsForm" asp-action="ContactUs" asp-controller="ContactUs" method="post" class="needs-validation" novalidate>
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
                 <div class="form-group mb-3">
                     <label asp-for="Name" class="form-label">Name<span class="text-danger">*</span></label>
-                    <input asp-for="Name" class="form-control" required placeholder="Enter Your Name" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <input asp-for="Name" id="ContactName" class="form-control" required placeholder="Enter Your Name" maxlength="50"/>
+                    @* <span asp-validation-for="Name" class="text-danger"></span> *@
+                    <span class="text-danger" id="nameError"></span>
                 </div>
 
                 <div class="form-group mb-3">
                     <label asp-for="Email" class="form-label">Email<span class="text-danger">*</span></label>
-                    <input asp-for="Email" type="email" class="form-control" required placeholder="Enter Your Email" />
+                    <input asp-for="Email" id="Email" type="email" class="form-control" required placeholder="Enter Your Email" maxlength="50" />
                     <span asp-validation-for="Email" class="text-danger"></span>
+                    <span class="text-danger" id="emailError"></span>
                 </div>
 
                 <div class="form-group mb-3">
                     <label asp-for="Message" class="form-label">Message<span class="text-danger">*</span></label>
-                    <textarea asp-for="Message" class="form-control" rows="5" required placeholder="Type Your Message here"></textarea>
+                    <textarea asp-for="Message" id="Message" class="form-control" rows="5" required placeholder="Type Your Message here" maxlength="150"></textarea>
                     <span asp-validation-for="Message" class="text-danger"></span>
+                    <span class="text-danger" id="messageError"></span>
                 </div>
 
                 <div class="form-group" style="display:none;">
@@ -64,6 +67,94 @@
                     toastr.success('@TempData["SuccessMessage"]');
             </text>
         }
-                });
+
+                // Function to validate the Name field
+                function validateName() {
+                    var nameInput = document.getElementById('ContactName');
+                    var name = nameInput.value.trim();
+                    var isValid = true;
+
+                    if (name === '') {
+                        document.getElementById('nameError').innerText = 'Name is required';
+                        isValid = false;
+                    } else {
+                        document.getElementById('nameError').innerText = '';
+                    }
+
+                    return isValid;
+                }
+
+            // Function to validate the Email field
+            function validateEmail() {
+                var emailInput = document.getElementById('Email');
+                var email = emailInput.value.trim();
+                var isValid = true;
+
+                if (email === '') {
+                    document.getElementById('emailError').innerText = 'Email is required';
+                    isValid = false;
+                } else {
+                    document.getElementById('emailError').innerText = '';
+                }
+
+                return isValid;
+            }
+
+            // Function to validate the Message field
+            function validateMessage() {
+                var messageInput = document.getElementById('Message');
+                var message = messageInput.value.trim();
+                var isValid = true;
+
+                if (message === '') {
+                    document.getElementById('messageError').innerText = 'Message is required';
+                    isValid = false;
+                } else if (message.length > 100) {
+                    document.getElementById('messageError').innerText = 'Message should be max 100 characters';
+                    isValid = false;
+                } else {
+                    document.getElementById('messageError').innerText = '';
+                }
+
+                return isValid;
+            }
+
+            // Adding input event listener to validate the Name field as the user types
+            document.getElementById('ContactName').addEventListener('input', function (event) {
+                var input = event.target.value;
+                var regex = /^[a-zA-Z\s]*$/; // Updated regex to allow spaces (\s)
+
+                if (!regex.test(input)) {
+                    event.target.value = input.replace(/[^a-zA-Z\s]/g, ''); // Replace non-alphabetic characters and non-spaces with empty string
+                }
+            });
+
+
+            // Adding blur event listener to validate the Name field when focus is lost
+            document.getElementById('ContactName').addEventListener('blur', function () {
+                validateName();
+            });
+
+            // Adding blur event listener to validate the Email field when focus is lost
+            document.getElementById('Email').addEventListener('blur', function () {
+                validateEmail();
+            });
+
+            // Adding blur event listener to validate the Message field when focus is lost
+            document.getElementById('Message').addEventListener('blur', function () {
+                validateMessage();
+            });
+
+            // Adding form submission validation
+            $('#contactUsForm').submit(function (event) {
+                var isNameValid = validateName();
+                var isEmailValid = validateEmail();
+                var isMessageValid = validateMessage();
+
+                if (!isNameValid || !isEmailValid || !isMessageValid) {
+                    event.preventDefault(); // Prevent form submission if validation fails
+                }
+            });
+        });
     </script>
 }
