@@ -1,4 +1,5 @@
-﻿using Exoticamp.UI.Models;
+﻿using Exoticamp.Domain.Entities;
+using Exoticamp.UI.Models;
 using Exoticamp.UI.Models.Events;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
@@ -131,8 +132,36 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> Details(string id)
         {
             var eventObj = await _eventRepository.GetEventById(id);
+            var campsite = await _campsiteRepository.GetCampsiteById(eventObj.Data.CampsiteId.ToString());
 
-            return View(eventObj.Data);
+            if (campsite.Data == null)
+                ModelState.AddModelError("", "Campsite not found");
+            eventObj.Data.Campsite = campsite.Data;
+            EventVM model = new EventVM()
+            {
+                EventId=eventObj.Data.EventId,
+                Name=eventObj.Data.Name,
+                Price=eventObj.Data.Price,
+                Capacity=eventObj.Data.Capacity,
+                StartDate=eventObj.Data.StartDate,
+                EndDate=eventObj.Data.EndDate,
+                Description=eventObj.Data.Description,
+                ImageUrl=eventObj.Data.ImageUrl,
+                Highlights=eventObj.Data.Highlights,
+                EventRules= eventObj.Data.EventRules,
+                CampsiteId= eventObj.Data.CampsiteId,
+                ActivityId= eventObj.Data.ActivityId,
+                LocationId= eventObj.Data.LocationId,
+                Status= eventObj.Data.Status,
+                IsDeleted= eventObj.Data.IsDeleted,
+                 Campsite=campsite!.Data,
+                EventLocation= eventObj.Data.EventLocation,
+                EventActivity=eventObj.Data.EventActivity,
+
+
+            };
+            
+            return View(model);
         }
 
         [HttpGet]

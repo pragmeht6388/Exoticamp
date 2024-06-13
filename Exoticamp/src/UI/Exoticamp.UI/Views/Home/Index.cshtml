@@ -1,6 +1,8 @@
 ﻿@using System.Collections
 @using Exoticamp.UI.Models.CampsiteDetails
 @using Exoticamp.UI.Models.Events
+@using Exoticamp.UI.Models.Activities
+
 @using Exoticamp.UI.Models.Location
 @using Exoticamp.UI.Models.Banners
 
@@ -19,6 +21,74 @@
 
 <!-- Banner -->
 @* <div class="banner bg-secondary text-white text-center p-5"> *@
+
+    <style>
+    .abc-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left:40px;
+        gap: 60px; /* Adjust the gap between the divs as needed */
+    }
+
+    .abc-content {
+        width: 200px; /* Set the desired width for the container */
+        height: 250px; /* Set the desired height for the container */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .img-thumbnail {
+        padding: .25rem;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: .25rem;
+        width: 150px;
+        height: 150px;
+        object-fit: cover; /* Ensure the image fits within the dimensions */
+    }
+
+    .img-dimensions {
+        width: 150px;
+        height: 150px;
+    }
+
+    .abc-content:nth-child(6n+1) {
+        clear: left; /* This will move the 7th, 13th, 19th, etc., items to the next line */
+    }
+
+    .view-all-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .view-all-circle {
+        width: 100px; /* Set the desired diameter of the circle */
+        height: 100px; /* Set the desired diameter of the circle */
+        /* background-color: #007bff; */
+        border-radius: 50%;
+        border:2px solid black;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .view-all-link {
+        color:black;
+        font-size: 16px;
+        text-decoration: none;
+    }
+
+
+    </style>
 <div id="slides">
     <a href="#">
         <img src="images/u1.jpg" alt="Banners" class="slide" id="slide-show">
@@ -133,17 +203,33 @@
         <div id="locationsContent" class="collapse-content d-none">
             <div class="card card-body">
                 <div class="abc-container">
-                    @if (ViewBag.Locations != null)
-                    {
-                        @foreach (var item in (IEnumerable<LocationVM>)ViewBag.Locations)
+                   @{
+                        @if (ViewBag.Locations != null)
                         {
-                            <div class="abc-content">
-                                <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
-                                <h5 class="mt-3">@item.Name</h5>
-                                <button class="btn btn-info mt-2 view-button" data-id="@item.Id">View</button>
+                            int ct = 0;
+                            @foreach (var item in (IEnumerable<LocationVM>)ViewBag.Locations)
+                            {
+                                <div class="abc-content">
+                                    <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
+                                    <h5 class="mt-3">@item.Name</h5>
+                                    <button class="btn btn-info mt-2 view-button" data-id="@item.Id">View</button>
+                                </div>
+
+                                if (ct++ == 6)
+                                {
+                                    break;
+                                }
+
+                                
+                            }
+
+                            <div class=" view-all-content">
+                                <div class="view-all-circle">
+                                    <a href="#" class="view-all-link">View All</a>
+                                </div>
                             </div>
                         }
-                    }
+                   }
                 </div>
             </div>
         </div>
@@ -151,31 +237,63 @@
             <div class="card card-body">
                 Content for Activities
                 <div class="abc-container">
-                    @if (ViewBag.Locations != null)
-                    {
-                        @foreach (var item in (IEnumerable<LocationVM>)ViewBag.Locations)
+                   @{
+                        @if (ViewBag.Preferences != null)
                         {
-                            <div class="abc-content">
-                                <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
-                                <h5 class="mt-3">@item.Name</h5>
-                                <button class="btn btn-info mt-2 view-button" data-id="@item.Id">View</button>
+                            int ct = 0;
+                            @foreach (var item in (IEnumerable<ActivitiesVM>)ViewBag.Preferences)
+                            {
+                                <div class="abc-content">
+                                    <img src="https://via.placeholder.com/150" alt="@item.Name" class="img-thumbnail img-dimensions">
+                                    <h5 class="mt-3">@item.Name</h5>
+                                    <button class="btn btn-info mt-2 view-button" data-id="@item.Id">View</button>
+                                </div>
+                               
+                                if (ct++==6)
+                                {
+                                    break;
+                                }
+                                
+                            }
+                            <div class=" view-all-content">
+                                <div class="view-all-circle">
+                                    <a href="#" class="view-all-link">View All</a>
+                                </div>
                             </div>
                         }
                     }
                 </div>
+
             </div>
         </div>
         <div id="EventsContent" class="collapse-content d-none">
             <div class="card card-body">
                 Content for Events
                 <div class="abc-container">
-                    @foreach (var item in (IEnumerable<EventVM>)ViewBag.Events)
-                    {
-                        <div class="abc-content">
-                            <img src="@item.ImageUrl" alt="@item.Name" class="img-thumbnail img-dimensions">
-                            <h5 class="mt-3">@item.Name</h5>
-                            <a class="btn btn-info mt-2" asp-action="Details" asp-controller="Event" asp-route-id="@item.EventId">View</a>
-                        </div>
+                    @{
+                        if (ViewBag.Events!=null)
+                        {
+                            int ct = 0;
+                            @foreach (var item in (IEnumerable<EventVM>)ViewBag.Events)
+                            {
+                                <div class="abc-content">
+                                    <img src="@item.ImageUrl" alt="@item.Name" class="img-thumbnail img-dimensions">
+                                    <h5 class="mt-3">@item.Name</h5>
+                                    <a class="btn btn-info mt-2" asp-action="Details" asp-controller="Event" asp-route-id="@item.EventId">View</a>
+                                </div>
+                                if (ct++ == 6)
+                                {
+                                    break;
+                                }
+                               
+                            }
+                            <div class=" view-all-content">
+                                <div class="view-all-circle">
+                                    <a asp-action="GetAllEvents" asp-controller="Event" class="view-all-link"><u>View All</u></a>
+                                </div>
+                            </div>
+
+                        }
                     }
                 </div>
             </div>

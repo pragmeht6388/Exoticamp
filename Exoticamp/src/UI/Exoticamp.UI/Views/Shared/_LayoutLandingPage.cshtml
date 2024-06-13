@@ -28,7 +28,17 @@
 
         body {
             font-family: Arial, sans-serif;
+            padding-top: 70px;
         }
+
+        #Foothead {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1030; /* Adjust the z-index if necessary to layer it above other elements */
+        }
+
+     
 
         header .logo {
             height: 50px;
@@ -154,30 +164,6 @@
             display: block;
         }
 
-        .img-thumbnail {
-            padding: .25rem;
-            background-color: #fff;
-            border: 1px solid #dee2e6;
-            border-radius: .25rem;
-            max-width: 100px;
-            height: 100px;
-        }
-
-        .img-dimensions {
-            width: 150px;
-            height: 150px;
-        }
-
-        .abc-container {
-            display: flex;
-            gap: 20px; /* Space between abc-content elements */
-        }
-
-        .abc-content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
 
         }
 
@@ -292,7 +278,7 @@
                 overflow-y: auto;
             }
 
-        #Foothead {
+        #Foothead, #Foothead1 {
             color: #ffff;
             background-color: #343a40;
             border-color: #939292;
@@ -406,7 +392,7 @@
     </div>
 
     <!-- Footer -->
-    <footer id="Foothead" class="bg-primar text-white text-center p-2 mt-2">
+    <footer id="Foothead1" class="bg-primar text-white text-center p-2 mt-2">
         <div class="container">
             <div class="row">
                 <div class="col">

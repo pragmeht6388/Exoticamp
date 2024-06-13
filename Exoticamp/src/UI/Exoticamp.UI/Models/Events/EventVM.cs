@@ -63,6 +63,7 @@ namespace Exoticamp.UI.Models.Events
         public Guid? LocationId { get; set; }
         public bool Status { get; set; }
         public bool IsDeleted { get; set; } 
+        public virtual CampsiteDetailsVM Campsite {  get; set; }
 
 
 
@@ -89,6 +90,34 @@ namespace Exoticamp.UI.Models.Events
         public SelectList? Locations { get; set; }
         public SelectList? Campsites { get; set; }
 
+        public EventLocationVM EventLocation { get; set; }
+        public EventActivityVM EventActivity { get; set; }
+
+    }
+
+    public class EventLocationVM
+    {
+        public Guid Id { get; set; }
+        public Guid LocationId { get; set; }
+        public LocationDetailsVM LocationDetails { get; set; }
+
+
+    }
+    public class LocationDetailsVM
+    {
+        public string Name { get; set; }
+
+    }
+    public class EventActivityVM
+    {
+        public Guid Id { get; set; }
+        public Guid ActivityId { get; set; }
+        public ActivityDetailsVM ActivityDetails { get; set; }
+
+    }
+    public class ActivityDetailsVM
+    {
+        public string Name { get; set; }
 
     }
 }

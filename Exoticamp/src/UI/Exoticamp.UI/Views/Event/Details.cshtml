@@ -1,102 +1,11 @@
-﻿@* @model Exoticamp.UI.Models.Events.EventVM
+﻿@model Exoticamp.UI.Models.Events.EventVM
 
 @{
     ViewData["Title"] = "Details";
     Layout = "_AdminLayout";
 }
 
-<h1>Details</h1>
-
-<div class="row">
-    <div class="col-md-8">
-        <div>
-            <h4>EventVM</h4>
-            <hr />
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Name)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Name)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Price)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Price)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Capacity)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Capacity)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.StartDate)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.StartDate)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.EndDate)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.EndDate)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Description)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Highlights)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Highlights)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.EventRules)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.EventRules)
-                </dd>
-            </dl>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div>
-            <h4>Event Image</h4>
-            <hr />
-            <div>
-                <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="@Html.DisplayFor(model => model.Name)" height="350" width="350" class="img-fluid" />
-            </div>
-        </div>
-    </div>
-</div>
-
-<div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model?.EventId }, new { @class = "btn btn-primary mr-2" }) |
-    @Html.ActionLink("Delete", "Delete", new { id = Model?.EventId }, new { @class = "btn btn-danger mr-2" }) |
-
-    <button id="backButton" class="btn btn-secondary">Back</button>
-</div>
-
-<script>
-    document.getElementById('backButton').addEventListener('click', function () {
-        window.history.back();
-    });
-</script>
- *@
-
-            @model Exoticamp.UI.Models.Events.EventVM
-
-@{
-    ViewData["Title"] = "Details";
-    Layout = "_AdminLayout";
-}
-
-<h1 class="text-center">Details</h1>
+<h1 class="text-center">Event Details</h1>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -106,54 +15,47 @@
                     <h4>Event Details</h4>
                     <hr />
                     <dl class="row">
-                        <dt class="col-sm-4">
-                            @Html.DisplayNameFor(model => model.Name)
-                        </dt>
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Name)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
+
+                        <dt class="col-sm-4">Location</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.EventLocation.LocationDetails.Name)</dd>
+
+                        <dt class="col-sm-4">Campsite</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Campsite.Name)</dd>
+
+                        <dt class="col-sm-4">Activities</dt>
                         <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.Name)
+                          @*   @foreach (var activity in Model.ActivitiesVMs)
+                            {
+                                <span>@activity.Text</span>
+
+                                <br />
+                            } *@
+                          @Html.DisplayFor(model => model.EventActivity.ActivityDetails.Name)
+
                         </dd>
-                        <dt class="col-sm-4">
-                            @Html.DisplayNameFor(model => model.Price)
-                        </dt>
-                        <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.Price)
-                        </dd>
-                        <dt class="col-sm-4">
-                            @Html.DisplayNameFor(model => model.Capacity)
-                        </dt>
-                        <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.Capacity)
-                        </dd>
-                        <dt class="col-sm-4">
-                            @Html.DisplayNameFor(model => model.StartDate)
-                        </dt>
-                        <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.StartDate)
-                        </dd>
-                        <dt class="col-sm-4">
-                            @Html.DisplayNameFor(model => model.EndDate)
-                        </dt>
-                        <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.EndDate)
-                        </dd>
-                        <dt class="col-sm-4">
-                            @Html.DisplayNameFor(model => model.Description)
-                        </dt>
-                        <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.Description)
-                        </dd>
-                        <dt class="col-sm-4">
-                            @Html.DisplayNameFor(model => model.Highlights)
-                        </dt>
-                        <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.Highlights)
-                        </dd>
-                        <dt class="col-sm-4">
-                            @Html.DisplayNameFor(model => model.EventRules)
-                        </dt>
-                        <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.EventRules)
-                        </dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Price)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Price)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Capacity)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Capacity)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.StartDate)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.StartDate)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.EndDate)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.EndDate)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Description)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Description)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Highlights)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Highlights)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.EventRules)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.EventRules)</dd>
                     </dl>
                 </div>
             </div>
@@ -164,10 +66,9 @@
                     <h4>Event Image</h4>
                     <hr />
                     <div>
-                        @if(Model.ImageUrl is not null)
+                        @if (Model.ImageUrl != null)
                         {
                             <img src="@Model.ImageUrl" alt="@Model.Name" height="350" width="350" class="img-fluid" />
-
                         }
                     </div>
                 </div>
