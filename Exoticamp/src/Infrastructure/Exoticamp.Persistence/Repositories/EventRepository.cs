@@ -169,14 +169,14 @@ namespace Exoticamp.Persistence.Repositories
                 {
                     Id = x.EventLocations.FirstOrDefault()!.Id,
                     LocationId = x.EventLocations.FirstOrDefault()!.LocationId,
-                    LocationDetails = new LocationDetails { Name = x.EventLocations.FirstOrDefault(y => y.Id == x.EventLocations.FirstOrDefault()!.Id)!.Location.Name }
+                    LocationDetails = new Application.Features.Events.Queries.GetEventDetail.LocationDetails { Name = x.EventLocations.FirstOrDefault(y => y.Id == x.EventLocations.FirstOrDefault()!.Id)!.Location.Name }
 
                 },
                 EventActivityDto = new EventActivityDto
                 {
                     Id = x.EventActivities.FirstOrDefault()!.Id,
                     ActivityId = x.EventActivities.FirstOrDefault()!.ActivityId,
-                    ActivityDetails = new ActivityDetails {  Name = x.EventActivities.FirstOrDefault(y=>y.Id==x.EventActivities.FirstOrDefault()!.Id)!.Activity.Name}
+                    ActivityDetails = new Application.Features.Events.Queries.GetEventDetail.ActivityDetails {  Name = x.EventActivities.FirstOrDefault(y=>y.Id==x.EventActivities.FirstOrDefault()!.Id)!.Activity.Name}
                 }
 
 
@@ -235,7 +235,7 @@ namespace Exoticamp.Persistence.Repositories
                                          .Include(x => x.EventLocations)
                                          .Include(x => x.EventActivities)
                                          .FirstOrDefaultAsync(x => x.EventId == request.EventId);
-
+            
             if (@event == null)
             {
                 throw new Exception("Event not found");
@@ -316,17 +316,25 @@ namespace Exoticamp.Persistence.Repositories
                     Status = @event.Status,
                     IsDeleted = @event.IsDeleted,
                     CampsiteId = @event.CampsiteId,
-                    ActivityId= @event.EventActivities.FirstOrDefault()!.ActivityId,
-                    LocationId=@event.EventLocations.FirstOrDefault()!.LocationId,
-                    EventLocationDTO =  new EventLocationDTO
+                    ActivityId = @event.EventActivities.FirstOrDefault()!.ActivityId,
+                    LocationId = @event.EventLocations.FirstOrDefault()!.LocationId,
+                    EventLocationDTO = new EventLocationDTO
                     {
                         EventLocationId = @event.EventLocations.FirstOrDefault()!.Id,
-                        LocationId = @event.EventLocations.FirstOrDefault()!.LocationId
+                        LocationId = @event.EventLocations.FirstOrDefault()!.LocationId,
+                        //LocationDetails = new Application.Features.Events.Commands.UpdateEvent.LocationDetails
+                        //{
+                        //    Name = @event.EventLocations.FirstOrDefault()!.Location.Name
+                        //}
                     },
-                    EventActivityDTO =new EventActivityDTO
+                    EventActivityDTO = new EventActivityDTO
                     {
                         EventActivityId = @event.EventActivities.FirstOrDefault()!.Id,
-                        ActivityId = @event.EventActivities.FirstOrDefault()!.ActivityId
+                        ActivityId = @event.EventActivities.FirstOrDefault()!.ActivityId,
+                        //ActivityDetails=new Application.Features.Events.Commands.UpdateEvent.ActivityDetails
+                        //{
+                        //    Name=@event.EventActivities.FirstOrDefault()!.Activity.Name
+                        //}
                     }
                 };
 

@@ -5,6 +5,7 @@ using Exoticamp.UI.Models.Activities;
 using Exoticamp.UI.Models.CampsiteDetails;
 using Exoticamp.UI.Models.Location;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -40,7 +41,7 @@ namespace Exoticamp.UI.Models.Events
         [Required (ErrorMessage = "“Enter description of the event”")]
         [StringLength(250)]
         public string Description { get; set; }
-        [Required(ErrorMessage = "upload the images of the event")]
+        
         [NotMapped]
         public IFormFile Image { get; set; }
        
@@ -63,7 +64,7 @@ namespace Exoticamp.UI.Models.Events
         public Guid? LocationId { get; set; }
         public bool Status { get; set; }
         public bool IsDeleted { get; set; } 
-        public virtual CampsiteDetailsVM Campsite {  get; set; }
+        public  CampsiteDetailsVM? Campsite {  get; set; }
 
 
 
@@ -90,33 +91,33 @@ namespace Exoticamp.UI.Models.Events
         public SelectList? Locations { get; set; }
         public SelectList? Campsites { get; set; }
 
-        public EventLocationVM EventLocation { get; set; }
-        public EventActivityVM EventActivity { get; set; }
-
+        public EventLocationDto EventLocationDto { get; set; }
+        public EventActivityDto EventActivityDto { get; set; }
     }
-
-    public class EventLocationVM
+    public class EventLocationDto
     {
         public Guid Id { get; set; }
         public Guid LocationId { get; set; }
-        public LocationDetailsVM LocationDetails { get; set; }
+        public LocationDetails LocationDetails { get; set; }
 
 
     }
-    public class LocationDetailsVM
+    public class LocationDetails
     {
+        [JsonProperty("name")]
         public string Name { get; set; }
 
     }
-    public class EventActivityVM
+    public class EventActivityDto
     {
         public Guid Id { get; set; }
         public Guid ActivityId { get; set; }
-        public ActivityDetailsVM ActivityDetails { get; set; }
+        public ActivityDetails ActivityDetails { get; set; }
 
     }
-    public class ActivityDetailsVM
+    public class ActivityDetails
     {
+        [JsonProperty("name")]
         public string Name { get; set; }
 
     }

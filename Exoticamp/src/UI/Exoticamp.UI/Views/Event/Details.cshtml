@@ -19,7 +19,7 @@
                         <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
 
                         <dt class="col-sm-4">Location</dt>
-                        <dd class="col-sm-8">@Html.DisplayFor(model => model.EventLocation.LocationDetails.Name)</dd>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.EventLocationDto.LocationDetails.Name)</dd>
 
                         <dt class="col-sm-4">Campsite</dt>
                         <dd class="col-sm-8">@Html.DisplayFor(model => model.Campsite.Name)</dd>
@@ -32,7 +32,7 @@
 
                                 <br />
                             } *@
-                          @Html.DisplayFor(model => model.EventActivity.ActivityDetails.Name)
+                          @Html.DisplayFor(model => model.EventActivityDto.ActivityDetails.Name)
 
                         </dd>
 

@@ -88,8 +88,46 @@ namespace Exoticamp.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-          var eventObj=await  _eventRepository.GetEventById(id);
-            
+            var eventObj = await _eventRepository.GetEventById(id);
+            var campsite = await _campsiteRepository.GetCampsiteById(eventObj.Data.CampsiteId.ToString());
+
+            if (campsite.Data == null)
+                ModelState.AddModelError("", "Campsite not found");
+            eventObj.Data.Campsite = campsite.Data;
+            EventVM model = new EventVM()
+            {
+                EventId = eventObj.Data.EventId,
+                Name = eventObj.Data.Name,
+                Price = eventObj.Data.Price,
+                Capacity = eventObj.Data.Capacity,
+                StartDate = eventObj.Data.StartDate,
+                EndDate = eventObj.Data.EndDate,
+                Description = eventObj.Data.Description,
+                ImageUrl = eventObj.Data.ImageUrl,
+                Highlights = eventObj.Data.Highlights,
+                EventRules = eventObj.Data.EventRules,
+                CampsiteId = eventObj.Data.CampsiteId,
+                ActivityId = eventObj.Data.ActivityId,
+                LocationId = eventObj.Data.LocationId,
+                Status = eventObj.Data.Status,
+                IsDeleted = eventObj.Data.IsDeleted,
+                Campsite = campsite!.Data,
+                EventLocationDto = new EventLocationDto
+                {
+                    Id = eventObj.Data.EventLocationDto.Id,
+                    LocationId = eventObj.Data.EventLocationDto.LocationId,
+                    LocationDetails = eventObj.Data.EventLocationDto.LocationDetails
+                },
+                EventActivityDto = new EventActivityDto
+                {
+                    Id = eventObj.Data.EventActivityDto.Id,
+                    ActivityId = eventObj.Data.EventActivityDto.ActivityId,
+                    ActivityDetails = eventObj.Data.EventActivityDto.ActivityDetails
+                }
+
+
+            };
+
             var Campsites = await _campsiteRepository.GetAllCampsites();
             var Activities = await _activitiesRepository.GetAllActivities();
             var Locations = await _locationRepository.GetAllLocations();
@@ -98,37 +136,104 @@ namespace Exoticamp.UI.Controllers
                 return View("Error", new ErrorViewModel { });
             }
 
-            eventObj.Data.Campsites = new SelectList(Campsites, "Id", "Name");
-            eventObj.Data.ActivitiesVMs = new SelectList(Activities, "Id", "Name");
-            eventObj.Data.Locations = new SelectList(Locations, "Id", "Name");
+            model.Campsites = new SelectList(Campsites, "Id", "Name");
+            model.ActivitiesVMs = new SelectList(Activities, "Id", "Name");
+            model.Locations = new SelectList(Locations, "Id", "Name");
 
-            return View(eventObj.Data);
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Edit(EventVM model)
         {
-            if (ModelState.IsValid)
-            {
-                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.Image.FileName)}";
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
+            var eventObj = await _eventRepository.GetEventById(model.EventId);
+            var campsite = await _campsiteRepository.GetCampsiteById(model.CampsiteId.ToString());
 
-                model.ImageUrl = "/Assets/Images/Event/" + fileName;
-
-                var response = await _eventRepository.EditEvent(model);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+            if (campsite.Data == null)
+                ModelState.AddModelError("", "Campsite not found");
+            model.Campsite = campsite.Data;
+            //EventVM modelObj = new EventVM()
+            //{
+            eventObj.Data.EventId = model.EventId;
+            eventObj.Data.Name = model.Name;
+             eventObj.Data.Price = model.Price;
+                eventObj.Data.Capacity = model.Capacity;
+                eventObj.Data.StartDate = model.StartDate;
+                eventObj.Data.EndDate = model.EndDate;
+                eventObj.Data.Description = model.Description;
+                eventObj.Data.ImageUrl = model.ImageUrl;
+                eventObj.Data.Highlights = model.Highlights;
+                eventObj.Data.EventRules = model.EventRules;
+                eventObj.Data.CampsiteId = model.CampsiteId;
+                eventObj.Data.ActivityId = model.ActivityId;
+                eventObj.Data.LocationId = model.LocationId;
+                eventObj.Data.Status = model.Status;
+                eventObj.Data.IsDeleted = model.IsDeleted;
+                eventObj.Data.Campsite = campsite!.Data;
+                eventObj.Data.EventLocationDto = new EventLocationDto
                 {
-                    await model.Image.CopyToAsync(fileStream);
-                }
-                 return View("Details", response.Data);
-            }
-            else
-                ModelState.AddModelError("", "Oops! Some error occured.");
+                    Id = model.EventLocationDto.Id,
+                    LocationId = Guid.Parse(model.LocationId.ToString()),
+                    //LocationDetails = new LocationDetails
+                    //{
+                    //    Name = model.EventLocationDto.LocationDetails.Name
+                    //}
+                };
+               eventObj.Data.EventActivityDto = new EventActivityDto
+               {
+                   Id = model.EventActivityDto.Id,
+                   ActivityId = Guid.Parse(model.ActivityId.ToString()),
+                   //ActivityDetails = new ActivityDetails
+                   //{
+                   //    Name = model.EventActivityDto.ActivityDetails.Name
+                   //}
+               };
 
-            return View(model);
-           
-          
+
+            //};
+
+
+            //if (ModelState.IsValid)
+            //{
+                if (model.Image == null)
+                {
+                    //var fileName = $"{Guid.NewGuid()}{Path.GetExtension(modelObj.Image.FileName)}";
+                    //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
+
+                    //model.ImageUrl = "/Assets/Images/Event/" + fileName;
+
+                    var response = await _eventRepository.EditEvent(eventObj.Data);
+                //using (var fileStream = new FileStream(filePath, FileMode.Create))
+                //{
+                //    await modelObj.Image.CopyToAsync(fileStream);
+                //}
+                return RedirectToAction("Details", response.Data);
+            }
+                else
+                {
+                eventObj.Data.Image = model.Image;
+                    var fileName = $"{Guid.NewGuid()}{Path.GetExtension(eventObj.Data.Image.FileName)}";
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
+
+                     eventObj.Data.ImageUrl = "/Assets/Images/Event/" + fileName;
+
+                    var response = await _eventRepository.EditEvent(eventObj.Data);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await eventObj.Data.Image.CopyToAsync(fileStream);
+                    }
+                    return RedirectToAction("Details", response.Data);
+                }
+
+            //}
+            //else
+            //    ModelState.AddModelError("", "Oops! Some error occured.");
+
+            //return View(model);
+
+
+
         }
-        [HttpGet]
+    [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             var eventObj = await _eventRepository.GetEventById(id);
@@ -155,8 +260,18 @@ namespace Exoticamp.UI.Controllers
                 Status= eventObj.Data.Status,
                 IsDeleted= eventObj.Data.IsDeleted,
                  Campsite=campsite!.Data,
-                EventLocation= eventObj.Data.EventLocation,
-                EventActivity=eventObj.Data.EventActivity,
+                EventLocationDto = new EventLocationDto
+                {
+                    Id = eventObj.Data.EventLocationDto.Id,
+                    LocationId = eventObj.Data.EventLocationDto.LocationId,
+                    LocationDetails = eventObj.Data.EventLocationDto.LocationDetails
+                },
+                EventActivityDto = new EventActivityDto
+                {
+                    Id = eventObj.Data.EventActivityDto.Id,
+                    ActivityId = eventObj.Data.EventActivityDto.ActivityId,
+                    ActivityDetails = eventObj.Data.EventActivityDto.ActivityDetails
+                }
 
 
             };
