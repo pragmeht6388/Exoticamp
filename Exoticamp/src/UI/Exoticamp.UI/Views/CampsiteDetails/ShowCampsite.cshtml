@@ -27,7 +27,7 @@
                     <th>Tent</th>
                     <th>Images</th>
                     <th>Date Time</th>
-                    @* <th>Category</th> *@
+                    <th>Is Approved</th>
                     <th>Activity</th>
                     <th>Location</th>
                     <th>Actions</th>
@@ -42,7 +42,19 @@
                         <td>@Html.DisplayFor(modelItem => item.TentType)</td>
                         <td><img src="@item.Images" alt="Campsite Image" style="max-width:100px;max-height:100px;" /></td>
                         <td>@Html.DisplayFor(modelItem => item.DateTime)</td>
-                        @* <td>@Html.DisplayFor(modelItem=>item.ActivityName)</td> *@
+                        <td>
+                            @{
+                                if (item.ApprovedBy == null)
+                                {
+                                    <span class="badge bg-warning">Pending</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">Approved</span>
+                                }
+                            }
+                        </td>
+
                         @* <td>@Html.DisplayFor(modelItem => item.CategoryName)</td> *@
                         <td>
                             @foreach (var activity in item.Activities)

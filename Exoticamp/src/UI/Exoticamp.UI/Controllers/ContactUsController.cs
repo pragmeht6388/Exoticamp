@@ -1,6 +1,7 @@
 ﻿using Exoticamp.UI.AuthFilter;
 using Exoticamp.UI.Models.ContactUs;
 using Exoticamp.UI.Services.IRepositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
@@ -15,6 +16,8 @@ namespace Exoticamp.UI.Controllers
         {
             _contactUsRepository = contactUsRepository;
         }
+        [AdminAuthFilter]
+        [NoCache]
         public async Task<IActionResult> ContactUsAll()
         {
             var contactUsDetail = await _contactUsRepository.GetAllContacts();
@@ -22,11 +25,12 @@ namespace Exoticamp.UI.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult ContactUs() {
             return View();
         }
 
-       
+        [AllowAnonymous]
         public async Task<IActionResult> ContactUs(ContactUsVM company)
         {
 
