@@ -87,7 +87,8 @@
                 <img src="@Model.ImagePath" class="img-fluid rounded" alt="Banner Image">
             </div>
             <div class="col-12 mt-4">
-                <h5><i class="fas fa-link"></i> @Model.Link</h5>
+                <h5><i class="fas fa-link"></i> <a href="@Model.Link" target="_blank" class="text-decoration-none">@Model.Link</a></h5>
+
                 <p><i class="fas fa-map-marker-alt"></i> Location: @ViewBag.LocationName</p>
                 <p><i class="fas fa-tag"></i> Promo Code: @Model.PromoCode</p>
                 <p><i class="fas fa-check-circle"></i> Active: @(Model.IsActive ? "Yes" : "No")</p>
