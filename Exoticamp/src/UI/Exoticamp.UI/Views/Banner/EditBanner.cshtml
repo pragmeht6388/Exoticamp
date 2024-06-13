@@ -1,10 +1,11 @@
 ﻿@model Exoticamp.UI.Models.Banners.BannerViewModel
 
 @{
-    ViewData["Title"] = "Banners";
+    ViewData["Title"] = "Edit Banner";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-
 }
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 <style>
     body {
         background-color: #f8f9fa; /* Light grey background */
@@ -52,23 +53,23 @@
 
 <div class="container">
     <div class="form-container">
-        <form asp-action="EditBanner" id="editBannerForm" enctype="multipart/form-data">
+        <form asp-action="EditBanner" id="editBannerForm" enctype="multipart/form-data" class="needs-validation" onsubmit="return validateForm()">
             <h1 class="text-center">Edit Banner</h1>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group mb-3">
                 <label asp-for="Link" class="control-label">Link<span class="text-danger">*</span></label>
-                <input asp-for="Link" class="form-control" data-val="true" data-val-regex="The link must end with .com or .in." data-val-regex-pattern="^(.*\.com|.*\.in)$" />
-                <span asp-validation-for="Link" class="text-danger"></span>
+                <input asp-for="Link" id="BannerLink" class="form-control" placeholder="Enter Banner Link" />
+                <span class="text-danger" id="linkError"></span>
             </div>
 
             <div class="form-group form-check mb-3">
-                <input class="form-check-input" asp-for="IsActive" />
-                <label class="form-check-label" asp-for="IsActive">@Html.DisplayNameFor(model => model.IsActive)</label>
+                <input class="form-check-input" asp-for="IsActive" id="IsActive" />
+                <label class="form-check-label" asp-for="IsActive">Is Active</label>
             </div>
 
             <div class="form-group mb-3">
-                <label asp-for="PromoCode" class="form-label">PromoCode<span class="text-danger">*</span></label>
+                <label asp-for="PromoCode" class="form-label">Promo Code<span class="text-danger">*</span></label>
                 <select asp-for="PromoCode" class="form-control">
                     <option value="">Select Promo Type</option>
                     <option value="Normal Banner">Normal Banner</option>
@@ -98,26 +99,59 @@
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
 
-            <div class="form-group mb-3">
-                <input type="submit" value="Save" class="btn btn-primary w-100" />
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
-
         <div class="text-center mt-3">
             <a asp-action="AllBanners" class="btn btn-secondary w-100">Back to List</a>
         </div>
     </div>
 </div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    <script src="~/js/jquery.validate.min.js"></script>
-    <script src="~/js/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
+
+@if (TempData["Message"] != null)
+{
     <script type="text/javascript">
+        toastr.error('@TempData["Message"]');
+    </script>
+}
+<script>
         $(document).ready(function () {
             $("#editBannerForm").validate();
+        });
+
+        // Custom validation functions
+        function validateLink() {
+            var linkInput = document.getElementById('BannerLink');
+            var link = linkInput.value.trim();
+            var regex = /^(.*\.com|.*\.in)$/;
+            if (link === '') {
+                document.getElementById('linkError').innerText = 'Link is required';
+                return false;
+            } else if (!regex.test(link)) {
+                document.getElementById('linkError').innerText = 'The link must end with .com or .in';
+                return false;
+            }
+            document.getElementById('linkError').innerText = '';
+            return true;
+        }
+
+        function validateForm() {
+            var isValid = true;
+            isValid = validateLink() && isValid;
+            // Add other validation checks here
+            return isValid;
+        }
+
+        // Event listeners for input validation
+        document.getElementById('BannerLink').addEventListener('blur', validateLink);
+        document.getElementById('BannerLink').addEventListener('input', function () {
+            document.getElementById('linkError').innerText = '';
         });
     </script>
 }
