@@ -225,7 +225,7 @@
     </div>
 
     <table class="table table-bordered table-hover" id="bannerTable">
-        <thead class="thead">
+        <thead class="thead-dark">
             <tr>
                 <th>Sr. No</th>
                 <th style="display:none;">BannerId</th>
@@ -260,13 +260,29 @@
                     <td>
                         @if (!string.IsNullOrEmpty(banner.PromoCode))
                         {
-                            <span class="text-success">@banner.PromoCode</span>
+                            @if (banner.PromoCode.Equals("Normal Banner", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <i class="fas fa-flag" style="color: red;" title="Normal Banner"></i>
+                            }
+                            else if (banner.PromoCode.Equals("Big Banner", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <i class="fas fa-flag" style="color: green;" title="Big Banner"></i>
+                            }
+                            else if (banner.PromoCode.Equals("Short Banner", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <i class="fas fa-flag" style="color: blue;" title="Short Banner"></i>
+                            }
+                            else
+                            {
+                                <span class="text-danger">N/A</span>
+                            }
                         }
                         else
                         {
                             <span class="text-danger">N/A</span>
                         }
                     </td>
+
                     <td>@banner.LocationName</td>
                     <td><img src="@Url.Content(banner.ImagePath)" alt="Banner Image" width="100" height="100" /></td>
                     <td>
