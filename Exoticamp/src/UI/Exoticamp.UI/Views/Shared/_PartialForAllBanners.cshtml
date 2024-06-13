@@ -17,12 +17,14 @@
             flex-wrap: nowrap;
             overflow-x: auto;
             scroll-behavior: smooth;
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;
+            / IE and Edge / scrollbar-width: none;
+            / Firefox /
         }
 
             .banner-container::-webkit-scrollbar {
-                display: none; /* Chrome, Safari, Opera */
+                display: none;
+                / Chrome, Safari, Opera /
             }
 
         .banner-item {
@@ -42,8 +44,9 @@
 
         .banner-image img {
             width: 100%;
-            height: 200px; /* Set a uniform height for all images */
-            object-fit: cover; /* Ensure images are cropped to fit the container */
+            height: 200px;
+            / Set a uniform height for all images / object-fit: cover;
+            / Ensure images are cropped to fit the container /
         }
 
         .banner-info {
@@ -101,7 +104,7 @@
         <h1>Banners</h1>
 
         <div class="scroll-container">
-            <button class="scroll-arrow scroll-arrow-left" onclick="sLeft()">
+            <button class="scroll-arrow scroll-arrow-left" onclick="soLeft()">
                 &larr;
             </button>
             <div class="banner-container" id="bannerContainer">
@@ -117,7 +120,7 @@
                     </div>
                 }
             </div>
-            <button class="scroll-arrow scroll-arrow-right" onclick="scrollRight()">
+            <button class="scroll-arrow scroll-arrow-right" onclick="scRight()">
                 &rarr;
             </button>
         </div>
@@ -127,11 +130,11 @@
     <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        function sLeft() {
+        function soLeft() {
             document.getElementById('bannerContainer').scrollBy({ left: -300, behavior: 'smooth' });
         }
 
-        function scrollRight() {
+        function scRight() {
             document.getElementById('bannerContainer').scrollBy({ left: 300, behavior: 'smooth' });
         }
     </script>

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Availibility";
+    ViewData["Title"] = "Availability";
     Layout = "~/Views/Shared/_VendorLayout.cshtml";
 }
 <!DOCTYPE html>
@@ -15,6 +15,41 @@
         .container {
             margin-top: 50px;
         }
+
+        .info-box {
+            padding: 20px;
+            color: white;
+            margin-bottom: 20px;
+            height: 150px; /* Ensure equal height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .revenue {
+            background-color: #28a745; /* Green */
+        }
+
+        .upcoming {
+            background-color: #17a2b8; /* Blue */
+        }
+
+        .history {
+            background-color: #ffc107; /* Yellow */
+        }
+
+        .reviews {
+            background-color: #dc3545; /* Red */
+        }
+
+        .book-dates {
+            background-color: #343a40; /* Dark */
+        }
+
+        .new-requests {
+            background-color: #6f42c1; /* Purple */
+        }
     </style>
 </head>
 <body>
@@ -22,31 +57,53 @@
     <div class="container">
         <h2 class="mb-4">Vendor Dashboard</h2>
         <div class="row">
-            <div class="col-md-6">
-                <!-- Display bookings here -->
-                <h4>Bookings</h4>
-                <ul class="list-group">
-                    <!-- Dummy data -->
-                    <li class="list-group-item">Date: 2024-06-30 | Time: 09:00 - 10:00 | Customer: John Doe</li>
-                    <li class="list-group-item">Date: 2024-07-01 | Time: 10:00 - 11:00 | Customer: Jane Smith</li>
-                </ul>
+            <div class="col-sm-6 col-md-4">
+                <!-- Total Revenue -->
+                <div class="info-box revenue">
+                    <h4>Total Revenue</h4>
+                    <p>$1000</p>
+                </div>
             </div>
-            <div class="col-md-6">
-                <!-- Display additional information -->
-                <h4>Additional Information</h4>
-                <ul class="list-group">
-                    <!-- Dummy data -->
-                    <li class="list-group-item">Total Bookings: 10</li>
-                    <li class="list-group-item">Revenue: $1000</li>
-                    <li class="list-group-item">Pending Requests: 3</li>
-                </ul>
+            <div class="col-sm-6 col-md-4">
+                <!-- Upcoming Booking -->
+                <div class="info-box upcoming">
+                    <h4>Upcoming Booking</h4>
+                    <p>Date: 2024-06-30 | Time: 09:00 - 10:00 | Customer: John Doe</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <!-- Booking History -->
+                <div class="info-box history">
+                    <h4>Booking History</h4>
+                    <p>Total Bookings: 10</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <!-- Reviews -->
+                <div class="info-box reviews">
+                    <h4>Reviews</h4>
+                    <p>Pending Reviews: 5</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <!-- Book Dates -->
+                <div class="info-box book-dates">
+                    <h4>Book Dates</h4>
+                    <p>Next Available Date: 2024-07-02</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <!-- New Booking Request -->
+                <div class="info-box new-requests">
+                    <h4>New Booking Request</h4>
+                    <p>Pending Requests: 3</p>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
