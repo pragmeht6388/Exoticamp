@@ -94,7 +94,7 @@ namespace Exoticamp.UI.Services.Repositories
             return events;
         }
 
-        public async Task<UsersVM> IsDeleteAsync(string id)
+        public async Task< string> IsDeleteAsync(string id)
         {
             _apiRepository = new APIRepository(_configuration);
 
@@ -103,13 +103,13 @@ namespace Exoticamp.UI.Services.Repositories
 
             if (response.data != null)
             {
-                return JsonConvert.DeserializeObject<UsersVM>(response.data);
+                return response.data;
             }
 
             return null;
         }
 
-        public async Task<UsersVM> IsLockedUsersAsync(string id)
+        public async Task<string> IsLockedUsersAsync(string id)
         {
             _apiRepository = new APIRepository(_configuration);
 
@@ -118,7 +118,7 @@ namespace Exoticamp.UI.Services.Repositories
 
             if (response.data != null)
             {
-                return JsonConvert.DeserializeObject<UsersVM>(response.data);
+                return response.data;
             }
 
             return null;
