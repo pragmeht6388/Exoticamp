@@ -169,5 +169,26 @@ namespace Exoticamp.UI.Services.Repositories
             }
         }
 
+        public async Task<IEnumerable<CampsiteDetailsVM>> GetCampsiteLocationId(string Id)
+        {
+
+            _apiRepository = new APIRepository(_configuration);
+            List<CampsiteDetailsVM> events = new List<CampsiteDetailsVM>();
+
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(Id, Newtonsoft.Json.Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+
+            var bytes = new ByteArrayContent(content);
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetCampsiteDetailLocationsById.Replace("{0}", Id), HttpMethod.Get, bytes, _sToken);
+            if (response.data != null)
+            {
+                return (JsonConvert.DeserializeObject<GetAllCampsiteDetailsResponseModels>(response.data)).Data;
+            }
+
+            return events;
+        }
+
+
     }
 }
