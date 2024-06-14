@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Content</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light grey background */
+        }
+
+        .table-container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container table-container">
+        <h1 class="text-center">Manage Content</h1>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Content Title 1</td>
+                    <td>Author 1</td>
+                    <td>2024-06-15</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm edit-btn">Edit</button>
+                        <button class="btn btn-danger btn-sm delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Content Title 2</td>
+                    <td>Author 2</td>
+                    <td>2024-06-14</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm edit-btn">Edit</button>
+                        <button class="btn btn-danger btn-sm delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Handle edit button click
+            $('.edit-btn').click(function () {
+                var row = $(this).closest('tr');
+                var title = row.find('td:nth-child(2)').text();
+                alert('Edit ' + title);
+                // You can add further actions like navigating to an edit page or opening a modal
+            });
+
+            // Handle delete button click
+            $('.delete-btn').click(function () {
+                var row = $(this).closest('tr');
+                var title = row.find('td:nth-child(2)').text();
+                if (confirm('Are you sure you want to delete ' + title + '?')) {
+                    row.remove();
+                    // You can add further actions like sending a delete request to the server
+                }
+            });
+        });
+    </script>
+</body>
+</html>

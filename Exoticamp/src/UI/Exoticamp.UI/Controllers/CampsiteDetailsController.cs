@@ -16,14 +16,16 @@ namespace Exoticamp.UI.Controllers
         private readonly ICampsiteDetailsRepository _campsiteRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IActivitiesRepository _activitiesRepository;
+        private readonly ILocationRepository _locationRepository;
 
 
 
-        public CampsiteDetailsController(ICampsiteDetailsRepository campsiteRepository, ICategoryRepository categoryRepository, IActivitiesRepository activitiesRepository)
+        public CampsiteDetailsController(ICampsiteDetailsRepository campsiteRepository, ICategoryRepository categoryRepository, IActivitiesRepository activitiesRepository,ILocationRepository locationRepository)
         {
             _campsiteRepository = campsiteRepository;
             _categoryRepository = categoryRepository;
             _activitiesRepository = activitiesRepository;
+            _locationRepository=locationRepository;
         }
 
         public async Task<IActionResult> ShowCampsite()
@@ -54,6 +56,7 @@ namespace Exoticamp.UI.Controllers
         {
             var categories = await _categoryRepository.GetAllCategory();
             var activities = await _activitiesRepository.GetAllActivities();
+            var loaction = await _locationRepository.GetAllLocations();
 
             if (categories == null)
             {
@@ -175,6 +178,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> ShowCampsiteUser()
         {
             var campsiteDetail = await _campsiteRepository.GetAllCampsites();
+            var approvedCampsites = campsiteDetail.Where(c => c.ApprovedBy != null).ToList();
 
             return PartialView("_PartialCampsiteCorousel", campsiteDetail);
         }
@@ -182,8 +186,12 @@ namespace Exoticamp.UI.Controllers
         {
             var campsiteDetail = await _campsiteRepository.GetAllCampsites();
 
-            return PartialView("_ShowCampsiteEndUser", campsiteDetail);
+            // Filter the campsiteDetail to include only the approved campsites
+            var approvedCampsites = campsiteDetail.Where(c => c.ApprovedBy != null).ToList();
+
+            return PartialView("_ShowCampsiteEndUser", approvedCampsites);
         }
+
 
         public async Task<IActionResult> DetailsUser(string id)
         {
