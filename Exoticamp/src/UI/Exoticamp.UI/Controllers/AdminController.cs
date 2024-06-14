@@ -26,16 +26,14 @@ namespace Exoticamp.UI.Controllers
             return View(users);
         }
 
-        public async Task<IActionResult> GetAllUsersPartial()
-        {
-            var users = await _userRepository.GetAllUsersAsync();
-            return PartialView("GetAllUsersPartial", users);
-        }
+         
+        [HttpGet]
 
         public async Task<IActionResult> GetAllVendors()
         {
+             
             var users = await _userRepository.GetAllVendorsAsync();
-            return PartialView("_GetAllVendorsPartial",users);
+            return View(users);
         }
         [HttpGet]
         public async Task<IActionResult> CreateVendor( )
@@ -68,19 +66,37 @@ namespace Exoticamp.UI.Controllers
 
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> IsDeleteUser(  string Email)
+        
+        public async Task<IActionResult> IsDeleteUser(string Email)
         {
-            var users = await _userRepository.IsDeleteAsync( Email  );
+            var users = await _userRepository.IsDeleteAsync(Email);
 
-            return RedirectToAction("GetAllUsers", "Admin");
+            return RedirectToAction("GetAllUsers");
         }
 
-        [HttpPut]
+        public async Task<IActionResult> IsDeleteVendor(string Email)
+        {
+            var users = await _userRepository.IsDeleteAsync(Email);
+
+            return RedirectToAction("GetAllVendors");
+        }
+
+
+
+
+
+
         public async Task<IActionResult> IsLockedUsers(string Email)
         {
             var users = await _userRepository.IsLockedUsersAsync(Email);
            return RedirectToAction("GetAllUsers", "Admin");
+            //return Json(new { success = true, message = "Vendor deleted successfully." });
+        }
+
+        public async Task<IActionResult> IsLockedVendor(string Email)
+        {
+            var users = await _userRepository.IsLockedUsersAsync(Email);
+            return RedirectToAction("GetAllVendors", "Admin");
             //return Json(new { success = true, message = "Vendor deleted successfully." });
         }
 

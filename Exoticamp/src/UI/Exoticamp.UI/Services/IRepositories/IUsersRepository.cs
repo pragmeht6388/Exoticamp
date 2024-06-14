@@ -11,8 +11,8 @@ namespace Exoticamp.UI.Services.IRepositories
         public Task<IEnumerable<UsersVM>> GetAllUsersAsync();
 
         public Task<IEnumerable<UsersVM>> GetAllVendorsAsync();
-        public Task<UsersVM> IsDeleteAsync(string Email);
-        public Task<UsersVM> IsLockedUsersAsync(string Email);
+        public Task<string> IsDeleteAsync(string Email);
+        public Task<string> IsLockedUsersAsync(string Email);
         public Task<Response<UsersVM>> GetUserByIdAsync(string UserId);
         public Task<Response<string>> UpdateProfile(UsersVM model);
 
