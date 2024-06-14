@@ -254,11 +254,11 @@
                                 <span>Manage Users</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="manageUsersDropdown">
-                                <a class="dropdown-item" href="/Home/ManageEndUser">
+                                <a class="dropdown-item" asp-action="GetAllUsers" asp-controller="Admin">
                                     <i class="fas fa-user"></i>
                                     <span>Manage End User</span>
                                 </a>
-                                <a class="dropdown-item" href="/Home/ManageVendor">
+                                <a class="dropdown-item" asp-action="GetAllVendors" asp-controller="Admin">
                                     <i class="fas fa-user-tie"></i>
                                     <span>Manage Vendor</span>
                                 </a>
