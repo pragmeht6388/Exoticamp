@@ -1,5 +1,6 @@
 ﻿using Exoticamp.UI.AuthFilter;
 using Exoticamp.UI.Models.Registration;
+using Exoticamp.UI.Models.Users;
 using Exoticamp.UI.Services.IRepositories;
 using Exoticamp.UI.Services.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -82,10 +83,27 @@ namespace Exoticamp.UI.Controllers
         }
 
 
+        #region ShowUserProfile
+        [HttpGet]
+        public async Task<IActionResult> ShowUser(string id)
+        {
+            // Retrieve user details based on the provided ID
+            var userDetails = await _userRepository.GetUserByIdAsync(id);
+
+            if (userDetails.data != null)
+            {
+                return View(userDetails.data);
+            }
+            else
+            {
+                // Handle case where user with specified ID is not found
+                TempData["Message"] = $"User with ID '{id}' not found.";
+                return RedirectToAction("GetAllUsers"); // Redirect to a list of users or handle as appropriate
+            }
+        }
 
 
-
-
+        #endregion
         public async Task<IActionResult> IsLockedUsers(string Email)
         {
             var users = await _userRepository.IsLockedUsersAsync(Email);

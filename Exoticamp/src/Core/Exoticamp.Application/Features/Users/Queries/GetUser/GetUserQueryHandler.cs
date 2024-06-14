@@ -36,8 +36,10 @@ namespace Exoticamp.Application.Features.Users.Queries.GetUser
             var user = await _userService.GetUserDetailsById(request.UserId);
             var location = await _location.GetByIdAsync(user.LocationId);
             var activity = await _activity.GetByIdAsync(user.PreferenceId);
-            user.Location = location.Name;
-            user.Preference = activity.Name;
+            if(location is not null)
+                user.Location = location.Name;
+            if(activity is not null)
+                user.Preference = activity.Name;
             return new Response<GetUserDto>(user, "success");
         }
     }
