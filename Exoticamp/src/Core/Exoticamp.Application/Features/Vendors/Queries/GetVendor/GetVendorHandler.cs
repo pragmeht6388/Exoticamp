@@ -31,7 +31,7 @@ namespace Exoticamp.Application.Features.Vendors.Queries.GetVendor
 
         public async Task<Response<GetVendorDto>> Handle(GetVendorQueryByIdQuery request, CancellationToken cancellationToken)
         {
-            var vendor = await _vendorService.GetUserDetailsById(request.VendorId);
+            var vendor = await _vendorService.GetVendorDetailsById(request.VendorId);
             //if (vendor == null)
             //{
             //    _logger.LogError($"Vendor with ID {request.VendorId} not found.");

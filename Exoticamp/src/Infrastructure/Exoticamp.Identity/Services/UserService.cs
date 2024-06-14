@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Exoticamp.Application.Features.Vendors.Queries.GetVendor;
 
 namespace Exoticamp.Identity.Services
 {
@@ -148,6 +149,22 @@ namespace Exoticamp.Identity.Services
                 LocationId = user.LocationId,
                 PreferenceId = user.ActivityId,
                 
+            };
+        }
+        public async Task<GetVendorDto> GetVendorDetailsById(string Id)
+        {
+            var user = await _userManager.FindByIdAsync(Id);
+            return new GetVendorDto()
+            {
+                Email = user.Email,
+                Name = user.Name,
+                PhoneNumber = user.PhoneNumber,
+                AltAddress = user.AltAddress,
+                LocationId = user.LocationId,
+                AltEmail = user.AltEmail,
+                AltPhoneNumber = user.AltPhoneNumber,
+                Address = user.Address,
+
             };
         }
 
