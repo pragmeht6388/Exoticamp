@@ -97,6 +97,7 @@ namespace Exoticamp.Identity.Services
                                   where role.Name == "User" && user.IsDeleted == false
                                   select new GetUserListDto()
                                   {
+                                      Id = user.Id,
                                       Email = user.Email,
                                       Name = user.Name,
                                       PhoneNumber = user.PhoneNumber,

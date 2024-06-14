@@ -10,6 +10,7 @@ namespace Exoticamp.Application.Features.Users.Queries.GetUserList
 {
     public class GetUserListDto
     {
+        public  string Id { get; set; }
         [Required]
         public string Name { get; set; }
 
