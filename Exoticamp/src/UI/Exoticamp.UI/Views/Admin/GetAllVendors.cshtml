@@ -1,67 +1,7 @@
-﻿@*  
- @model IEnumerable<Exoticamp.UI.Models.Users.UsersVM>
+﻿@*   @model IEnumerable<Exoticamp.UI.Models.Users.UsersVM>
 
 @{
-    ViewData["Title"] = "GetAllUsers";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
-
-    <div class="container">
-        <h3>Tabs</h3>
-        <ul class="nav nav-tabs">
-            <li class="active"><a asp-action="GetAllUsers" asp-controller="Admin">Users</a></li>
-            <li><a id="VendorLink" href="#vendors">Vendors</a></li>
-             
-        </ul>
-     </div>
-     <div  id="User">
-        @{
-            Html.RenderPartial("GetAllUsersPartial",  Model);
-        }
-     </div>
-    <script>
-        $(document).ready(function () {
-            $('#VendorLink').on('click', function () {
-                 
-                $.ajax({
-                    url: '@Url.Action("GetAllVendors", "Admin")',
-                    type: 'GET',
-                     
-                    success: function (result) {
-                        $('#User').empty();
-                        $('#User').html(result);
-                        
-                    },
-                    error: function () {
-                        alert('An error occurred while loading the response form.');
-                    }
-                });
-            });
-        });
-        </script>
-
-</body>
-</html>
- *@
-
-@* 
-
-         @model IEnumerable<Exoticamp.UI.Models.Users.UsersVM>
-
-@{
-    ViewData["Title"] = "GetAllUsers";
+    ViewData["Title"] = "GetAllVendor";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -91,9 +31,14 @@
 </head>
 
 <body>
-    <h1> Users</h1>
+    <h1> Vendors</h1>
 
 
+    <div style="height:50px; margin:0 20px">
+        <p>
+            <a asp-action="CreateVendor" asp-controller="Admin" class="btn btn-primary float-end"><i class="bi bi-plus-circle"></i> Create New</a>
+        </p>
+    </div>
 
     <div class="table-responsive">
         <table id="GetAllUsers" class="table table-striped">
@@ -172,14 +117,7 @@
                 data: { Email: Email },
                 success: function (result) {
                     alert('User deleted successfully.');
-                    var row = $(this).parent().parent();
-
-
-                    $("#GetAllUsers").dataTable().fnDeleteRow(row);
-                    $("#GetAllUsers").dataTable().fnDraw();
-                    window.location.reload();
-
-                    //location.reload();
+                    location.reload();
                 }
 
             });
@@ -201,7 +139,8 @@
         }
     }
 </script> *@
- @model IEnumerable<Exoticamp.UI.Models.Users.UsersVM>
+
+         @model IEnumerable<Exoticamp.UI.Models.Users.UsersVM>
 
 @{
     ViewData["Title"] = "GetAllUsers";
@@ -272,17 +211,17 @@
                                 @if (item.IsLocked)
                                 {
                                     @* <button class="btn btn-info btn-sm" onclick="unlockUser('@item.Email')">Unlock</button> *@
-                                    <a href="@Url.Action("IsLockedUsers", new { Email = item.Email })" class="btn btn-info btn-sm" onclick="return confirmUnLocked();">
+                                    <a href="@Url.Action("IsLockedVendor", new { Email = item.Email })" class="btn btn-info btn-sm" onclick="return confirmUnLocked();">
                                         <i class="bi bi-trash-fill"></i>
                                     </a>
                                 }
-                               @*  <a href="#" class="btn btn-danger btn-sm delete-link" data-email="@item.Email">
-                                    <i class="fas fa-trash-alt"></i> Delete
-                                </a> *@
-                               @*  <a href="@Url.Action("IsDeleteUser", new { Email = item.Email })" class="btn btn-danger btn-sm" onclick="return confirmDelete();">
-                                    <i class="bi bi-trash-fill"></i>
-                                </a> *@
-                                <a href="@Url.Action("IsDeleteUser", new { Email = item.Email })" class="btn btn-danger btn-sm delete-link" onclick="return confirmDelete();">
+                                @*  <a href="#" class="btn btn-danger btn-sm delete-link" data-email="@item.Email">
+                            <i class="fas fa-trash-alt"></i> Delete
+                            </a> *@
+                                @*  <a href="@Url.Action("IsDeleteUser", new { Email = item.Email })" class="btn btn-danger btn-sm" onclick="return confirmDelete();">
+                            <i class="bi bi-trash-fill"></i>
+                            </a> *@
+                                <a href="@Url.Action("IsDeleteVendor", new { Email = item.Email })" class="btn btn-danger btn-sm delete-link" onclick="return confirmDelete();">
                                     <i class="bi bi-trash-fill"></i>
                                 </a>
                             </td>
@@ -304,27 +243,26 @@
 
 <script>
     function confirmUnLocked() {
-        return confirm('Are you sure you want to UnLocked this User?');
+        return confirm('Are you sure you want to UnLocked this Vendor?');
 
     }
-    </script>
+</script>
 
 <script>
     function confirmDelete() {
-        return confirm('Are you sure you want to delete this User?');
+        return confirm('Are you sure you want to delete this Vendor?');
 
     }
 </script>
 <script>
-     
+
 
     $(document).ready(function () {
         var table = $('#GetAllUsers').DataTable({
             "pageLength": 5, // Show 5 rows per page by default
             "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'All']] // Option to change number of rows per page
         });
-         
-             
-</script>
 
+
+</script>
 
