@@ -129,14 +129,11 @@
         function validateLink() {
             var linkInput = document.getElementById('BannerLink');
             var link = linkInput.value.trim();
-            var regex = /^(.*\.com|.*\.in)$/;
+            
             if (link === '') {
                 document.getElementById('linkError').innerText = 'Link is required';
                 return false;
-            } else if (!regex.test(link)) {
-                document.getElementById('linkError').innerText = 'The link must end with .com or .in';
-                return false;
-            }
+            } 
             document.getElementById('linkError').innerText = '';
             return true;
         }

@@ -116,7 +116,9 @@
 </head>
 <h1 style="text-align:center;color:black">Campsite Details</h1>
 <p>
-    <a href="/Home/Index" style="margin-left:200px" class="btn btn-primary">Back to List</a>
+    <div class="text-left">
+        <button id="backButton" class="btn btn-secondary">Back</button>
+    </div>
     <a asp-action="ShowCampsite" style="margin-left:810px;background-color:limegreen;position:fixed" class="btn btn-primary">Book Now</a>
 </p>
 
@@ -486,3 +488,9 @@
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css" />
+</script>
+        //back button<script>
+                         document.getElementById('backButton').addEventListener('click', function () {
+                             window.history.back();
+                         });
+</script>

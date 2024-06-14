@@ -1,4 +1,9 @@
 ﻿@model IEnumerable<Exoticamp.UI.Models.Banners.BannerViewModel>
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+
+
 
 <!DOCTYPE html>
 <html>
@@ -108,16 +113,42 @@
                 &larr;
             </button>
             <div class="banner-container" id="bannerContainer">
-                @foreach (var item in Model)
-                {
-                    <div class="banner-item">
-                        <div class="banner-image">
-                            <img src="@item.ImagePath" alt="Banner Image" />
-                        </div>
-                        <div class="banner-info">
-                            @Html.ActionLink("View", "ViewBannerUser", new { id = item.BannerId }, new { @class = "btn btn-info" })
-                        </div>
-                    </div>
+                @{
+                    var location = HttpContextAccessor.HttpContext.Session.GetString("LocationId");
+                    if (location != null)
+                    {
+                        
+                        @foreach (var item in Model)
+                        {
+                            if (item.LocationId.ToString() == location)
+                            {
+                                <div class="banner-item">
+                                    <div class="banner-image">
+                                        <img src="@item.ImagePath" alt="Banner Image" />
+                                    </div>
+                                    <div class="banner-info">
+                                        @Html.ActionLink("View", "ViewBannerUser", new { id = item.BannerId }, new { @class = "btn btn-info" })
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        @foreach (var item in Model)
+                        {
+                            
+                                <div class="banner-item">
+                                    <div class="banner-image">
+                                        <img src="@item.ImagePath" alt="Banner Image" />
+                                    </div>
+                                    <div class="banner-info">
+                                        @Html.ActionLink("View", "ViewBannerUser", new { id = item.BannerId }, new { @class = "btn btn-info" })
+                                    </div>
+                                </div>
+                            
+                        }
+                    }
                 }
             </div>
             <button class="scroll-arrow scroll-arrow-right" onclick="scRight()">

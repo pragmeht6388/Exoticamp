@@ -87,13 +87,13 @@
                 <img src="@Model.ImagePath" class="img-fluid rounded" alt="Banner Image">
             </div>
             <div class="col-12 mt-4">
-                <h5><i class="fas fa-link"></i> <a href="@Model.Link" target="_blank" class="text-decoration-none">@Model.Link</a></h5>
-
+                <h5><i class="fas fa-link"></i> <a id="promoCodeLink" href="@Model.Link" ></a>Link For Camp Below</h5>
                 <p><i class="fas fa-map-marker-alt"></i> Location: @ViewBag.LocationName</p>
                 <p><i class="fas fa-tag"></i> Promo Code: @Model.PromoCode</p>
                 <p><i class="fas fa-check-circle"></i> Active: @(Model.IsActive ? "Yes" : "No")</p>
 
-                <a id="backButton" class="btn btn-cancel"><i class="fas fa-times"></i> Cancel</a>
+                <button id="goToLinkButton" class="btn btn-primary btn-block">Go to Link</button>
+                <a id="backButton" class="btn btn-cancel mt-3"><i class="fas fa-times"></i> Cancel</a>
             </div>
         </div>
     </div>
@@ -102,10 +102,12 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</script>
-        //back button<script>
-                         document.getElementById('backButton').addEventListener('click', function () {
-                             window.history.back();
-                         });
+<script type="text/javascript">
+    document.getElementById('goToLinkButton').addEventListener('click', function () {
+        window.location.href = "@Model.Link"; // Redirect to the banner link
+    });
 
+    document.getElementById('backButton').addEventListener('click', function () {
+        window.history.back();
+    });
 </script>
