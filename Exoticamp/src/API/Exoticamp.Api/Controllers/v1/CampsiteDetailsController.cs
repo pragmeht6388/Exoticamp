@@ -7,6 +7,7 @@ using Exoticamp.Application.Features.Campsite.Query.GetCampsiteList;
 using Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDetails;
 using Exoticamp.Application.Features.CampsiteDetails.Commands.DeleteCampsiteDetails;
 using Exoticamp.Application.Features.CampsiteDetails.Commands.UpdateCampsite;
+using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteByLocationId;
 using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetails;
 using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetailsList;
 using Exoticamp.Application.Features.Locations.Queries;
@@ -92,8 +93,12 @@ namespace Exoticamp.Api.Controllers.v1
             var getLocationIdQuery = new GetLocationIdQuery() { Id = LocationId };
             return Ok(await _mediator.Send(getLocationIdQuery));
         }
-
-
+        [HttpGet("Campsite/{id}")]
+        public async Task<ActionResult> GetCampsiteByLocation(string id)
+        {
+            var getCampsiteLocationIdByQuery = new GetCampsiteLocationIdByQuery { Id = id };
+            return Ok(await _mediator.Send(getCampsiteLocationIdByQuery));
+        }
 
 
 

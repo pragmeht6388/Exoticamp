@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Campsite\Query\GetCampsiteByLocationId\" />
     <Folder Include="Features\Users\Commands\AddUser\" />
     <Folder Include="Features\Users\Commands\UpdateUser\" />
     <Folder Include="Features\Vendors\Commands\" />

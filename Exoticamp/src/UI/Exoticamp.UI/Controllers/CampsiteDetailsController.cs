@@ -27,7 +27,8 @@ namespace Exoticamp.UI.Controllers
             _activitiesRepository = activitiesRepository;
             _locationRepository=locationRepository;
         }
-
+        [VendorAuthFilter]
+        [NoCache]
         public async Task<IActionResult> ShowCampsite()
         {
             var campsiteDetail = await _campsiteRepository.GetAllCampsites();
@@ -37,6 +38,8 @@ namespace Exoticamp.UI.Controllers
             }
             return View(campsiteDetail);
         }
+        [VendorAuthFilter]
+        [NoCache]
         public async Task<IActionResult> Details(string id)
         {
             var campsiteDetail = await _campsiteRepository.GetCampsiteById(id);
@@ -50,7 +53,8 @@ namespace Exoticamp.UI.Controllers
         }
 
 
-
+        [VendorAuthFilter]
+        [NoCache]
         [HttpGet]
         public async Task<IActionResult> AddCampsiteDetails()
         {
@@ -68,6 +72,8 @@ namespace Exoticamp.UI.Controllers
 
             return View();
         }
+        [VendorAuthFilter]
+        [NoCache]
         public async Task<IActionResult> AddCampsiteDetails(CampsiteDetailsVM campsite)
         {
             var fileName = Path.GetFileName(campsite.ImageFile.FileName);
@@ -98,7 +104,8 @@ namespace Exoticamp.UI.Controllers
             return RedirectToAction("AddCampsiteDetails");
 
         }
-
+        [VendorAuthFilter]
+        [NoCache]
         [HttpGet]
         public async Task<IActionResult> EditCampsite(string id)
         {
@@ -129,7 +136,8 @@ namespace Exoticamp.UI.Controllers
 
             return View(eventObj.Data);
         }
-
+        [VendorAuthFilter]
+        [NoCache]
         public async Task<IActionResult> EditCampsite(CampsiteDetailsVM model)
         {
             var categoryList = await _categoryRepository.GetAllCategory();
@@ -165,7 +173,8 @@ namespace Exoticamp.UI.Controllers
             TempData["ErrorMessage"] = "Unable to update campsite.";
             return RedirectToAction("ShowCampsite");
         }
-
+        [VendorAuthFilter]
+        [NoCache]
         public async Task<IActionResult> DeleteCampsite(string id)
         {
             var deleteResponse = await _campsiteRepository.DeleteCampsite(id);

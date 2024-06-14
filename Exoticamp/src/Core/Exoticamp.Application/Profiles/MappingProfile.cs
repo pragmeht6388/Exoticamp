@@ -42,6 +42,7 @@ using Exoticamp.Application.Features.Users.Commands.UpdateUser;
 using Exoticamp.Application.Features.Locations.Queries;
 using Exoticamp.Application.Features.Locations.Queries.GetLocation;
 
+using CDVM = Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteByLocationId.CampsiteDetailsVM1;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -111,6 +112,7 @@ namespace Exoticamp.Application.Profiles
             CreateMap<CampsiteDetails, Features.CampsiteDetails.Query.GetCampsiteDetails.CampsiteDetailsVM>();
             CreateMap<Location,GetLocationListVM>().ReverseMap();
             CreateMap<Location,LocationVM>().ReverseMap();
+            CreateMap<Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetailsList.CampsiteDetailsVM, CDVM>().ReverseMap();
 
             CreateMap<Activities, AddCampsiteCommand>().ReverseMap();
             CreateMap<Activities,ActivityDto>().ReverseMap();
