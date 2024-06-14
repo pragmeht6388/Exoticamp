@@ -66,8 +66,9 @@
 
         public const string GetAllActivities = "/api/v1/Activities/all";
 
+        public const string GetCampsiteDetailLocationsById = "/api/v1/CampsiteDetails/Campsite/{0}";
 
-       
+
 
         #region -User
         public const string GetUserById = "/api/v1/User/{0}";
