@@ -14,10 +14,12 @@ namespace Exoticamp.UI.Controllers
         private readonly ILocationRepository _locationRepository;
         private readonly IActivitiesRepository _activitiesRepository;
         private readonly IBannerRepository _bannersRepository;
-        private readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
+        private readonly ICampsiteDetailsRepository _campsiteDetailsRepository; 
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
 
-        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository,IBannerRepository bannerRepository, ICampsiteDetailsRepository campsiteDetailsRepository)
+
+        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository,IBannerRepository bannerRepository, ICampsiteDetailsRepository campsiteDetailsRepository, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _eventRepository = eventRepository;
@@ -25,6 +27,7 @@ namespace Exoticamp.UI.Controllers
             _activitiesRepository = activitiesRepository;
             _bannersRepository = bannerRepository;
             _campsiteDetailsRepository = campsiteDetailsRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Index()
@@ -38,13 +41,13 @@ namespace Exoticamp.UI.Controllers
             ViewBag.Preferences = await _activitiesRepository.GetAllActivities();
 
             ViewBag.sortedEvents = events.Where(x => x.StartDate <= DateTime.Now.AddDays(10) && x.StartDate >= DateTime.Now).OrderBy(x => x.StartDate).ToList();
+            
 
-            // Retrieve all banners and filter where IsActive is true
             ViewBag.Banners = (await _bannersRepository.GetAllBanners()).Where(c=>c.IsActive==true).ToList();
            // var activeBanners = ViewBag.Banners.Where(b => ).ToList();
 
             ViewBag.CampsiteDetails = await _campsiteDetailsRepository.GetAllCampsites();
-            ViewBag.Banners = await _bannersRepository.GetAllBanners();
+            
             if(locationId is not null)
                 //ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetAllCampsites()).Where(c => c.ApprovedBy != null && c.Location == locationNameUser.Name).ToList();
                 ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetAllCampsites()).Where(c => c.ApprovedBy != null && c.Location == locationNameUser.Name).ToList();
