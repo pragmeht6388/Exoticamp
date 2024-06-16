@@ -147,7 +147,8 @@ namespace Exoticamp.Identity.Services
                 TermsandCondition = user.TermsandCondition,
                 LocationId = user.LocationId,
                 PreferenceId = user.ActivityId,
-                
+                IsLocked= user.IsLocked,
+                 LoginAttemptCount= user.LoginAttemptCount,
             };
         }
 
