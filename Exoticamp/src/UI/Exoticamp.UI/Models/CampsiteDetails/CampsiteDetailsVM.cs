@@ -15,6 +15,7 @@ namespace Exoticamp.UI.Models.CampsiteDetails
         [JsonProperty("name")]
         [Required(ErrorMessage = "Name is Required")]
         [StringLength(100, ErrorMessage = "Name length can't be more than 100 characters.")]
+        [RegularExpression(@"^[a-zA-Z\s]*$", ErrorMessage = "Name should contain only alphabets and space")]
         public string Name { get; set; }
 
         [JsonProperty("location")]
@@ -36,12 +37,15 @@ namespace Exoticamp.UI.Models.CampsiteDetails
         public string? Images { get; set; }
 
         [JsonProperty("dateTime")]
+        [FutureDate(ErrorMessage = "Please select a future date")]
         public DateTime DateTime { get; set; }
 
         [JsonProperty("highlights")]
         public string Highlights { get; set; }
 
         [JsonProperty("ratings")]
+        [Range(0, 5, ErrorMessage = "Rating should be a number between 0 and 5")]
+
         public string Ratings { get; set; }
 
         [JsonProperty("aboutCampsite")]
@@ -128,5 +132,15 @@ namespace Exoticamp.UI.Models.CampsiteDetails
 
         [JsonProperty("activities")]
         public List<ActivitiesVM> Activities { get; set; }
+
+
+        public class FutureDateAttribute : ValidationAttribute
+        {
+            public override bool IsValid(object value)
+            {
+                DateTime dateTime = Convert.ToDateTime(value);
+                return dateTime >= DateTime.Now;
+            }
+        }
     }
 }

@@ -247,6 +247,36 @@
                 toastr.error(errorMessage);
             }
         });
+
+        $(document).ready(function () {
+            // Name validation (only alphabets and space allowed)
+            $('#Name').on('input', function () {
+                var regex = /^[a-zA-Z\s]*$/;
+                if (!regex.test($(this).val())) {
+                    toastr.error('Name should contain only alphabets and space');
+                    $(this).val('');
+                }
+            });
+
+            // Date validation (do not allow selecting previous dates)
+            $('#DateTime').on('change', function () {
+                var selectedDate = new Date($(this).val());
+                var currentDate = new Date();
+                if (selectedDate < currentDate) {
+                    toastr.error('Please select a future date');
+                    $(this).val('');
+                }
+            });
+
+            // Ratings validation (only numbers allowed, maximum 5)
+            $('#Ratings').on('input', function () {
+                var rating = parseInt($(this).val());
+                if (isNaN(rating) || rating < 0 || rating > 5) {
+                    toastr.error('Rating should be a number between 0 and 5');
+                    $(this).val('');
+                }
+            });
+        });
     </script>
         
 

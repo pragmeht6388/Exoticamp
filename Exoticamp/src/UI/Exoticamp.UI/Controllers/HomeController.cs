@@ -50,7 +50,9 @@ namespace Exoticamp.UI.Controllers
             
             if(locationId is not null)
                 //ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetAllCampsites()).Where(c => c.ApprovedBy != null && c.Location == locationNameUser.Name).ToList();
-                ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetAllCampsites()).Where(c => c.ApprovedBy != null && c.Location == locationNameUser.Name).ToList();
+                //ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetCampsiteLocationId(locationId)).Where(c => c.ApprovedBy != null && c.Location == locationNameUser.Name).ToList();
+                 ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetCampsiteLocationId(locationId)).ToList();
+
 
             else
                 ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetAllCampsites()).Where(c => c.ApprovedBy != null).ToList();

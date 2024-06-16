@@ -9,10 +9,15 @@
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
+    max-height:300px;
     scroll-behavior: smooth;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+    min-width: calc(100% - 40px); /* Set a minimum width relative to the container width */
+    /* 40px is the total margin space (20px right margin + 20px left margin) of .campsite-item */
 }
+
+
 
     .campsite-container::-webkit-scrollbar {
         display: none; /* Chrome, Safari, Opera */
@@ -22,10 +27,11 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     overflow: hidden;
-    min-width: 300px;
+    min-width: 250px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
     margin-right: 20px;
+    max-height:330px;
 }
 
     .campsite-item:hover {
@@ -34,7 +40,7 @@
 
 .campsite-image img {
     width: 100%;
-    height: 200px;
+    height: 100px;
     display: block;
 }
 
