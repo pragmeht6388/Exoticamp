@@ -29,6 +29,8 @@ namespace Exoticamp.UI.Models.ResponseModels.Users
         [JsonProperty("statusCode")]
         public string StatusCode { get; set; }
 
+        public string  LocationId { get; set; }
+
         [JsonProperty("data")]
         public  LoginVM Data { get; set; }
         [JsonProperty("succeeded")]

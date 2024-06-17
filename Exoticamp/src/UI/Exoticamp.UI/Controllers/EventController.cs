@@ -56,6 +56,44 @@ namespace Exoticamp.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> AddEvent(EventVM model)
         {
+            var eventObj = new EventVM {
+            
+            Name = model.Name,
+            Price = model.Price,
+            Capacity = model.Capacity,
+            StartDate = model.StartDate,
+            EndDate = model.EndDate,
+            Description = model.Description,
+            ImageUrl = model.ImageUrl,
+            Highlights = model.Highlights,
+            EventRules = model.EventRules,
+            CampsiteId = model.CampsiteId,
+            ActivityId = model.ActivityId,
+            LocationId = model.LocationId,
+            Status = model.Status,
+            IsDeleted = model.IsDeleted,
+            //Campsite = campsite!.Data,
+            EventLocationDto = new EventLocationDto
+            {
+                //Id = model.EventLocationDto.Id,
+                LocationId = Guid.Parse(model.LocationId.ToString()),
+                //LocationDetails = new LocationDetails
+                //{
+                //    Name = model.EventLocationDto.LocationDetails.Name
+                //}
+            },
+            EventActivityDto = new EventActivityDto
+            {
+                //Id = model.EventActivityDto.Id,
+                ActivityId = Guid.Parse(model.ActivityId.ToString()),
+                //ActivityDetails = new ActivityDetails
+                //{
+                //    Name = model.EventActivityDto.ActivityDetails.Name
+                //}
+            }
+        };
+
+
             if (ModelState.IsValid)
             {
 
@@ -89,11 +127,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             var eventObj = await _eventRepository.GetEventById(id);
-            var campsite = await _campsiteRepository.GetCampsiteById(eventObj.Data.CampsiteId.ToString());
-
-            if (campsite.Data == null)
-                ModelState.AddModelError("", "Campsite not found");
-            eventObj.Data.Campsite = campsite.Data;
+        
             EventVM model = new EventVM()
             {
                 EventId = eventObj.Data.EventId,
@@ -111,7 +145,7 @@ namespace Exoticamp.UI.Controllers
                 LocationId = eventObj.Data.LocationId,
                 Status = eventObj.Data.Status,
                 IsDeleted = eventObj.Data.IsDeleted,
-                Campsite = campsite!.Data,
+              
                 EventLocationDto = new EventLocationDto
                 {
                     Id = eventObj.Data.EventLocationDto.Id,
@@ -146,13 +180,9 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> Edit(EventVM model)
         {
             var eventObj = await _eventRepository.GetEventById(model.EventId);
-            var campsite = await _campsiteRepository.GetCampsiteById(model.CampsiteId.ToString());
+           
 
-            if (campsite.Data == null)
-                ModelState.AddModelError("", "Campsite not found");
-            model.Campsite = campsite.Data;
-            //EventVM modelObj = new EventVM()
-            //{
+         
             eventObj.Data.EventId = model.EventId;
             eventObj.Data.Name = model.Name;
              eventObj.Data.Price = model.Price;
@@ -168,7 +198,7 @@ namespace Exoticamp.UI.Controllers
                 eventObj.Data.LocationId = model.LocationId;
                 eventObj.Data.Status = model.Status;
                 eventObj.Data.IsDeleted = model.IsDeleted;
-                eventObj.Data.Campsite = campsite!.Data;
+               
                 eventObj.Data.EventLocationDto = new EventLocationDto
                 {
                     Id = model.EventLocationDto.Id,
@@ -237,29 +267,28 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> Details(string id)
         {
             var eventObj = await _eventRepository.GetEventById(id);
-            var campsite = await _campsiteRepository.GetCampsiteById(eventObj.Data.CampsiteId.ToString());
-
-            if (campsite.Data == null)
-                ModelState.AddModelError("", "Campsite not found");
-            eventObj.Data.Campsite = campsite.Data;
+            var campsite=await _campsiteRepository.GetCampsiteById(eventObj.Data.CampsiteId.ToString());
+            if (campsite == null)
+                ModelState.AddModelError("", "Campsite Not found");
             EventVM model = new EventVM()
             {
-                EventId=eventObj.Data.EventId,
-                Name=eventObj.Data.Name,
-                Price=eventObj.Data.Price,
-                Capacity=eventObj.Data.Capacity,
-                StartDate=eventObj.Data.StartDate,
-                EndDate=eventObj.Data.EndDate,
-                Description=eventObj.Data.Description,
-                ImageUrl=eventObj.Data.ImageUrl,
-                Highlights=eventObj.Data.Highlights,
-                EventRules= eventObj.Data.EventRules,
-                CampsiteId= eventObj.Data.CampsiteId,
-                ActivityId= eventObj.Data.ActivityId,
-                LocationId= eventObj.Data.LocationId,
+                EventId = eventObj.Data.EventId,
+                Name = eventObj.Data.Name,
+                Price = eventObj.Data.Price,
+                Capacity = eventObj.Data.Capacity,
+                StartDate = eventObj.Data.StartDate,
+                EndDate = eventObj.Data.EndDate,
+                Description = eventObj.Data.Description,
+                ImageUrl = eventObj.Data.ImageUrl,
+                Highlights = eventObj.Data.Highlights,
+                EventRules = eventObj.Data.EventRules,
+                CampsiteId = eventObj.Data.CampsiteId,
+                ActivityId = eventObj.Data.ActivityId,
+                LocationId = eventObj.Data.LocationId,
+                Campsite = campsite.Data,
                 Status= eventObj.Data.Status,
                 IsDeleted= eventObj.Data.IsDeleted,
-                 Campsite=campsite!.Data,
+             
                 EventLocationDto = new EventLocationDto
                 {
                     Id = eventObj.Data.EventLocationDto.Id,
@@ -278,6 +307,52 @@ namespace Exoticamp.UI.Controllers
             
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> DetailsUser(string id)
+        {
+            var eventObj = await _eventRepository.GetEventById(id);
+            var campsite = await _campsiteRepository.GetCampsiteById(eventObj.Data.CampsiteId.ToString());
+            if (campsite == null)
+                ModelState.AddModelError("", "Campsite Not found");
+            EventVM model = new EventVM()
+            {
+                EventId = eventObj.Data.EventId,
+                Name = eventObj.Data.Name,
+                Price = eventObj.Data.Price,
+                Capacity = eventObj.Data.Capacity,
+                StartDate = eventObj.Data.StartDate,
+                EndDate = eventObj.Data.EndDate,
+                Description = eventObj.Data.Description,
+                ImageUrl = eventObj.Data.ImageUrl,
+                Highlights = eventObj.Data.Highlights,
+                EventRules = eventObj.Data.EventRules,
+                CampsiteId = eventObj.Data.CampsiteId,
+                ActivityId = eventObj.Data.ActivityId,
+                LocationId = eventObj.Data.LocationId,
+                Campsite = campsite.Data,
+                Status = eventObj.Data.Status,
+                IsDeleted = eventObj.Data.IsDeleted,
+
+                EventLocationDto = new EventLocationDto
+                {
+                    Id = eventObj.Data.EventLocationDto.Id,
+                    LocationId = eventObj.Data.EventLocationDto.LocationId,
+                    LocationDetails = eventObj.Data.EventLocationDto.LocationDetails
+                },
+                EventActivityDto = new EventActivityDto
+                {
+                    Id = eventObj.Data.EventActivityDto.Id,
+                    ActivityId = eventObj.Data.EventActivityDto.ActivityId,
+                    ActivityDetails = eventObj.Data.EventActivityDto.ActivityDetails
+                }
+
+
+            };
+
+            return View(model);
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Delete(string id)

@@ -1,10 +1,17 @@
-﻿@model Exoticamp.UI.Models.Events.EventVM
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Exoticamp.UI.Models.Events.EventVM
 
 @{
     ViewData["Title"] = "Details";
-    Layout = "_AdminLayout";
+    Layout = "_LayoutLandingPage";
 }
-
+<div class="col-md-8 text-left" style="margin-top:20px">
+    <button id="backButton" class="btn btn-secondary">Back</button>
+</div>
 <h1 class="text-center">Event</h1>
 
 <div class="container">
@@ -26,13 +33,13 @@
 
                         <dt class="col-sm-4">Activities</dt>
                         <dd class="col-sm-8">
-                          @*   @foreach (var activity in Model.ActivitiesVMs)
+                            @*   @foreach (var activity in Model.ActivitiesVMs)
                             {
-                                <span>@activity.Text</span>
+                            <span>@activity.Text</span>
 
-                                <br />
+                            <br />
                             } *@
-                          @Html.DisplayFor(model => model.EventActivityDto.ActivityDetails.Name)
+                            @Html.DisplayFor(model => model.EventActivityDto.ActivityDetails.Name)
 
                         </dd>
 
@@ -84,11 +91,9 @@
         </div>
     </div>
     <div class="row justify-content-center mt-4">
-        <div class="col-md-8 text-center">
-            @Html.ActionLink("Edit", "Edit", new { id = Model?.EventId }, new { @class = "btn btn-primary mr-2" })
-            @Html.ActionLink("Delete", "Delete", new { id = Model?.EventId }, new { @class = "btn btn-danger mr-2" })
-            <button id="backButton" class="btn btn-secondary">Back</button>
-        </div>
+       
+        <button class="btn btn-primary mr-2">Book Now</button>
+
     </div>
 </div>
 

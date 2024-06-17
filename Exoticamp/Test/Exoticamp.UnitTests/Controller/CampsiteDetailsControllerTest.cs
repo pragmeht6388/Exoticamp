@@ -28,7 +28,7 @@ namespace Exoticamp.Tests
         {
             _mediatorMock = new Mock<IMediator>();
             _loggerMock = new Mock<ILogger<CampsiteDetailsController>>();
-            _controller = new CampsiteDetailsController(_mediatorMock.Object, _loggerMock.Object);
+           // _controller = new CampsiteDetailsController(_mediatorMock.Object, _loggerMock.Object);
         }
 
         [Fact]

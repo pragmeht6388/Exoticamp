@@ -1,0 +1,69 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@using Exoticamp.Domain.Entities
+@using Exoticamp.UI.Models.Events
+@model dynamic
+
+<div class="abc-container">
+    <!-- Campsites Section -->
+    @if (ViewBag.Campsites != null && ViewBag.Campsites.Count > 0)
+    {
+        <h2>Campsites</h2>
+        @foreach (var item in (IEnumerable<CampsiteDetails>)ViewBag.Campsites)
+        {
+            <div class="abc-content">
+                <img src="@item.Images" alt="@item.Name" class="img-thumbnail img-dimensions">
+                <h5 class="mt-3">@item.Name</h5>
+                <button class="btn btn-info mt-2 view-button" data-id="@item.Id">View</button>
+            </div>
+        }
+        <div class="view-all-content">
+            <div class="view-all-circle">
+                <a href="#" class="view-all-link">View All</a>
+            </div>
+        </div>
+    }
+
+    <!-- Activities Section -->
+    @if (ViewBag.Activities != null && ViewBag.Activities.Count > 0)
+    {
+        <h2>Activities</h2>
+        @foreach (var item in (IEnumerable<Activities>)ViewBag.Activities)
+        {
+            <div class="abc-content">
+                <img src="https://via.placeholder.com/150" alt="@item.Name" class="img-thumbnail img-dimensions">
+                <h5 class="mt-3">@item.Name</h5>
+                <button class="btn btn-info mt-2 view-button" data-id="@item.Id">View</button>
+            </div>
+        }
+        <div class="view-all-content">
+            <div class="view-all-circle">
+                <a href="#" class="view-all-link">View All</a>
+            </div>
+        </div>
+    }
+
+    <!-- Events Section -->
+    @if (ViewBag.Events != null && ViewBag.Events.Count > 0)
+    {
+        <h2>Events</h2>
+        @foreach (var item in (IEnumerable<EventVM>)ViewBag.Events)
+        {
+            <div class="abc-content">
+                <img src="@item.ImageUrl" alt="@item.Name" class="img-thumbnail img-dimensions">
+                <h5 class="mt-3">@item.Name</h5>
+                <a class="btn btn-info mt-2" asp-action="DetailsUser" asp-controller="Event" asp-route-id="@item.EventId">View</a>
+            </div>
+        }
+        <div class="view-all-content">
+            <div class="view-all-circle">
+                <a asp-action="GetAllEventsUser" asp-controller="Event" class="view-all-link"><u>View All</u></a>
+            </div>
+        </div>
+    }
+
+</div>

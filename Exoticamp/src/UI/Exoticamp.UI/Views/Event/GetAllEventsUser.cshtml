@@ -12,42 +12,32 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
 
 <style>
-    .scroll-container {
-        position: relative;
-        overflow: hidden;
-        width: 144%;
-    }
-
     .event-container {
         display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        scroll-behavior: smooth;
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding-left: 10px; /* 10px padding for each side to create 20px total */
+        padding-right: 10px;
+        margin-bottom: 20px;
     }
 
-        .event-container::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-        }
-
     .event-item {
+        flex: 0 0 calc(33.33% - 20px); /* Three items per row with 20px margin */
         border: 1px solid #ddd;
         border-radius: 5px;
         overflow: hidden;
-        min-width: 300px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         transition: transform 0.2s;
-        margin-right: 20px;
+        margin: 20px 10px 10px 10px; /* Top: 20px, Right: 10px, Bottom: 10px, Left: 10px */
     }
 
-        .evet-item:hover {
+        .event-item:hover {
             transform: scale(1.02);
         }
 
     .event-image img {
         width: 100%;
-        height: 200px;
+        height: 220px; /* Increased by 20px from 200px */
         display: block;
     }
 
@@ -55,9 +45,6 @@
         padding: 15px;
     }
 
-    .abc-content:nth-child(6n+1) {
-        clear: left; /* This will move the 7th, 13th, 19th, etc., items to the next line */
-    }
     .event-name {
         font-size: 1.2em;
         font-weight: bold;
@@ -67,17 +54,6 @@
     .event-highlights {
         font-size: 1em;
         margin-bottom: 10px;
-    }
-
-    .event-category-activity {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-    }
-
-    .event-category, .campsite-activity {
-        font-size: 0.9em;
-        color: #555;
     }
 
     .event-details {
@@ -90,81 +66,37 @@
         border-radius: 3px;
     }
 
-    .btn-primary {
-        background-color: #007bff;
-        color: white;
-        border: none;
-    }
-
     .btn-info {
         background-color: #17a2b8;
         color: white;
         border: none;
     }
 
-    .btn:hover {
-        opacity: 0.8;
-    }
+        .btn-info:hover {
+            opacity: 0.8;
+        }
 </style>
-
+<div class="col-md-8 text-left" style="margin-top:20px;margin-left:20px">
+     <button id="backButton" class="btn btn-secondary">Back</button>
+</div>
 <h1 class="text-center">Events</h1>
 
-<!-- Card Slider Container -->
-@* <div class="card-slider">
+<div class="event-container">
     @foreach (var item in Model)
     {
-        <div class="event-card">
-            <div class="card">
-                <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name">
-                <div class="card-body">
-                    <h5 class="card-title">@item.Name</h5>
-                    <p class="card-text"><strong>Price:</strong> @item.Price</p>
-                    <p class="card-text"><strong>Capacity:</strong> @item.Capacity</p>
-                    <p class="card-text"><strong>Start Date:</strong> @item.StartDate.ToShortDateString()</p>
-                    <p class="card-text"><strong>End Date:</strong> @item.EndDate.ToShortDateString()</p>
-                    <p class="card-text">@item.Description</p>
-                    <div class="action-links">
-                        <a href="@Url.Action("Details", new { id = item.EventId })" class="view-link btn btn-primary">
-                            <i class="fas fa-eye"></i> View
-                        </a>
-                        <a href="@Url.Action("Edit", new { id = item.EventId })" class="edit-link btn btn-success">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                        <a href="@Url.Action("Delete", new { id = item.EventId })" class="delete-link btn btn-danger" onclick="return confirmDelete();">
-                            <i class="fas fa-trash-alt"></i> Delete
-                        </a>
-                    </div>
-                </div>
+        <div class="event-item">
+            <div class="event-image">
+                <img src="@item.ImageUrl" alt="event Image" />
             </div>
-        </div>
-    }
-</div>
- *@
-<div class="event-container" id="campsiteContainer">
-    <div class="event-content">
-    @foreach (var item in Model)
-    {
-            <div class="event-item">
-                <div class="event-image">
-                    <img src="@item.ImageUrl" alt="event Image" />
-            </div>
-                <div class="event-info">
-                    <div class="event-name">
+            <div class="event-info">
+                <div class="event-name">
                     @Html.DisplayFor(modelItem => item.Name)
                 </div>
-                    <div class="event-highlights">
+                <div class="event-highlights">
                     @Html.DisplayFor(modelItem => item.Description)
                 </div>
-             @*    <div class="campsite-category-activity">
-                    <div class="campsite-category">
-                        @Html.DisplayFor(modelItem => item.CategoryName)
-                    </div>
-                    <div class="campsite-activity">
-                        @Html.DisplayFor(modelItem => item.ActivityName)
-                    </div>
-                </div> *@
-                    <div class="event-details">
-                    @Html.ActionLink("View", "DetailsUser", "CampsiteDetails", new { id = item.EventId }, new { @class = "btn btn-info" })
+                <div class="event-details">
+                    @Html.ActionLink("View", "DetailsUser", "Event", new { id = item.EventId }, new { @class = "btn btn-info" })
                 </div>
             </div>
         </div>
@@ -187,6 +119,11 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        document.getElementById('backButton').addEventListener('click', function () {
+            window.history.back();
+        });
+    </script>
     <script>
         $(document).ready(function () {
             $(".card-slider").slick({

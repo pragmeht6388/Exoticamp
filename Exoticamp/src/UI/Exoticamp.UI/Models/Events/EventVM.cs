@@ -91,12 +91,12 @@ namespace Exoticamp.UI.Models.Events
         public SelectList? Locations { get; set; }
         public SelectList? Campsites { get; set; }
 
-        public EventLocationDto EventLocationDto { get; set; }
-        public EventActivityDto EventActivityDto { get; set; }
+        public EventLocationDto? EventLocationDto { get; set; }
+        public EventActivityDto? EventActivityDto { get; set; }
     }
     public class EventLocationDto
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public Guid LocationId { get; set; }
         public LocationDetails LocationDetails { get; set; }
 
@@ -110,7 +110,7 @@ namespace Exoticamp.UI.Models.Events
     }
     public class EventActivityDto
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public Guid ActivityId { get; set; }
         public ActivityDetails ActivityDetails { get; set; }
 

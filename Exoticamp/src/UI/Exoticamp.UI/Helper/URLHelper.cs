@@ -38,7 +38,9 @@
         public const string GetChatbotResponses = "/api/v1/Chatbot/all?id={0}";
 
 
-
+        #region Search
+        public const string SearchContent = "/api/v1/Search?text={text}";
+        #endregion
 
 
 
