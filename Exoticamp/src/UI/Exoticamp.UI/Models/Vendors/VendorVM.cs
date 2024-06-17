@@ -28,5 +28,8 @@ namespace Exoticamp.UI.Models.Vendors
         public string AltAddress { get; set; }
         public string LocationId { get; set; }
         public string Location { get; set; }
+
+        public bool IsLocked { get; set; }
+        public int LoginAttemptCount { get; set; }
     }
 }
