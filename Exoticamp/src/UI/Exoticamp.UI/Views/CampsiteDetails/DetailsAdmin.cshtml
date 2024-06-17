@@ -1,112 +1,8 @@
-﻿@* @model Exoticamp.UI.Models.CampsiteDetails.CampsiteDetailsVM
-
-@{
-    ViewData["Title"] = "Campsite Details";
-    Layout = "~/Views/Shared/_LayoutLandingPage.cshtml";
-}
-
-<h1 style="text-align:center">Campsite Details</h1>
-<p>
-    <a asp-action="ShowCampsite" class="btn btn-primary">Back to List</a>
-</p>
-<div class="campsite-details">
-    <div class="campsite-header">
-        <h2>@Model.Name</h2>
-        <p><strong>Location:</strong> @Model.Location</p>
-        <p><strong>Status:</strong> @(Model.Status ? "Active" : "Inactive")</p>
-        <p><strong>Tent Type:</strong> @Model.TentType</p>
-        <img src="@Model.Images" alt="Campsite Image" style="width:300px;height:300px;" />
-        <p><strong>Date:</strong> @Model.DateTime</p>
-    </div>
-
-    <div class="campsite-info">
-        <p><strong>Highlights:</strong> @Model.Highlights</p>
-        <p><strong>Ratings:</strong> @Model.Ratings</p>
-        <p><strong>About Campsite:</strong> @Model.AboutCampsite</p>
-        <p><strong>Campsite Rules:</strong> @Model.CampsiteRules</p>
-        <p><strong>Best Time to Visit:</strong> @Model.BestTimeToVisit</p>
-        <p><strong>How to Get Here:</strong> @Model.HowToGetHere</p>
-        <p><strong>Quick Summary:</strong> @Model.QuickSummary</p>
-        <p><strong>Meal Plans:</strong> @Model.MealPlans</p>
-        <p><strong>Itinerary:</strong> @Model.Itinerary</p>
-        <p><strong>Inclusions:</strong> @Model.Inclusions</p>
-        <p><strong>Exclusion:</strong> @Model.Exclusion</p>
-        <p><strong>Amenities:</strong> @Model.Amenities</p>
-        <p><strong>Accommodation:</strong> @Model.Accommodation</p>
-        <p><strong>Safety:</strong> @Model.Safety</p>
-        <p><strong>Distance With Map:</strong> @Model.DistanceWithMap</p>
-        <p><strong>Why Exoticamp:</strong> @Model.WhyExoticamp</p>
-        <p><strong>FAQs:</strong> @Model.FAQs</p>
-        <p><strong>House Rules:</strong> @Model.HouseRules</p>
-        <p><strong>Cancellation Policy:</strong> @Model.CancellationPolicy</p>
-    </div>
-</div>
-
-
-
-<style>
-    .campsite-details {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .campsite-header, .campsite-info {
-        margin-bottom: 20px;
-    }
-
-        .campsite-header h2 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .campsite-header p {
-            margin: 5px 0;
-            font-size: 1.1em;
-        }
-
-    .campsite-image {
-        width: 100%;
-        height: auto;
-        margin: 20px 0;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .campsite-info p {
-        margin: 10px 0;
-        font-size: 1em;
-    }
-
-    .btn {
-        margin-left: 900px;
-        padding: 10px 20px;
-        text-decoration: none;
-        border-radius: 5px;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        color: white;
-        border: none;
-    }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-</style>
- *@
-
-@* //////////////////////////////////////////////////////////////////////////// *@
-
-    @model Exoticamp.UI.Models.CampsiteDetails.CampsiteDetailsVM
+﻿ @model Exoticamp.UI.Models.CampsiteDetails.CampsiteDetailsVM
      @using Exoticamp.UI.Models.CampsiteDetails
 @{
     ViewData["Title"] = "Campsite Details";
-    Layout = "~/Views/Shared/_LayoutLandingPage.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     IEnumerable<CampsiteDetailsVM> allCampsites = ViewBag.CampsiteCorousel;
 }
 <head>
@@ -116,10 +12,8 @@
 </head>
 <h1 style="text-align:center;color:black">Campsite Details</h1>
 <p>
-    <div class="text-left">
-        <button id="backButton" class="btn btn-secondary">Back</button>
-    </div>
-    <a asp-action="ShowCampsite" style="margin-left:1100px;background-color:limegreen;position:fixed;margin-top:-40px" class="btn btn-primary" id="bookButton">Book Now</a>
+    <a asp-action="ShowCampsiteAdmin" class="btn btn-primary">Back to List</a>
+    @* <a asp-action="ShowCampsite" style="margin-left:820px;background-color:limegreen;position:fixed" class="btn btn-primary">Book Now</a> *@
 </p>
 
 <div class="campsite-details">
@@ -337,29 +231,23 @@
 </div>
 <br />
 <br />
-@* <h1 style="text-align:center">View Similar Campsites</h1> *@
+@* <h1>View Similar Campsites</h1>
 <br />
-<br />
+<br /> *@
 @* <div id="campsite-corousel" style="border: 1px solid black; padding: 20px;">
     @{
-        await Html.RenderPartialAsync("_ShowCampsiteEndUser", allCampsites);
+        await Html.RenderPartialAsync("_PartialCampsiteCorousel", allCampsites);
     }
 </div> *@
 
 
 <style>
     body {
-        color: brown; /* Change text color to brown */
+        color: brown;
+        /* Change text color to brown */
+        text-align: left;
     }
 
-    #backButton{
-        margin-left:6px;
-        margin-top:-10px;
-    }
-
-    /* #bookButton{
-        margin-right:0px;
-    } */
     .container {
         display: grid;
         grid-template-columns: 70% 25%; /* Set the columns width */
@@ -496,8 +384,3 @@
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css" />
-<script>
-                         document.getElementById('backButton').addEventListener('click', function () {
-                             window.history.back();
-                         });
-</script>

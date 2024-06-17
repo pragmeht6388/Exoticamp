@@ -40,6 +40,8 @@ builder.Services.AddScoped<ICampsiteDetailsRepository, CampsiteDetailsRepository
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IActivitiesRepository, ActivitiesRepository>();
 builder.Services.AddScoped<ILocationRepository, LocationRepository>();
+builder.Services.AddScoped<IReviewsRepository, ReviewRepository>();
+builder.Services.AddScoped<IReviewReplyRepository,ReviewReplyRepositories>();
 builder.Services.AddScoped<IVendorRepository, VendorsRepository>();
 
 var app = builder.Build();
