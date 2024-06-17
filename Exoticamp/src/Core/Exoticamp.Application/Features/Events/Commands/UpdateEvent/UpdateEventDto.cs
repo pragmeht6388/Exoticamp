@@ -35,6 +35,7 @@ namespace Exoticamp.Application.Features.Events.Commands.UpdateEvent
         public Guid LocationId { get; set; }
         public bool Status { get; set; }
         public bool IsDeleted { get; set; }
+       
         public EventLocationDTO EventLocationDTO { get; set; }
         public EventActivityDTO EventActivityDTO { get; set; }
     }
