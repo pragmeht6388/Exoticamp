@@ -1,5 +1,9 @@
-﻿using Exoticamp.Application.Responses;
+﻿using AutoMapper;
+using Exoticamp.Application.Contracts;
+using Exoticamp.Application.Contracts.Persistence;
+using Exoticamp.Application.Responses;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;

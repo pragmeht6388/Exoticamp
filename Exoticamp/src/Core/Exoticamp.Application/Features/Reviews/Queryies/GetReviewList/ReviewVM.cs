@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Exoticamp.Application.Features.Reviews.Commands.AddReviews
+namespace Exoticamp.Application.Features.Reviews.Queryies.GetReviewList
 {
-    public class ReviewDto
+    public class ReviewVM
     {
+
         [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -20,7 +21,8 @@ namespace Exoticamp.Application.Features.Reviews.Commands.AddReviews
 
         public Guid BookingId { get; set; }
         public Guid UserId { get; set; }
+        public string CampsiteName {  get; set; }
+        public virtual Booking Booking { get; set; }
 
-        //public virtual Booking Booking { get; set; }
     }
 }

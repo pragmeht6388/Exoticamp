@@ -1,0 +1,127 @@
+﻿@model Exoticamp.UI.Models.Reviews.ReviewsVM
+
+@{
+    ViewData["Title"] = "AddReview";
+    Layout = "~/Views/Shared/_LayoutLandingPage.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <style>
+        .container {
+            margin-top: 50px; /* Adjust top margin as needed */
+        }
+
+        .btn-secondary {
+            float: left; /* Align the button to the left */
+            margin-top: -359px; /* Adjust as needed */
+        }
+
+        .btn-primary {
+            display: block;
+            margin: 0 auto; /* Center the button horizontally */
+        }
+
+        .btn-secondary:hover {
+            background-color: #6c757d; /* Darker shade of secondary color on hover */
+        }
+
+        h4 {
+            text-align: center; /* Align the heading center */
+        }
+    </style>
+</head>
+
+<div class="container">
+    <h4>Add Reviews</h4>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form asp-action="AddReview" method="post" id="reviewForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Name<span class="text-danger">*</span></label>
+                    <input asp-for="Name" class="form-control" id="Name" required />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Ratings" class="control-label">Ratings<span class="text-danger">*</span></label>
+                    <input asp-for="Ratings" class="form-control" id="Ratings" required />
+                    <span asp-validation-for="Ratings" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Description<span class="text-danger">*</span></label>
+                    <input asp-for="Description" class="form-control" required maxlength="100" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BookingId" class="control-label">Booking ID<span class="text-danger">*</span></label>
+                    <input asp-for="BookingId" class="form-control" id="BookingId" required />
+                    <span asp-validation-for="BookingId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#reviewForm').submit(function (event) {
+                var isValid = true;
+
+                // Check if each required field is filled
+                $('form#reviewForm input[required], form#reviewForm select[required]').each(function () {
+                    if ($.trim($(this).val()) === '') {
+                        toastr.error($(this).prev('label').text() + ' is required');
+                        isValid = false;
+                        return false; // Exit each loop early
+                    }
+                });
+
+                if (!isValid) {
+                    event.preventDefault(); // Prevent form submission if validation fails
+                    return;
+                }
+
+                // Additional validations after required fields are filled
+
+                // Name validation (only alphabets and space allowed)
+                $('#Name').on('input', function () {
+                    var regex = /^[a-zA-Z\s]*$/;
+                    if (!regex.test($(this).val())) {
+                        toastr.error('Name should contain only alphabets and space');
+                        $(this).val('');
+                    }
+                });
+
+                // Ratings validation (only numbers allowed, maximum 5)
+                $('#Ratings').on('input', function () {
+                    var rating = parseInt($(this).val());
+                    if (isNaN(rating) || rating < 0 || rating > 5) {
+                        toastr.error('Rating should be a number between 0 and 5');
+                        $(this).val('');
+                    }
+                });
+
+                // Additional validations for other fields can be added similarly
+            });
+        });
+    </script>
+}

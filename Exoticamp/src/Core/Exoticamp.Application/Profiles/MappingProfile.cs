@@ -43,6 +43,9 @@ using Exoticamp.Application.Features.Locations.Queries;
 using Exoticamp.Application.Features.Locations.Queries.GetLocation;
 
 using CDVM = Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteByLocationId.CampsiteDetailsVM1;
+using Exoticamp.Application.Features.Reviews.Commands.AddReviews;
+using Exoticamp.Application.Features.Reviews.Queryies.GetReviewList;
+using Exoticamp.Application.Features.RewiewReply.Command.AddReviewReply;
 using Exoticamp.Application.Features.Vendors.Queries.GetVendor;
 using Exoticamp.Application.Features.Vendors.Commands.UpdateVendor;
 
@@ -134,6 +137,12 @@ namespace Exoticamp.Application.Profiles
 
             CreateMap<GetVendorQueryByIdQuery, GetVendorDto>().ReverseMap();
 
+            CreateMap<Reviews,AddReviewCommand>().ReverseMap();
+            CreateMap<Reviews, ReviewDto>().ReverseMap();
+            CreateMap<Reviews,ReviewVM>().ReverseMap();
+
+            CreateMap<ReviewReply,ReviewReplyDto>().ReverseMap();
+            CreateMap<ReviewReply,AddReviewReplyCommand>().ReverseMap();    
             CreateMap<UpdateVendorCommand, GetVendorDto>();
 
         }
