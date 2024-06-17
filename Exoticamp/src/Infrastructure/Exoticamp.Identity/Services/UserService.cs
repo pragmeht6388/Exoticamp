@@ -183,5 +183,30 @@ namespace Exoticamp.Identity.Services
 
 
         }
+        public async Task<string> UpdateVendor(GetVendorDto model)
+        {
+            var vendor = await _userManager.FindByIdAsync(model.Id);
+
+            if (vendor == null)
+            {
+                // Handle case where vendor is not found
+                throw new Exception("Vendor not found");
+            }
+
+            // Update vendor properties
+            vendor.Name = model.Name;
+            vendor.PhoneNumber = model.PhoneNumber;
+            vendor.Email = model.Email;
+            vendor.Address = model.Address;
+            vendor.AltPhoneNumber = model.AltPhoneNumber;
+            vendor.AltEmail = model.AltEmail;
+            vendor.AltAddress = model.AltAddress;
+            vendor.LocationId = model.LocationId;
+
+            // Save changes
+            await _userManager.UpdateAsync(vendor);
+
+            return vendor.Id;
+        }
     }
 }
