@@ -1,8 +1,15 @@
 ﻿@using System.Collections
+@using Exoticamp.Domain.Entities
 @using Exoticamp.UI.Models.CampsiteDetails
 @using Exoticamp.UI.Models.Events
+@using Exoticamp.UI.Models.Activities
+@using Exoticamp.UI.Models.Search
+
 @using Exoticamp.UI.Models.Location
 @using Exoticamp.UI.Models.Banners
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 
 
 @{
@@ -10,6 +17,12 @@
     Layout = "_LayoutLandingPage";
     IEnumerable<BannerViewModel> Banners = ViewBag.Banners;
     IEnumerable<CampsiteDetailsVM> campsiteDetailsVMs = ViewBag.CampsiteDetails;
+
+
+    IEnumerable<CampsiteDetails> campsiteList = ViewBag.Campsites;
+    IEnumerable<Activities> ActivityList = ViewBag.Activities;
+    IEnumerable<EventVM> eventdetails = ViewBag.Events;
+
 
 }
 
@@ -20,20 +33,108 @@
 
 <!-- Banner -->
 @* <div class="banner bg-secondary text-white text-center p-5"> *@
+   
+    <style>
+    .abc-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left:40px;
+        gap: 60px; /* Adjust the gap between the divs as needed */
+    }
+
+    .abc-content {
+        width: 200px; /* Set the desired width for the container */
+        height: 250px; /* Set the desired height for the container */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .img-thumbnail {
+        padding: .25rem;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: .25rem;
+        width: 150px;
+        height: 150px;
+        object-fit: cover; /* Ensure the image fits within the dimensions */
+    }
+
+    .img-dimensions {
+        width: 150px;
+        height: 150px;
+    }
+
+    .abc-content:nth-child(6n+1) {
+        clear: left; /* This will move the 7th, 13th, 19th, etc., items to the next line */
+    }
+
+    .view-all-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .view-all-circle {
+        width: 100px; /* Set the desired diameter of the circle */
+        height: 100px; /* Set the desired diameter of the circle */
+        /* background-color: #007bff; */
+        border-radius: 50%;
+        border:2px solid black;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .view-all-link {
+        color:black;
+        font-size: 16px;
+        text-decoration: none;
+    }
+
+
+    </style>
 <div id="slides">
     <a href="#">
         <img src="images/u1.jpg" alt="Banners" class="slide" id="slide-show">
         <div class="text-overlay" id="text-overlay">
-            <h1 id="slide-heading"></h1>
-            <p id="slide-message"></p>
+            <h1 id="slide-heading">Camping is where the adventure begins.</h1>
+           @*  <p id="slide-message"></p> *@
         </div>
     </a>
 </div>
 @* </div> *@
 
 <!-- Search Bar -->
-<div class="search-bar container mt-4">
+@* <div class="search-bar container mt-4">
     <input type="text" class="form-control" placeholder="Search for campsites, activities...">
+</div> *@
+@* <div class="search-bar container mt-4">
+    <form asp-action="Search" asp-controller="Search" method="get">
+        <div class="input-group">
+            <input type="text" name="text" class="form-control" placeholder="Search for campsites, activities...">
+            <button type="submit" data-target="#searchContent">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+</div> *@
+<div class="search-bar container mt-4">
+    <form asp-action="Search" asp-controller="Search" method="get" id="searchForm">
+        <div class="input-group">
+            <input type="text" name="text" id="searchInput" class="form-control" placeholder="Search for campsites, activities...">
+            <button type="submit" id="searchButton" class="btn btn-outline-secondary">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
 </div>
 <div class="container mt-3">
     <div class="row justify-content-center menu-button-container" id="row">
@@ -134,17 +235,34 @@
         <div id="locationsContent" class="collapse-content d-none">
             <div class="card card-body">
                 <div class="abc-container">
-                    @if (ViewBag.Locations != null)
-                    {
-                        @foreach (var item in (IEnumerable<LocationVM>)ViewBag.Locations)
+                   @{
+                        @if (ViewBag.Locations != null)
                         {
-                            <div class="abc-content">
-                                <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
-                                <h5 class="mt-3">@item.Name</h5>
-                                <button class="btn btn-info mt-2 view-button" data-id="@item.Id">View</button>
+                            int ct = 0;
+
+                            @foreach (var item in (IEnumerable<LocationVM>)ViewBag.Locations)
+                            {
+                                <div class="abc-content">
+                                    <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
+                                    <h5 class="mt-3">@item.Name</h5>
+                                    <button class="btn btn-info mt-2 view-button" data-id="@item.Id">View</button>
+                                </div>
+
+                                if (ct++ == 6)
+                                {
+                                    break;
+                                }
+
+                                
+                            }
+
+                            <div class=" view-all-content">
+                                <div class="view-all-circle">
+                                    <a href="#" class="view-all-link">View All</a>
+                                </div>
                             </div>
                         }
-                    }
+                   }
                 </div>
             </div>
         </div>
@@ -152,31 +270,83 @@
             <div class="card card-body">
                 Content for Activities
                 <div class="abc-container">
-                    @if (ViewBag.Locations != null)
-                    {
-                        @foreach (var item in (IEnumerable<LocationVM>)ViewBag.Locations)
+                   @{
+                        @if (ViewBag.Preferences != null)
                         {
-                            <div class="abc-content">
-                                <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
-                                <h5 class="mt-3">@item.Name</h5>
-                                <button class="btn btn-info mt-2 view-button" data-id="@item.Id">View</button>
+                            int ct = 0;
+                            @foreach (var item in (IEnumerable<ActivitiesVM>)ViewBag.Preferences)
+                            {
+                                <div class="abc-content">
+                                    <img src="https://via.placeholder.com/150" alt="@item.Name" class="img-thumbnail img-dimensions">
+                                    <h5 class="mt-3">@item.Name</h5>
+                                    <button class="btn btn-info mt-2 view-button" data-id="@item.Id">View</button>
+                                </div>
+                               
+                                if (ct++==6)
+                                {
+                                    break;
+                                }
+                                
+                            }
+                            <div class=" view-all-content">
+                                <div class="view-all-circle">
+                                    <a href="#" class="view-all-link">View All</a>
+                                </div>
                             </div>
                         }
                     }
                 </div>
+
             </div>
         </div>
         <div id="EventsContent" class="collapse-content d-none">
             <div class="card card-body">
                 Content for Events
                 <div class="abc-container">
-                    @foreach (var item in (IEnumerable<EventVM>)ViewBag.Events)
-                    {
-                        <div class="abc-content">
-                            <img src="@item.ImageUrl" alt="@item.Name" class="img-thumbnail img-dimensions">
-                            <h5 class="mt-3">@item.Name</h5>
-                            <a class="btn btn-info mt-2" asp-action="Details" asp-controller="Event" asp-route-id="@item.EventId">View</a>
-                        </div>
+                    @{
+                        if (ViewBag.Events!=null)
+                        {
+                            int ct = 0;
+                            var location = HttpContextAccessor.HttpContext.Session.GetString("LocationId");
+                            @foreach (var item in (IEnumerable<EventVM>)ViewBag.Events)
+                            {
+                                if (location!=null)
+                                {
+                                    if (item.LocationId.ToString() == location.ToString())
+                                    {
+                                        <div class="abc-content">
+                                            <img src="@item.ImageUrl" alt="@item.Name" class="img-thumbnail img-dimensions">
+                                            <h5 class="mt-3">@item.Name</h5>
+                                            <a class="btn btn-info mt-2" asp-action="DetailsUser" asp-controller="Event" asp-route-id="@item.EventId">View</a>
+                                        </div>
+                                        if (ct++ == 6)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                        <div class="abc-content">
+                                            <img src="@item.ImageUrl" alt="@item.Name" class="img-thumbnail img-dimensions">
+                                            <h5 class="mt-3">@item.Name</h5>
+                                            <a class="btn btn-info mt-2" asp-action="DetailsUser" asp-controller="Event" asp-route-id="@item.EventId">View</a>
+                                        </div>
+                                        if (ct++ == 6)
+                                        {
+                                            break;
+                                        }
+                                    
+                                }
+
+                            }
+                            <div class=" view-all-content">
+                                <div class="view-all-circle">
+                                    <a asp-action="GetAllEventsUser" asp-controller="Event" class="view-all-link"><u>View All</u></a>
+                                </div>
+                            </div>
+
+                        }
                     }
                 </div>
             </div>
@@ -277,243 +447,85 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-@* 
-<div class="container mt-5">
-    <h2>Upcoming Camping Events</h2>
-    <div id="eventsCarousel" class="carousel slide" data-interval="false">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row">
-                    
-                    @foreach (var item in (IEnumerable<EventVM>)ViewBag.sortedEvents.Take(3))
-                    {
-                        <div class="col-md-4">
-                            <div class="dummy-content">
-                                <img src="@item.ImageUrl" alt="Events">
-                                <h5>@item.Name</h5>
-                                <p>@item.Description</p>
-                                <a asp-action="Details" asp-controller="Event" asp-route-id="@item.EventId" class="btn btn-primary">View</a>
-                            </div>
-                        </div>
+        @* j***************************************************************************** *@
+
+
+        <!-- search Collapsible Content -->
+
+        <div id="searchContent" class="collapse">
+            <div class="card card-body">
+                <div class="abc-container">
+                    <!-- Campsites Section -->
+                    @{
+                        if (campsiteList != null)
+                        {
+                            await Html.RenderPartialAsync("_SearchView", campsiteList);
+                        }
+                        else if (ActivityList!=null)
+                        {
+                            await Html.RenderPartialAsync("_SearchView", ActivityList);
+                        }
+                        else if (eventdetails != null)
+                        {
+                            await Html.RenderPartialAsync("_SearchView", eventdetails);
+                        }
+                        else
+                        {
+                            await Html.RenderPartialAsync("_SearchView");
+                        }
                     }
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="row">
-                    @foreach (var item in (IEnumerable<EventVM>)ViewBag.sortedEvents.Skip(3).Take(2))
-                    {
-                        <div class="col-md-4">
-                            <div class="dummy-content">
-                                <img src="@item.ImageUrl" alt="Events">
-                                <h5>@item.Name</h5>
-                                <p>@item.Description</p>
-                                <a asp-action="Details" asp-controller="Event" asp-route-id="@item.EventId" class="btn btn-primary">View</a>
-                            </div>
-                        </div>
-                    }
-                    <div class="col-md-4">
-                        <div class="dummy-content">
-                            <img src="path-to-placeholder-image.jpg" alt="View All">
-                            <h5>View All Events</h5>
-                            <a asp-action="List" asp-controller="Event" class="btn btn-primary">View All</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#eventsCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#eventsCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div> *@
-<div class="container mt-5">
-    <h2>Upcoming Camping Events</h2>
-    <div id="eventsCarousel" class="carousel slide" data-interval="false">
-        <div class="carousel-inner">
-            @{
-                var events = ViewBag.sortedEvents as IEnumerable<EventVM>;
-                if (events != null && events.Any())
-                {
-                    var eventList = events.ToList();
-                    int totalItems = eventList.Count;
-                    for (int i = 0; i < totalItems; i += 3)
-                    {
-                        <div class="carousel-item @(i == 0 ? "active" : "")">
-                            <div class="row">
-                                @for (int j = i; j < i + 3 && j < totalItems; j++)
-                                {
-                                    <div class="col-md-4">
-                                        <div class="dummy-content">
-                                            <img src="@eventList[j].ImageUrl" alt="Event Image" style="width:100%; height:200px;">
-                                            <h5>@eventList[j].Name</h5>
-                                            <p>@eventList[j].Description</p>
-                                             <a asp-action="Details" asp-controller="Event" asp-route-id="@eventList[j].EventId" class="btn btn-primary">View</a>
-                                        </div>
+        </div>
+        </div>
+        @* j ***********************************************************************************@
+        <div class="container mt-5">
+            <h2>Upcoming Events</h2>
+            <div id="eventsCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner">
+                    @{
+                        var events = ViewBag.sortedEvents as IEnumerable<EventVM>;
+                        if (events != null && events.Any())
+                        {
+                            var eventList = events.ToList();
+                            int totalItems = eventList.Count;
+                            for (int i = 0; i < totalItems; i += 3)
+                            {
+                                <div class="carousel-item @(i == 0 ? "active" : "")">
+                                    <div class="row">
+                                        @for (int j = i; j < i + 3 && j < totalItems; j++)
+                                        {
+                                            <div class="col-md-4">
+                                                <div class="dummy-content">
+                                                    <img src="@eventList[j].ImageUrl" alt="Event Image" style="width:100%; height:200px;">
+                                                    <h5>@eventList[j].Name</h5>
+                                                    <p>@eventList[j].Description</p>
+                                                    <a asp-action="DetailsUser" asp-controller="Event" asp-route-id="@eventList[j].EventId" class="btn btn-primary">View</a>
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
-                                }
-                            </div>
-                        </div>
+                                </div>
+                            }
+                        }
                     }
-                }
-            }
-        </div>
-        <a class="carousel-control-prev" href="#eventsCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#eventsCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-</div>
-
-
-@*     <h2 class="mt-5">Nearest Camping Sites</h2>
-    <div id="nearestSitesCarousel" class="carousel slide" data-interval="false">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="dummy-content">
-                            <img src="dummy-image.jpg" alt="Dummy Image">
-                            <h5>Site 1</h5>
-                            <p>Description for site 1.</p>
-                            <a href="#" class="btn btn-primary">View</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dummy-content">
-                            <img src="dummy-image.jpg" alt="Dummy Image">
-                            <h5>Site 2</h5>
-                            <p>Description for site 2.</p>
-                            <a href="#" class="btn btn-primary">View</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dummy-content">
-                            <img src="dummy-image.jpg" alt="Dummy Image">
-                            <h5>Site 3</h5>
-                            <p>Description for site 3.</p>
-                            <a href="#" class="btn btn-primary">View</a>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="dummy-content">
-                            <img src="dummy-image.jpg" alt="Dummy Image">
-                            <h5>Site 4</h5>
-                            <p>Description for site 4.</p>
-                            <a href="#" class="btn btn-primary">View</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dummy-content">
-                            <img src="dummy-image.jpg" alt="Dummy Image">
-                            <h5>Site 5</h5>
-                            <p>Description for site 5.</p>
-                            <a href="#" class="btn btn-primary">View</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dummy-content">
-                            <img src="path-to-placeholder-image.jpg" alt="View All">
-                            <h5>View All Sites</h5>
-                            <a href="#" class="btn btn-primary">View All</a>
-                        </div>
-                    </div>
-                </div>
+                <a class="carousel-control-prev" href="#eventsCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#eventsCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#nearestSitesCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#nearestSitesCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
 
-    <h2 class="mt-5">Trending Destinations</h2>
-    <div id="trendingDestinationsCarousel" class="carousel slide" data-interval="false">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="dummy-content">
-                            <img src="dummy-image.jpg" alt="Dummy Image">
-                            <h5>Destination 1</h5>
-                            <p>Description for destination 1.</p>
-                            <a href="#" class="btn btn-primary">View</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dummy-content">
-                            <img src="dummy-image.jpg" alt="Dummy Image">
-                            <h5>Destination 2</h5>
-                            <p>Description for destination 2.</p>
-                            <a href="#" class="btn btn-primary">View</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dummy-content">
-                            <img src="dummy-image.jpg" alt="Dummy Image">
-                            <h5>Destination 3</h5>
-                            <p>Description for destination 3.</p>
-                            <a href="#" class="btn btn-primary">View</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="dummy-content">
-                            <img src="dummy-image.jpg" alt="Dummy Image">
-                            <h5>Destination 4</h5>
-                            <p>Description for destination 4.</p>
-                            <a href="#" class="btn btn-primary">View</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dummy-content">
-                            <img src="dummy-image.jpg" alt="Dummy Image">
-                            <h5>Destination 5</h5>
-                            <p>Description for destination 5.</p>
-                            <a href="#" class="btn btn-primary">View</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dummy-content">
-                            <img src="path-to-placeholder-image.jpg" alt="View All">
-                            <h5>View All Destinations</h5>
-                            <a href="#" class="btn btn-primary">View All</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#trendingDestinationsCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#trendingDestinationsCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-</div> *@
+
+
+
                             <!-- Add other sections similarly -->
 
 
@@ -556,21 +568,27 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }
     <script>
+            $(document).ready(function () {
+                $('#eventsCarousel').carousel();
+            });
+
+
+
         document.addEventListener("DOMContentLoaded", () => {
             const slides = [
-                { src: 'images/u1.jpg', heading: 'Camping is where the adventure begins.', message: 'Message 1' },
-                { src: 'images/u2.png', heading: 'Camping: where the only thing that runs on batteries is your flashlight.', message: 'Message 2' },
-                { src: 'images/u3.png', heading: 'Camp more. Worry less.', message: 'Message 3' }
+                { src: 'images/u1.jpg', heading: 'Camping is where the adventure begins.'/* , message: 'Message 1' */ },
+                { src: 'images/u2.png', heading: 'Camping: where the only thing that runs on batteries is your flashlight.'/* , message: 'Message 2'  */},
+                { src: 'images/u3.png', heading: 'Camp more. Worry less.'/* , message: 'Message 3' */ }
             ];
             let i = 0;
             const slideshowNode = document.getElementById('slide-show');
             const headingNode = document.getElementById('slide-heading');
-            const messageNode = document.getElementById('slide-message');
+            // const messageNode = document.getElementById('slide-message');
 
             setInterval(() => {
                 slideshowNode.src = slides[i].src;
                 headingNode.textContent = slides[i].heading;
-                messageNode.textContent = slides[i].message;
+                // messageNode.textContent = slides[i].message;
                 i = (i + 1) % slides.length;
             }, 2000);
         });
@@ -578,21 +596,7 @@
     <!-- JavaScript -->
 
     <script>
-        // document.addEventListener('DOMContentLoaded', function () {
-        //     debugger
-        //     document.querySelectorAll('.menu-button').forEach(button => {
-        //         button.addEventListener('click', function () {
-        //             const targetId = button.getAttribute('data-target');
-        //             document.querySelectorAll('.collapse-content').forEach(content => {
-        //                 if (content.id === targetId) {
-        //                     content.classList.toggle('d-none');
-        //                 } else {
-        //                     content.classList.add('d-none');
-        //                 }
-        //             });
-        //         });
-        //     });
-        // });
+       
         $(document).ready(function () {
             $('.view-button').click(function () {
                 var locationId = $(this).data('id');
@@ -618,5 +622,41 @@
             });
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $('.menu-button').click(function () {
+                var target = $(this).data('target');
+
+                // Hide all other content sections
+                $('.collapse-content').not(target).removeClass('active').addClass('d-none');
+
+                // Toggle the target content section
+                $(target).toggleClass('d-none active');
+            });
+        });
+    </script>
+
+    @*-----------------------------search bar------------------------------- j *@
+    <script>
+            document.getElementById("searchForm").addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent form submission to allow AJAX handling
+                let form = event.target;
+                let formData = new FormData(form);
+
+                fetch(form.action + '?' + new URLSearchParams(formData), {
+                    method: 'GET',
+                })
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById("searchContent").innerHTML = html;
+                        let collapseElement = document.getElementById("searchContent");
+                        let bsCollapse = new bootstrap.Collapse(collapseElement, {
+                            toggle: false
+                        });
+                        bsCollapse.show();
+                    });
+            });
+    </script>
+
 }
 

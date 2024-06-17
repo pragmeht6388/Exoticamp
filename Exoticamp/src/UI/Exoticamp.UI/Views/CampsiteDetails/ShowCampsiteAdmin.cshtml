@@ -1,0 +1,125 @@
+﻿@model IEnumerable<Exoticamp.UI.Models.CampsiteDetails.CampsiteDetailsVM>
+
+@{
+    ViewData["Title"] = "Show Campsite";
+    //Layout = "~/Views/Shared/_VendorLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" />
+    <!-- Include Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<h1 style="text-align: center;">Show Campsite</h1>
+
+<p style="margin-left: 20px;">
+    <a asp-action="AddCampsiteDetailsAdmin" class="btn btn-primary">Create New</a>
+</p>
+
+<div class="container mt-3">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="campsiteTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Images</th>
+                    <th>Date Time</th>
+                    <th>Is Approved</th>
+                    <th>Activity</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                        <td><img src="@item.Images" alt="Campsite Image" style="max-width:100px;max-height:100px;" /></td>
+                        <td>@Html.DisplayFor(modelItem => item.DateTime)</td>
+                        <td>
+                            @{
+                                if (item.ApprovedBy == null)
+                                {
+                                    <span class="badge bg-warning">Pending</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">Approved</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @foreach (var activity in item.Activities)
+                            {
+                                <span>@activity.Name</span>
+                                <br />
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Campsite Actions">
+                                <a href="@Url.Action("DetailsAdmin", "CampsiteDetails", new { id = item.Id })" class="btn btn-info" title="Details">
+                                    <i class="bi bi-eye-fill"></i>
+                                </a>
+                                <a href="@Url.Action("EditCampsiteAdmin", "CampsiteDetails", new { id = item.Id })" class="btn btn-warning" title="Edit">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                                <form asp-action="ToggleApproval" asp-route-id="@item.Id" method="post" class="ml-2">
+                                    @if (item.ApprovedBy == null)
+                                    {
+                                        <button type="submit" class="btn btn-success" onclick="return confirm('Approve this campsite?');">
+                                            Approve
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Reject this campsite?');">
+                                            Reject
+                                        </button>
+                                    }
+                                </form>
+                                <a href="@Url.Action("DeleteCampsiteAdmin", "CampsiteDetails", new { id = item.Id })" class="btn btn-danger ml-2" title="Delete" onclick="return confirm('Are you sure you want to delete this campsite?');">
+                                    <i class="bi bi-trash-fill"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts {
+    <!-- Include jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Include DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Include Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#campsiteTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'All']],
+                "pageLength": 5,
+            });
+        });
+
+        @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+        {
+                <script>
+                toastr.success("@ViewBag.SuccessMessage");
+        </script>
+        }
+        </script>
+}

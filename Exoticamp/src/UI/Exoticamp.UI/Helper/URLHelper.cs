@@ -38,7 +38,9 @@
         public const string GetChatbotResponses = "/api/v1/Chatbot/all?id={0}";
 
 
-
+        #region Search
+        public const string SearchContent = "/api/v1/Search?text={text}";
+        #endregion
 
 
 
@@ -80,6 +82,11 @@
 
         public const string GetAllLocation = "/api/v1/Location/all";
         #endregion
+
+        public const string AddReviews = "/api/v1/Reviews";
+        public const string GetAllReview = "/api/v1/Reviews/allReview";
+
+        public const string AddReviewReply = "/api/v1/ReviewReply";
         #region Vendor
         public const string GetVendorDetails = "/api/v1/Vendor/{0}";
         #endregion

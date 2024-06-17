@@ -1,4 +1,5 @@
-﻿using Exoticamp.Application.Contracts.Persistence;
+﻿using Exoticamp.Application.Contracts;
+using Exoticamp.Application.Contracts.Persistence;
 using Exoticamp.Application.Features.Campsite.Commands.AddCampsite;
 using Exoticamp.Application.Features.Campsite.Commands.DeleteCampsite;
 using Exoticamp.Application.Features.Campsite.Commands.UpdateCampsite;
@@ -31,15 +32,18 @@ namespace Exoticamp.Api.Controllers.v1
         private readonly ILogger _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILoactionRepository _loactionRepository;
-       // private readonly 
+        // private readonly 
+        private readonly ILoggedInUserService _loggedInUserService;
 
-        public CampsiteDetailsController(IMediator mediator, ILogger<CampsiteDetailsController> logger, UserManager<ApplicationUser> userManager, ILoactionRepository loactionRepository)
+
+        public CampsiteDetailsController(IMediator mediator, ILogger<CampsiteDetailsController> logger, UserManager<ApplicationUser> userManager, ILoactionRepository loactionRepository, ILoggedInUserService loggedInUserService)
 
         {
             _mediator = mediator;
             _logger = logger;
             _userManager = userManager;
             _loactionRepository = loactionRepository;
+            _loggedInUserService = loggedInUserService;
         }
 
         [HttpPost(Name = "AddCampsiteDetails")]

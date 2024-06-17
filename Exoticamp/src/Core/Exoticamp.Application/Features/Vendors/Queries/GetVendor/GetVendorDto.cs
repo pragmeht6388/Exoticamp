@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exoticamp.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -31,9 +32,10 @@ namespace Exoticamp.Application.Features.Vendors.Queries.GetVendor
         public string? AltAddress { get; set; }
 
         public Guid LocationId { get; set; }
-        public string Location { get; set; }
 
-        public bool IsLocked { get; set; } 
-        public int LoginAttemptCount { get; set; }
+        public string LocationName { get; set; }
+
+        public Location Location { get; set; }
+
     }
 }

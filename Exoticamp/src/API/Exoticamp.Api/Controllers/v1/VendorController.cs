@@ -1,4 +1,5 @@
 ﻿
+using Exoticamp.Application.Features.Vendors.Commands.UpdateVendor;
 using Exoticamp.Application.Features.Vendors.Queries.GetVendor;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -27,14 +28,14 @@ namespace Exoticamp.Api.Controllers.v1
             return Ok(vendorDto);
         }
 
-        //[HttpPut("edit-profile")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesDefaultResponseType]
-        //public async Task<ActionResult> UpdateVendorProfile([FromBody] UpdateVendorProfileCommand model)
-        //{
-        //    var response = await _mediator.Send(model);
-        //    return Ok(response);
-        //}
+        [HttpPut("edit-profile")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> UpdateVendorProfile([FromBody] UpdateVendorCommand model)
+        {
+            var response = await _mediator.Send(model);
+            return Ok(response);
+        }
     }
 }

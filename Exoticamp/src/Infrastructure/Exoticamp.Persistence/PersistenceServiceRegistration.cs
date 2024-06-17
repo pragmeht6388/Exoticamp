@@ -26,6 +26,8 @@ namespace Exoticamp.Persistence
             services.AddScoped<ICampsiteDetailsRepository, CampsiteDetailsRepository>();
             services.AddScoped<IActivitiesRepository,ActivityRepository>();
             services.AddScoped<ILoactionRepository,LocationRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
+            services.AddScoped<IReviewReplyRepository, ReviewReplyRepository>();
             return services;
         }
     }

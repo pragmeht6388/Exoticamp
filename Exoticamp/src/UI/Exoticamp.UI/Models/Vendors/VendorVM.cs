@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace Exoticamp.UI.Models.Vendors
 {
@@ -26,6 +27,11 @@ namespace Exoticamp.UI.Models.Vendors
         public string AltEmail { get; set; }
 
         public string AltAddress { get; set; }
+        //public string LocationId { get; set; }
+        //public string Location { get; set; }
+        public Guid LocationId { get; set; }
+        [JsonProperty("LocationName")]
+        public string LocationName { get; set; }
         public string LocationId { get; set; }
         public string Location { get; set; }
 
