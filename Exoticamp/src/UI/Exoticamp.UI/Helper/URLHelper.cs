@@ -80,5 +80,9 @@
 
         public const string GetAllLocation = "/api/v1/Location/all";
         #endregion
+        #region Vendor
+        public const string GetVendorDetails = "/api/v1/Vendor/{0}";
+        #endregion
+
     }
 }
