@@ -28,14 +28,15 @@ namespace Exoticamp.Application.Features.Events.Commands.UpdateEvent
 
         public string Highlights { get; set; }
 
-        public string EventRules { get; set; }
+        public string? EventRules { get; set; }
         public Guid CampsiteId { get; set; }
 
-        public Guid ActivityId { get; set; }
+        public Guid? ActivityId { get; set; }
 
-        public Guid LocationId { get; set; }
+        public Guid? LocationId { get; set; }
         public bool Status { get; set; }
         public bool IsDeleted { get; set; }
+   
         public EventLocationDTO EventLocationDTO {  get; set; }
         public EventActivityDTO EventActivityDTO {  get; set; }
     }
@@ -43,10 +44,25 @@ namespace Exoticamp.Application.Features.Events.Commands.UpdateEvent
     {
         public Guid EventLocationId { get; set; }
         public Guid LocationId { get; set; }
+        public LocationDetails LocationDetails { get; set; }
+
+
+    }
+    public class LocationDetails
+    {
+        public string Name { get; set; }
+
     }
     public class EventActivityDTO
     {
         public Guid ActivityId { get; set; }
         public Guid EventActivityId {  get; set; }
+        public ActivityDetails ActivityDetails { get; set; }
+
+    }
+    public class ActivityDetails
+    {
+        public string Name { get; set; }
+
     }
 }

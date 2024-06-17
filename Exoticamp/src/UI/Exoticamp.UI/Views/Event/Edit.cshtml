@@ -198,7 +198,9 @@
                             }
                         }
                     </select>
+                    <input type="hidden" asp-for="EventLocationDto.Id"  />
                 </div>
+
                 <div class="form-group">
                     <label for="CampsiteId">Select campsite:</label>
                     <select id="campsite" asp-for="CampsiteId" class="form-control">
@@ -217,6 +219,7 @@
                     <select id="activity" asp-for="ActivityId" class="form-control" asp-items="Model.ActivitiesVMs">
                         <option value="">-- Select activities --</option>
                     </select>
+                    <input type="hidden" asp-for="EventActivityDto.Id" />
                 </div>
                 <div class="form-group">
                     <label asp-for="Price" class="control-label"></label>
@@ -253,14 +256,21 @@
                     <textarea asp-for="EventRules" class="form-control"></textarea>
                     <span asp-validation-for="EventRules" class="text-danger"></span>
                 </div>
-               @*  <div class="form-group">
-                    <label asp-for="Image" class="control-label"></label>
-                    <input asp-for="Image" class="form-control" type="file" />
-                    <span asp-validation-for="Image" class="text-danger"></span>
-                </div> *@
                 <div class="form-group">
-                    <label asp-for="Status" class="control-label"></label>
-                    <input asp-for="Status" class="form-control" type="checkbox"  />
+                   @*  <label asp-for="ImageUrl" class="control-label"></label> *@
+                    <input asp-for="ImageUrl" class="form-control"   hidden />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label">Status</label>
+                    <div>
+                        <label class="radio-inline">
+                            <input asp-for="Status" type="radio" value="true" /> Active
+                        </label>
+                        <label class="radio-inline">
+                            <input asp-for="Status" type="radio" value="false" /> Inactive
+                        </label>
+                    </div>
                     <span asp-validation-for="Status" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-12 text-center">
@@ -279,7 +289,7 @@
                 </div>
                 <div class="form-group" id="imageUploadField" style="display: none;">
                     <label asp-for="Image" class="control-label"></label>
-                    <input asp-for="Image" class="form-control" type="file" />
+                    <input asp-for="Image" class="form-control" type="file"  />
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
             </div>
