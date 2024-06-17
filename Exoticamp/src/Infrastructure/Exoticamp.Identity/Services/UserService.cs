@@ -148,7 +148,8 @@ namespace Exoticamp.Identity.Services
                 TermsandCondition = user.TermsandCondition,
                 LocationId = user.LocationId,
                 PreferenceId = user.ActivityId,
-                
+                IsLocked= user.IsLocked,
+                 LoginAttemptCount= user.LoginAttemptCount,
             };
         }
         public async Task<GetVendorDto> GetVendorDetailsById(string Id)
@@ -156,6 +157,7 @@ namespace Exoticamp.Identity.Services
             var user = await _userManager.FindByIdAsync(Id);
             return new GetVendorDto()
             {
+                  Id=user.Id,
                 Email = user.Email,
                 Name = user.Name,
                 PhoneNumber = user.PhoneNumber,
@@ -164,6 +166,9 @@ namespace Exoticamp.Identity.Services
                 AltEmail = user.AltEmail,
                 AltPhoneNumber = user.AltPhoneNumber,
                 Address = user.Address,
+                IsLocked=user.IsLocked,
+                LoginAttemptCount=user.LoginAttemptCount,
+                
 
             };
         }

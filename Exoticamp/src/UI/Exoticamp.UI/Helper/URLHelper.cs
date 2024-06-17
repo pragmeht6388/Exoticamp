@@ -32,8 +32,8 @@
         public const string IsDeleteUser = "/api/v1/Admin/IsDeleteUsers?id={0}";
         public const string IsLockedUser = "/api/v1/Admin/IsLockedUsers?id={0}";
         public const string registerVendor = "/api/v1/Account/registerVendor";
+        public const string GetVendorById = "/api/v1/Vendor/{0}";
 
-         
         #endregion
         public const string GetChatbotResponses = "/api/v1/Chatbot/all?id={0}";
 

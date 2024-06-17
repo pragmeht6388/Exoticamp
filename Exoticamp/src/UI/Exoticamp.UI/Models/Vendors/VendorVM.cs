@@ -32,5 +32,10 @@ namespace Exoticamp.UI.Models.Vendors
         public Guid LocationId { get; set; }
         [JsonProperty("LocationName")]
         public string LocationName { get; set; }
+        //public string LocationId { get; set; }
+        public string Location { get; set; }
+
+        public bool IsLocked { get; set; }
+        public int LoginAttemptCount { get; set; }
     }
 }
