@@ -13,5 +13,7 @@ namespace Exoticamp.UI.Services.IRepositories
 
         Task<EditCampsiteDetailsResopnseModel> EditCampsiteDetails(CampsiteDetailsVM campsiteVM);
         Task<DeleteCampsiteDetailsResponseModel> DeleteCampsite(string Id);
+
+        Task<IEnumerable<CampsiteDetailsVM>> GetCampsiteLocationId(string Id);
     }
 }

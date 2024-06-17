@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Exoticamp.Application.Features.Vendors.Queries.GetVendor;
 
 namespace Exoticamp.Identity.Services
 {
@@ -97,6 +98,7 @@ namespace Exoticamp.Identity.Services
                                   where role.Name == "User" && user.IsDeleted == false
                                   select new GetUserListDto()
                                   {
+                                      Id = user.Id,
                                       Email = user.Email,
                                       Name = user.Name,
                                       PhoneNumber = user.PhoneNumber,
@@ -149,6 +151,22 @@ namespace Exoticamp.Identity.Services
                 
             };
         }
+        public async Task<GetVendorDto> GetVendorDetailsById(string Id)
+        {
+            var user = await _userManager.FindByIdAsync(Id);
+            return new GetVendorDto()
+            {
+                Email = user.Email,
+                Name = user.Name,
+                PhoneNumber = user.PhoneNumber,
+                AltAddress = user.AltAddress,
+                LocationId = user.LocationId,
+                AltEmail = user.AltEmail,
+                AltPhoneNumber = user.AltPhoneNumber,
+                Address = user.Address,
+
+            };
+        }
 
         public async Task<string> UpdateUser(GetUserDto model)
         {
@@ -164,6 +182,31 @@ namespace Exoticamp.Identity.Services
             return user.Id;
 
 
+        }
+        public async Task<string> UpdateVendor(GetVendorDto model)
+        {
+            var vendor = await _userManager.FindByIdAsync(model.Id);
+
+            if (vendor == null)
+            {
+                // Handle case where vendor is not found
+                throw new Exception("Vendor not found");
+            }
+
+            // Update vendor properties
+            vendor.Name = model.Name;
+            vendor.PhoneNumber = model.PhoneNumber;
+            vendor.Email = model.Email;
+            vendor.Address = model.Address;
+            vendor.AltPhoneNumber = model.AltPhoneNumber;
+            vendor.AltEmail = model.AltEmail;
+            vendor.AltAddress = model.AltAddress;
+            vendor.LocationId = model.LocationId;
+
+            // Save changes
+            await _userManager.UpdateAsync(vendor);
+
+            return vendor.Id;
         }
     }
 }

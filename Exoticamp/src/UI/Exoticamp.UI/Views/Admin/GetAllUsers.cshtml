@@ -6,51 +6,119 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
-
-    <div class="container">
-        <h3>Tabs</h3>
-        <ul class="nav nav-tabs">
-            <li class="active"><a asp-action="GetAllUsers" asp-controller="Admin">Users</a></li>
-            <li><a id="VendorLink" href="#vendors">Vendors</a></li>
-             
-        </ul>
-     </div>
-     <div  id="User">
-        @{
-            Html.RenderPartial("GetAllUsersPartial",  Model);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+    <!-- Bootstrap CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <style>
+        .table-responsive {
+            margin: 20px 0;
         }
-     </div>
-    <script>
-        $(document).ready(function () {
-            $('#VendorLink').on('click', function () {
-                 
-                $.ajax({
-                    url: '@Url.Action("GetAllVendors", "Admin")',
-                    type: 'GET',
-                     
-                    success: function (result) {
-                        $('#User').empty();
-                        $('#User').html(result);
-                        
-                    },
-                    error: function () {
-                        alert('An error occurred while loading the response form.');
-                    }
-                });
-            });
-        });
-        </script>
 
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, .05);
+        }
+
+        .btn {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1>All Users</h1>
+        <div class="table-responsive">
+            <table id="GetAllUsers" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Is Locked</th>
+                        <th>Login Attempt Count</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Role)</td>
+                            <td>
+                                @if (item.IsLocked)
+                                {
+                                    <span class="text-danger">Locked</span>
+                                }
+                                else
+                                {
+                                    <span class="text-success">Unlocked</span>
+                                }
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.LoginAttemptCount)</td>
+                            <td>
+                                @if (item.IsLocked)
+                                {
+                                    @* <button class="btn btn-info btn-sm" onclick="unlockUser('@item.Email')">Unlock</button> *@
+
+                                    <a href="@Url.Action("IsLockedUsers", new { Email = item.Email })" class="btn btn-info btn-sm" onclick="return confirmUnLocked();">
+                                        <i class="bi bi-unlock-fill"></i> Unlock
+                                    </a>
+                                }
+
+                                <a href="@Url.Action("IsDeleteUser", new { Email = item.Email })" class="btn btn-danger btn-sm delete-link" onclick="return confirmDelete();">
+                                    <i class="bi bi-trash-fill"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
-</html>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="~/Scripts/bootstrap.min.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    function confirmUnLocked() {
+        return confirm('Are you sure you want to UnLocked this User?');
+
+    }
+    </script>
+
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this User?');
+
+    }
+</script>
+<script>
+     
+
+    $(document).ready(function () {
+        var table = $('#GetAllUsers').DataTable({
+            "pageLength": 5, // Show 5 rows per page by default
+            "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'All']] // Option to change number of rows per page
+        });
+         
+             
+</script>
+
+

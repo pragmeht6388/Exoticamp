@@ -16,9 +16,13 @@ namespace Exoticamp.UI.Models.ResponseModels.Users
         [JsonProperty("userName")]
         public string UserName { get; set; }
 
+        [JsonProperty("locationId")]
+        public string LocationId { get; set; }
 
         [JsonProperty("isSuccess")]
         public bool IsSuccess { get; set; }
+
+        //public string LocationId {  get; set; } 
 
         [JsonProperty("message")]
         public string Message { get; set; }
