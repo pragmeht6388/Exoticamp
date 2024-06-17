@@ -32,16 +32,11 @@ namespace Exoticamp.Application.Features.Vendors.Queries.GetVendor
         public async Task<Response<GetVendorDto>> Handle(GetVendorQueryByIdQuery request, CancellationToken cancellationToken)
         {
             var vendor = await _vendorService.GetVendorDetailsById(request.VendorId);
-            //if (vendor == null)
-            //{
-            //    _logger.LogError($"Vendor with ID {request.VendorId} not found.");
-            //    return new Response<GetVendorDto>(null, $"Vendor with ID {request.VendorId} not found.", false);
-            //}
-
-            var location = await _location.GetByIdAsync(vendor.LocationId);
-            if (location != null)
+            
+            var locations = await _location.GetByIdAsync(vendor.LocationId);
+            if (locations != null)
             {
-                vendor.Location = location.Name;
+                vendor.LocationName = locations.Name;
             }
 
             var vendorDto = _mapper.Map<GetVendorDto>(vendor);

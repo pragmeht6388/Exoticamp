@@ -8,17 +8,26 @@ namespace Exoticamp.UI.Controllers
         
             private readonly IVendorRepository _vendorsRepository;
             private readonly ILocationRepository _locationRepository;
-            private readonly IActivitiesRepository _activitiesRepository;
+          
 
-            public VendorController(IVendorRepository vendorsRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository)
+            public VendorController(IVendorRepository vendorsRepository, ILocationRepository locationRepository)
             {
                 _vendorsRepository = vendorsRepository;
                 _locationRepository = locationRepository;
-                _activitiesRepository = activitiesRepository;
+                
             }
-            public IActionResult Index()
+        public async Task<IActionResult> Profile()
+        {
+            var vendorId = HttpContext.Session.GetString("VendorId");
+            //ViewBag.Locations = await _locationRepository.GetAllLocations();
+            var vendorDetails = await _vendorsRepository.GetVendorByIdAsync(vendorId);
+            
+
+            if (vendorDetails.data != null)
             {
-                return View();
+                return View(vendorDetails.data);
             }
+            return RedirectToAction("Index", "Home");
         }
+    }
     }

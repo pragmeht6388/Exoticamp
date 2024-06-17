@@ -1,0 +1,183 @@
+﻿@model Exoticamp.UI.Models.Vendors.VendorVM
+
+@{
+    ViewData["Title"] = "Show Vendor";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Exoticamp</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            padding-top: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .display-label {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .status-active {
+            background-color: green;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .status-inactive {
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .card-body {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .column {
+            width: 45%;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .row-line {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+            .row-line label {
+                font-weight: bold;
+            }
+
+            .row-line span {
+                display: block;
+                margin-bottom: 5px;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4 text-center">@ViewData["Title"]</h1>
+        <div class="row">
+            <!-- Left section with profile icon -->
+            <div class="col-md-4 text-center">
+                <img src="https://files.axshare.com/gsc/C9DW3U/09/7d/f9/097df94feb1e4ba39af2afa99849534b/images/view_customer_details/u44.png?pageId=e31e490f-1a3f-42eb-a646-2de3d05cef97" alt="Vendor Profile Icon" class="profile-img" />
+                <h4 class="mt-3">@Html.DisplayFor(model => model.Name)</h4>
+                <a class="btn btn-info mt-2" href="@Url.Action("ViewKYC", "Vendor", new { id = Model.Id })">View KYC</a>
+            </div>
+            <!-- Right section with vendor details -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="column">
+                            <h4 class="card-title text-center">Vendor Details</h4>
+                            <hr />
+                            <div class="row-line">
+                                <label class="display-label">Phone Number</label>
+                                <span>@Html.DisplayFor(model => model.PhoneNumber)</span>
+                            </div>
+                            <div class="row-line">
+                                <label class="display-label">Email</label>
+                                <span>@Html.DisplayFor(model => model.Email)</span>
+                            </div>
+                            <div class="row-line">
+                                <label class="display-label">Alt Phone Number</label>
+                                <span>@Html.DisplayFor(model => model.AltPhoneNumber)</span>
+                            </div>
+                            <div class="row-line">
+                                <label class="display-label">Alternate Email</label>
+                                <span>@Html.DisplayFor(model => model.AltEmail)</span>
+                            </div>
+                            <div class="row-line">
+                                <label class="display-label">Address</label>
+                                <span>@Html.DisplayFor(model => model.Address)</span>
+                            </div>
+                            <div class="row-line">
+                                <label class="display-label">Alternate Address</label>
+                                <span>@Html.DisplayFor(model => model.AltAddress)</span>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="row-line">
+                                <label class="display-label">Location</label>
+                                <span>@Html.DisplayFor(model => model.LocationName)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 text-center">
+            <a class="btn btn-secondary" href="@Url.Action("Edit", "Vendor", new { id = Model.Id })">Edit</a>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="sendMessageModal" tabindex="-1" role="dialog" aria-labelledby="sendMessageModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sendMessageModalLabel">Send Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form to send message -->
+                    <form id="sendMessageForm">
+                        <div class="form-group">
+                            <label for="messageType">Select Message Type:</label>
+                            <select class="form-control" id="messageType" name="messageType">
+                                <option value="whatsapp">WhatsApp</option>
+                                <option value="sms">SMS</option>
+                                <option value="email">Email</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="messageContent">Message:</label>
+                            <textarea class="form-control" id="messageContent" name="messageContent" rows="5"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="sendMessageBtn">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Handle click on send message button
+            $('#sendMessageBtn').click(function () {
+                // Perform action to send message (e.g., AJAX call)
+                alert('Message sent successfully!');
+                $('#sendMessageModal').modal('hide'); // Close the modal after sending
+            });
+        });
+    </script>
+</body>
+</html>

@@ -44,6 +44,7 @@ using Exoticamp.Application.Features.Locations.Queries.GetLocation;
 
 using CDVM = Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteByLocationId.CampsiteDetailsVM1;
 using Exoticamp.Application.Features.Vendors.Queries.GetVendor;
+using Exoticamp.Application.Features.Vendors.Commands.UpdateVendor;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -133,7 +134,7 @@ namespace Exoticamp.Application.Profiles
 
             CreateMap<GetVendorQueryByIdQuery, GetVendorDto>().ReverseMap();
 
-
+            CreateMap<UpdateVendorCommand, GetVendorDto>();
 
         }
 
