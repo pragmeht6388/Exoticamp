@@ -47,11 +47,11 @@
         </div>
     }
 
-    <!-- Events Section -->
+@*     <!-- Events Section -->
     @if (ViewBag.Events != null && ViewBag.Events.Count > 0)
     {
         <h2>Events</h2>
-        @foreach (var item in (IEnumerable<EventVM>)ViewBag.Events)
+        @foreach (var item in (IEnumerable<Event>)ViewBag.Events)
         {
             <div class="abc-content">
                 <img src="@item.ImageUrl" alt="@item.Name" class="img-thumbnail img-dimensions">
@@ -64,6 +64,6 @@
                 <a asp-action="GetAllEventsUser" asp-controller="Event" class="view-all-link"><u>View All</u></a>
             </div>
         </div>
-    }
+    } *@
 
 </div>
