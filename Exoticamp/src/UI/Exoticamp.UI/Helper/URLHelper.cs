@@ -83,7 +83,10 @@
 
         public const string AddReviews = "/api/v1/Reviews";
         public const string GetAllReview = "/api/v1/Reviews/allReview";
+        public const string GetReviewbyId = "/api/v1/Reviews/{0}";
+        public const string UpdateReview= "/api/v1/Reviews/UpdateReviewById";
 
         public const string AddReviewReply = "/api/v1/ReviewReply";
+
     }
 }

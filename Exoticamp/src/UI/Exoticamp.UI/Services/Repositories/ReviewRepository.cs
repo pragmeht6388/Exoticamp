@@ -1,5 +1,6 @@
 ﻿using Exoticamp.UI.Helper;
 using Exoticamp.UI.Models.ResponseModels;
+using Exoticamp.UI.Models.ResponseModels.CampsiteDetails;
 using Exoticamp.UI.Models.ResponseModels.Reviews;
 using Exoticamp.UI.Models.Reviews;
 using Exoticamp.UI.Services.IRepositories;
@@ -68,6 +69,57 @@ namespace Exoticamp.UI.Services.Repositories
             }
 
             return events;
+        }
+
+
+        public async Task<GetReviewByIdResponseModel> GetReviewById(string id)
+        {
+
+            _apiRepository = new APIRepository(_configuration);
+
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(id, Newtonsoft.Json.Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+
+            var bytes = new ByteArrayContent(content);
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetReviewbyId.Replace("{0}", id), HttpMethod.Get, bytes, _sToken);
+            if (response.data != null)
+            {
+                return (JsonConvert.DeserializeObject<GetReviewByIdResponseModel>(response.data));
+            }
+
+            return new GetReviewByIdResponseModel
+            {
+                Succeeded = false,
+                Message = "Event Not Found"
+            };
+        }
+
+        public async Task<UpdateReviewResponseModel> EditReview(ReviewsVM model)
+        {
+
+
+            _apiRepository = new APIRepository(_configuration);
+
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(model, Newtonsoft.Json.Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+
+            var bytes = new ByteArrayContent(content);
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.UpdateReview, HttpMethod.Put, bytes, _sToken);
+            if (response.data != null)
+            {
+                return (JsonConvert.DeserializeObject<UpdateReviewResponseModel>(response.data));
+            }
+
+            return new UpdateReviewResponseModel
+            {
+
+                Succeeded = false,
+                Message = "Failed to Edit Event."
+            };
+
+
         }
     }
 }

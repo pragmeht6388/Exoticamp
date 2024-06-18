@@ -44,7 +44,7 @@ namespace Exoticamp.Application.Features.Reviews.Commands.AddReviews
             }
             else
             {
-                var review = new Domain.Entities.Reviews { Name = request.Name, DateTime = DateTime.Now, Ratings = request.Ratings, Status = true, Description = request.Description, BookingId = request.BookingId, UserId = Guid.Parse(_loggedInUserService.UserId.ToString()) };
+                var review = new Domain.Entities.Reviews { Name = request.Name, DateTime = DateTime.Now, Ratings = request.Ratings, Status = false, Description = request.Description, BookingId = request.BookingId, UserId = Guid.Parse(_loggedInUserService.UserId.ToString()) };
                 review = await _reviewRepository.AddAsync(review);
                 addReviewCommandResponse = new Response<ReviewDto>(_mapper.Map<ReviewDto>(review), "success");
             }

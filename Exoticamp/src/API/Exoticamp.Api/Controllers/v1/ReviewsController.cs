@@ -1,7 +1,11 @@
 ﻿using Exoticamp.Application.Contracts.Persistence;
 using Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDetails;
+using Exoticamp.Application.Features.CampsiteDetails.Commands.UpdateCampsite;
+using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetails;
 using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetailsList;
 using Exoticamp.Application.Features.Reviews.Commands.AddReviews;
+using Exoticamp.Application.Features.Reviews.Commands.UpdateReviews;
+using Exoticamp.Application.Features.Reviews.Queryies.GetReviewById;
 using Exoticamp.Application.Features.Reviews.Queryies.GetReviewList;
 using Exoticamp.Identity.Models;
 using MediatR;
@@ -48,6 +52,23 @@ namespace Exoticamp.Api.Controllers.v1
             var dtos = await _mediator.Send(new GetReviewListQuery());
             _logger.LogInformation("GetAllCampsite Completed");
             return Ok(dtos);
+        }
+
+
+        [HttpGet("{id}", Name = "GetReviewsById")]
+        public async Task<ActionResult> GetReviewById(string id)
+        {
+            var getCampsiteDetailQuery = new GetReviewIdQuery() { Id = id };
+            return Ok(await _mediator.Send(getCampsiteDetailQuery));
+        }
+
+        [HttpPut("UpdateReviewById")]
+        public async Task<IActionResult> UpdateReviewsById([FromBody] UpdateReviewCommand updateReviewCommand)
+        {
+
+            var response = await _mediator.Send(updateReviewCommand);
+            return Ok(response);
+
         }
     }
 }

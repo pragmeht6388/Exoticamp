@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Exoticamp.UI.Models.Reviews.ReviewsVM>
+
+@{
+    ViewData["Title"] = "ShowReviewsAdmin";
+}
+
+<h1>ShowReviewsAdmin</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<table class="table table-striped table-bordered" id="reviewsTable">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ratings)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.DateTime)</td>
+                <td>@Html.DisplayFor(modelItem => item.Ratings)</td>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td>
+                    @if (!item.Status)
+                    {
+                        <span class="text-warning">Pending</span>
+                    }
+                    else if (item.Status)
+                    {
+                        <span class="text-success">Approved</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger">Rejected</span>
+                    }
+                </td>
+                <td>
+                    @if (!item.Status)
+                    {
+                        <form asp-action="ApproveReview" asp-route-id="@item.Id" method="post" class="d-inline review-form">
+                            <button type="submit" class="btn btn-success mr-2 approve-btn" data-review-id="@item.Id" onclick="return confirm('Approve this review?');">
+                                Approve
+                            </button>
+                        </form>
+                    }
+                    @if (!item.Status)
+                    {
+                        <form asp-action="RejectReview" asp-route-id="@item.Id" method="post" class="d-inline review-form">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Reject this review?');">
+                                Reject
+                            </button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#reviewsTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'All']],
+                "pageLength": 10
+            });
+
+            // Handle form submission asynchronously
+            $('.review-form').submit(function (e) {
+                e.preventDefault(); // Prevent default form submission
+
+                var form = $(this);
+                var reviewId = form.find('.approve-btn').data('review-id'); // Get review ID from data attribute
+
+                // Perform AJAX form submission
+                $.post(form.attr('action'), form.serialize())
+                    .done(function (data) {
+                        // On success, hide the approve button for the specific review
+                        form.find('.approve-btn').hide();
+                        alert("Review action successful."); // You can replace this with your desired success message handling
+                    })
+                    .fail(function () {
+                        alert("Failed to process review action."); // You can replace this with your desired error message handling
+                    });
+            });
+        });
+    </script>
+}

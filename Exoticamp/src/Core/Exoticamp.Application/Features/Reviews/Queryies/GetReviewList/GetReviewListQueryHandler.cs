@@ -42,7 +42,7 @@ namespace Exoticamp.Application.Features.Reviews.Queryies.GetReviewList
             var campsite = await _campsiteDetailsRepository.ListAllAsync();
            
 
-            var activeReviews = allReviews.Where(c => c.Status == true);
+            var activeReviews = allReviews;
 
             var orderedReview = activeReviews.OrderBy(x => x.Name);
 
