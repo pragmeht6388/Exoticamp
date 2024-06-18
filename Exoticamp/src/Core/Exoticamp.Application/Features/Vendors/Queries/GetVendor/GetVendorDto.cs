@@ -33,9 +33,13 @@ namespace Exoticamp.Application.Features.Vendors.Queries.GetVendor
 
         public Guid LocationId { get; set; }
 
-        public string LocationName { get; set; }
+        public string LocationName { get; set;}
 
         public Location Location { get; set; }
+
+        public bool IsLocked { get; set; } 
+        public int LoginAttemptCount { get; set; }
+
 
     }
 }

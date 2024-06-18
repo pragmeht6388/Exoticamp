@@ -32,6 +32,14 @@ namespace Exoticamp.Api.Controllers.v1
 
 
 
+        [HttpPost("ForgetPassword")]
+        public async Task<ActionResult<ForgotPasswordResponse>> ForgotPassword(ForgotPasswordRequest request)
+        {
+            var data = await _authenticationService.ForgotPasswordAsync(request);
+            return Ok(data);
+        }
+
+
         [HttpPost("register")]
         public async Task<ActionResult<RegistrationResponse>> RegisterAsync(RegistrationRequest request)
         {

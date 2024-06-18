@@ -6,6 +6,7 @@ using Exoticamp.Application.Features.Events.Queries.GetEventsList;
 using Exoticamp.Application.Features.Users.Commands.DeleteUser;
 using Exoticamp.Application.Features.Users.Queries.GetUserList;
 using Exoticamp.Application.Features.Vendors.Queries.GetVendorList;
+using Exoticamp.Application.Models.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -75,6 +76,11 @@ namespace Exoticamp.Api.Controllers.v1
             }
 
             return Ok(response.Message);
+        }
+        [HttpPost("forget")]
+        public async Task<ActionResult<ForgotPasswordResponse>> ForgotPassword(ForgotPasswordRequest request)
+        {
+            return Ok(await _authenticationService.ForgotPasswordAsync(request));
         }
 
     }

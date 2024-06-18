@@ -35,7 +35,7 @@ namespace Exoticamp.Identity.Services
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            
+
             var role = await _userManager.GetRolesAsync(user);
             AuthenticationResponse response = new AuthenticationResponse();
 
@@ -56,7 +56,7 @@ namespace Exoticamp.Identity.Services
 
             if (!result.Succeeded)
             {
-                user. LoginAttemptCount += 1;
+                user.LoginAttemptCount += 1;
 
                 if (user.LoginAttemptCount >= 3)
                 {
@@ -99,14 +99,32 @@ namespace Exoticamp.Identity.Services
             response.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             response.Email = user.Email;
             response.UserName = user.UserName;
-            response.Name= user.Name;
-            response.LocationId=user.LocationId;
+            response.Name = user.Name;
+            response.LocationId = user.LocationId;
             if (role.Count > 0)
             {
                 response.Role = role[0];
             }
 
 
+            return response;
+        }
+
+
+        public async Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordRequest request)
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+
+
+            ForgotPasswordResponse response = new ForgotPasswordResponse();
+
+            if (user == null)
+            {
+                response.userExists = false;
+                //response.Message = $"No Accounts Registered with {request.Email}.";
+                return response;
+            }
+            response.userExists = true;
             return response;
         }
 
@@ -133,7 +151,7 @@ namespace Exoticamp.Identity.Services
                 TermsandCondition = true,
                 EmailConfirmed = true,
                 LocationId = request.LocationId,
-                
+
             };
 
             var existingEmail = await _userManager.FindByEmailAsync(request.Email);
@@ -258,6 +276,26 @@ namespace Exoticamp.Identity.Services
             return response;
         }
 
+        //public async Task<Response<object>> ForgotPasswordAsync(string email)
+        //{
+        //    var response = new Response<object>();
+
+        //    var user = await _userManager.FindByEmailAsync(email);
+        //    if (user == null)
+        //    {
+        //        response.Succeeded = false;
+        //        response.Message = "User not found";
+        //        return response;
+        //    }
+
+        //    // Add logic to handle password reset (e.g., generate reset token, send email, etc.)
+        //    // For now, we assume the operation is successful if the user is found.
+        //    response.Succeeded = true;
+        //    response.Message = "Password reset instructions have been sent to your email";
+        //    return response;
+        //}
+
+
         public async Task<RevokeTokenResponse> RevokeToken(RevokeTokenRequest request)
         {
             var response = new RevokeTokenResponse();
@@ -296,7 +334,7 @@ namespace Exoticamp.Identity.Services
         {
             var response = new Response<object>();
 
-            var user = await _userManager. FindByEmailAsync(userId);
+            var user = await _userManager.FindByEmailAsync(userId);
             if (user == null)
             {
                 response.Succeeded = false;
@@ -323,7 +361,7 @@ namespace Exoticamp.Identity.Services
         {
             var response = new Response<object>();
 
-            var user = await _userManager. FindByEmailAsync(userId);
+            var user = await _userManager.FindByEmailAsync(userId);
             if (user == null)
             {
                 response.Succeeded = false;
