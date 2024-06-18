@@ -44,6 +44,6 @@ namespace Exoticamp.UI.Models.Reviews
         public Guid UserId { get; set; }
 
         [JsonProperty("campsite")]
-        public virtual Booking Booking { get; set; }
+        public virtual Exoticamp.Domain.Entities.Booking Booking { get; set; }
     }
 }

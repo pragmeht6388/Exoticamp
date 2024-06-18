@@ -9,7 +9,7 @@ namespace Exoticamp.Domain.Entities
 {
     public  class GuestDetails
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public long MobileNo {  get; set; }
         public string Gender { get; set; }

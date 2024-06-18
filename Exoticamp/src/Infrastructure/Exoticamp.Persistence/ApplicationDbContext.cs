@@ -52,6 +52,7 @@ namespace Exoticamp.Persistence
 
         public DbSet< ReviewReply>  ReviewReplies { get; set; }
         public DbSet<CampsiteActivities> CampsiteActivities { get; set; }
+        public DbSet<Payment> Payments {  get; set; }
 
 
 
@@ -124,6 +125,7 @@ namespace Exoticamp.Persistence
                 .HasOne(ca => ca.Activities)
                 .WithMany(a => a.CampsiteActivities)
                 .HasForeignKey(ca => ca.ActivityId);
+
 
             //    modelBuilder.Entity<Domain.Entities.CampsiteDetails>()
             //.HasOne(cd => cd.Activities)
