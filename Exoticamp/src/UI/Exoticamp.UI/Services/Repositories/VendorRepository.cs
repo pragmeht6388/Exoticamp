@@ -51,11 +51,37 @@ namespace Exoticamp.UI.Services.Repositories
             };
         }
 
+        public async Task<Response<string>> UpdateVendorProfileAsync(VendorVM vendor)
+        {
+            _apiRepository = new APIRepository(_configuration);
+
+            var json = JsonConvert.SerializeObject(vendor, Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+
+            var bytes = new ByteArrayContent(content);
+            var response = await _apiRepository.APICommunication(
+                _apiBaseUrl.Value.ExoticampApiBaseUrl,
+                URLHelper.UpdateVendorProfile,
+                HttpMethod.Put,
+                bytes,
+                _sToken
+            );
+
+            if (response.data != null)
+            {
+                return JsonConvert.DeserializeObject<Response<string>>(response.data);
+            }
+
+            return new Response<string>
+            {
+                Success = false,
+                Message = "Failed to update vendor profile"
+            };
+        }
 
 
-       
 
-      
-        
+
+
     }
 }

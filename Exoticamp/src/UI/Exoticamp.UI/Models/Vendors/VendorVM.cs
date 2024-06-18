@@ -32,5 +32,9 @@ namespace Exoticamp.UI.Models.Vendors
         public Guid LocationId { get; set; }
         [JsonProperty("LocationName")]
         public string LocationName { get; set; }
+        public string IDCard { get; set; }
+        public string License { get; set; }
+        public string KYCAddress { get; set; }
+        public string Others { get; set; }
     }
 }

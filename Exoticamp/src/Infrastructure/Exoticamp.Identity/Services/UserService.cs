@@ -151,21 +151,56 @@ namespace Exoticamp.Identity.Services
                 
             };
         }
+        //public async Task<GetVendorDto> GetVendorDetailsById(string Id)
+        //{
+        //    var user = await _userManager.FindByIdAsync(Id);
+        //    return new GetVendorDto()
+        //    {
+        //        Email = user.Email,
+        //        Name = user.Name,
+        //        PhoneNumber = user.PhoneNumber,
+        //        AltAddress = user.AltAddress,
+        //        LocationId = user.LocationId,
+        //        AltEmail = user.AltEmail,
+        //        AltPhoneNumber = user.AltPhoneNumber,
+        //        Address = user.Address,
+
+        //    };
+        //}
         public async Task<GetVendorDto> GetVendorDetailsById(string Id)
         {
-            var user = await _userManager.FindByIdAsync(Id);
-            return new GetVendorDto()
-            {
-                Email = user.Email,
-                Name = user.Name,
-                PhoneNumber = user.PhoneNumber,
-                AltAddress = user.AltAddress,
-                LocationId = user.LocationId,
-                AltEmail = user.AltEmail,
-                AltPhoneNumber = user.AltPhoneNumber,
-                Address = user.Address,
+            var user = await _userManager.Users
+                .Where(u => u.Id == Id)
+                .Join(
+                    identityDbContext.Set<UserKYC>(),
+                    user => user.Id,
+                    kyc => kyc.UserID,
+                    (user, kyc) => new { user, kyc }
+                )
+                .Select(joined => new GetVendorDto
+                {
+                    Email = joined.user.Email,
+                    Name = joined.user.Name,
+                    PhoneNumber = joined.user.PhoneNumber,
+                    AltAddress = joined.user.AltAddress,
+                    LocationId = joined.user.LocationId,
+                    AltEmail = joined.user.AltEmail,
+                    AltPhoneNumber = joined.user.AltPhoneNumber,
+                    Address = joined.user.Address,
+                    VendorKYCId=joined.kyc.Id,
+                    IDCard = joined.kyc.IDCard,
+                    License = joined.kyc.License,
+                    KYCAddress = joined.kyc.Address,
+                    Others = joined.kyc.Others
+                })
+                .FirstOrDefaultAsync();
 
-            };
+            if (user == null)
+            {
+                throw new Exception("Vendor not found");
+            }
+
+            return user;
         }
 
         public async Task<string> UpdateUser(GetUserDto model)

@@ -1,4 +1,5 @@
-﻿using Exoticamp.UI.Services.IRepositories;
+﻿using Exoticamp.UI.Models.Vendors;
+using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Exoticamp.UI.Controllers
@@ -28,6 +29,37 @@ namespace Exoticamp.UI.Controllers
                 return View(vendorDetails.data);
             }
             return RedirectToAction("Index", "Home");
+        }
+        [HttpGet]
+        public async Task<IActionResult> EditProfile()
+        {
+            var vendorId = HttpContext.Session.GetString("VendorId");
+            var vendorDetails = await _vendorsRepository.GetVendorByIdAsync(vendorId);
+            ViewBag.Locations = await _locationRepository.GetAllLocations();
+
+            if (vendorDetails.data != null)
+            {
+                return View(vendorDetails.data);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        // Edit Vendor Profile - Handle form submission
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(VendorVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _vendorsRepository.UpdateVendorProfileAsync(model);
+                if (response.Success)
+                {
+                    return RedirectToAction("Profile");
+                }
+
+                ModelState.AddModelError(string.Empty, response.Message);
+            }
+            ViewBag.Locations = await _locationRepository.GetAllLocations();
+            return View(model);
         }
     }
     }
