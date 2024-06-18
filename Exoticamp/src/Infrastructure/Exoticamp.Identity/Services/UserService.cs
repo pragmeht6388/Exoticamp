@@ -166,8 +166,8 @@ namespace Exoticamp.Identity.Services
                 AltEmail = user.AltEmail,
                 AltPhoneNumber = user.AltPhoneNumber,
                 Address = user.Address,
-                IsLocked=user.IsLocked,
-                LoginAttemptCount=user.LoginAttemptCount,
+               
+
                 
 
             };

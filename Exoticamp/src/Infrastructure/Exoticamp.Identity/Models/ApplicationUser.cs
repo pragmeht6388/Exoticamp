@@ -38,7 +38,9 @@ namespace Exoticamp.Identity.Models
          
 
 
+        public UserKYC UserKYC { get; set; }
 
+        public BankDetails BankDetails { get; set; }
 
     }
 }

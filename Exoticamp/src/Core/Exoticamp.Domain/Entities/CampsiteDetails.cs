@@ -21,7 +21,7 @@ namespace Exoticamp.Domain.Entities
         public Guid CategoryId { get; set; }
         public string Images { get; set; }
         public DateTime DateTime { get; set; }
-
+        public decimal Price { get; set; }
         public string Highlights { get; set; }
 
         public string Ratings { get; set; }
@@ -69,7 +69,7 @@ namespace Exoticamp.Domain.Entities
         public DateTime? DeletedDate { get; set; }
 
         [ForeignKey("CategoryId")]
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
         public ICollection<CampsiteActivities> CampsiteActivities { get; set; }
     }
 }
