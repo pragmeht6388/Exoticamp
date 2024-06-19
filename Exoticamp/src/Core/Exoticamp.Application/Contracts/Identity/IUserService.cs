@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Exoticamp.Application.Features.Vendors.Queries.GetVendor;
 
 namespace Exoticamp.Application.Contracts.Identity
 {
@@ -18,6 +19,9 @@ namespace Exoticamp.Application.Contracts.Identity
         Task<RegistrationRequest> Delete(RegistrationRequest category);
         Task<GetUserDto> GetUserDetailsById(string Id);
         Task<string> UpdateUser(GetUserDto model);
+        Task<string> UpdateVendor(GetVendorDto model);
+        Task<GetVendorDto> GetVendorDetailsById(string Id);
+
 
     }
 }

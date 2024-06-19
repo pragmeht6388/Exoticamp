@@ -26,9 +26,7 @@ namespace Exoticamp.Api.Controllers.v1
             _mediator = mediator;
         }
 
-        [HttpGet(Name = "GetAllEvents")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesDefaultResponseType]
+        [HttpGet]
         public async Task<ActionResult> GetAllEvents()
         
         {

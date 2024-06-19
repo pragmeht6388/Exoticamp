@@ -24,6 +24,7 @@ builder.Services.AddScoped< IRegistrationRepository,  RegistrationRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 builder.Services.AddScoped<ILocationRepository , LocationRepository>();
+builder.Services.AddScoped<ISearchRepository, SearchRepository>();
 
 
 
@@ -42,6 +43,7 @@ builder.Services.AddScoped<IActivitiesRepository, ActivitiesRepository>();
 builder.Services.AddScoped<ILocationRepository, LocationRepository>();
 builder.Services.AddScoped<IReviewsRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewReplyRepository,ReviewReplyRepositories>();
+builder.Services.AddScoped<IVendorRepository, VendorsRepository>();
 
 var app = builder.Build();
 

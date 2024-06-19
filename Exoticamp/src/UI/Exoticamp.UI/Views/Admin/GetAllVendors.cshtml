@@ -76,6 +76,9 @@
                                     </a>
 
                                 }
+                                <a href="@Url.Action("ShowVendor", new { Id =  item.Id })" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> View
+                                </a>
                                
                                 <a href="@Url.Action("IsDeleteVendor", new { Email = item.Email })" class="btn btn-danger btn-sm delete-link" onclick="return confirmDelete();">
                                     <i class="bi bi-trash-fill"></i> Delete

@@ -34,7 +34,7 @@ namespace Exoticamp.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Registration( RegistrationVM registrationVM )
         {
-            registrationVM.LocationId = "7F9CC3C6-301D-4504-AF3F-1C460C74ABE4";
+            registrationVM.LocationId = "83dc406a-0018-4752-9798-9c06e078261a";
             var result = await _registrationRepository. CreateRegistration(registrationVM);
             
             if (result.Message != null)
@@ -86,6 +86,7 @@ namespace Exoticamp.UI.Controllers
             HttpContext.Session.SetString("Token", response.Token);
             HttpContext.Session.SetString("UserRole", response.Role);
             HttpContext.Session.SetString("UserId", response.Id);
+            HttpContext.Session.SetString("VendorId", response.Id);
             HttpContext.Session.SetString("UserName", response.Name);
             HttpContext.Session.SetString("LocationId", response.LocationId);
 

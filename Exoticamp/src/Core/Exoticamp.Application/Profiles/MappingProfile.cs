@@ -48,6 +48,8 @@ using Exoticamp.Application.Features.Reviews.Queryies.GetReviewList;
 using Exoticamp.Application.Features.RewiewReply.Command.AddReviewReply;
 using Exoticamp.Application.Features.Reviews.Queryies.GetReviewById;
 using Exoticamp.Application.Features.Reviews.Commands.UpdateReviews;
+using Exoticamp.Application.Features.Vendors.Queries.GetVendor;
+using Exoticamp.Application.Features.Vendors.Commands.UpdateVendor;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -134,8 +136,8 @@ namespace Exoticamp.Application.Profiles
             CreateMap<GetVendorListDto, GetUserListQuery>().ReverseMap();
             CreateMap<UpdateUserProfileCommand, GetUserDto>().ReverseMap();
             CreateMap<GetLocationListVM, Location>().ReverseMap();
-            
 
+            CreateMap<GetVendorQueryByIdQuery, GetVendorDto>().ReverseMap();
 
             CreateMap<Reviews,AddReviewCommand>().ReverseMap();
             CreateMap<Reviews, ReviewDto>().ReverseMap();

@@ -31,5 +31,9 @@ namespace Exoticamp.Application.Features.Users.Queries.GetUser
         public string Location {  get; set; }
         public Guid PreferenceId { get; set; }
         public string Preference { get; set; }
+
+        public  bool  IsLocked { get; set; }
+
+        public int LoginAttemptCount { get; set; }
     }
 }

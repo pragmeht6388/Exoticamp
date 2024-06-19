@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Exoticamp.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class First : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -81,8 +81,7 @@ namespace Exoticamp.Persistence.Migrations
                 name: "GuestDetails",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MobileNo = table.Column<long>(type: "bigint", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -149,6 +148,19 @@ namespace Exoticamp.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Payment",
+                columns: table => new
+                {
+                    PaymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PaymentStatus = table.Column<bool>(type: "bit", nullable: false),
+                    AmountPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payment", x => x.PaymentId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -194,6 +206,7 @@ namespace Exoticamp.Persistence.Migrations
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Images = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Highlights = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Ratings = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AboutCampsite = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -275,6 +288,7 @@ namespace Exoticamp.Persistence.Migrations
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CampsiteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PaymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -296,6 +310,12 @@ namespace Exoticamp.Persistence.Migrations
                         column: x => x.LocationId,
                         principalTable: "Locations",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Payment_PaymentId",
+                        column: x => x.PaymentId,
+                        principalTable: "Payment",
+                        principalColumn: "PaymentId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -531,6 +551,11 @@ namespace Exoticamp.Persistence.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bookings_PaymentId",
+                table: "Bookings",
+                column: "PaymentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CampsiteActivities_ActivityId",
                 table: "CampsiteActivities",
                 column: "ActivityId");
@@ -648,6 +673,9 @@ namespace Exoticamp.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Locations");
+
+            migrationBuilder.DropTable(
+                name: "Payment");
 
             migrationBuilder.DropTable(
                 name: "Categories");
