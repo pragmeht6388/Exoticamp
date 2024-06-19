@@ -1,4 +1,11 @@
-﻿namespace Exoticamp.UI.Models.Booking
+﻿using Exoticamp.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exoticamp.Application.Features.Bookings.Queries.GetBookingList
 {
     public class BookingVM
     {
@@ -16,6 +23,6 @@
         public Guid LocationId { get; set; }
         //public Guid? PaymentId { get; set; }
         public Domain.Entities.CampsiteDetails? Campsite { get; set; }
-        public Domain.Entities.Location? Location { get; set; }
+        public Location? Location { get; set; }
     }
 }

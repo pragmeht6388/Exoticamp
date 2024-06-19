@@ -7,19 +7,25 @@ namespace Exoticamp.UI.Controllers
     {
 
         private readonly IBookingRepository _bookingRepository;
-        public BookingController(IBookingRepository bookingRepository)
+        public readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
+        public readonly ILocationRepository _locationRepository;
+
+        public BookingController(IBookingRepository bookingRepository, ICampsiteDetailsRepository campsiteDetailsRepository, ILocationRepository locationRepository)
         {
-          _bookingRepository = bookingRepository;
+            _bookingRepository = bookingRepository;
+            _campsiteDetailsRepository = campsiteDetailsRepository;
+            _locationRepository = locationRepository;
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        public async Task<IActionResult> GetAllBookings()
+        [HttpGet]
+        public async Task<ActionResult> GetAllBookings()
         {
             var bookings=await _bookingRepository.GetAllBookings();
-            return View();
+            return View(bookings);
         }
     }
 }

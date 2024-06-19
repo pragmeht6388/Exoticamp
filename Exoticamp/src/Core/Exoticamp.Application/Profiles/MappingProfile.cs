@@ -48,6 +48,10 @@ using Exoticamp.Application.Features.Reviews.Queryies.GetReviewList;
 using Exoticamp.Application.Features.RewiewReply.Command.AddReviewReply;
 using Exoticamp.Application.Features.Vendors.Queries.GetVendor;
 using Exoticamp.Application.Features.Vendors.Commands.UpdateVendor;
+using Exoticamp.Application.Features.Bookings.Commands.AddBooking;
+using Exoticamp.Application.Features.Bookings.Queries.GetBookingList;
+using Exoticamp.Application.Features.Bookings.Queries.GetBookingDetails;
+using Exoticamp.Application.Features.Bookings.Commands.UpdateBooking;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -144,6 +148,14 @@ namespace Exoticamp.Application.Profiles
             CreateMap<ReviewReply,ReviewReplyDto>().ReverseMap();
             CreateMap<ReviewReply,AddReviewReplyCommand>().ReverseMap();
             CreateMap<UpdateVendorCommand, UpdatedVendorDto>().ReverseMap();
+
+
+            CreateMap<Booking, CreateBookingCommand>().ReverseMap();
+            CreateMap<Booking, CreateBookingDto>().ReverseMap();
+            CreateMap<Booking, BookingVM>().ReverseMap();
+            CreateMap<Booking,GetBookingByIdDto>().ReverseMap();
+            CreateMap<Booking, UpdateBookingCommand>().ReverseMap();
+            CreateMap<Booking, UpdateBookingDto>().ReverseMap();
 
         }
 

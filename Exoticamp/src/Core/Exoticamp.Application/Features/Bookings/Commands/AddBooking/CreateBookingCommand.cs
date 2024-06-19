@@ -1,8 +1,17 @@
-﻿namespace Exoticamp.UI.Models.Booking
+﻿using Exoticamp.Application.Responses;
+using Exoticamp.Domain.Entities;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exoticamp.Application.Features.Bookings.Commands.AddBooking
 {
-    public class BookingVM
+    public class CreateBookingCommand :IRequest<Response<CreateBookingDto>>
     {
-        public Guid BookingId { get; set; }
+
         public string CustomerName { get; set; }
         public string Email { get; set; }
         public DateTime CheckIn { get; set; }
@@ -16,6 +25,6 @@
         public Guid LocationId { get; set; }
         //public Guid? PaymentId { get; set; }
         public Domain.Entities.CampsiteDetails? Campsite { get; set; }
-        public Domain.Entities.Location? Location { get; set; }
+        public Location? Location { get; set; }
     }
 }
