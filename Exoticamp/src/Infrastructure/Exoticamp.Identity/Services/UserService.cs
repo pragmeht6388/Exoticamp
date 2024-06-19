@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Exoticamp.Application.Features.Vendors.Queries.GetVendor;
+using Exoticamp.Application.Features.Vendors.Commands.UpdateVendor;
 
 namespace Exoticamp.Identity.Services
 {
@@ -180,6 +181,7 @@ namespace Exoticamp.Identity.Services
                 )
                 .Select(joined => new GetVendorDto
                 {
+                    Id=joined.user.Id,
                     Email = joined.user.Email,
                     Name = joined.user.Name,
                     PhoneNumber = joined.user.PhoneNumber,
@@ -202,21 +204,14 @@ namespace Exoticamp.Identity.Services
             }
 
             return user;
-                  Id=user.Id,
-                Email = user.Email,
-                Name = user.Name,
-                PhoneNumber = user.PhoneNumber,
-                AltAddress = user.AltAddress,
-                LocationId = user.LocationId,
-                AltEmail = user.AltEmail,
-                AltPhoneNumber = user.AltPhoneNumber,
-                Address = user.Address,
-               
+                 
 
                 
 
-            };
-        }
+            }
+
+        
+    
 
         public async Task<string> UpdateUser(GetUserDto model)
         {
@@ -233,7 +228,9 @@ namespace Exoticamp.Identity.Services
 
 
         }
-        public async Task<string> UpdateVendor(GetVendorDto model)
+      
+
+        public async Task<UpdatedVendorDto> UpdateVendor(UpdatedVendorDto model)
         {
             var vendor = await _userManager.FindByIdAsync(model.Id);
 
@@ -244,6 +241,7 @@ namespace Exoticamp.Identity.Services
             }
 
             // Update vendor properties
+
             vendor.Name = model.Name;
             vendor.PhoneNumber = model.PhoneNumber;
             vendor.Email = model.Email;
@@ -253,10 +251,23 @@ namespace Exoticamp.Identity.Services
             vendor.AltAddress = model.AltAddress;
             vendor.LocationId = model.LocationId;
 
+
             // Save changes
             await _userManager.UpdateAsync(vendor);
 
-            return vendor.Id;
+            return new UpdatedVendorDto
+            {
+                Id = vendor.Id,
+                Name = vendor.Name,
+                PhoneNumber = vendor.PhoneNumber,
+                Email = vendor.Email,
+                Address = vendor.Address,
+                AltPhoneNumber = vendor.AltPhoneNumber,
+                AltEmail = vendor.AltEmail,
+                AltAddress = vendor.AltAddress,
+                LocationId = vendor.LocationId,
+
+            };
         }
     }
 }

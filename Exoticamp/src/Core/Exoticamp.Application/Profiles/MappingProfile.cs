@@ -142,8 +142,8 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Reviews,ReviewVM>().ReverseMap();
 
             CreateMap<ReviewReply,ReviewReplyDto>().ReverseMap();
-            CreateMap<ReviewReply,AddReviewReplyCommand>().ReverseMap();    
-            CreateMap<UpdateVendorCommand, GetVendorDto>();
+            CreateMap<ReviewReply,AddReviewReplyCommand>().ReverseMap();
+            CreateMap<UpdateVendorCommand, UpdatedVendorDto>().ReverseMap();
 
         }
 

@@ -6,23 +6,23 @@ namespace Exoticamp.UI.Controllers
 {
     public class VendorController : Controller
     {
-        
-            private readonly IVendorRepository _vendorsRepository;
-            private readonly ILocationRepository _locationRepository;
-          
 
-            public VendorController(IVendorRepository vendorsRepository, ILocationRepository locationRepository)
-            {
-                _vendorsRepository = vendorsRepository;
-                _locationRepository = locationRepository;
-                
-            }
+        private readonly IVendorRepository _vendorsRepository;
+        private readonly ILocationRepository _locationRepository;
+
+
+        public VendorController(IVendorRepository vendorsRepository, ILocationRepository locationRepository)
+        {
+            _vendorsRepository = vendorsRepository;
+            _locationRepository = locationRepository;
+
+        }
         public async Task<IActionResult> Profile()
         {
             var vendorId = HttpContext.Session.GetString("VendorId");
             //ViewBag.Locations = await _locationRepository.GetAllLocations();
             var vendorDetails = await _vendorsRepository.GetVendorByIdAsync(vendorId);
-            
+
 
             if (vendorDetails.data != null)
             {
@@ -39,6 +39,7 @@ namespace Exoticamp.UI.Controllers
 
             if (vendorDetails.data != null)
             {
+                vendorDetails.data.Id = vendorId;
                 return View(vendorDetails.data);
             }
             return RedirectToAction("Index", "Home");
@@ -48,18 +49,18 @@ namespace Exoticamp.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> EditProfile(VendorVM model)
         {
-            if (ModelState.IsValid)
-            {
-                var response = await _vendorsRepository.UpdateVendorProfileAsync(model);
-                if (response.Success)
-                {
-                    return RedirectToAction("Profile");
-                }
 
-                ModelState.AddModelError(string.Empty, response.Message);
-            }
             ViewBag.Locations = await _locationRepository.GetAllLocations();
-            return View(model);
+
+            var response = await _vendorsRepository.UpdateVendorProfileAsync(model);
+
+            if (response.Success)
+            {
+                return RedirectToAction("Profile");
+            }
+
+
+            return View();
         }
     }
-    }
+}

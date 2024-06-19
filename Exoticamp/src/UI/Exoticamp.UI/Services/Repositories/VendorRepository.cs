@@ -51,7 +51,7 @@ namespace Exoticamp.UI.Services.Repositories
             };
         }
 
-        public async Task<Response<string>> UpdateVendorProfileAsync(VendorVM vendor)
+        public async Task<Response<VendorResponse>> UpdateVendorProfileAsync(VendorVM vendor)
         {
             _apiRepository = new APIRepository(_configuration);
 
@@ -69,10 +69,10 @@ namespace Exoticamp.UI.Services.Repositories
 
             if (response.data != null)
             {
-                return JsonConvert.DeserializeObject<Response<string>>(response.data);
+                return JsonConvert.DeserializeObject<Response<VendorResponse>>(response.data);
             }
 
-            return new Response<string>
+            return new Response<VendorResponse>
             {
                 Success = false,
                 Message = "Failed to update vendor profile"
