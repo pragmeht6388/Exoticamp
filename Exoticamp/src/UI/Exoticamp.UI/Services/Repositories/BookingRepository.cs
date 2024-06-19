@@ -31,7 +31,7 @@ namespace Exoticamp.UI.Services.Repositories
             _oApiResponse = new Response<string>();
             byte[] content = Array.Empty<byte>();
             var bytes = new ByteArrayContent(content);
-            _oApiResponse = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetAllEvents, HttpMethod.Get, bytes, _sToken);
+            _oApiResponse = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetAllBookings, HttpMethod.Get, bytes, _sToken);
             if (_oApiResponse.data != null)
             {
                 bookings = (JsonConvert.DeserializeObject<GetAllBookingsResponseModel>(_oApiResponse.data)).Data.ToList();
