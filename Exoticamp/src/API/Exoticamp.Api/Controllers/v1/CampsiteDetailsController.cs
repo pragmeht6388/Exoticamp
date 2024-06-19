@@ -84,6 +84,16 @@ namespace Exoticamp.Api.Controllers.v1
             return Ok(dtos);
         }
 
+        [HttpGet("allAdmin", Name = "GetAllCampsiteDetailsAdmin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> GetAllCampsiteAdmin()
+        {
+            _logger.LogInformation("GetAllCampsite Initiated");
+            var dtos = await _mediator.Send(new GetAllCampsiteDetailsAdminList());
+            _logger.LogInformation("GetAllCampsite Completed");
+            return Ok(dtos);
+        }
+
         [HttpGet("{id}", Name = "GetCampsiteDetailsById")]
         public async Task<ActionResult> GetCampsiteById(string id)
         {

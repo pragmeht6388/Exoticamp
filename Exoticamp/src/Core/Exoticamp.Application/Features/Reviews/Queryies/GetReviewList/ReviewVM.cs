@@ -22,6 +22,9 @@ namespace Exoticamp.Application.Features.Reviews.Queryies.GetReviewList
         public Guid BookingId { get; set; }
         public Guid UserId { get; set; }
         public string CampsiteName {  get; set; }
+
+        public string CampsiteImage { get; set; }
+
         public virtual Booking Booking { get; set; }
 
     }
