@@ -10,6 +10,9 @@ namespace Exoticamp.Application.Contracts.Identity
         Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordRequest request);
         Task<Response<object>> MarkUserUnlockedAsync(string userId);
         Task<Response<RegistrationResponse>> RegisterAsync(RegistrationRequest request);
+        Task<Response<RegistrationResponse>> RegisterVendorAsync(VendorRegistrationRequest request);
+
+
         Task<RefreshTokenResponse> RefreshTokenAsync(RefreshTokenRequest request);
         Task<RevokeTokenResponse> RevokeToken(RevokeTokenRequest request);
         Task<Response<object>> MarkUserAsDeletedAsync(string userId);

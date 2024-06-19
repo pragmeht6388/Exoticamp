@@ -1,9 +1,11 @@
-﻿ 
+﻿@*  
+ 
 
-                @model Exoticamp.UI.Models.Registration.RegistrationVM
+                @model Exoticamp.UI.Models.Registration.VendorRegistrationVM
+                @using Exoticamp.UI.Models.Location
 
 @{
-    ViewData["Title"] = "CreateVendor";
+    ViewData["Title"] = "Create Vendor";
     Layout = null;
 }
 
@@ -29,8 +31,8 @@
             padding: 2rem;
             border-radius: 0.5rem;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 500px; /* Limit the width */
-            width: 100%; /* Make it responsive */
+            max-width: 500px;
+            width: 100%;
         }
     </style>
 </head>
@@ -40,7 +42,7 @@
         <hr />
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <form asp-action="CreateVendor" class="needs-validation" novalidate>
+                <form asp-action="CreateVendor" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
                     <div class="form-group">
@@ -62,9 +64,88 @@
                     </div>
 
                     <div class="form-group">
+                        <label asp-for="AlternatePhoneNumber" class="control-label"></label>
+                        <input asp-for="AlternatePhoneNumber" class="form-control" />
+                        <span asp-validation-for="AlternatePhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="AlternateEmail" class="control-label"></label>
+                        <input asp-for="AlternateEmail" class="form-control" />
+                        <span asp-validation-for="AlternateEmail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <textarea asp-for="Address" class="form-control"></textarea>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="AlternateAddress" class="control-label"></label>
+                        <textarea asp-for="AlternateAddress" class="form-control"></textarea>
+                        <span asp-validation-for="AlternateAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <i class="edit-icon"></i>
+                        <select id="locations" asp-for="LocationId" class="form-control">
+                            @if (ViewBag.Locations is not null)
+                            {
+                                @foreach (var item in (IEnumerable<LocationVM>)ViewBag.Locations)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <label asp-for="Password" class="control-label"></label>
                         <input asp-for="Password" class="form-control" type="password" />
                         <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="IDCardFile" class="control-label"></label>
+                        <input asp-for="IDCardFile" class="form-control" type="file" />
+                        <span asp-validation-for="IDCardFile" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="LicenseFile" class="control-label"></label>
+                        <input asp-for="LicenseFile" class="form-control" type="file" />
+                        <span asp-validation-for="LicenseFile" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="AddressProofFile" class="control-label"></label>
+                        <input asp-for="AddressProofFile" class="form-control" type="file" />
+                        <span asp-validation-for="AddressProofFile" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="OthersFile" class="control-label"></label>
+                        <input asp-for="OthersFile" class="form-control" type="file" />
+                        <span asp-validation-for="OthersFile" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="BankName" class="control-label"></label>
+                        <input asp-for="BankName" class="form-control" />
+                        <span asp-validation-for="BankName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="AccountNumber" class="control-label"></label>
+                        <input asp-for="AccountNumber" class="form-control" />
+                        <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="IFSCCode" class="control-label"></label>
+                        <input asp-for="IFSCCode" class="form-control" />
+                        <span asp-validation-for="IFSCCode" class="text-danger"></span>
                     </div>
 
                     <div class="form-group text-center">
@@ -74,6 +155,191 @@
                 </form>
             </div>
         </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>
+ *@
+
+                @model Exoticamp.UI.Models.Registration.VendorRegistrationVM
+@using Exoticamp.UI.Models.Location
+@{
+    ViewData["Title"] = "Create Vendor";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Exoticamp</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 1008px
+        }
+
+        .section-title {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="mt-4 text-center">Create Vendor</h1>
+        <hr />
+        <form asp-action="CreateVendor" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <!-- Vendor Information Section -->
+            <div class="mb-4">
+                <h2 class="section-title">Vendor Information</h2>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="PhoneNumber" class="control-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="AlternatePhoneNumber" class="control-label"></label>
+                        <input asp-for="AlternatePhoneNumber" class="form-control" />
+                        <span asp-validation-for="AlternatePhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="AlternateEmail" class="control-label"></label>
+                        <input asp-for="AlternateEmail" class="form-control" />
+                        <span asp-validation-for="AlternateEmail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Address" class="control-label"></label>
+                        <textarea asp-for="Address" class="form-control"></textarea>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="AlternateAddress" class="control-label"></label>
+                        <textarea asp-for="AlternateAddress" class="form-control"></textarea>
+                        <span asp-validation-for="AlternateAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="location">Location</label>
+                        <select id="locations" asp-for="LocationId" class="form-control">
+                            @if (ViewBag.Locations is not null)
+                            {
+                                @foreach (var item in (IEnumerable<LocationVM>)ViewBag.Locations)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" type="password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vendor KYC Section -->
+            <div class="mb-4">
+                <h2 class="section-title">Vendor KYC</h2>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="IDCardFile" class="control-label"></label>
+                        <input asp-for="IDCardFile" class="form-control" type="file" />
+                        <span asp-validation-for="IDCardFile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md6">
+                        <label asp-for="LicenseFile" class="control-label"></label>
+                        <input asp-for="LicenseFile" class="form-control" type="file" />
+                        <span asp-validation-for="LicenseFile" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="AddressProofFile" class="control-label"></label>
+                        <input asp-for="AddressProofFile" class="form-control" type="file" />
+                        <span asp-validation-for="AddressProofFile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="OthersFile" class="control-label"></label>
+                        <input asp-for="OthersFile" class="form-control" type="file" />
+                        <span asp-validation-for="OthersFile" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bank Details Section -->
+            <div class="mb-4">
+                <h2 class="section-title">Bank Details</h2>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label asp-for="BankName" class="control-label"></label>
+                        <input asp-for="BankName" class="form-control" />
+                        <span asp-validation-for="BankName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="AccountNumber" class="control-label"></label>
+                        <input asp-for="AccountNumber" class="form-control" />
+                        <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="IFSCCode" class="control-label"></label>
+                        <input asp-for="IFSCCode" class="form-control" />
+                        <span asp-validation-for="IFSCCode" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a asp-action="GetAllVendors" class="btn btn-secondary ml-2">Back to List</a>
+            </div>
+        </form>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

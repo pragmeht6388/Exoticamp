@@ -47,10 +47,10 @@ namespace Exoticamp.Api.Controllers.v1
         }
 
         [HttpPost("registerVendor")]
-        public async Task<ActionResult<RegistrationResponse>> RegisterVendorAsync(RegistrationRequest request)
+        public async Task<ActionResult<RegistrationResponse>> RegisterVendorAsync(VendorRegistrationRequest request)
         {
             request.Role = "SuperAdmin";
-            return Ok(await _authenticationService.RegisterAsync(request));
+            return Ok(await _authenticationService.RegisterVendorAsync(request));
         }
 
         [HttpPost("refresh-token")]
