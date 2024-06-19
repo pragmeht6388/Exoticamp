@@ -22,7 +22,9 @@ namespace Exoticamp.Domain.Entities
         public string Status {  get; set; }
         public Guid CampsiteId { get; set; }
         public Guid LocationId { get; set; }
+        public Guid PaymentId {  get; set; }
         public virtual CampsiteDetails Campsite { get; set; }
         public virtual Location Location { get; set; }  
+        public virtual Payment Payment {  get; set; }
     }
 }

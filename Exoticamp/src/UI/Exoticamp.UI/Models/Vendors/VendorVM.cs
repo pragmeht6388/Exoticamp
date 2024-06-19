@@ -36,5 +36,10 @@ namespace Exoticamp.UI.Models.Vendors
         public string License { get; set; }
         public string KYCAddress { get; set; }
         public string Others { get; set; }
+        //public string LocationId { get; set; }
+        public string Location { get; set; }
+
+        public bool IsLocked { get; set; }
+        public int LoginAttemptCount { get; set; }
     }
 }

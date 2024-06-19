@@ -104,6 +104,27 @@ namespace Exoticamp.UI.Controllers
 
 
         #endregion
+        #region ShowVendorProfile
+        [HttpGet]
+        public async Task<IActionResult> ShowVendor(string id)
+        {
+            // Retrieve user details based on the provided ID
+            var userDetails = await _userRepository.GetVendorByIdAsync(id);
+
+            if (userDetails.data != null)
+            {
+                return View(userDetails.data);
+            }
+            else
+            {
+                // Handle case where user with specified ID is not found
+                TempData["Message"] = $"User with ID '{id}' not found.";
+                return RedirectToAction("GetAllUsers"); // Redirect to a list of users or handle as appropriate
+            }
+        }
+
+
+        #endregion
         public async Task<IActionResult> IsLockedUsers(string Email)
         {
             var users = await _userRepository.IsLockedUsersAsync(Email);

@@ -154,7 +154,8 @@ namespace MyCleanProject1.Identity.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserID")
+                        .IsUnique();
 
                     b.ToTable("BankDetails");
                 });
@@ -187,7 +188,8 @@ namespace MyCleanProject1.Identity.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserID")
+                        .IsUnique();
 
                     b.ToTable("UserKYC");
                 });
@@ -363,8 +365,8 @@ namespace MyCleanProject1.Identity.Migrations
             modelBuilder.Entity("Exoticamp.Identity.Models.BankDetails", b =>
                 {
                     b.HasOne("Exoticamp.Identity.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID")
+                        .WithOne("BankDetails")
+                        .HasForeignKey("Exoticamp.Identity.Models.BankDetails", "UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -374,8 +376,8 @@ namespace MyCleanProject1.Identity.Migrations
             modelBuilder.Entity("Exoticamp.Identity.Models.UserKYC", b =>
                 {
                     b.HasOne("Exoticamp.Identity.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID")
+                        .WithOne("UserKYC")
+                        .HasForeignKey("Exoticamp.Identity.Models.UserKYC", "UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -430,6 +432,15 @@ namespace MyCleanProject1.Identity.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Exoticamp.Identity.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("BankDetails")
+                        .IsRequired();
+
+                    b.Navigation("UserKYC")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

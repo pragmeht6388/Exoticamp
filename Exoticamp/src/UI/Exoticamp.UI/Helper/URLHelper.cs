@@ -32,13 +32,15 @@
         public const string IsDeleteUser = "/api/v1/Admin/IsDeleteUsers?id={0}";
         public const string IsLockedUser = "/api/v1/Admin/IsLockedUsers?id={0}";
         public const string registerVendor = "/api/v1/Account/registerVendor";
+        public const string GetVendorById = "/api/v1/Vendor/{0}";
 
-         
         #endregion
         public const string GetChatbotResponses = "/api/v1/Chatbot/all?id={0}";
 
 
-
+        #region Search
+        public const string SearchContent = "/api/v1/Search?text={text}";
+        #endregion
 
 
 
@@ -80,6 +82,11 @@
 
         public const string GetAllLocation = "/api/v1/Location/all";
         #endregion
+
+        public const string AddReviews = "/api/v1/Reviews";
+        public const string GetAllReview = "/api/v1/Reviews/allReview";
+
+        public const string AddReviewReply = "/api/v1/ReviewReply";
         #region Vendor
         public const string GetVendorDetails = "/api/v1/Vendor/{0}";
         public const string UpdateVendorProfile = "/api/v1/Vendor/edit-profile";

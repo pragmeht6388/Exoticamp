@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Exoticamp.UI.Models.Vendors;
 
 
 namespace Exoticamp.UI.Services.Repositories
@@ -136,6 +137,52 @@ namespace Exoticamp.UI.Services.Repositories
 
             var bytes = new ByteArrayContent(content);
             response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetUserById.Replace("{0}", UserId), HttpMethod.Get, bytes, _sToken);
+            if (response.data != null)
+            {
+                return (JsonConvert.DeserializeObject<Response<UsersVM>>(response.data));
+
+            }
+
+            return new Response<UsersVM>
+            {
+                Success = false,
+                Message = "User Not Found"
+            };
+        }
+
+        public async Task<Response<VendorVM>> GetVendorByIdAsync(string UserId)
+        {
+            _apiRepository = new APIRepository(_configuration);
+
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(UserId, Newtonsoft.Json.Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+
+            var bytes = new ByteArrayContent(content);
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetVendorById.Replace("{0}", UserId), HttpMethod.Get, bytes, _sToken);
+            if (response.data != null)
+            {
+                return (JsonConvert.DeserializeObject<Response<VendorVM>>(response.data));
+
+            }
+
+            return new Response<VendorVM>
+            {
+                Success = false,
+                Message = "User Not Found"
+            };
+        }
+
+        public async Task<Response<UsersVM>> IUsersRepository(string UserId)
+        {
+            _apiRepository = new APIRepository(_configuration);
+
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(UserId, Newtonsoft.Json.Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+
+            var bytes = new ByteArrayContent(content);
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetVendorById.Replace("{0}", UserId), HttpMethod.Get, bytes, _sToken);
             if (response.data != null)
             {
                 return (JsonConvert.DeserializeObject<Response<UsersVM>>(response.data));

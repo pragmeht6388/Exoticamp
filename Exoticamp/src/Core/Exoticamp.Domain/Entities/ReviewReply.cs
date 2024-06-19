@@ -14,6 +14,8 @@ namespace Exoticamp.Domain.Entities
         public Guid Id { get; set; }
         public string Reply {  get; set; }
         public Guid ReviewId { get; set; }
+        public Guid ReviewsId { get; set; }
+
         public virtual Reviews Reviews { get; set; }
     }
 }
