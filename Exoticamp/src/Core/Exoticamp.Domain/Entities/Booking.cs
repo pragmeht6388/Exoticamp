@@ -28,6 +28,6 @@ namespace Exoticamp.Domain.Entities
 
         public virtual CampsiteDetails Campsite { get; set; }
         public virtual Location Location { get; set; }  
-        public virtual Payment Payment {  get; set; }
+    
     }
 }

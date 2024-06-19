@@ -24,7 +24,7 @@ namespace Exoticamp.Application.Features.Bookings.Commands.AddBooking
         public Guid CampsiteId { get; set; }
         public Guid LocationId { get; set; }
         //public Guid? PaymentId { get; set; }
-        public Domain.Entities.CampsiteDetails? Campsite { get; set; }
-        public Location? Location { get; set; }
+        //public Domain.Entities.CampsiteDetails? Campsite { get; set; }
+        //public Location? Location { get; set; }
     }
 }

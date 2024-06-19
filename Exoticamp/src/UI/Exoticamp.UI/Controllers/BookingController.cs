@@ -1,5 +1,8 @@
-﻿using Exoticamp.UI.Services.IRepositories;
+﻿using Exoticamp.UI.Models;
+using Exoticamp.UI.Models.Booking;
+using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Exoticamp.UI.Controllers
 {
@@ -26,6 +29,32 @@ namespace Exoticamp.UI.Controllers
         {
             var bookings=await _bookingRepository.GetAllBookings();
             return View(bookings);
+        }
+        [HttpGet]
+        public async Task<ActionResult> AddBooking()
+        {
+            BookingVM model = new BookingVM();
+
+            var Campsites = await _campsiteDetailsRepository.GetAllCampsites();
+   
+            var Locations = await _locationRepository.GetAllLocations();
+            if (Campsites == null ||  Locations == null)
+            {
+                return View("Error", new ErrorViewModel { });
+            }
+
+            model.CampsitesList= new SelectList(Campsites, "Id", "Name");
+            model.LocationsList = new SelectList(Locations, "Id", "Name");
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddBooking(BookingVM model)
+        {
+
+            return View();
         }
     }
 }
