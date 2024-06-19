@@ -45,6 +45,7 @@ namespace Exoticamp.Persistence.Repositories
                     Location = request.Location,
                     Status = request.Status,
                     TentType = request.TentType,
+                    Price=request.Price,
                     isActive = true,
                     ApprovedBy = request.ApprovedBy,
                     ApprovededDate = request.ApprovededDate,
@@ -128,6 +129,7 @@ namespace Exoticamp.Persistence.Repositories
                     Name = request.Name,
                     Location = request.Location,
                     Status = request.Status,
+                    Price=request.Price,
                     TentType = request.TentType,
                     isActive = request.isActive,
                     ApprovedBy = request.ApprovedBy,
@@ -156,6 +158,7 @@ namespace Exoticamp.Persistence.Repositories
                     HouseRules = request.HouseRules,
                     MealPlans = request.MealPlans,
                     WhyExoticamp = request.WhyExoticamp,
+                    CreatedBy= request.CreatedBy,
                     
 
                     // Include activity details
@@ -184,6 +187,7 @@ namespace Exoticamp.Persistence.Repositories
                     Status = request.Status,
                     TentType = request.TentType,
                     isActive = request.isActive,
+                    Price=request.Price,
                     ApprovedBy = request.ApprovedBy,
                     ApprovededDate = request.ApprovededDate,
                     DeletededBy = request.DeletededBy,

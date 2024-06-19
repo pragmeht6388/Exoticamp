@@ -22,37 +22,85 @@ namespace Exoticamp.Application.Features.Reviews.Queryies.GetReviewList
         private readonly ILogger _logger;
         private readonly ILoggedInUserService _loggedInUserService;
         private readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
+        private readonly IAsyncRepository<Domain.Entities.Booking> _booking;
 
-        public GetReviewListQueryHandler(IMapper mapper, IReviewRepository reviewRepository, ILogger<GetCampsiteDetailsListQueryHandler> logger, ILoggedInUserService loggedInUserService, ICampsiteDetailsRepository campsiteDetailsRepository)
+
+        public GetReviewListQueryHandler(IMapper mapper, IReviewRepository reviewRepository, ILogger<GetCampsiteDetailsListQueryHandler> logger, ILoggedInUserService loggedInUserService, ICampsiteDetailsRepository campsiteDetailsRepository, IAsyncRepository<Booking> booking)
         {
             _mapper = mapper;
             _reviewRepository = reviewRepository;
             _logger = logger;
             _loggedInUserService = loggedInUserService;
             _campsiteDetailsRepository = campsiteDetailsRepository;
+            _booking = booking;
         }
 
+        //public async Task<Response<IEnumerable<ReviewVM>>> Handle(GetReviewListQuery request, CancellationToken cancellationToken)
+        //{
+        //    _logger.LogInformation("Handle Initiated");
+
+        //    var allReviews = await _reviewRepository.ListAllAsync();
+
+        //    var bookingId = request.BookingId; 
+        //    var campsite = await _campsiteDetailsRepository.ListAllAsync();
+
+
+        //    var activeReviews = allReviews;
+
+        //    var orderedReview = activeReviews.OrderBy(x => x.Name);
+
+        //    var reviewVMs = _mapper.Map<IEnumerable<ReviewVM>>(orderedReview);
+
+        //    _logger.LogInformation("Hanlde Completed");
+
+        //    return new Response<IEnumerable<ReviewVM>>(reviewVMs, "success");
+        //}
         public async Task<Response<IEnumerable<ReviewVM>>> Handle(GetReviewListQuery request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Handle Initiated");
 
             var allReviews = await _reviewRepository.ListAllAsync();
 
-            var bookingId = request.BookingId; 
-            var campsite = await _campsiteDetailsRepository.ListAllAsync();
-           
+            // Fetch all bookings and campsite details
+            var bookings = await _booking.ListAllAsync();
+            var campsiteDetails = await _campsiteDetailsRepository.ListAllAsync();
 
-            var activeReviews = allReviews;
+            var reviewVMs = new List<ReviewVM>();
 
-            var orderedReview = activeReviews.OrderBy(x => x.Name);
+            foreach (var review in allReviews)
+            {
+                var reviewVM = _mapper.Map<ReviewVM>(review);
 
-            var reviewVMs = _mapper.Map<IEnumerable<ReviewVM>>(orderedReview);
+                // Find the booking associated with the review
+                var booking = bookings.FirstOrDefault(b => b.BookingId == review.BookingId);
 
-            _logger.LogInformation("Hanlde Completed");
+                if (booking != null)
+                {
+                    // Find the campsite details using the campsite ID from the booking
+                    var campsiteDetail = campsiteDetails.FirstOrDefault(c => c.Id == booking.CampsiteId);
+
+                    if (campsiteDetail != null)
+                    {
+                        reviewVM.CampsiteName = campsiteDetail.Name;
+                        reviewVM.CampsiteImage = campsiteDetail.Images;
+                    }
+                    else
+                    {
+                        reviewVM.CampsiteName = "Unknown";
+                    }
+                }
+                else
+                {
+                    reviewVM.CampsiteName = "Unknown";
+                }
+
+                reviewVMs.Add(reviewVM);
+            }
+
+            _logger.LogInformation("Handle Completed");
 
             return new Response<IEnumerable<ReviewVM>>(reviewVMs, "success");
         }
-
 
         //public async Task<Response<IEnumerable<ReviewVM>>> Handle(GetReviewListQuery request, CancellationToken cancellationToken)
         //{

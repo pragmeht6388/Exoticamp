@@ -10,10 +10,12 @@ namespace Exoticamp.UI.Controllers
     public class ReviewsController : Controller
     {
         private readonly IReviewsRepository _reviewsRepository;
+        private readonly IReviewReplyRepository _replyRepository;
 
-        public ReviewsController(IReviewsRepository reviewsRepository)
+        public ReviewsController(IReviewsRepository reviewsRepository, IReviewReplyRepository replyRepository)
         {
             _reviewsRepository = reviewsRepository;
+            _replyRepository = replyRepository;
         }
         [HttpGet]
         [UserAuthFilter]
@@ -41,7 +43,7 @@ namespace Exoticamp.UI.Controllers
             }
 
 
-            return RedirectToAction("ShowCampsite");
+            return RedirectToAction("Index","Home");
 
         }
         [VendorAuthFilter]
@@ -67,13 +69,14 @@ namespace Exoticamp.UI.Controllers
             return View("ShowReviewsUser",activeCampsites);
         }
 
-
+        [AdminAuthFilter]
+        [NoCache]
         public async Task<IActionResult> ShowReviewsAdmin()
         {
             var campsiteDetail = await _reviewsRepository.GetAllReviews();
 
             // Filter the campsiteDetail to include only those with isActive set to true
-            var activeCampsites = campsiteDetail.Where(x=>x.Status==false).ToList();
+            var activeCampsites = campsiteDetail.ToList();
 
             return View(activeCampsites);
         }
@@ -97,60 +100,109 @@ namespace Exoticamp.UI.Controllers
         //}
 
 
+        //[HttpPost]
+        //public async Task<IActionResult> ApproveReview(string id)
+        //{
+        //    var review = await _reviewsRepository.GetReviewById(id);
+
+        //    if (review == null|| review.Data== null)
+        //    {
+        //        return NotFound(); // Handle scenario where review is not found
+        //    }
+
+        //    // Update review status to approved
+        //    review.Data.Status = true; // Assuming Status is a boolean property
+
+        //    // Save changes to repository
+        //    var result = await _reviewsRepository.EditReview(review.Data);
+
+        //    if (result.Data.Status)
+        //    {
+        //        TempData["SuccessMessage"] = "Review approved successfully.";
+        //    }
+        //    else
+        //    {
+        //        TempData["ErrorMessage"] = "Failed to approve review.";
+        //    }
+
+        //    return RedirectToAction("ShowReviewsAdmin");
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> RejectReview(string id)
+        //{
+        //    var review = await _reviewsRepository.GetReviewById(id);
+
+        //    if (review == null)
+        //    {
+        //        return NotFound(); // Handle scenario where review is not found
+        //    }
+
+        //    // Update review status to rejected
+        //    review.Data.Status = false; // Assuming Status is a boolean property
+
+        //    // Save changes to repository
+        //    var result = await _reviewsRepository.EditReview(review.Data);
+
+        //    if (result.Data.Status)
+        //    {
+        //        TempData["SuccessMessage"] = "Review rejected successfully.";
+        //    }
+        //    else
+        //    {
+        //        TempData["ErrorMessage"] = "Failed to reject review.";
+        //    }
+
+        //    return RedirectToAction("ShowReviewsAdmin");
+        //}
+
+
         [HttpPost]
-        public async Task<IActionResult> ApproveReview(string id)
+        public async Task<IActionResult> UpdateReviewStatusById(string id)
         {
-            var review = await _reviewsRepository.GetReviewById(id);
-
-            if (review == null|| review.Data== null)
-            {
-                return NotFound(); // Handle scenario where review is not found
-            }
-
-            // Update review status to approved
-            review.Data.Status = true; // Assuming Status is a boolean property
-
-            // Save changes to repository
-            var result = await _reviewsRepository.EditReview(review.Data);
-
-            if (result.Data.Status)
-            {
-                TempData["SuccessMessage"] = "Review approved successfully.";
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "Failed to approve review.";
-            }
-
-            return RedirectToAction("ShowReviewsAdmin");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RejectReview(string id)
-        {
-            var review = await _reviewsRepository.GetReviewById(id);
-
+            var review =await _reviewsRepository.GetReviewById(id);
             if (review == null)
             {
-                return NotFound(); // Handle scenario where review is not found
+                return NotFound(); // Handle case where review with given id is not found
             }
 
-            // Update review status to rejected
-            review.Data.Status = false; // Assuming Status is a boolean property
-
-            // Save changes to repository
-            var result = await _reviewsRepository.EditReview(review.Data);
-
-            if (result.Data.Status)
+            // Update review status based on the 'approve' parameter
+            if (review.Data.Status)
             {
-                TempData["SuccessMessage"] = "Review rejected successfully.";
+                review.Data.Status = false;
             }
             else
             {
-                TempData["ErrorMessage"] = "Failed to reject review.";
+                review.Data.Status = true;
+            }
+            _reviewsRepository.EditReview(review.Data);
+
+            return RedirectToAction(nameof(ShowReviewsAdmin)); // Redirect back to the list of reviews or any desired action
+        }
+
+
+        public async Task<IActionResult> ShowAllReviewsWithReplies()
+        {
+            var reviews = await _reviewsRepository.GetAllReviews(); // Assuming this method retrieves all reviews
+            var approvedReview = reviews.Where(x => x.Status == true);
+            var reviewReplies = await _replyRepository.GetAllReply(); // Assuming this method retrieves all replies
+
+            var viewModelList = new List<ReviewDetailsViewModel>();
+
+            foreach (var review in approvedReview)
+            {
+                var reply = reviewReplies.FirstOrDefault(r => r.ReviewId == review.Id); // Assuming ReviewId links to review
+
+                var viewModel = new ReviewDetailsViewModel
+                {
+                    Review = review,
+                    ReviewReply = reply
+                };
+
+                viewModelList.Add(viewModel);
             }
 
-            return RedirectToAction("ShowReviewsAdmin");
+            return View(viewModelList);
         }
     }
 }

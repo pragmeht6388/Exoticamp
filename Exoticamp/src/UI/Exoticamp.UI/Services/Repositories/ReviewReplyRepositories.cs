@@ -1,6 +1,7 @@
 ﻿using Exoticamp.UI.Helper;
 using Exoticamp.UI.Models.ResponseModels;
 using Exoticamp.UI.Models.ResponseModels.ReviewReply;
+using Exoticamp.UI.Models.ResponseModels.Reviews;
 using Exoticamp.UI.Models.ReviewReply;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.Extensions.Options;
@@ -49,6 +50,48 @@ namespace Exoticamp.UI.Services.Repositories
                 Succeeded = false,
                 Message = "Failed to add contact."
             };
+        }
+
+        public async Task<GetReplyByIdResponseModel> GetReplyById(string id)
+        {
+
+            _apiRepository = new APIRepository(_configuration);
+
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(id, Newtonsoft.Json.Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+
+            var bytes = new ByteArrayContent(content);
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetReplyById.Replace("{0}", id), HttpMethod.Get, bytes, _sToken);
+            if (response.data != null)
+            {
+                return (JsonConvert.DeserializeObject<GetReplyByIdResponseModel>(response.data));
+            }
+
+            return new GetReplyByIdResponseModel
+            {
+                Succeeded = false,
+                Message = "Event Not Found"
+            };
+        }
+
+        public async Task<IEnumerable<ReviewReplyVM>> GetAllReply()
+        {
+            GetAllReplyResponseModel response = new GetAllReplyResponseModel();
+            List<ReviewReplyVM> events = new List<ReviewReplyVM>();
+            _apiRepository = new APIRepository(_configuration);
+
+            _oApiResponse = new Response<string>();
+            byte[] content = Array.Empty<byte>();
+            var bytes = new ByteArrayContent(content);
+            _oApiResponse = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetAllReply, HttpMethod.Get, bytes, _sToken);
+            if (_oApiResponse.data != null)
+            {
+                events = (JsonConvert.DeserializeObject<GetAllReplyResponseModel>(_oApiResponse.data)).Data.ToList();
+                // events = response.Data.Where(c => c.IsActive==true).ToList();
+            }
+
+            return events;
         }
     }
 }

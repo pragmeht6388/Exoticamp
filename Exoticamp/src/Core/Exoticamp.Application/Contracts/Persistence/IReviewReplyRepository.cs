@@ -10,5 +10,7 @@ namespace Exoticamp.Application.Contracts.Persistence
     public interface IReviewReplyRepository : IAsyncRepository<ReviewReply>
     {
         Task<ReviewReply> AddReviewReply(ReviewReply reviews);
+        Task<List<ReviewReply>> GetAllReply(bool includePassedEvents);
+
     }
 }

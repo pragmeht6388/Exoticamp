@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Exoticamp.Application.Contracts;
 using Exoticamp.Application.Contracts.Persistence;
-using Exoticamp.Application.Features.Campsite.Query.GetCampsiteList;
 using Exoticamp.Application.Responses;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -13,14 +12,14 @@ using System.Threading.Tasks;
 
 namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetailsList
 {
-    public class GetCampsiteDetailsListQueryHandler : IRequestHandler<GetCampsiteDetailsListQuery, Response<IEnumerable<CampsiteDetailsVM>>>
+    public class GetCampsiteDetailsAdminHandler : IRequestHandler<GetAllCampsiteDetailsAdminList, Response<IEnumerable<CampsiteDetailsVM>>>
     {
         private readonly ICampsiteDetailsRepository _campsiteRepository;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
         private readonly ILoggedInUserService _loggedInUserService;
 
-        public GetCampsiteDetailsListQueryHandler(IMapper mapper, ICampsiteDetailsRepository campsiteRepository, ILogger<GetCampsiteDetailsListQueryHandler> logger, ILoggedInUserService loggedInUserService)
+        public GetCampsiteDetailsAdminHandler(IMapper mapper, ICampsiteDetailsRepository campsiteRepository, ILogger<GetCampsiteDetailsAdminHandler> logger, ILoggedInUserService loggedInUserService)
         {
             _mapper = mapper;
             _campsiteRepository = campsiteRepository;
@@ -44,15 +43,15 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
 
         //    return new Response<IEnumerable<CampsiteDetailsVM>>(allCampsite, "success");
         //}
-        public async Task<Response<IEnumerable<CampsiteDetailsVM>>> Handle(GetCampsiteDetailsListQuery request, CancellationToken cancellationToken)
+        public async Task<Response<IEnumerable<CampsiteDetailsVM>>> Handle(GetAllCampsiteDetailsAdminList request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Handle Initiated");
             var user = _loggedInUserService.UserId;
-            
+
 
             var allCampsite = await _campsiteRepository.GetAllCampsiteWithCategoryAndActivityDetails();
 
-            var activeCampsites = allCampsite.Where(c => c.isActive == true);// the person who have created the campsite 
+            var activeCampsites = allCampsite.Where(c => c.isActive == true );// the person who have created the campsite 
 
             var orderedCampsites = activeCampsites.OrderBy(x => x.Name);
 
@@ -62,7 +61,6 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
 
             return new Response<IEnumerable<CampsiteDetailsVM>>(campsiteVMs, "success");
         }
-
 
     }
 }

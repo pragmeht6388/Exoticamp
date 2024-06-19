@@ -49,6 +49,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
                     Status = request.Status,
                     TentType = request.TentType,
                     isActive = true,
+                    Price=request.Price,
                     ApprovedBy = request.ApprovedBy,
                     ApprovededDate = request.ApprovededDate,
                     DeletededBy = request.DeletededBy,
@@ -79,6 +80,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
                     
                 };
                 campsite = await _campsiteRepository.AddCampsite(request);
+
                 addCampsiteCommandResponse = new Response<CampsiteDetailsDto>(_mapper.Map<CampsiteDetailsDto>(campsite), "success");
             }
 

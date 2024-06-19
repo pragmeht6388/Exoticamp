@@ -29,7 +29,12 @@ namespace Exoticamp.UI.Models.CampsiteDetails
         public bool Status { get; set; }
 
         [JsonProperty("tentType")]
+
         public string TentType { get; set; }
+
+        [JsonProperty("price")]
+        public decimal Price { get; set; }
+
         [NotMapped]
         public IFormFile? ImageFile { get; set; }
 

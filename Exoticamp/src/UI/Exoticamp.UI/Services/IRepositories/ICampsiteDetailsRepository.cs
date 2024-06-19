@@ -8,6 +8,7 @@ namespace Exoticamp.UI.Services.IRepositories
     {
         Task<CreateCampsiteDetailsResponseModel> AddCampsiteDetails(CampsiteDetailsVM campsiteVM);
         Task<IEnumerable<CampsiteDetailsVM>> GetAllCampsites();
+        Task<IEnumerable<CampsiteDetailsVM>> GetAllCampsitesAdmin();
 
         Task<GetCampsiteDetailsByIdResponseModel> GetCampsiteById(string Id);
 
