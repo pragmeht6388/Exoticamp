@@ -1,4 +1,5 @@
 ﻿using Exoticamp.Application.Contracts.Persistence;
+using Exoticamp.Application.Features.Bookings.Commands.AddBooking;
 using Exoticamp.Application.Helper;
 using FluentValidation;
 
@@ -51,6 +52,8 @@ namespace Exoticamp.Application.Features.Events.Commands.UpdateEvent
               .MaximumLength(400).WithMessage("Event Rules shold not exceed 400 characters");
         }
 
+
+      
         private string GetMessage(string Code, string Lang)
         {
             return _messageRepository.GetMessage(Code, Lang).Result.MessageContent.ToString();
