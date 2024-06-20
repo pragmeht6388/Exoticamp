@@ -95,6 +95,7 @@
         public const string GetAllReply = "/api/v1/ReviewReply/allReply";
         #region Vendor
         public const string GetVendorDetails = "/api/v1/Vendor/{0}";
+        public const string UpdateVendorProfile = "/api/v1/Vendor/edit-profile";
         #endregion
 
     }

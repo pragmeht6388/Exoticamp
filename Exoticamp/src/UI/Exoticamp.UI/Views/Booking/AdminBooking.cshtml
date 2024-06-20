@@ -1,0 +1,128 @@
+﻿@model IEnumerable<Exoticamp.UI.Models.Booking.BookingVM>
+
+@{
+    ViewData["Title"] = "Availability";
+    Layout = "~/Views/Shared/_VendorLayout.cshtml";
+
+    // Calculate counts for upcoming and new bookings
+    var upcomingBookingsCount = Model.Count(b => b.CheckIn > DateTime.Now);
+    var newBookingsCount = Model.Count(b => b.CheckIn == DateTime.Now);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+
+        .info-box {
+            padding: 20px;
+            color: white;
+            margin-bottom: 20px;
+            height: 150px; /* Ensure equal height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .revenue {
+            background-color: #28a745; /* Green */
+        }
+
+        .upcoming {
+            background-color: #17a2b8; /* Blue */
+        }
+
+        .history {
+            background-color: #ffc107; /* Yellow */
+        }
+
+        .reviews {
+            background-color: #dc3545; /* Red */
+        }
+
+        .book-dates {
+            background-color: #343a40; /* Dark */
+        }
+
+        .new-requests {
+            background-color: #6f42c1; /* Purple */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="mb-4">Vendor Dashboard</h2>
+        <div class="row">
+            <div class="col-12">
+                <!-- Booking Counts -->
+                <div class="alert alert-info" role="alert">
+                    <p>Upcoming Bookings: @upcomingBookingsCount</p>
+                    <p>New Booking Requests: @newBookingsCount</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <!-- Total Revenue -->
+                <div class="info-box revenue">
+                    <h4>Total Revenue</h4>
+                    <p>$1000</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <!-- Upcoming Booking -->
+                @foreach (var booking in Model.Where(b => b.CheckIn > DateTime.Now))
+                {
+                    <div class="info-box upcoming">
+                        <h4>Upcoming Booking</h4>
+                        <p>Date: @booking.CheckIn.ToShortDateString() | Time: @booking.CheckIn.ToShortTimeString() | Customer: @booking.CustomerName</p>
+                    </div>
+                }
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <!-- Booking History -->
+                <div class="info-box history">
+                    <h4>Booking History</h4>
+                    <p>Total Bookings: @Model.Count()</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <!-- Reviews -->
+                <div class="info-box reviews">
+                    <h4>Reviews</h4>
+                    <p>Pending Reviews: 5</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <!-- Book Dates -->
+                <div class="info-box book-dates">
+                    <h4>Book Dates</h4>
+                    <p>Next Available Date: 2024-07-02</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <!-- New Booking Request -->
+                @foreach (var booking in Model.Where(b => b.CheckIn.Date > DateTime.Now.Date))
+                {
+                    <div class="info-box new-requests">
+                        <h4>New Booking Request</h4>
+                        <p>Date: @booking.CheckIn.ToShortDateString() | Customer: @booking.CustomerName</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
