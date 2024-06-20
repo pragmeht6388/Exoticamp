@@ -43,7 +43,9 @@
         public const string SearchContent = "/api/v1/Search?text={text}";
         #endregion
 
-
+        #region Booking
+        public const string GetAllBookings = "/api/v1/Booking";
+        #endregion
 
 
         public const string DeleteBannerById = "/api/v1/Banner/{0}";
@@ -70,7 +72,7 @@
         public const string GetAllActivities = "/api/v1/Activities/all";
 
         public const string GetCampsiteDetailLocationsById = "/api/v1/CampsiteDetails/Campsite/{0}";
-
+        public const string GetCampsiteForAdmin = "/api/v1/CampsiteDetails/allAdmin";
 
 
         #region -User
@@ -86,10 +88,15 @@
 
         public const string AddReviews = "/api/v1/Reviews";
         public const string GetAllReview = "/api/v1/Reviews/allReview";
+        public const string GetReviewbyId = "/api/v1/Reviews/{0}";
+        public const string UpdateReview= "/api/v1/Reviews/UpdateReviewById";
 
         public const string AddReviewReply = "/api/v1/ReviewReply";
+        public const string GetReplyById = "/api/v1/ReviewReply/{0}";
+        public const string GetAllReply = "/api/v1/ReviewReply/allReply";
         #region Vendor
         public const string GetVendorDetails = "/api/v1/Vendor/{0}";
+        public const string UpdateVendorProfile = "/api/v1/Vendor/edit-profile";
         #endregion
 
     }

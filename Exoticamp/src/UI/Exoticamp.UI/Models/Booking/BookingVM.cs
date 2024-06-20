@@ -3,18 +3,19 @@
     public class BookingVM
     {
         public Guid BookingId { get; set; }
-        public string Campsite { get; set; }
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
-        public int NoOfPersons { get; set; }
-        public string Status { get; set; }
-        public string Action { get; set; }
-        public string GuestNames { get; set; }
+        public string CustomerName { get; set; }
+        public string Email { get; set; }
+        public DateTime CheckIn { get; set; }
+        public DateTime CheckOut { get; set; }
+        public int NoOfAdults { get; set; }
+        public int NoOfChildrens { get; set; }
         public int NoOfTents { get; set; }
-        public string GlampingType { get; set; }
-        public string VegNonVegPax { get; set; }
-        public string PaymentStatus { get; set; }
-        public decimal AmountPaid { get; set; }
-        public string CustomizedItinerary { get; set; }
+        public string? GlampingType { get; set; }
+        public string Status { get; set; }
+        public Guid CampsiteId { get; set; }
+        public Guid LocationId { get; set; }
+        //public Guid? PaymentId { get; set; }
+        public Domain.Entities.CampsiteDetails? Campsite { get; set; }
+        public Domain.Entities.Location? Location { get; set; }
     }
 }

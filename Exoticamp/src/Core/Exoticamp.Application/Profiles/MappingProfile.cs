@@ -46,9 +46,18 @@ using CDVM = Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteByL
 using Exoticamp.Application.Features.Reviews.Commands.AddReviews;
 using Exoticamp.Application.Features.Reviews.Queryies.GetReviewList;
 using Exoticamp.Application.Features.RewiewReply.Command.AddReviewReply;
+using Exoticamp.Application.Features.Reviews.Queryies.GetReviewById;
+using Exoticamp.Application.Features.Reviews.Commands.UpdateReviews;
 using Exoticamp.Application.Features.Vendors.Queries.GetVendor;
 using Exoticamp.Application.Features.Vendors.Commands.UpdateVendor;
 using Exoticamp.Application.Contracts.Identity;
+using Exoticamp.Application.Features.RewiewReply.Query.GetReplyById;
+using Exoticamp.Application.Features.RewiewReply.Query.GetReplyList;
+
+using Exoticamp.Application.Features.Bookings.Commands.AddBooking;
+using Exoticamp.Application.Features.Bookings.Queries.GetBookingList;
+using Exoticamp.Application.Features.Bookings.Queries.GetBookingDetails;
+using Exoticamp.Application.Features.Bookings.Commands.UpdateBooking;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -141,11 +150,21 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Reviews,AddReviewCommand>().ReverseMap();
             CreateMap<Reviews, ReviewDto>().ReverseMap();
             CreateMap<Reviews,ReviewVM>().ReverseMap();
+            CreateMap<Reviews, ReviewsVM>().ReverseMap();
+            CreateMap<Reviews,UpdateReviewCommand>().ReverseMap();
 
             CreateMap<ReviewReply,ReviewReplyDto>().ReverseMap();
-            CreateMap<ReviewReply,AddReviewReplyCommand>().ReverseMap();    
-            CreateMap<UpdateVendorCommand, GetVendorDto>();
-             
+            CreateMap<ReviewReply,AddReviewReplyCommand>().ReverseMap();
+            CreateMap<UpdateVendorCommand, UpdatedVendorDto>().ReverseMap();
+
+
+            CreateMap<Booking, CreateBookingCommand>().ReverseMap();
+            CreateMap<Booking, CreateBookingDto>().ReverseMap();
+            CreateMap<Booking, BookingVM>().ReverseMap();
+            CreateMap<Booking,GetBookingByIdDto>().ReverseMap();
+            CreateMap<Booking, UpdateBookingCommand>().ReverseMap();
+            CreateMap<Booking, UpdateBookingDto>().ReverseMap();
+
         }
 
 

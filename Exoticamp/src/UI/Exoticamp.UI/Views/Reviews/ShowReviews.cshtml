@@ -72,6 +72,18 @@
             width: 500px;
             margin-left: 450px;
         }
+
+        .campsite-image {
+            max-width: 100px; /* Adjust maximum width as per your design */
+            height: auto;
+            margin-right: 10px; /* Margin between image and review details */
+            float: left; /* Float left to align with review details */
+        }
+
+        .campsite-info {
+            display: flex;
+            align-items: center; /* Align items vertically center */
+        }
     </style>
 </head>
 <body>
@@ -81,8 +93,19 @@
     {
         <div class="review-container">
             <div class="review-header">
-                <div>
-                    <strong>Booking ID:</strong> @Html.DisplayFor(modelItem => item.BookingId)
+                <div class="campsite-info">
+                    @* Display campsite image *@
+                    @if (!string.IsNullOrEmpty(item.CampsiteImage))
+                    {
+                        <img src="@item.CampsiteImage" class="campsite-image" alt="Campsite Image" />
+                    }
+                    else
+                    {
+                        <img src="~/images/default-campsite-image.jpg" class="campsite-image" alt="Default Campsite Image" />
+                    }
+
+                    @* Display campsite name *@
+                    
                 </div>
                 <div>
                     <strong>Ratings:</strong>
@@ -103,6 +126,7 @@
                     (@item.Ratings.ToString("0.0") /5.0)
                 </div>
             </div>
+            <strong>Campsite Name:</strong> @Html.DisplayFor(modelItem => item.CampsiteName)
             <div class="review-details">
                 <strong>Name:</strong> @Html.DisplayFor(modelItem => item.Name)
                 <br />

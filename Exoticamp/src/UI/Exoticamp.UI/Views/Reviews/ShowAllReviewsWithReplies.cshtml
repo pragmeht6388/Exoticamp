@@ -1,0 +1,105 @@
+﻿@model List<Exoticamp.UI.Models.Reviews.ReviewDetailsViewModel>
+
+@{
+    ViewData["Title"] = "All Reviews with Replies";
+    Layout = "~/Views/Shared/_LayoutLandingPage.cshtml";
+}
+
+<style>
+    .golden-star {
+        color: gold; /* Adjust this color as per your design */
+    }
+    .card-header{
+        height:90px;
+    }
+
+   
+</style>
+
+<h1 style="text-align:center; margin-top:30px;">Reviews</h1>
+
+<div class="container mt-4" id="reviewsContainer" >
+    @foreach (var viewModel in Model)
+    {
+        <div class="card mb-4" style="width: 600px; margin-left: 280px;">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title"> @viewModel.Review.Name</h5>
+                    
+                    <p class="card-text">
+                        <strong>
+                            @{
+                                for (int i = 0; i < viewModel.Review.Ratings; i++)
+                                {
+                                    <i class="fas fa-star golden-star"></i>
+                                }
+                                for (int i = viewModel.Review.Ratings; i < 5; i++)
+                                {
+                                    <i class="far fa-star golden-star"></i>
+                                }
+                            }
+                        </strong>
+                    </p>
+                    
+                </div>
+                <h5>Campsite: @viewModel.Review.CampsiteName</h5>
+                <p class="card-subtitle mb-2 text-muted">@viewModel.Review.DateTime.ToString("yyyy-MM-dd HH:mm:ss")</p>
+            </div>
+            <div class="card-body">
+                <p class="card-text">@viewModel.Review.Description</p>
+            </div>
+        </div>
+
+        <div class="card mb-4" style=" margin-left: 280px;width:600px;padding-left:10px;">
+            @if (viewModel.ReviewReply != null)
+            {
+                <div class="mt-3">
+                    <h6 style="color:red">Vendor:</h6>
+                    <p style="color:red;"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>@viewModel.ReviewReply.Reply</p>
+                </div>
+            }
+        </div>
+    }
+
+    @* <div id="pagination" class="mt-4" style="text-align:center;">
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" onclick="changePage(-1)">Previous</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#" onclick="changePage(1)">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div> *@
+</div>
+
+@section scripts {
+    <script>
+        var currentPage = 0;
+        var pageSize = 5; // Number of reviews per page
+
+        function showReviews() {
+            $('#reviewsContainer .card').hide(); // Hide all cards first
+            $('#reviewsContainer .card').slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
+        }
+
+        function changePage(delta) {
+            currentPage += delta;
+            if (currentPage < 0) {
+                currentPage = 0;
+            }
+            var maxPage = Math.ceil($('#reviewsContainer .card').length / pageSize) - 1;
+            if (currentPage > maxPage) {
+                currentPage = maxPage;
+            }
+            showReviews();
+            return false; // Prevent default link behavior
+        }
+
+        $(document).ready(function () {
+            showReviews();
+        });
+    </script>
+}

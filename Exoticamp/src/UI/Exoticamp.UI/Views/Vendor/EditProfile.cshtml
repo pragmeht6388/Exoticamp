@@ -1,0 +1,176 @@
+﻿@model Exoticamp.UI.Models.Vendors.VendorVM
+
+@{
+    ViewData["Title"] = "Edit Vendor Profile";
+    Layout = "~/Views/Shared/_VendorLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Exoticamp</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            padding-top: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .card-body {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .column {
+            width: 45%;
+            margin: 10px;
+        }
+
+        .row-line {
+            margin-bottom: 10px;
+        }
+
+        .kyc-img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4 text-center">@ViewData["Title"]</h1>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <img src="https://files.axshare.com/gsc/C9DW3U/09/7d/f9/097df94feb1e4ba39af2afa99849534b/images/view_customer_details/u44.png?pageId=e31e490f-1a3f-42eb-a646-2de3d05cef97" alt="Vendor Profile Icon" class="profile-img" />
+                <h4 class="mt-3">@Html.DisplayFor(model => model.Name)</h4>
+                @* <button class="btn btn-info mt-2" data-toggle="modal" data-target="#viewKYCModal">View KYC</button> *@
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="EditProfile" method="post">
+                            <div class="row">
+                                <!-- Left column for personal details -->
+                                <div class="column">
+                                    <h4 class="card-title text-center">Vendor Details</h4>
+                                    <hr />
+                                    <
+                                    <div class="form-group">
+                                        <label asp-for="Name" class="form-label"></label>
+                                        <input asp-for="Name" class="form-control" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="PhoneNumber" class="form-label"></label>
+                                        <input asp-for="PhoneNumber" class="form-control" />
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="form-label"></label>
+                                        <input asp-for="Email" class="form-control" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="AltPhoneNumber" class="form-label"></label>
+                                        <input asp-for="AltPhoneNumber" class="form-control" />
+                                        <span asp-validation-for="AltPhoneNumber" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="AltEmail" class="form-label"></label>
+                                        <input asp-for="AltEmail" class="form-control" />
+                                        <span asp-validation-for="AltEmail" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <!-- Right column for addresses -->
+                                <div class="column">
+                                    <div class="form-group">
+                                        <label asp-for="Address" class="form-label"></label>
+                                        <input asp-for="Address" class="form-control" />
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="AltAddress" class="form-label"></label>
+                                        <input asp-for="AltAddress" class="form-control" />
+                                        <span asp-validation-for="AltAddress" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="LocationId" class="form-label">Location</label>
+                                        <select asp-for="LocationId" class="form-control" asp-items="@(new SelectList(ViewBag.Locations, "Id", "Name"))">
+                                            <option value="">-- Select Location --</option>
+                                        </select>
+                                        <span asp-validation-for="LocationId" class="text-danger"></span>
+                                    </div>
+                                    <input type="hidden" asp-for="Id" />
+                                  
+                                    <input type="hidden" asp-for="IDCard" />
+                                    <input type="hidden" asp-for="License" />
+                                    <input type="hidden" asp-for="KYCAddress" />
+                                    <input type="hidden" asp-for="Others" />
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for KYC Details -->
+@*     <div class="modal fade" id="viewKYCModal" tabindex="-1" role="dialog" aria-labelledby="viewKYCModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewKYCModalLabel">KYC Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row-line">
+                        <label class="display-label">ID Card</label>
+                        <img src="@Model.IDCard" alt="ID Card" class="kyc-img" />
+                    </div>
+                    <div class="row-line">
+                        <label class="display-label">License</label>
+                        <img src="@Model.License" alt="License" class="kyc-img" />
+                    </div>
+                    <div class="row-line">
+                        <label class="display-label">KYC Address</label>
+                        <img src="@Model.KYCAddress" alt="KYC Address" class="kyc-img" />
+                    </div>
+                    <div class="row-line">
+                        <label class="display-label">Others</label>
+                        <img src="@Model.Others" alt="Others" class="kyc-img" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div> *@
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

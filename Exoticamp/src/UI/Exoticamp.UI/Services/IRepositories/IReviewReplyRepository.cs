@@ -8,5 +8,9 @@ namespace Exoticamp.UI.Services.IRepositories
     public interface IReviewReplyRepository
     {
         Task<CreateReviewReplyResponseModel> AddReviewsReply(ReviewReplyVM reviewsVM);
+        Task<GetReplyByIdResponseModel> GetReplyById(string id);
+        Task<IEnumerable<ReviewReplyVM>> GetAllReply();
+
+
     }
 }
