@@ -13,5 +13,6 @@ namespace Exoticamp.Domain.Entities
         public decimal AmountPaid { get; set; }
         //public Guid BookingId {  get; set; }
         //public virtual Booking Booking { get; set; }
+
     }
 }
