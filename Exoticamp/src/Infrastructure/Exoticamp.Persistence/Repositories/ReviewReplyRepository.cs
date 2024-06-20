@@ -28,5 +28,10 @@ namespace Exoticamp.Persistence.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Task<List<ReviewReply>> GetAllReply(bool includePassedEvents)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

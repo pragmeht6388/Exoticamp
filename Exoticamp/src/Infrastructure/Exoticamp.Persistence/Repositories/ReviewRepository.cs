@@ -27,5 +27,10 @@ namespace Exoticamp.Persistence.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Task<Reviews> Update(Reviews reviews)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

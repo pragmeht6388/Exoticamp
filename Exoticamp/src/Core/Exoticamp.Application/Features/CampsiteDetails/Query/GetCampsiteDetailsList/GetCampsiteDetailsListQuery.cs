@@ -14,5 +14,6 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
 {
     public class GetCampsiteDetailsListQuery :  IRequest<Response<IEnumerable<CampsiteDetailsVM>>>
     {
+
     }
 }
