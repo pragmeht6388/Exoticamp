@@ -1,12 +1,13 @@
-﻿@model IEnumerable<Exoticamp.UI.Models.Booking.BookingVM>
+﻿@model Exoticamp.UI.Models.Booking.AdminBookingVM
 
 @{
     ViewData["Title"] = "Availability";
     Layout = "~/Views/Shared/_VendorLayout.cshtml";
 
-    // Calculate counts for upcoming and new bookings
-    var upcomingBookingsCount = Model.Count(b => b.CheckIn > DateTime.Now);
-    var newBookingsCount = Model.Count(b => b.CheckIn == DateTime.Now);
+    // Calculate counts for upcoming and today's bookings
+    var upcomingBookingsCount = Model.Bookings.Count(b => b.CheckIn > DateTime.Now);
+    var BackedBookingsCount = Model.Bookings.Count(b => b.CheckIn < DateTime.Now);
+    var todaysBookingsCount = Model.Bookings.Count(b => b.CheckIn.Date == DateTime.Now.Date);
 }
 
 <!DOCTYPE html>
@@ -57,6 +58,10 @@
         .new-requests {
             background-color: #6f42c1; /* Purple */
         }
+
+        .backed {
+            background-color: #c16f42; /* Purple */
+        }
     </style>
 </head>
 <body>
@@ -67,7 +72,8 @@
                 <!-- Booking Counts -->
                 <div class="alert alert-info" role="alert">
                     <p>Upcoming Bookings: @upcomingBookingsCount</p>
-                    <p>New Booking Requests: @newBookingsCount</p>
+                    <p>Today's Bookings: @todaysBookingsCount</p>
+                    <p>Total Reviews: @Model.TotalReviewsCount</p>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4">
@@ -78,45 +84,39 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-4">
+                <!-- Today's Booking -->
+                <div class="info-box new-requests">
+                    <h4>Today's Bookings</h4>
+                    <p>New Booking :@todaysBookingsCount</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
                 <!-- Upcoming Booking -->
-                @foreach (var booking in Model.Where(b => b.CheckIn > DateTime.Now))
-                {
-                    <div class="info-box upcoming">
-                        <h4>Upcoming Booking</h4>
-                        <p>Date: @booking.CheckIn.ToShortDateString() | Time: @booking.CheckIn.ToShortTimeString() | Customer: @booking.CustomerName</p>
-                    </div>
-                }
+                <div class="info-box upcoming">
+                    <h4>Upcoming Bookings</h4>
+                    <p>Future Booking :@upcomingBookingsCount</p>
+                </div>
             </div>
             <div class="col-sm-6 col-md-4">
                 <!-- Booking History -->
                 <div class="info-box history">
                     <h4>Booking History</h4>
-                    <p>Total Bookings: @Model.Count()</p>
+                    <p>Total Bookings: @Model.Bookings.Count()</p>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4">
                 <!-- Reviews -->
                 <div class="info-box reviews">
                     <h4>Reviews</h4>
-                    <p>Pending Reviews: 5</p>
+                    <p>Total Reviews: @Model.TotalReviewsCount</p>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4">
-                <!-- Book Dates -->
-                <div class="info-box book-dates">
-                    <h4>Book Dates</h4>
-                    <p>Next Available Date: 2024-07-02</p>
+                <!-- Upcoming Booking -->
+                <div class="info-box backed">
+                    <h4>Backed Dates</h4>
+                    <p>Past Bookings :@BackedBookingsCount</p>
                 </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <!-- New Booking Request -->
-                @foreach (var booking in Model.Where(b => b.CheckIn.Date > DateTime.Now.Date))
-                {
-                    <div class="info-box new-requests">
-                        <h4>New Booking Request</h4>
-                        <p>Date: @booking.CheckIn.ToShortDateString() | Customer: @booking.CustomerName</p>
-                    </div>
-                }
             </div>
         </div>
     </div>
