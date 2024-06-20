@@ -4,17 +4,8 @@ using Exoticamp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using CampsiteDetailsEntity = Exoticamp.Domain.Entities.CampsiteDetails;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exoticamp.Application.Contracts;
-using Exoticamp.Domain.Entities;
-using Exoticamp.Domain.Common;
- 
- 
+
+
 namespace Exoticamp.Persistence
 {
     public class ApplicationDbContext : DbContext

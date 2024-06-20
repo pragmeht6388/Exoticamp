@@ -42,7 +42,9 @@
         public const string SearchContent = "/api/v1/Search?text={text}";
         #endregion
 
-
+        #region Booking
+        public const string GetAllBookings = "/api/v1/Booking";
+        #endregion
 
 
         public const string DeleteBannerById = "/api/v1/Banner/{0}";
