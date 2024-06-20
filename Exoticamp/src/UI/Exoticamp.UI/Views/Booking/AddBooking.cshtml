@@ -1,0 +1,146 @@
+﻿@model Exoticamp.UI.Models.Booking.BookingVM
+
+@{
+    ViewData["Title"] = "AddBooking";
+}
+
+<h1>AddBooking</h1>
+
+<h4>BookingVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddBooking" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+            
+                <input asp-for="BookingId" class="form-control" hidden />
+          
+            </div>
+
+            <div class="form-group">
+                <label for="LocationId">Select location:<span class="text-danger">*</span></label>
+                <select id="location" class="form-control" onchange="fetchCampsites()">
+                    <option value="">-- Select location --</option>
+                    @foreach (var location in Model.LocationsList)
+                    {
+                        <option value="@location.Value">@location.Text</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="CampsiteId">Select campsite:<span class="text-danger">*</span></label>
+                <select id="campsite" class="form-control">
+                    <option value="">-- Select campsite --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PriceForAdults" class="control-label"></label>
+                <input asp-for="PriceForAdults" class="form-control" />
+                <span asp-validation-for="PriceForAdults" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceForChildrens" class="control-label"></label>
+                <input asp-for="PriceForChildrens" class="form-control" />
+                <span asp-validation-for="PriceForChildrens" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerName" class="control-label"></label>
+                <input asp-for="CustomerName" class="form-control" />
+                <span asp-validation-for="CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckIn" class="control-label"></label>
+                <input asp-for="CheckIn" class="form-control" />
+                <span asp-validation-for="CheckIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckOut" class="control-label"></label>
+                <input asp-for="CheckOut" class="form-control" />
+                <span asp-validation-for="CheckOut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoOfAdults" class="control-label"></label>
+                <input asp-for="NoOfAdults" class="form-control" />
+                <span asp-validation-for="NoOfAdults" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoOfChildrens" class="control-label"></label>
+                <input asp-for="NoOfChildrens" class="form-control" />
+                <span asp-validation-for="NoOfChildrens" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoOfTents" class="control-label"></label>
+                <input asp-for="NoOfTents" class="form-control" />
+                <span asp-validation-for="NoOfTents" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GlampingType" class="control-label"></label>
+                <input asp-for="GlampingType" class="form-control" />
+                <span asp-validation-for="GlampingType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+               
+                <input asp-for="Status" class="form-control" value="Pending" hidden/>
+              
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    @* Dropdown JS *@
+    <script>
+        function fetchCampsites() {
+            var locationId = document.getElementById("location").value;
+            if (locationId) {
+                $.ajax({
+                    url: '@Url.Action("GetCampsitesByLocation", "Booking")',
+                    type: 'GET',
+                    data: { locationId: locationId },
+                    success: function (data) {
+                        var campsiteSelect = document.getElementById("campsite");
+                        campsiteSelect.innerHTML = '';
+                        var defaultOption = document.createElement('option');
+                        defaultOption.value = '';
+                        defaultOption.text = '-- Select campsite --';
+                        campsiteSelect.appendChild(defaultOption);
+
+                        data.forEach(function (campsite) {
+                            var option = document.createElement('option');
+                            option.value = campsite.value;
+                            option.text = campsite.text;
+                            campsiteSelect.appendChild(option);
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching campsites: ", error);
+                    }
+                });
+            } else {
+                var campsiteSelect = document.getElementById("campsite");
+                campsiteSelect.innerHTML = '<option value="">-- Select campsite --</option>';
+            }
+        }
+    </script>
+
+
+}

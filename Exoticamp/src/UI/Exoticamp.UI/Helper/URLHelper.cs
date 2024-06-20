@@ -45,6 +45,7 @@
 
         #region Booking
         public const string GetAllBookings = "/api/v1/Booking";
+        public const string AddBooking = "/api/v1/Booking";
         #endregion
 
 
