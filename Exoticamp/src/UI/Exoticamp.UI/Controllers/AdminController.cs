@@ -181,7 +181,7 @@ namespace Exoticamp.UI.Controllers
             {
                 // Handle case where user with specified ID is not found
                 TempData["Message"] = $"User with ID '{id}' not found.";
-                return RedirectToAction("GetAllUsers"); // Redirect to a list of users or handle as appropriate
+                return RedirectToAction("GetAllVendors"); // Redirect to a list of users or handle as appropriate
             }
         }
 

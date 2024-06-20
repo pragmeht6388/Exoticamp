@@ -37,6 +37,9 @@ namespace Exoticamp.UI.Models.Vendors
         public string KYCAddress { get; set; }
         public string Others { get; set; }
         //public string LocationId { get; set; }
+        public string BankName { get; set; }
+        public string AccountNumber { get; set; }
+        public string IFSCCode { get; set; }
         public string Location { get; set; }
 
         public bool IsLocked { get; set; }
