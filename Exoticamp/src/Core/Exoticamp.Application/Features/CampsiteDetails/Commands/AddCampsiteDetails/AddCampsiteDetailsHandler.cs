@@ -47,7 +47,7 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
                     Name = request.Name,
                     Location = request.Location,
                     Status = request.Status,
-                    TentType = request.TentType,
+                    //TentType = request.TentType,
                     isActive = true,
                     Price=request.Price,
                     ApprovedBy = request.ApprovedBy,

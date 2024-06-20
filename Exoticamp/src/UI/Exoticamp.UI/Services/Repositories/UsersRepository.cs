@@ -159,7 +159,7 @@ namespace Exoticamp.UI.Services.Repositories
             byte[] content = Encoding.ASCII.GetBytes(json);
 
             var bytes = new ByteArrayContent(content);
-            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetVendorById.Replace("{0}", UserId), HttpMethod.Get, bytes, _sToken);
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetVendorDetails.Replace("{0}", UserId), HttpMethod.Get, bytes, _sToken);
             if (response.data != null)
             {
                 return (JsonConvert.DeserializeObject<Response<VendorVM>>(response.data));

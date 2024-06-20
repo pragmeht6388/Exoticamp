@@ -35,6 +35,11 @@
 <body>
     <div class="container mt-4">
         <h1>All Vendors</h1>
+        <div class="add-button-container">
+            <a asp-action="CreateVendor" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Add Vendor
+            </a>
+        </div>
         <div class="table-responsive">
             <table id="GetAllUsers" class="table table-striped">
                 <thead>

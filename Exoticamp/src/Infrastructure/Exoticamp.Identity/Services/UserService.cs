@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Exoticamp.Application.Features.Vendors.Queries.GetVendor;
+using Exoticamp.Application.Features.Vendors.Commands.UpdateVendor;
 
 namespace Exoticamp.Identity.Services
 {
@@ -152,26 +153,104 @@ namespace Exoticamp.Identity.Services
                  LoginAttemptCount= user.LoginAttemptCount,
             };
         }
+        //public async Task<GetVendorDto> GetVendorDetailsById(string Id)
+        //{
+        //    var user = await _userManager.FindByIdAsync(Id);
+        //    return new GetVendorDto()
+        //    {
+        //        Email = user.Email,
+        //        Name = user.Name,
+        //        PhoneNumber = user.PhoneNumber,
+        //        AltAddress = user.AltAddress,
+        //        LocationId = user.LocationId,
+        //        AltEmail = user.AltEmail,
+        //        AltPhoneNumber = user.AltPhoneNumber,
+        //        Address = user.Address,
+
+        //    };
+        //}
+        //public async Task<GetVendorDto> GetVendorDetailsById(string Id)
+        //{
+        //    var user = await _userManager.Users
+        //        .Where(u => u.Id == Id)
+        //        .Join(
+        //            identityDbContext.Set<UserKYC>(),
+        //            user => user.Id,
+        //            kyc => kyc.UserID,
+        //            (user, kyc) => new { user, kyc }
+        //        )
+        //        .Select(joined => new GetVendorDto
+        //        {
+        //            Id=joined.user.Id,
+        //            Email = joined.user.Email,
+        //            Name = joined.user.Name,
+        //            PhoneNumber = joined.user.PhoneNumber,
+        //            AltAddress = joined.user.AltAddress,
+        //            LocationId = joined.user.LocationId,
+        //            AltEmail = joined.user.AltEmail,
+        //            AltPhoneNumber = joined.user.AltPhoneNumber,
+        //            Address = joined.user.Address,
+        //            VendorKYCId=joined.kyc.Id,
+        //            IDCard = joined.kyc.IDCard,
+        //            License = joined.kyc.License,
+        //            KYCAddress = joined.kyc.Address,
+        //            Others = joined.kyc.Others
+        //        })
+        //        .FirstOrDefaultAsync();
+
+        //    if (user == null)
+        //    {
+        //        throw new Exception("Vendor not found");
+        //    }
+
+        //    return user;
+
+
+
+
+        //    }
+
         public async Task<GetVendorDto> GetVendorDetailsById(string Id)
         {
-            var user = await _userManager.FindByIdAsync(Id);
-            return new GetVendorDto()
+            var user = await _userManager.Users
+                .Where(u => u.Id == Id)
+                .Include(u => u.UserKYC) // Include UserKYC details
+                .Include(u => u.BankDetails) // Include BankDetails
+                .Select(u => new GetVendorDto
+                {
+                    Id = u.Id,
+                    Email = u.Email,
+                    Name = u.Name,
+                    PhoneNumber = u.PhoneNumber,
+                    AltAddress = u.AltAddress,
+                    LocationId = u.LocationId,
+                    AltEmail = u.AltEmail,
+                    AltPhoneNumber = u.AltPhoneNumber,
+                    Address = u.Address,
+                    VendorKYCId = u.UserKYC.Id,
+                    IDCard = u.UserKYC.IDCard,
+                    License = u.UserKYC.License,
+                    KYCAddress = u.UserKYC.Address,
+                    Others = u.UserKYC.Others,
+                    BankDetailsId = u.BankDetails.Id,
+                    BankName = u.BankDetails.BankName,
+                    AccountNumber = u.BankDetails.AccountNumber,
+                    IFSCCode = u.BankDetails.IFSCCode,
+                    IsLocked = u.IsLocked,
+                    LoginAttemptCount = u.LoginAttemptCount
+                })
+                .FirstOrDefaultAsync();
+
+            if (user == null)
             {
-                  Id=user.Id,
-                Email = user.Email,
-                Name = user.Name,
-                PhoneNumber = user.PhoneNumber,
-                AltAddress = user.AltAddress,
-                LocationId = user.LocationId,
-                AltEmail = user.AltEmail,
-                AltPhoneNumber = user.AltPhoneNumber,
-                Address = user.Address,
-               
+                throw new Exception("Vendor not found");
+            }
 
-                
-
-            };
+            return user;
         }
+
+
+
 
         public async Task<string> UpdateUser(GetUserDto model)
         {
@@ -188,7 +267,9 @@ namespace Exoticamp.Identity.Services
 
 
         }
-        public async Task<string> UpdateVendor(GetVendorDto model)
+      
+
+        public async Task<UpdatedVendorDto> UpdateVendor(UpdatedVendorDto model)
         {
             var vendor = await _userManager.FindByIdAsync(model.Id);
 
@@ -199,6 +280,7 @@ namespace Exoticamp.Identity.Services
             }
 
             // Update vendor properties
+
             vendor.Name = model.Name;
             vendor.PhoneNumber = model.PhoneNumber;
             vendor.Email = model.Email;
@@ -208,10 +290,23 @@ namespace Exoticamp.Identity.Services
             vendor.AltAddress = model.AltAddress;
             vendor.LocationId = model.LocationId;
 
+
             // Save changes
             await _userManager.UpdateAsync(vendor);
 
-            return vendor.Id;
+            return new UpdatedVendorDto
+            {
+                Id = vendor.Id,
+                Name = vendor.Name,
+                PhoneNumber = vendor.PhoneNumber,
+                Email = vendor.Email,
+                Address = vendor.Address,
+                AltPhoneNumber = vendor.AltPhoneNumber,
+                AltEmail = vendor.AltEmail,
+                AltAddress = vendor.AltAddress,
+                LocationId = vendor.LocationId,
+
+            };
         }
     }
 }

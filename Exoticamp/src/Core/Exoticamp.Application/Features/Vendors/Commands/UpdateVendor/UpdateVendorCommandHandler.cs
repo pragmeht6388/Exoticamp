@@ -3,15 +3,12 @@ using Exoticamp.Application.Contracts.Identity;
 using Exoticamp.Application.Features.Vendors.Queries.GetVendor;
 using Exoticamp.Application.Responses;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Exoticamp.Application.Features.Vendors.Commands.UpdateVendor
 {
-    public class UpdateVendorCommandHandler : IRequestHandler<UpdateVendorCommand, Response<string>>
+    public class UpdateVendorCommandHandler : IRequestHandler<UpdateVendorCommand, Response<UpdatedVendorDto>>
     {
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
@@ -22,16 +19,16 @@ namespace Exoticamp.Application.Features.Vendors.Commands.UpdateVendor
             _userService = userService;
         }
 
-        public async Task<Response<string>> Handle(UpdateVendorCommand request, CancellationToken cancellationToken)
+        public async Task<Response<UpdatedVendorDto>> Handle(UpdateVendorCommand request, CancellationToken cancellationToken)
         {
-            // Map the command to the GetVendorDto
-            var vendorDto = _mapper.Map<GetVendorDto>(request);
+            // Map the command to the UpdatedVendorDto
+            var vendorDto = _mapper.Map<UpdatedVendorDto>(request);
 
             // Update the vendor details
-            var result = await _userService.UpdateVendor(vendorDto);
+            var updatedVendorDto = await _userService.UpdateVendor(vendorDto);
 
-            // Return the response
-            return new Response<string>(result, "Vendor updated successfully");
+            // Return the response with the updated vendor details
+            return new Response<UpdatedVendorDto>(updatedVendorDto, "Vendor updated successfully");
         }
     }
 }

@@ -52,7 +52,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Activities");
+                    b.ToTable("Activities", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Banner", b =>
@@ -88,7 +88,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Banners");
+                    b.ToTable("Banners", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Booking", b =>
@@ -129,6 +129,9 @@ namespace Exoticamp.Persistence.Migrations
                     b.Property<string>("GlampingType")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("GuestDetailsId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -147,20 +150,20 @@ namespace Exoticamp.Persistence.Migrations
                     b.Property<int>("NoOfTents")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("PaymentId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("BookingId");
 
                     b.HasIndex("CampsiteId");
 
-                    b.HasIndex("LocationId");
+                    b.HasIndex("GuestDetailsId");
 
-                    b.HasIndex("PaymentId");
+                    b.HasIndex("LocationId");
 
                     b.ToTable("Bookings");
                 });
@@ -180,7 +183,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("ActivityId");
 
-                    b.ToTable("CampsiteActivities");
+                    b.ToTable("CampsiteActivities", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
@@ -297,6 +300,9 @@ namespace Exoticamp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NoOfTents")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -315,9 +321,8 @@ namespace Exoticamp.Persistence.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<string>("TentType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("TentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("WhyExoticamp")
                         .IsRequired()
@@ -330,7 +335,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("CampsiteDetails");
+                    b.ToTable("CampsiteDetails", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
@@ -363,7 +368,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.ChatbotResponse", b =>
@@ -386,7 +391,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ChatbotResponses");
+                    b.ToTable("ChatbotResponses", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.ContactUs", b =>
@@ -415,7 +420,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContactUs");
+                    b.ToTable("ContactUs", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
@@ -491,7 +496,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("CampsiteId");
 
-                    b.ToTable("Events");
+                    b.ToTable("Events", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.EventActivities", b =>
@@ -512,7 +517,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("EventActivities");
+                    b.ToTable("EventActivities", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.EventLocation", b =>
@@ -533,7 +538,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("EventLocations");
+                    b.ToTable("EventLocations", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Glamping", b =>
@@ -559,7 +564,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("CampsiteId");
 
-                    b.ToTable("Glamping");
+                    b.ToTable("Glamping", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.GuestDetails", b =>
@@ -588,7 +593,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GuestDetails");
+                    b.ToTable("GuestDetails", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Location", b =>
@@ -621,7 +626,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations");
+                    b.ToTable("Locations", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.ManageAvailability", b =>
@@ -671,7 +676,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("GlampingId");
 
-                    b.ToTable("ManageAvailabilities");
+                    b.ToTable("ManageAvailabilities", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Message", b =>
@@ -697,7 +702,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("MessageId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Order", b =>
@@ -739,7 +744,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Payment", b =>
@@ -751,12 +756,15 @@ namespace Exoticamp.Persistence.Migrations
                     b.Property<decimal>("AmountPaid")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<Guid>("BookingId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("PaymentStatus")
                         .HasColumnType("bit");
 
                     b.HasKey("PaymentId");
 
-                    b.ToTable("Payment");
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Product", b =>
@@ -792,7 +800,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.ReviewReply", b =>
@@ -833,7 +841,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("ReviewsId");
 
-                    b.ToTable("ReviewReplies");
+                    b.ToTable("ReviewReplies", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Reviews", b =>
@@ -887,7 +895,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("BookingId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.UserQuery", b =>
@@ -912,7 +920,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserQueries");
+                    b.ToTable("UserQueries", (string)null);
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Banner", b =>
@@ -934,23 +942,21 @@ namespace Exoticamp.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Exoticamp.Domain.Entities.GuestDetails", "GuestDetails")
+                        .WithMany()
+                        .HasForeignKey("GuestDetailsId");
+
                     b.HasOne("Exoticamp.Domain.Entities.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Exoticamp.Domain.Entities.Payment", "Payment")
-                        .WithMany()
-                        .HasForeignKey("PaymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Campsite");
 
-                    b.Navigation("Location");
+                    b.Navigation("GuestDetails");
 
-                    b.Navigation("Payment");
+                    b.Navigation("Location");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteActivities", b =>

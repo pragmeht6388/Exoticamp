@@ -33,6 +33,7 @@
         public const string IsLockedUser = "/api/v1/Admin/IsLockedUsers?id={0}";
         public const string registerVendor = "/api/v1/Account/registerVendor";
         public const string GetVendorById = "/api/v1/Vendor/{0}";
+        public const string ForgotPassword = "/api/v1/Account/ForgetPassword";
 
         #endregion
         public const string GetChatbotResponses = "/api/v1/Chatbot/all?id={0}";
@@ -44,6 +45,7 @@
 
         #region Booking
         public const string GetAllBookings = "/api/v1/Booking";
+        public const string AddBooking = "/api/v1/Booking";
         #endregion
 
 
@@ -95,6 +97,7 @@
         public const string GetAllReply = "/api/v1/ReviewReply/allReply";
         #region Vendor
         public const string GetVendorDetails = "/api/v1/Vendor/{0}";
+        public const string UpdateVendorProfile = "/api/v1/Vendor/edit-profile";
         #endregion
 
     }

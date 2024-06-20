@@ -37,5 +37,20 @@ namespace Exoticamp.Application.Features.Vendors.Queries.GetVendor
 
         public Location Location { get; set; }
 
+        public Guid VendorKYCId { get; set; }
+        public string IDCard { get; set; }
+        public string License { get; set; }
+        public string KYCAddress { get; set; }
+        public string Others { get; set; }
+
+        public Guid BankDetailsId { get; set; }
+        public string BankName { get; set; }
+        public string AccountNumber { get; set; }
+        public string IFSCCode { get; set; }
+
+        public bool IsLocked { get; set; } 
+        public int LoginAttemptCount { get; set; }
+
+
     }
 }
