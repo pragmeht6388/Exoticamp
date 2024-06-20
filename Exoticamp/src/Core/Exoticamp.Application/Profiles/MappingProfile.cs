@@ -56,6 +56,7 @@ using Exoticamp.Application.Features.Bookings.Queries.GetBookingDetails;
 using Exoticamp.Application.Features.Bookings.Commands.UpdateBooking;
 using Exoticamp.Application.Features.RewiewReply.Query.GetReplyById;
 using Exoticamp.Application.Features.RewiewReply.Query.GetReplyList;
+using Exoticamp.Application.Features.TentType.Query;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -132,6 +133,7 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Activities, UpdateActivitiesCommand>().ReverseMap();
             CreateMap<Activities, Features.Activities.Query.GetActivityList.ActivityVM>().ReverseMap();
 
+            CreateMap<Tent,TentVM>().ReverseMap();
 
             CreateMap< RegistrationRequest, GetUserListDto>().ReverseMap();
             CreateMap<RegistrationRequest,  GetVendorListDto>().ReverseMap();

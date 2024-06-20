@@ -29,8 +29,8 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
                 .NotNull()
                 .MaximumLength(100).WithMessage("{PropertyName} must not exceed 100 characters.");
            
-            RuleFor(p => p.TentType)
-                .NotEmpty().WithMessage("{PropertyName} is required.");
+            //RuleFor(p => p.TentType)
+            //    .NotEmpty().WithMessage("{PropertyName} is required.");
 
             RuleFor(p => p.Price)
               .NotEmpty().WithMessage("{PropertyName} is required.");

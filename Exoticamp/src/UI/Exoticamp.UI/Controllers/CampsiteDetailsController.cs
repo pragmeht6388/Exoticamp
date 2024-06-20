@@ -19,7 +19,7 @@ namespace Exoticamp.UI.Controllers
         private readonly IActivitiesRepository _activitiesRepository;
         private readonly ILocationRepository _locationRepository;
         private readonly IReviewsRepository _reviewsRepository;
-
+        
 
 
         public CampsiteDetailsController(ICampsiteDetailsRepository campsiteRepository, ICategoryRepository categoryRepository,
@@ -65,6 +65,7 @@ namespace Exoticamp.UI.Controllers
         {
             var categories = await _categoryRepository.GetAllCategory();
             var activities = await _activitiesRepository.GetAllActivities();
+            //var tent=await _
             var loaction = await _locationRepository.GetAllLocations();
 
             if (categories == null)
