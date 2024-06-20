@@ -46,6 +46,24 @@ namespace Exoticamp.UI.Services.Repositories
 
             return events;
         }
+        public async Task<IEnumerable<CampsiteDetailsVM>> GetAllCampsitesAdmin()
+        {
+            GetAllCampsiteDetailsResponseModels response = new GetAllCampsiteDetailsResponseModels();
+            List<CampsiteDetailsVM> events = new List<CampsiteDetailsVM>();
+            _apiRepository = new APIRepository(_configuration);
+
+            _oApiResponse = new Response<string>();
+            byte[] content = Array.Empty<byte>();
+            var bytes = new ByteArrayContent(content);
+            _oApiResponse = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetCampsiteForAdmin, HttpMethod.Get, bytes, _sToken);
+            if (_oApiResponse.data != null)
+            {
+                events = (JsonConvert.DeserializeObject<GetAllCampsiteDetailsResponseModels>(_oApiResponse.data)).Data.ToList();
+                // events = response.Data.Where(c => c.IsActive==true).ToList();
+            }
+
+            return events;
+        }
 
         public async Task<GetCampsiteDetailsByIdResponseModel> GetCampsiteById(string id)
         {

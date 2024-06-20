@@ -45,5 +45,14 @@ namespace Exoticamp.UI.Models.Reviews
 
         [JsonProperty("campsite")]
         public virtual Exoticamp.Domain.Entities.Booking Booking { get; set; }
+
+        public virtual Exoticamp.Domain.Entities.Reviews Reviews { get; set; }
+
+        [JsonProperty("campsiteName")]
+        public string CampsiteName { get; set; }
+
+        [JsonProperty("campsiteImage")]
+        public string CampsiteImage { get; set; }
+
     }
 }

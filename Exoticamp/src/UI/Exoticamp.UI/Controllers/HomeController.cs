@@ -55,7 +55,7 @@ namespace Exoticamp.UI.Controllers
 
 
             else
-                ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetAllCampsites()).Where(c => c.ApprovedBy != null).ToList();
+                ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetAllCampsitesAdmin()).Where(c => c.ApprovedBy != null).ToList();
 
 
             return View();

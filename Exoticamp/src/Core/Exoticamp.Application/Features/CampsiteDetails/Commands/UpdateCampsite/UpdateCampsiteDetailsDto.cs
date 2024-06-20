@@ -18,6 +18,8 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.UpdateCampsite
         public string Location { get; set; }
         public bool Status { get; set; }
         public string TentType { get; set; }
+        public decimal Price { get; set; }
+
 
         public string Images { get; set; }
         public DateTime DateTime { get; set; }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Exoticamp.Application.Features.Vendors.Commands.UpdateVendor
 {
-    public class UpdateVendorCommand : IRequest<Response<string>>
+    public class UpdateVendorCommand : IRequest<Response<UpdatedVendorDto>>
     {
         public string Id { get; set; }
 

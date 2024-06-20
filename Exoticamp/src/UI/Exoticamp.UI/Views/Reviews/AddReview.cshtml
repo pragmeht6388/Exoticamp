@@ -2,14 +2,16 @@
 
 @{
     ViewData["Title"] = "AddReview";
-    Layout = "~/Views/Shared/_LayoutLandingPage.cshtml";
+    
+    // Layout = "~/Views/Shared/_LayoutLandingPage.cshtml";
 }
 
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         .container {
-            margin-top: 50px; /* Adjust top margin as needed */
+            margin-top: 100px; /* Adjust top margin as needed */
         }
 
         .btn-secondary {
@@ -29,6 +31,15 @@
         h4 {
             text-align: center; /* Align the heading center */
         }
+
+        .star-rating {
+            font-size: 24px; /* Adjust star size as needed */
+            cursor: pointer;
+        }
+
+            .star-rating .bi-star-fill {
+                color: #ffc107; /* Filled star color */
+            }
     </style>
 </head>
 
@@ -47,7 +58,14 @@
 
                 <div class="form-group">
                     <label asp-for="Ratings" class="control-label">Ratings<span class="text-danger">*</span></label>
-                    <input asp-for="Ratings" class="form-control" id="Ratings" required />
+                    <div class="star-rating">
+                        <i class="bi bi-star" data-value="1"></i>
+                        <i class="bi bi-star" data-value="2"></i>
+                        <i class="bi bi-star" data-value="3"></i>
+                        <i class="bi bi-star" data-value="4"></i>
+                        <i class="bi bi-star" data-value="5"></i>
+                        <input type="hidden" name="Ratings" id="Ratings" value="0" required />
+                    </div>
                     <span asp-validation-for="Ratings" class="text-danger"></span>
                 </div>
 
@@ -83,6 +101,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
+            $('.star-rating .bi-star').click(function () {
+                var value = parseInt($(this).attr('data-value'));
+                $('#Ratings').val(value);
+
+                // Reset all stars to default (empty)
+                $('.star-rating .bi-star').removeClass('bi-star-fill');
+
+                // Fill clicked star and all previous stars
+                $(this).prevAll('.bi-star').addBack().addClass('bi-star-fill');
+            });
+
             $('#reviewForm').submit(function (event) {
                 var isValid = true;
 
@@ -111,16 +140,7 @@
                     }
                 });
 
-                // Ratings validation (only numbers allowed, maximum 5)
-                $('#Ratings').on('input', function () {
-                    var rating = parseInt($(this).val());
-                    if (isNaN(rating) || rating < 0 || rating > 5) {
-                        toastr.error('Rating should be a number between 0 and 5');
-                        $(this).val('');
-                    }
-                });
-
-                // Additional validations for other fields can be added similarly
+                // Ratings validation (already handled by star click)
             });
         });
     </script>
