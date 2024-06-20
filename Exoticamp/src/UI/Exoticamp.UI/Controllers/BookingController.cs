@@ -43,7 +43,7 @@ namespace Exoticamp.UI.Controllers
                 return View("Error", new ErrorViewModel { });
             }
 
-            model.CampsitesList= new SelectList(Campsites, "Id", "Name",);
+            model.CampsitesList= new SelectList(Campsites, "Id", "Name","Price");
             model.LocationsList = new SelectList(Locations, "Id", "Name");
 
 

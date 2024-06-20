@@ -29,9 +29,11 @@ namespace Exoticamp.UI.Models.Booking
         [Required(ErrorMessage = "Enter the number of Tents")]
         public int NoOfTents { get; set; }
 
-        //public decimal TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
 
         public string? GlampingType { get; set; }
+        public decimal? PriceForAdults { get; set; }
+        public decimal? PriceForChildrens { get; set; }
 
         public string Status { get; set; }
         [Required(ErrorMessage ="Select Campsite")]
