@@ -51,7 +51,7 @@ namespace Exoticamp.Application.Features.Bookings.Commands.AddBooking
                 return response;
             }
 
-            request.
+            
             var validator = new CreateBookingCommandValidator(_bookingRepository, _messageRepository);
             var validationResult = await validator.ValidateAsync(request);
 
