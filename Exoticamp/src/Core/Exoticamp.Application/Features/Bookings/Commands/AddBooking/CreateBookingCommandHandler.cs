@@ -69,8 +69,9 @@ namespace Exoticamp.Application.Features.Bookings.Commands.AddBooking
             if (bookingObj != null)
             {
 
-                response = new Response<CreateBookingDto>(_mapper.Map<CreateBookingDto>(bookingObj), "Inserted successfully");
+                response = new Response<CreateBookingDto>(_mapper.Map<CreateBookingDto>(bookingObj));
                 _logger.LogInformation("Handle Completed");
+                response.Message = "Inserted successfully";
                 return response;
             }
             else
