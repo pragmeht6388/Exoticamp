@@ -27,5 +27,12 @@ namespace Exoticamp.UI.Controllers
             var bookings=await _bookingRepository.GetAllBookings();
             return View(bookings);
         }
+
+        [HttpGet]
+        public async Task<ActionResult> AdminBooking()
+        {
+            var bookings = await _bookingRepository.GetAllBookings();
+            return View(bookings);
+        }
     }
 }
