@@ -43,7 +43,7 @@ namespace Exoticamp.UI.Controllers
                 return View("Error", new ErrorViewModel { });
             }
 
-            model.CampsitesList= new SelectList(Campsites, "Id", "Name","Price");
+            model.CampsitesList= new SelectList(Campsites, "Id", "Name");
             model.LocationsList = new SelectList(Locations, "Id", "Name");
 
 
@@ -66,10 +66,7 @@ namespace Exoticamp.UI.Controllers
         {
             var locations = await _locationRepository.GetAllLocations();
             var loc = locations.FirstOrDefault(x => x.Id == locationId);
-            //var campsites = await  _campsiteDetailsRepository.GetAllCampsites();
-            //    campsites.Where(c => c.Location == loc.Name)
-            //    .Select(c => new { value = c.Value, text = c.Text })
-            //    .ToList();
+
 
 
             if (loc == null)
@@ -84,6 +81,15 @@ namespace Exoticamp.UI.Controllers
                 .ToList();
 
             return Json(filteredCampsites);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> UserBooking(string campsiteId)
+        {
+            var campsite = await _campsiteDetailsRepository.GetCampsiteById(campsiteId);
+            ViewBag.Campsite = campsite.Data;
+            _campsiteDetailsRepository.get
+            return View();
         }
     }
 }
