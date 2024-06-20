@@ -22,20 +22,22 @@ namespace Exoticamp.Identity.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JwtSettings _jwtSettings;
+        private readonly IdentityDbContext _dbContext;
 
         public AuthenticationService(UserManager<ApplicationUser> userManager,
-            IOptions<JwtSettings> jwtSettings,
+            IOptions<JwtSettings> jwtSettings, IdentityDbContext dbContext,
             SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _jwtSettings = jwtSettings.Value;
             _signInManager = signInManager;
+            _dbContext = dbContext;
         }
 
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            
+
             var role = await _userManager.GetRolesAsync(user);
             AuthenticationResponse response = new AuthenticationResponse();
 
@@ -56,7 +58,7 @@ namespace Exoticamp.Identity.Services
 
             if (!result.Succeeded)
             {
-                user. LoginAttemptCount += 1;
+                user.LoginAttemptCount += 1;
 
                 if (user.LoginAttemptCount >= 3)
                 {
@@ -99,15 +101,32 @@ namespace Exoticamp.Identity.Services
             response.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             response.Email = user.Email;
             response.UserName = user.UserName;
-            response.Name= user.Name;
-            response.LocationId=user.LocationId;
-            
+            response.Name = user.Name;
+            response.LocationId = user.LocationId;
             if (role.Count > 0)
             {
                 response.Role = role[0];
             }
 
 
+            return response;
+        }
+
+
+        public async Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordRequest request)
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+
+
+            ForgotPasswordResponse response = new ForgotPasswordResponse();
+
+            if (user == null)
+            {
+                response.userExists = false;
+                //response.Message = $"No Accounts Registered with {request.Email}.";
+                return response;
+            }
+            response.userExists = true;
             return response;
         }
 
@@ -134,7 +153,7 @@ namespace Exoticamp.Identity.Services
                 TermsandCondition = true,
                 EmailConfirmed = true,
                 LocationId = request.LocationId,
-                
+
             };
 
             var existingEmail = await _userManager.FindByEmailAsync(request.Email);
@@ -170,6 +189,147 @@ namespace Exoticamp.Identity.Services
                 throw new ArgumentException($"Email '{request.Email}' already exists.");
             }
         }
+        //public async Task<Response<RegistrationResponse>> RegisterVendorAsync(VendorRegistrationRequest request)
+        //{
+        //    var registrationResponse = new Response<RegistrationResponse>();
+
+        //    var existingUser = await _userManager.FindByEmailAsync(request.Email);
+
+        //    if (existingUser != null)
+        //    {
+        //        registrationResponse.Message = $"Username '{request.Email}' already exists.";
+        //        registrationResponse.Succeeded = false;
+        //        return registrationResponse;
+        //    }
+
+        //    var user = new ApplicationUser
+        //    {
+        //        UserName = request.Email,
+        //        Email = request.Email,
+        //        Name = request.Name,
+        //        PhoneNumber = request.PhoneNumber,
+        //        TermsandCondition = true,
+        //        EmailConfirmed = true,
+        //        LocationId = request.LocationId,
+        //        // Add any additional properties you want to set during user creation
+        //    };
+
+        //    var result = await _userManager.CreateAsync(user, request.Password);
+
+        //    if (result.Succeeded)
+        //    {
+        //        // Create BankDetails
+        //        var bankDetails = new BankDetails
+        //        {
+        //            BankName = request.BankName,
+        //            AccountNumber = request.AccountNumber,
+        //            IFSCCode = request.IFSCCode,
+        //            UserID = user.Id // Set the UserId foreign key
+        //        };
+
+        //        // Create UserKYC
+        //        var userKYC = new UserKYC
+        //        {
+        //            IDCard = request.IDCard,
+        //            License = request.License,
+        //            Address = request.KYCAddress,
+        //            Others = request.Others,
+        //            UserID = user.Id // Set the UserId foreign key
+        //        };
+
+        //        // Save BankDetails and UserKYC
+        //        // You might want to add error handling or transaction logic here
+        //        // to ensure both are saved or rolled back together if one fails
+        //        // For simplicity, assuming SaveChangesAsync succeeds
+        //        await _userManager.AddToRoleAsync(user, "Vendor");
+
+        //        registrationResponse.Succeeded = true;
+        //        registrationResponse.Data = new RegistrationResponse { UserId = user.Id };
+        //    }
+        //    else
+        //    {
+        //        registrationResponse.Message = $"{result.Errors}";
+        //        registrationResponse.Succeeded = false;
+        //    }
+
+        //    return registrationResponse;
+        //}
+        public async Task<Response<RegistrationResponse>> RegisterVendorAsync(VendorRegistrationRequest request)
+        {
+            var registrationResponse = new Response<RegistrationResponse>();
+
+            try
+            {
+                var existingUserByEmail = await _userManager.FindByEmailAsync(request.Email);
+
+                if (existingUserByEmail != null)
+                {
+                    registrationResponse.Message = $"Email '{request.Email}' is already registered.";
+                    registrationResponse.Succeeded = false;
+                    return registrationResponse;
+                }
+
+                var user = new ApplicationUser
+                {
+                    UserName = request.Email,
+                    Email = request.Email,
+                    Name = request.Name,
+                    PhoneNumber = request.PhoneNumber,
+                    TermsandCondition = true,
+                    EmailConfirmed = true,
+                    LocationId = request.LocationId,
+                    AltPhoneNumber=request.AlternatePhoneNumber,
+                    AltEmail=request.AlternateEmail,
+                    AltAddress=request. AlternateAddress,
+                    Address=request.Address,
+                };
+
+                var result = await _userManager.CreateAsync(user, request.Password);
+
+                if (result.Succeeded)
+                {
+                    var bankDetails = new BankDetails
+                    {
+                        BankName = request.BankName,
+                        AccountNumber = request.AccountNumber,
+                        IFSCCode = request.IFSCCode,
+                        UserID = user.Id
+                    };
+
+                    var userKYC = new UserKYC
+                    {
+                        IDCard = request.IDCard,
+                        License = request.License,
+                        Address = request.AddressProof,
+                        Others = request.Others,
+                        UserID = user.Id
+                    };
+
+                    _dbContext.BankDetails.Add(bankDetails);
+                    _dbContext.UserKYC.Add(userKYC);
+                    await _dbContext.SaveChangesAsync();
+
+                    await _userManager.AddToRoleAsync(user, "Vendor");
+
+                    registrationResponse.Succeeded = true;
+                    registrationResponse.Data = new RegistrationResponse { UserId = user.Id };
+                }
+                else
+                {
+                    registrationResponse.Message = $"Failed to register user: {string.Join(", ", result.Errors)}";
+                    registrationResponse.Succeeded = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                registrationResponse.Message = $"An error occurred during registration: {ex.Message}";
+                registrationResponse.Succeeded = false;
+                // Log the exception or handle it according to your application's logging strategy
+            }
+
+            return registrationResponse;
+        }
+
 
         private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
         {
@@ -259,6 +419,26 @@ namespace Exoticamp.Identity.Services
             return response;
         }
 
+        //public async Task<Response<object>> ForgotPasswordAsync(string email)
+        //{
+        //    var response = new Response<object>();
+
+        //    var user = await _userManager.FindByEmailAsync(email);
+        //    if (user == null)
+        //    {
+        //        response.Succeeded = false;
+        //        response.Message = "User not found";
+        //        return response;
+        //    }
+
+        //    // Add logic to handle password reset (e.g., generate reset token, send email, etc.)
+        //    // For now, we assume the operation is successful if the user is found.
+        //    response.Succeeded = true;
+        //    response.Message = "Password reset instructions have been sent to your email";
+        //    return response;
+        //}
+
+
         public async Task<RevokeTokenResponse> RevokeToken(RevokeTokenRequest request)
         {
             var response = new RevokeTokenResponse();
@@ -297,7 +477,7 @@ namespace Exoticamp.Identity.Services
         {
             var response = new Response<object>();
 
-            var user = await _userManager. FindByEmailAsync(userId);
+            var user = await _userManager.FindByEmailAsync(userId);
             if (user == null)
             {
                 response.Succeeded = false;
@@ -324,7 +504,7 @@ namespace Exoticamp.Identity.Services
         {
             var response = new Response<object>();
 
-            var user = await _userManager. FindByEmailAsync(userId);
+            var user = await _userManager.FindByEmailAsync(userId);
             if (user == null)
             {
                 response.Succeeded = false;

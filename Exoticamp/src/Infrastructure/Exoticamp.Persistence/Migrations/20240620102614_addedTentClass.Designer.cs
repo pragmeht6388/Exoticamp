@@ -4,6 +4,7 @@ using Exoticamp.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Exoticamp.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240620102614_addedTentClass")]
+    partial class addedTentClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +55,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Activities", (string)null);
+                    b.ToTable("Activities");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Banner", b =>
@@ -88,7 +91,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Banners", (string)null);
+                    b.ToTable("Banners");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Booking", b =>
@@ -183,7 +186,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("ActivityId");
 
-                    b.ToTable("CampsiteActivities", (string)null);
+                    b.ToTable("CampsiteActivities");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
@@ -335,7 +338,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("CampsiteDetails", (string)null);
+                    b.ToTable("CampsiteDetails");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
@@ -368,7 +371,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.ChatbotResponse", b =>
@@ -391,7 +394,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ChatbotResponses", (string)null);
+                    b.ToTable("ChatbotResponses");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.ContactUs", b =>
@@ -420,7 +423,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContactUs", (string)null);
+                    b.ToTable("ContactUs");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
@@ -496,7 +499,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("CampsiteId");
 
-                    b.ToTable("Events", (string)null);
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.EventActivities", b =>
@@ -517,7 +520,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("EventActivities", (string)null);
+                    b.ToTable("EventActivities");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.EventLocation", b =>
@@ -538,7 +541,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("EventLocations", (string)null);
+                    b.ToTable("EventLocations");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Glamping", b =>
@@ -564,7 +567,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("CampsiteId");
 
-                    b.ToTable("Glamping", (string)null);
+                    b.ToTable("Glamping");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.GuestDetails", b =>
@@ -593,7 +596,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GuestDetails", (string)null);
+                    b.ToTable("GuestDetails");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Location", b =>
@@ -626,7 +629,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations", (string)null);
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.ManageAvailability", b =>
@@ -676,7 +679,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("GlampingId");
 
-                    b.ToTable("ManageAvailabilities", (string)null);
+                    b.ToTable("ManageAvailabilities");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Message", b =>
@@ -702,7 +705,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("MessageId");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Order", b =>
@@ -744,7 +747,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Payment", b =>
@@ -800,7 +803,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.ReviewReply", b =>
@@ -841,7 +844,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("ReviewsId");
 
-                    b.ToTable("ReviewReplies", (string)null);
+                    b.ToTable("ReviewReplies");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Reviews", b =>
@@ -895,7 +898,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasIndex("BookingId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.UserQuery", b =>
@@ -920,7 +923,7 @@ namespace Exoticamp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserQueries", (string)null);
+                    b.ToTable("UserQueries");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Banner", b =>

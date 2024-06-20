@@ -2,9 +2,12 @@
 using Exoticamp.UI.Models.Booking;
 using Exoticamp.UI.Models.ResponseModels;
 using Exoticamp.UI.Models.ResponseModels.Booking;
+using Exoticamp.UI.Models.ResponseModels.Bookings;
+using Exoticamp.UI.Models.ResponseModels.Events;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Exoticamp.UI.Services.Repositories
 {
@@ -40,7 +43,30 @@ namespace Exoticamp.UI.Services.Repositories
             return bookings;
         }
 
+        public async Task<AddBookingResponseModel> AddBooking(BookingVM model)
+        {
+            AddBookingResponseModel res = new AddBookingResponseModel();
 
-   
+            _apiRepository = new APIRepository(_configuration);
+
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(model, Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+
+            var bytes = new ByteArrayContent(content);
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.AddBooking, HttpMethod.Post, bytes, _sToken);
+            if (response.Success == true)
+            {
+                res= (JsonConvert.DeserializeObject<AddBookingResponseModel>(response.data));
+                res.Message=response.data;
+                return res;
+            }
+
+            res.Succeeded = false;
+            res.Message = response.Message;
+
+           
+            return res;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Exoticamp.UI.AuthFilter;
+using Exoticamp.UI.Models.ForgotPassword;
 using Exoticamp.UI.Models.Login;
 using Exoticamp.UI.Models.Registration;
 using Exoticamp.UI.Services.IRepositories;
@@ -123,6 +124,38 @@ namespace Exoticamp.UI.Controllers
 
             return RedirectToAction("Login", "Account");
         }
+
+
+        //ForgotPassword
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordVM request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(request);
+            }
+
+            var response = await _loginRepository.ForgotPasswordAsync(request);
+
+            if (response.ForgotPassword)
+            {
+                TempData["Message"] = "Forgot password request processed successfully. If an account with the provided email exists, you will receive an email with instructions to reset your password.";
+            }
+            else
+            {
+                TempData["Message"] = response.Message ?? "An error occurred while processing your request.";
+            }
+
+            return View(request);
+        }
+
 
     }
 }
