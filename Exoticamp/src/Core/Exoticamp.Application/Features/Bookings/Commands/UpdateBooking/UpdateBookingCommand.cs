@@ -20,6 +20,7 @@ namespace Exoticamp.Application.Features.Bookings.Commands.UpdateBooking
         public int NoOfAdults { get; set; }
         public int NoOfChildrens { get; set; }
         public int NoOfTents { get; set; }
+        public decimal TotalPrice { get; set; }
         public string? GlampingType { get; set; }
         public string Status { get; set; }
         public Guid CampsiteId { get; set; }
