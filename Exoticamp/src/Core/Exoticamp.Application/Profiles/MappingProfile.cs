@@ -50,6 +50,7 @@ using Exoticamp.Application.Features.Reviews.Queryies.GetReviewById;
 using Exoticamp.Application.Features.Reviews.Commands.UpdateReviews;
 using Exoticamp.Application.Features.Vendors.Queries.GetVendor;
 using Exoticamp.Application.Features.Vendors.Commands.UpdateVendor;
+using Exoticamp.Application.Contracts.Identity;
 using Exoticamp.Application.Features.RewiewReply.Query.GetReplyById;
 using Exoticamp.Application.Features.RewiewReply.Query.GetReplyList;
 

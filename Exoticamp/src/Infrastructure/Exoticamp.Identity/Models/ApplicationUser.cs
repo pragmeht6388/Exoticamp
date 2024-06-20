@@ -35,6 +35,8 @@ namespace Exoticamp.Identity.Models
 
         public  bool? Status { get; set; }
 
+         
+
 
         public UserKYC UserKYC { get; set; }
 

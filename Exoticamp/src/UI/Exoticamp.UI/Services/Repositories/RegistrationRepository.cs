@@ -45,7 +45,7 @@ namespace Exoticamp.UI.Services.Repositories
             };
         }
 
-        public async Task<CreateRegistrationUsResponse> CreateVendorRegistration(RegistrationVM registrationVM)
+        public async Task<CreateRegistrationUsResponse> CreateVendorRegistration(VendorRegistrationVM registrationVM)
         {
             _apiRepository = new APIRepository(_configuration);
             var response = new Response<string>();
