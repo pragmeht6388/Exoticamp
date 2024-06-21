@@ -14,7 +14,10 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
         public string Name { get; set; }
         public string Location { get; set; }
         public bool Status { get; set; }
-        public string TentType { get; set; }
+        //public string TentType { get; set; }
+
+        public Guid TentId { get; set; }
+        public int NoOfTents { get; set; }
         public decimal Price { get; set; }
 
         public string Images { get; set; }

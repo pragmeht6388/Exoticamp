@@ -28,9 +28,14 @@ namespace Exoticamp.UI.Models.CampsiteDetails
         [JsonProperty("status")]
         public bool Status { get; set; }
 
-        [JsonProperty("tentType")]
+        [JsonProperty("tentName")]
 
-        public string TentType { get; set; }
+        public string TentName { get; set; }
+        [JsonProperty("tentId")]
+        public Guid TentId { get; set; }
+
+        [JsonProperty("noOfTents")]
+        public int NoOfTents { get; set; }
 
         [JsonProperty("price")]
         public decimal Price { get; set; }

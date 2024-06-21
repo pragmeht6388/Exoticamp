@@ -46,7 +46,7 @@ namespace Exoticamp.Application.Features.Bookings.Commands.AddBooking
                 return response;
             }
             if (location == null)
-            {
+            { 
                 response.Message = "Location Not found";
                 return response;
             }

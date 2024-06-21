@@ -2,8 +2,7 @@
 
 @{
     ViewData["Title"] = "AddReview";
-    
-    // Layout = "~/Views/Shared/_LayoutLandingPage.cshtml";
+    // Ensure your layout remains unchanged
 }
 
 <head>
@@ -71,7 +70,7 @@
 
                 <div class="form-group">
                     <label asp-for="Description" class="control-label">Description<span class="text-danger">*</span></label>
-                    <input asp-for="Description" class="form-control" required maxlength="100" />
+                    <textarea asp-for="Description" class="form-control" required maxlength="100"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
@@ -112,11 +111,29 @@
                 $(this).prevAll('.bi-star').addBack().addClass('bi-star-fill');
             });
 
+            // Restrict Name field to alphabets and spaces only
+            $('#Name').on('input', function () {
+                var sanitizedValue = $(this).val().replace(/[^a-zA-Z\s]/g, '');
+                if ($(this).val() !== sanitizedValue) {
+                    toastr.error('Name should contain only alphabets and space');
+                    $(this).val(sanitizedValue);
+                }
+            });
+
+            // Restrict Description field to alphabets and spaces only
+            $('#Description').on('input', function () {
+                var sanitizedValue = $(this).val().replace(/[^a-zA-Z\s]/g, '');
+                if ($(this).val() !== sanitizedValue) {
+                    toastr.error('Description should contain only alphabets and space');
+                    $(this).val(sanitizedValue);
+                }
+            });
+
             $('#reviewForm').submit(function (event) {
                 var isValid = true;
 
                 // Check if each required field is filled
-                $('form#reviewForm input[required], form#reviewForm select[required]').each(function () {
+                $('form#reviewForm input[required], form#reviewForm textarea[required]').each(function () {
                     if ($.trim($(this).val()) === '') {
                         toastr.error($(this).prev('label').text() + ' is required');
                         isValid = false;
@@ -124,23 +141,19 @@
                     }
                 });
 
+                // Check if Ratings is selected
+                if ($('#Ratings').val() === '0') {
+                    toastr.error('Ratings is required');
+                    isValid = false;
+                }
+
                 if (!isValid) {
                     event.preventDefault(); // Prevent form submission if validation fails
                     return;
                 }
 
-                // Additional validations after required fields are filled
-
-                // Name validation (only alphabets and space allowed)
-                $('#Name').on('input', function () {
-                    var regex = /^[a-zA-Z\s]*$/;
-                    if (!regex.test($(this).val())) {
-                        toastr.error('Name should contain only alphabets and space');
-                        $(this).val('');
-                    }
-                });
-
-                // Ratings validation (already handled by star click)
+                // Show success message after form submission
+                toastr.success('Review added successfully!');
             });
         });
     </script>

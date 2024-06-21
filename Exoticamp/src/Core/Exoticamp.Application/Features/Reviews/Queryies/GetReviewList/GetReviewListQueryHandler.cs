@@ -56,7 +56,7 @@ namespace Exoticamp.Application.Features.Reviews.Queryies.GetReviewList
         //    return new Response<IEnumerable<ReviewVM>>(reviewVMs, "success");
         //}
         public async Task<Response<IEnumerable<ReviewVM>>> Handle(GetReviewListQuery request, CancellationToken cancellationToken)
-        {
+         {
             _logger.LogInformation("Handle Initiated");
 
             var allReviews = await _reviewRepository.ListAllAsync();
