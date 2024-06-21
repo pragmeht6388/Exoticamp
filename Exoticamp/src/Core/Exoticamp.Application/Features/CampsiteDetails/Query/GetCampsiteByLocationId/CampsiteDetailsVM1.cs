@@ -8,7 +8,9 @@
         public bool Status { get; set; }
         public decimal Price { get; set; }
 
-        public string TentType { get; set; }
+        //public string TentType { get; set; }
+        public Guid TentId { get; set; }
+        public int NoOfTents { get; set; }
         public string Images { get; set; }
 
         public string Highlights { get; set; }
