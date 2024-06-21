@@ -1,4 +1,5 @@
 ﻿using Exoticamp.Application.Features.Activities.Query.GetActivityList;
+using Exoticamp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +17,9 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
         public bool Status { get; set; }
         //public string TentType { get; set; }
         public Guid TentId { get; set; }
+        //public string CategoryName { get; set; }
+        public string TentName { get; set; }
+        public Tent Tent { get; set; }
         public int NoOfTents { get; set; }
         public decimal Price { get; set; }
 

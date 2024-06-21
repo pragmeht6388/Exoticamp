@@ -122,7 +122,7 @@ namespace Exoticamp.Persistence.Repositories
         }
         public async Task<List<CampsiteDetailsVM>> GetAllCampsiteWithCategoryAndActivityDetails()
         {
-            var data = await this._dbContext.CampsiteDetails.Include(x=>x.Category)
+            var data = await this._dbContext.CampsiteDetails.Include(x=>x.Category).Include(x=>x.Tent)
                 .Include(x => x.CampsiteActivities)
                 .ThenInclude(ca => ca.Activities)
                 .Select(request => new CampsiteDetailsVM()
@@ -133,7 +133,8 @@ namespace Exoticamp.Persistence.Repositories
                     Status = request.Status,
                     Price=request.Price,
                     //TentType = request.TentType,
-                    TentId=request.TentId,
+                    TentName = request.Tent.Name, // Map TentType to TentName
+                    TentId =request.TentId,
                     NoOfTents=request.NoOfTents,
                     isActive = request.isActive,
                     ApprovedBy = request.ApprovedBy,
@@ -158,19 +159,23 @@ namespace Exoticamp.Persistence.Repositories
                     DistanceWithMap = request.DistanceWithMap,
                     CancellationPolicy = request.CancellationPolicy,
                     CategoryId=request.CategoryId,
+                    CategoryName=request.Category.Name,
                     FAQs = request.FAQs,
                     HouseRules = request.HouseRules,
                     MealPlans = request.MealPlans,
                     WhyExoticamp = request.WhyExoticamp,
                     CreatedBy= request.CreatedBy,
                     
+                   
 
                     // Include activity details
                     Activities = request.CampsiteActivities.Select(ca => new ActivityVM
                     {
                         Id = ca.Id,
                         Name = ca.Activities.Name
-                    }).ToList()
+                    }).ToList(),
+
+                    
                 })
                 .ToListAsync();
             return data;

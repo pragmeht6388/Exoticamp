@@ -46,6 +46,7 @@ builder.Services.AddScoped<ILocationRepository, LocationRepository>();
 builder.Services.AddScoped<IReviewsRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewReplyRepository,ReviewReplyRepositories>();
 builder.Services.AddScoped<IVendorRepository, VendorsRepository>();
+builder.Services.AddScoped<ITentRepository, TentRepository>();
 
 var app = builder.Build();
 

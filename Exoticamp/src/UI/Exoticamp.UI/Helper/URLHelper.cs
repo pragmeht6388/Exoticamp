@@ -95,6 +95,8 @@
         public const string AddReviewReply = "/api/v1/ReviewReply";
         public const string GetReplyById = "/api/v1/ReviewReply/{0}";
         public const string GetAllReply = "/api/v1/ReviewReply/allReply";
+
+        public const string GetAllTents = "/api/v1/Tent/allTent";
         #region Vendor
         public const string GetVendorDetails = "/api/v1/Vendor/{0}";
         public const string UpdateVendorProfile = "/api/v1/Vendor/edit-profile";

@@ -19,17 +19,18 @@ namespace Exoticamp.UI.Controllers
         private readonly IActivitiesRepository _activitiesRepository;
         private readonly ILocationRepository _locationRepository;
         private readonly IReviewsRepository _reviewsRepository;
-        
+        private readonly ITentRepository _tentRepository;
 
 
         public CampsiteDetailsController(ICampsiteDetailsRepository campsiteRepository, ICategoryRepository categoryRepository,
-            IActivitiesRepository activitiesRepository, ILocationRepository locationRepository, IReviewsRepository reviewsRepository)
+            IActivitiesRepository activitiesRepository, ILocationRepository locationRepository, IReviewsRepository reviewsRepository,ITentRepository tentRepository)
         {
             _campsiteRepository = campsiteRepository;
             _categoryRepository = categoryRepository;
             _activitiesRepository = activitiesRepository;
             _locationRepository = locationRepository;
             _reviewsRepository = reviewsRepository;
+            _tentRepository = tentRepository;
         }
         [VendorAuthFilter]
         [NoCache]
@@ -65,7 +66,7 @@ namespace Exoticamp.UI.Controllers
         {
             var categories = await _categoryRepository.GetAllCategory();
             var activities = await _activitiesRepository.GetAllActivities();
-            //var tent=await _
+            var tent = await _tentRepository.GetAllTents();
             var loaction = await _locationRepository.GetAllLocations();
 
             if (categories == null)
@@ -75,6 +76,7 @@ namespace Exoticamp.UI.Controllers
 
             ViewBag.CategoryList = new SelectList(categories, "CategoryId", "Name");
             ViewBag.ActivitiesList = new SelectList(activities, "Id", "Name");
+            ViewBag.TentList=new SelectList(tent,"Id", "Name");
 
             return View();
         }
@@ -119,11 +121,13 @@ namespace Exoticamp.UI.Controllers
             eventObj.Data.ActivitiesId = eventObj.Data.Activities[0].Id;
             var categoryList = await _categoryRepository.GetAllCategory();
             var activitiesList = await _activitiesRepository.GetAllActivities();
+            var tentList = await _tentRepository.GetAllTents();
             // var Activities = await _activitiesRepository.GetAllActivities();
 
             if (activitiesList != null)
             {
                 ViewBag.CategoryList = categoryList.Select(c => new SelectListItem { Value = c.CategoryId.ToString(), Text = c.Name });
+                ViewBag.TentList = tentList.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name });
                 var activitiesSelectList = activitiesList.Select(a => new SelectListItem
                 {
                     Value = a.Id.ToString(),
