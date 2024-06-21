@@ -58,6 +58,8 @@ using Exoticamp.Application.Features.Bookings.Commands.AddBooking;
 using Exoticamp.Application.Features.Bookings.Queries.GetBookingList;
 using Exoticamp.Application.Features.Bookings.Queries.GetBookingDetails;
 using Exoticamp.Application.Features.Bookings.Commands.UpdateBooking;
+using Exoticamp.Application.Features.Glamping.GetGlamping;
+using Exoticamp.Application.Features.Glamping.GetGlampingList;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -164,7 +166,9 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Booking,GetBookingByIdDto>().ReverseMap();
             CreateMap<Booking, UpdateBookingCommand>().ReverseMap();
             CreateMap<Booking, UpdateBookingDto>().ReverseMap();
-
+             
+                 CreateMap<Glamping, GlampingDto>().ReverseMap();
+            CreateMap<Glamping, GetGlampingListDto>().ReverseMap();
         }
 
 
