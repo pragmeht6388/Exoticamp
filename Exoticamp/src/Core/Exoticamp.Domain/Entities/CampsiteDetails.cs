@@ -74,5 +74,6 @@ namespace Exoticamp.Domain.Entities
         public virtual Category Category { get; set; }
      
         public ICollection<CampsiteActivities> CampsiteActivities { get; set; }
+        public virtual Tent Tent { get; set; }
     }
 }

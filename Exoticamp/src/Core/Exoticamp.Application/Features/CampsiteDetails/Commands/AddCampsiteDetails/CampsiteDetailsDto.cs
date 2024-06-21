@@ -16,7 +16,9 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
         public string Name { get; set; }
         public string Location { get; set; }
         public bool Status { get; set; }
-        public string TentType { get; set; }
+        //public string TentType { get; set; }
+        public Guid TentId { get; set; }
+        public int NoOfTents { get; set; }
         public decimal Price { get; set; }
 
         public string Images { get; set; }
@@ -43,6 +45,8 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Commands.AddCampsiteDet
         public Guid ActivitiesId { get; set; }
         [ForeignKey(nameof(ActivitiesId))]
         public ICollection<Domain.Entities.Activities> Activities { get; set; }
+
+        public virtual Tent Tent { get; set; }
 
         public string MealPlans { get; set; }
 
