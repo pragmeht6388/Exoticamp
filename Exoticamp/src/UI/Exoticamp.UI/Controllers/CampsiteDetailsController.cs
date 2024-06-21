@@ -18,15 +18,18 @@ namespace Exoticamp.UI.Controllers
         private readonly ICategoryRepository _categoryRepository;
         private readonly IActivitiesRepository _activitiesRepository;
         private readonly ILocationRepository _locationRepository;
+        private readonly IReviewsRepository _reviewsRepository;
+        
 
 
-
-        public CampsiteDetailsController(ICampsiteDetailsRepository campsiteRepository, ICategoryRepository categoryRepository, IActivitiesRepository activitiesRepository,ILocationRepository locationRepository)
+        public CampsiteDetailsController(ICampsiteDetailsRepository campsiteRepository, ICategoryRepository categoryRepository,
+            IActivitiesRepository activitiesRepository, ILocationRepository locationRepository, IReviewsRepository reviewsRepository)
         {
             _campsiteRepository = campsiteRepository;
             _categoryRepository = categoryRepository;
             _activitiesRepository = activitiesRepository;
-            _locationRepository=locationRepository;
+            _locationRepository = locationRepository;
+            _reviewsRepository = reviewsRepository;
         }
         [VendorAuthFilter]
         [NoCache]
@@ -40,7 +43,7 @@ namespace Exoticamp.UI.Controllers
             return View(campsiteDetail);
         }
         [VendorAuthFilter]
-      
+
         [NoCache]
         public async Task<IActionResult> Details(string id)
         {
@@ -62,6 +65,7 @@ namespace Exoticamp.UI.Controllers
         {
             var categories = await _categoryRepository.GetAllCategory();
             var activities = await _activitiesRepository.GetAllActivities();
+            //var tent=await _
             var loaction = await _locationRepository.GetAllLocations();
 
             if (categories == null)
@@ -115,7 +119,7 @@ namespace Exoticamp.UI.Controllers
             eventObj.Data.ActivitiesId = eventObj.Data.Activities[0].Id;
             var categoryList = await _categoryRepository.GetAllCategory();
             var activitiesList = await _activitiesRepository.GetAllActivities();
-           // var Activities = await _activitiesRepository.GetAllActivities();
+            // var Activities = await _activitiesRepository.GetAllActivities();
 
             if (activitiesList != null)
             {
@@ -149,7 +153,7 @@ namespace Exoticamp.UI.Controllers
             {
                 Value = c.CategoryId.ToString(),
                 Text = c.Name
-            }).ToList(); 
+            }).ToList();
 
             ViewBag.ActivitiesList = activitiesList.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name });
 
@@ -208,7 +212,10 @@ namespace Exoticamp.UI.Controllers
         {
             var campsiteDetail = await _campsiteRepository.GetCampsiteById(id);
             ViewBag.CampsiteCorousel = await _campsiteRepository.GetAllCampsites();
-
+            var review = await _reviewsRepository.GetAllReviews();
+            var campsiteReview=review.Where(x=>x.CampsiteName==campsiteDetail.Data.Name).ToList();
+            //ViewBag.Reviews = await _reviewsRepository.GetAllReviews();
+            ViewBag.Reviews = campsiteReview;
             if (campsiteDetail == null)
             {
                 return NotFound();
@@ -318,10 +325,10 @@ namespace Exoticamp.UI.Controllers
 
             ViewBag.ActivitiesList = new SelectList(activitiesList, "Id", "Name");
 
-           
+
 
             if (campsite == null)
-            { 
+            {
                 return NotFound();
             }
 
@@ -367,7 +374,7 @@ namespace Exoticamp.UI.Controllers
             var categories = await _categoryRepository.GetAllCategory();
             var activities = await _activitiesRepository.GetAllActivities();
             var loaction = await _locationRepository.GetAllLocations();
-           // var vendorId=await _
+            // var vendorId=await _
 
             if (categories == null)
             {
@@ -379,7 +386,7 @@ namespace Exoticamp.UI.Controllers
 
             return View();
         }
-       
+
         public async Task<IActionResult> AddCampsiteDetailsAdmin(CampsiteDetailsVM campsite)
         {
             var fileName = Path.GetFileName(campsite.ImageFile.FileName);
