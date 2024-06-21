@@ -1,5 +1,4 @@
-﻿using AspNetCore;
-using Exoticamp.Domain.Entities;
+﻿using Exoticamp.Domain.Entities;
 using Exoticamp.UI.Models;
 using Exoticamp.UI.Models.Booking;
 using Exoticamp.UI.Services.IRepositories;
@@ -136,8 +135,14 @@ namespace Exoticamp.UI.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
-           var booking=await _bookingRepository.GetBookingById(id);
-            return View();
+           var model=await _bookingRepository.GetBookingById(id);
+            var campsite = await _campsiteDetailsRepository.GetCampsiteById(model.Data.CampsiteId.ToString());
+            var location = await _locationRepository.GetAllLocations();
+            var loc = location.FirstOrDefault(x => x.Name == campsite.Data.Location);
+            campsite.Data.LocationId = loc.Id;
+            ViewBag.Campsite = campsite.Data;
+
+            return View(model.Data);
         }
 
         [HttpPost]
