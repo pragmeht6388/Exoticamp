@@ -17,7 +17,9 @@ namespace Exoticamp.Domain.Entities
         public string Name { get; set; }
         public string Location { get; set; }
         public bool Status { get; set; }
-        public string TentType { get; set; }
+        //public string TentType { get; set; }
+        public Guid TentId { get; set; }
+        public int NoOfTents { get; set; }
         public Guid CategoryId { get; set; }
         public string Images { get; set; }
         public DateTime DateTime { get; set; }
@@ -70,6 +72,7 @@ namespace Exoticamp.Domain.Entities
 
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
+     
         public ICollection<CampsiteActivities> CampsiteActivities { get; set; }
     }
 }

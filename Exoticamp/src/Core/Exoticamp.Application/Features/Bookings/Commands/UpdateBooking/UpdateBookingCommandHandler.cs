@@ -19,22 +19,39 @@ namespace Exoticamp.Application.Features.Bookings.Commands.UpdateBooking
         private readonly IBookingRepository _bookingRepository;
         private readonly IMapper _mapper;
         private readonly IMessageRepository _messageRepository;
+        private readonly ICampsiteDetailsRepository _campsiteRepository;
+       private readonly ILoactionRepository _loactionRepository;
 
-        public UpdateBookingCommandHandler(IMapper mapper, IBookingRepository bookingRepository, IMessageRepository messageRepository)
+        public UpdateBookingCommandHandler(IMapper mapper, IBookingRepository bookingRepository, IMessageRepository messageRepository, ICampsiteDetailsRepository campsiteRepository, ILoactionRepository loactionRepository)
         {
             _mapper = mapper;
-            _bookingRepository= bookingRepository;
+            _bookingRepository = bookingRepository;
             _messageRepository = messageRepository;
+            _campsiteRepository = campsiteRepository;
+            _loactionRepository = loactionRepository;
         }
 
         public async Task<Response<UpdateBookingDto>> Handle(UpdateBookingCommand request, CancellationToken cancellationToken)
         {
             var response = new Response<UpdateBookingDto>();
+            var campsite = await _campsiteRepository.GetByIdAsync(request.CampsiteId);
+            var location = await _loactionRepository.GetByIdAsync(request.LocationId);
             var bookingObj=await _bookingRepository.GetByIdAsync(request.BookingId);
             if (bookingObj == null) {
-
                 response.Message = "Booking Not found";
             }
+            if (campsite == null)
+            {
+                response.Message = "Campsite Not found";
+                return response;
+            }
+            if (location == null)
+            {
+                response.Message = "Location Not found";
+                return response;
+            }
+            request.Campsite = campsite;
+            request.Location = location;
             var validator = new UpdateBookingCommandValidator(_messageRepository,_bookingRepository);
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
