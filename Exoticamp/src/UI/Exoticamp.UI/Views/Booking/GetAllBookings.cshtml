@@ -12,9 +12,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+           @*  <th>
                 @Html.DisplayNameFor(model => model.BookingId)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.CustomerName)
             </th>
@@ -36,18 +36,20 @@
             <th>
                 @Html.DisplayNameFor(model => model.NoOfTents)
             </th>
-            <th>
+        @*     <th>
                 @Html.DisplayNameFor(model => model.GlampingType)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
-            <th>
+          @*   <th>
                 @Html.DisplayNameFor(model => model.CampsiteId)
+               Campsite
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.LocationId)
-            </th>
+               Location
+            </th> *@
           @*   <th>
                 @Html.DisplayNameFor(model => model.PaymentId)
             </th> *@
@@ -87,19 +89,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
-            <td>
+         @*    <td>
                 @Html.DisplayFor(modelItem => item.CampsiteId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LocationId)
-            </td>
+            </td> *@
       @*       <td>
                 @Html.DisplayFor(modelItem => item.PaymentId)
             </td> *@
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new {  id=item.BookingId  }) |
+                @Html.ActionLink("Details", "Details", new {  id=item.BookingId  }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.BookingId  })
             </td>
         </tr>
 }

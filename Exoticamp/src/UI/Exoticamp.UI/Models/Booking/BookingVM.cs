@@ -34,12 +34,14 @@ namespace Exoticamp.UI.Models.Booking
         public string? GlampingType { get; set; }
         public decimal? PriceForAdults { get; set; }
         public decimal? PriceForChildrens { get; set; }
+        public decimal? PriceForTents { get; set; }
 
         public string Status { get; set; }
         [Required(ErrorMessage ="Select Campsite")]
         public Guid CampsiteId { get; set; }
         [Required(ErrorMessage ="Select Location")]
         public Guid LocationId { get; set; }
+
         //public Guid? PaymentId { get; set; }
         public Domain.Entities.CampsiteDetails? Campsite { get; set; }
         public Domain.Entities.Location? Location { get; set; }
