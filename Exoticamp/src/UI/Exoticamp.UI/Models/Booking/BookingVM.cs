@@ -1,5 +1,7 @@
 ﻿
+using Exoticamp.UI.Models.CampsiteDetails;
 using Exoticamp.UI.Models.Events;
+using Exoticamp.UI.Models.Location;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
@@ -43,8 +45,8 @@ namespace Exoticamp.UI.Models.Booking
         public Guid LocationId { get; set; }
 
         //public Guid? PaymentId { get; set; }
-        public Domain.Entities.CampsiteDetails? Campsite { get; set; }
-        public Domain.Entities.Location? Location { get; set; }
+        public CampsiteDetailsVM? Campsite { get; set; }
+        public LocationVM? Location { get; set; }
 
 
         public SelectList? LocationsList { get; set; }

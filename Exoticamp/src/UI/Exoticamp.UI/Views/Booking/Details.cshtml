@@ -70,7 +70,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.GlampingType)
         </dd>
-        <dt class = "col-sm-2">
+@*         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PriceForAdults)
         </dt>
         <dd class = "col-sm-10">
@@ -87,26 +87,44 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PriceForTents)
-        </dd>
-        <dt class = "col-sm-2">
+        </dd> *@
+       @*  <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Status)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Status)
-        </dd>
+        </dd> *@
+      
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+        
+
+      
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CampsiteId)
+            @* @Html.DisplayNameFor(model => model.CampsiteId) *@
+            CampSite:
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CampsiteId)
+            @Html.DisplayFor(model => model.Campsite.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LocationId)
+            @* @Html.DisplayNameFor(model => model.LocationId) *@
+            Location:
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LocationId)
+            @Html.DisplayFor(model => model.Location.Name)
         </dd>
     </dl>
+</div>
+<div class="form-group mt-3">
+    <button type="button" class="btn btn-success"
+    @(Model.Status == "Approved" ? "" : "disabled")>
+        Make Payment
+    </button>
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new {  id = Model.BookingId  }) |

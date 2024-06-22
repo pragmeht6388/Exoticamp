@@ -121,6 +121,13 @@ namespace Exoticamp.UI.Controllers
         public async Task<ActionResult> Details(string id)
         {
             var bookingResponse = await _bookingRepository.GetBookingById(id);
+            var campsite = await _campsiteDetailsRepository.GetCampsiteById(bookingResponse.Data.CampsiteId.ToString());
+            var location = await _locationRepository.GetAllLocations();
+            var loc = location.FirstOrDefault(x => x.Name == campsite.Data.Location);
+            campsite.Data.LocationId = loc.Id;
+
+            bookingResponse.Data.Campsite = campsite.Data;
+            bookingResponse.Data.Location = loc;
 
             if (bookingResponse.Succeeded)
             {
@@ -140,6 +147,9 @@ namespace Exoticamp.UI.Controllers
             var location = await _locationRepository.GetAllLocations();
             var loc = location.FirstOrDefault(x => x.Name == campsite.Data.Location);
             campsite.Data.LocationId = loc.Id;
+     
+            model.Data.Campsite = campsite.Data;
+            model.Data.Location = loc;
             ViewBag.Campsite = campsite.Data;
 
             return View(model.Data);
@@ -154,7 +164,12 @@ namespace Exoticamp.UI.Controllers
             {
                 return RedirectToAction("Details", new { id = model.BookingId });
             }
-
+            var campsite = await _campsiteDetailsRepository.GetCampsiteById(model.CampsiteId.ToString());
+            var location = await _locationRepository.GetAllLocations();
+            var loc = location.FirstOrDefault(x => x.Name == campsite.Data.Location);
+            campsite.Data.LocationId = loc.Id;
+            model.Campsite = campsite.Data;
+            model.Location = loc;
             ViewBag.ErrorMessage = updatedBooking.Message;
             return View(model);
         }

@@ -85,11 +85,11 @@
                 <span asp-validation-for="GlampingType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="PriceForAdults" class="form-control" type="hidden" id="PriceForAdults" value="@ViewBag.Campsite.Price" />
+                <input asp-for="PriceForAdults" class="form-control" type="hidden" id="PriceForAdults" value="@Model.Campsite.Price" />
                 <span asp-validation-for="PriceForAdults" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="PriceForChildrens" class="form-control" type="hidden" id="PriceForChildrens" value="@(ViewBag.Campsite.Price / 2)" />
+                <input asp-for="PriceForChildrens" class="form-control" type="hidden" id="PriceForChildrens" value="@(Model.Campsite.Price / 2)" />
                 <span asp-validation-for="PriceForChildrens" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -98,14 +98,14 @@
                 <span asp-validation-for="PriceForTents" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="Status" class="form-control" type="hidden" value="pending" />
+                <input asp-for="Status" class="form-control" type="hidden" value="@Model.Status" />
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="CampsiteId" class="form-control" type="hidden" value="@ViewBag.Campsite.Id" />
+                <input asp-for="CampsiteId" class="form-control" type="hidden" value="@Model.Campsite.Id" />
             </div>
             <div class="form-group">
-                <input asp-for="LocationId" class="form-control" type="hidden" value="@ViewBag.Campsite.LocationId" />
+                <input asp-for="LocationId" class="form-control" type="hidden" value="@Model.Location.Id" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
