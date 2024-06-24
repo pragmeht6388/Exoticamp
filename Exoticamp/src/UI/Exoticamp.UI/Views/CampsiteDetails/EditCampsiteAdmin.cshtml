@@ -36,11 +36,11 @@
     <a asp-action="ShowCampsiteAdmin" class="btn btn-secondary">Back to List</a>
 </div>
 
-<div class="row center-form">
+<div class="row center-form"> 
     <div class="col-md-12 form-container">
         <form asp-action="EditCampsiteAdmin" enctype='multipart/form-data'>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="ApprovedBy" class="control-label">Approved By<span class="text-danger">*</span></label>
                 <select asp-for="ApprovedBy" class="form-control" required>
                     <option value="">-- Select --</option>
@@ -48,7 +48,7 @@
                     <option value="Rejected">Rejected</option>
                 </select>
                 <span asp-validation-for="ApprovedBy" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
                 <label asp-for="Name" class="control-label">Name<span class="text-danger">*</span></label>
                 <input asp-for="Name" class="form-control" />
