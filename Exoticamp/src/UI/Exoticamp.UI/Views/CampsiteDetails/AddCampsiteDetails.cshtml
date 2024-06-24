@@ -29,7 +29,7 @@
 
         .header {
             text-align: center;
-            margin-top: 60px; /* Adjust margin-top to create space for the back-to-list button */
+            margin-top: 0px; /* Adjust margin-top to create space for the back-to-list button */
             margin-bottom: 20px;
         }
     </style>
@@ -259,11 +259,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         // Check if TempData contains the success message
-        @if (TempData["SuccessMessage"] != null)
+        @if (TempData["Message"] != null)
         {
-            <text>
-                toastr.success('@TempData["SuccessMessage"]');
-            </text>
+                <script type="text/javascript" >
+                    toastr.error('@TempData["Message"]');
+        </script>
         }
 
             $(document).ready(function () {

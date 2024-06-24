@@ -53,6 +53,9 @@ namespace Exoticamp.UI.Models.Reviews
 
         [JsonProperty("campsiteImage")]
         public string CampsiteImage { get; set; }
+        [JsonProperty("CreatedBy")]
+
+        public string CreatedBy {  get; set; }
 
     }
 }

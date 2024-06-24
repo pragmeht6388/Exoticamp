@@ -103,7 +103,15 @@
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
     <!-- Include Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <script>
+            $(document).ready(function () {
+                toastr.success('@ViewBag.SuccessMessage');
+            });
+        </script>
+        ViewBag.SuccessMessage = null; // Clear the ViewBag after displaying message
+    }
     <script>
         $(document).ready(function () {
             $('#campsiteTable').DataTable({
@@ -115,11 +123,6 @@
             });
         });
 
-        @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
-        {
-                <script>
-                toastr.success("@ViewBag.SuccessMessage");
-        </script>
-        }
+       
         </script>
 }

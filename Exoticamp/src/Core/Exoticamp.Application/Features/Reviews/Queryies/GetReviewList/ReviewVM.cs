@@ -24,6 +24,7 @@ namespace Exoticamp.Application.Features.Reviews.Queryies.GetReviewList
         public string CampsiteName {  get; set; }
 
         public string CampsiteImage { get; set; }
+        public string CreatedBy {  get; set; }
 
         public virtual Booking Booking { get; set; }
 
