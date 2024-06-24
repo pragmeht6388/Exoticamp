@@ -120,7 +120,7 @@
     <div class="text-left">
         <button id="backButton" class="btn btn-secondary">Back</button>
     </div>
-    <a asp-action="ShowCampsite" style="margin-left:1100px;background-color:limegreen;position:fixed;margin-top:-40px" class="btn btn-primary" id="bookButton">Book Now</a>
+    <a asp-action="UserBooking" asp-controller="Booking" style="margin-left:1100px;background-color:limegreen;position:fixed;margin-top:-40px" class="btn btn-primary" id="bookButton" asp-route-id="@Model?.Id">Book Now</a>
 </p>
 
 <div class="campsite-details">
