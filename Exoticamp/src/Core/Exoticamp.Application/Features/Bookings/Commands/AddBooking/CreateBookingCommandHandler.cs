@@ -72,6 +72,17 @@ namespace Exoticamp.Application.Features.Bookings.Commands.AddBooking
                 response = new Response<CreateBookingDto>(_mapper.Map<CreateBookingDto>(bookingObj));
                 _logger.LogInformation("Handle Completed");
                 response.Message = "Inserted successfully";
+
+                var tentAvailibility = new Domain.Entities.TentAvailability()
+                {
+                    TentId = campsite.TentId,
+                    CampsiteId=booking.CampsiteId,
+                    BookedTents=booking.NoOfTents,
+                    AvailableTents=campsite.NoOfTents-booking.NoOfTents,
+                    VendorId=new Guid(campsite.CreatedBy)
+                    
+
+                };
                 return response;
             }
             else

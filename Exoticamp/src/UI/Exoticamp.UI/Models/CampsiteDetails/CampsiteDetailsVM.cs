@@ -133,6 +133,8 @@ namespace Exoticamp.UI.Models.CampsiteDetails
 
         [JsonProperty("approvededDate")]
         public DateTime? ApprovededDate { get; set; }
+        [JsonProperty("CreatedBy")]
+        public string CreatedBy {  get; set; }
 
         [JsonProperty("deletededBy")]
         public string? DeletededBy { get; set; }

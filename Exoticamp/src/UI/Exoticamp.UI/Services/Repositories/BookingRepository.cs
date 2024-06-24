@@ -68,5 +68,51 @@ namespace Exoticamp.UI.Services.Repositories
            
             return res;
         }
+
+        public async Task<GetBookingByIdResponseModel> GetBookingById(string id)
+        {
+            _apiRepository = new APIRepository(_configuration);
+
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(id, Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+
+            var bytes = new ByteArrayContent(content);
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetBookingById.Replace("{0}", id), HttpMethod.Get, null, _sToken);
+            if (response.data != null)
+            {
+                return  JsonConvert.DeserializeObject<GetBookingByIdResponseModel>(response.data);
+            }
+
+            return new GetBookingByIdResponseModel
+            {
+                Succeeded = false,
+                Message = "Booking Not Found"
+            };
+        }
+
+        public async Task<EditBookingResponseModel> UpdateBooking(BookingVM model)
+        {
+            _apiRepository = new APIRepository(_configuration);
+            var result = new EditBookingResponseModel();
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(model, Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+
+            var bytes = new ByteArrayContent(content);
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.EditBooking, HttpMethod.Put, bytes, _sToken);
+            if (response.Success == true)
+            {
+                result= JsonConvert.DeserializeObject<EditBookingResponseModel>(response.data);
+                result.Message = response.data;
+                return result;
+            }
+
+
+            result.Succeeded = false;
+            result.Message = response.Message;
+            return result;
+
+        }
     }
 }

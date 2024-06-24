@@ -35,16 +35,10 @@ namespace Exoticamp.Application.Features.Bookings.Commands.UpdateBooking
               .NotNull()
               .GreaterThan((p => p.CheckIn)).WithMessage("Check Out date should be greater than Check In date");
 
-            RuleFor(e => e)
-                .MustAsync(CheckInDateUnique)
-                .WithMessage(" check in date name must be unique");
            
         }
 
-        private async Task<bool> CheckInDateUnique(UpdateBookingCommand e, CancellationToken token)
-        {
-            return !await _bookingRepository.IsCheckInDateUnique(e.CheckIn);
-        }
+     
         private string GetMessage(string Code, string Lang)
         {
             return _messageRepository.GetMessage(Code, Lang).Result.MessageContent.ToString();

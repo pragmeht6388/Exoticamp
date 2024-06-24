@@ -9,5 +9,8 @@ namespace Exoticamp.UI.Services.IRepositories
         Task<IEnumerable<BookingVM>> GetAllBookings();
 
         Task<AddBookingResponseModel> AddBooking(BookingVM bookingVM);
+        Task<GetBookingByIdResponseModel> GetBookingById(string id);
+        Task<EditBookingResponseModel> UpdateBooking(BookingVM model);
+
     }
 }
