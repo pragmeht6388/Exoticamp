@@ -24,7 +24,7 @@ namespace Exoticamp.Application.Features.Bookings.Queries.GetBookingList
 
         public async Task<Response<IEnumerable<BookingVM>>> Handle(GetBookingListQuery request, CancellationToken cancellationToken)
         {
-            var allBookings = (await _bookingRepository.ListAllAsync()).OrderBy(x => x.CheckIn);
+            var allBookings = (await _bookingRepository.ListAllAsync()).OrderBy(x => x.CheckIn).ToList();
              var bookinglist = _mapper.Map<List<BookingVM>>(allBookings);
             var response = new Response<IEnumerable<BookingVM>>(bookinglist);
             return response;

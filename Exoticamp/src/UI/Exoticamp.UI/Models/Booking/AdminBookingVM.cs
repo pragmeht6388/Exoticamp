@@ -4,5 +4,6 @@
     {
         public IEnumerable<BookingVM> Bookings { get; set; }
         public int TotalReviewsCount { get; set; }
+        public decimal TotalRevenue => Bookings.Sum(b => b.TotalPrice);
     }
 }

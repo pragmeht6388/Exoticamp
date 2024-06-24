@@ -1,4 +1,5 @@
-﻿using Exoticamp.UI.Models.Vendors;
+﻿using Exoticamp.UI.Models.Booking;
+using Exoticamp.UI.Models.Vendors;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,16 +7,21 @@ namespace Exoticamp.UI.Controllers
 {
     public class VendorController : Controller
     {
+        private readonly IReviewsRepository _reviewsRepository;
 
         private readonly IVendorRepository _vendorsRepository;
         private readonly ILocationRepository _locationRepository;
+        private readonly IBookingRepository _bookingRepository;
+        public readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
 
 
-        public VendorController(IVendorRepository vendorsRepository, ILocationRepository locationRepository)
+        public VendorController(IVendorRepository vendorsRepository, ILocationRepository locationRepository, IBookingRepository bookingRepository, ICampsiteDetailsRepository campsiteDetailsRepository, IReviewsRepository reviewsRepository)
         {
             _vendorsRepository = vendorsRepository;
             _locationRepository = locationRepository;
-
+            _bookingRepository = bookingRepository;
+            _campsiteDetailsRepository = campsiteDetailsRepository;
+            _reviewsRepository = reviewsRepository;
         }
         public async Task<IActionResult> Profile()
         {
@@ -54,7 +60,7 @@ namespace Exoticamp.UI.Controllers
 
             var response = await _vendorsRepository.UpdateVendorProfileAsync(model);
 
-            if (response.Success)
+            if (!response.Success)
             {
                 return RedirectToAction("Profile");
             }
@@ -62,5 +68,25 @@ namespace Exoticamp.UI.Controllers
 
             return View();
         }
+        public async Task<ActionResult> VendorHome()
+        {
+            var vendorId = HttpContext.Session.GetString("VendorId");
+            var vendorDetails = await _vendorsRepository.GetVendorByIdAsync(vendorId);
+            var allReviews = await _reviewsRepository.GetAllReviews();
+            var allBookings = await _bookingRepository.GetAllBookings();
+
+            // Filter bookings and reviews for the specific vendor
+            var filteredBookings = allBookings.Where(b => b.Campsite.CreatedBy == vendorId);
+//var filteredReviews = allReviews.Where(r => r.Booking.Campsite.CreatedBy == vendorId);
+
+            var adminBookingVM = new AdminBookingVM
+            {
+                Bookings = filteredBookings,
+                //TotalReviewsCount = filteredReviews.Count()
+            };
+
+            return View(adminBookingVM);
+        }
+
     }
 }

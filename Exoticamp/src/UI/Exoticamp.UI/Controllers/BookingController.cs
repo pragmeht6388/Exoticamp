@@ -86,6 +86,7 @@ namespace Exoticamp.UI.Controllers
                 .ToList();
 
             return Json(filteredCampsites);
+        }
         public async Task<ActionResult> AdminBooking()
         {
             var reviews = await _reviewsRepository.GetAllReviews();
