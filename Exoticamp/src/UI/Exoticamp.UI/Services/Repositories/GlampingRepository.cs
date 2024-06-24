@@ -1,8 +1,14 @@
 ﻿using Exoticamp.UI.Helper;
 using Exoticamp.UI.Models.Glamping;
 using Exoticamp.UI.Models.ResponseModels;
+using Exoticamp.UI.Models.ResponseModels.Banners;
+using Exoticamp.UI.Models.ResponseModels.Glamping;
+using Exoticamp.UI.Models.ResponseModels.Users;
+using Exoticamp.UI.Models.Users;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace Exoticamp.UI.Services.Repositories
 {
@@ -20,14 +26,105 @@ namespace Exoticamp.UI.Services.Repositories
             _apiBaseUrl = apiBaseUrl;
         }
 
-        public Task<Response<GlampingVM>> GetGlampingListVAsync()
+        
+        public async Task<Response<IEnumerable<GlampingVM>>> GetGlampingListVAsync()
         {
-            throw new NotImplementedException();
+            GetGlampingResponseModel glampingResponse = new GetGlampingResponseModel();
+            _apiRepository = new APIRepository(_configuration);
+            _oApiResponse = new Response<string>();
+
+            // Prepare the HTTP content (empty in this case)
+            byte[] content = Array.Empty<byte>();
+            var bytes = new ByteArrayContent(content);
+
+            // Make the API call
+            _oApiResponse = await _apiRepository.APICommunication(
+                _apiBaseUrl.Value.ExoticampApiBaseUrl,
+                URLHelper.GetGlampingList,
+                HttpMethod.Get,
+                bytes,
+                _sToken
+            );
+
+            // Initialize the response object
+            var response = new Response<IEnumerable<GlampingVM>>();
+
+            // Check if data is not null and deserialize
+            if (_oApiResponse.data != null)
+            {
+                glampingResponse = JsonConvert.DeserializeObject<GetGlampingResponseModel>(_oApiResponse.data);
+
+                response.data = glampingResponse.Data; // Assuming you want to return all items
+                response.Message = glampingResponse.Message;
+                response.Success = glampingResponse.IsSuccess;
+            }
+
+            return response;
         }
-        //public Task<Response<GlampingVM>> GetGlampingListVAsync( )
+        //public async Task<Response<GlampingVM>> GetGlampingByIdAsync(string id)
         //{
+        //    // Initialize necessary objects
+        //    GetGlampingResponseModel glampingResponse = new GetGlampingResponseModel();
+        //    _apiRepository = new APIRepository(_configuration);
+        //    _oApiResponse = new Response<string>();
+        //    var response = new Response<GlampingVM>();
 
+        //    // Prepare the HTTP content (empty in this case)
+        //    byte[] content = Array.Empty<byte>();
+        //    var bytes = new ByteArrayContent(content);
 
+        //    // Make the API call to get Glamping by ID
+        //    _oApiResponse = await _apiRepository.APICommunication(
+        //        _apiBaseUrl.Value.ExoticampApiBaseUrl,
+        //        string.Format(URLHelper.GetGlampingById, id), // Assuming URLHelper.GetGlampingById is defined
+        //        HttpMethod.Get,
+        //        bytes,
+        //        _sToken
+        //    );
+
+        //    // Check if data is not null and deserialize
+        //    if (_oApiResponse.data != null)
+        //    {
+        //        //var glampingResponse = JsonConvert.DeserializeObject<GlampingVM>(_oApiResponse.data);
+
+        //        //response.data = glampingResponse.Data;
+        //        //response.Message = "Success"; // Assuming success message
+        //        //response.Success = true; // Assuming success
+        //        glampingResponse = JsonConvert.DeserializeObject<GetGlampingResponseModel>(_oApiResponse.data);
+
+        //        response.data = glampingResponse.Data; // Assuming you want to return all items
+        //        response.Message = glampingResponse.Message;
+        //        response.Success = glampingResponse.IsSuccess;
+        //    }
+        //    else
+        //    {
+        //        response.Message = "Failed to fetch Glamping"; // Set appropriate error message
+        //        response.Success = false; // Indicate failure
+        //    }
+
+        //    return response;
         //}
-    }
+        public async Task<GetGlampingResponseModel> GetGlampingByIdAsync(string id)
+        {
+            _apiRepository = new APIRepository(_configuration);
+
+            var response = new Response<string>();
+            var json = JsonConvert.SerializeObject(id, Newtonsoft.Json.Formatting.Indented);
+            byte[] content = Encoding.ASCII.GetBytes(json);
+
+            var bytes = new ByteArrayContent(content);
+            response = await _apiRepository.APICommunication(_apiBaseUrl.Value.ExoticampApiBaseUrl, URLHelper.GetGlampingById.Replace("{0}", id), HttpMethod.Get, bytes, _sToken);
+
+            if (response.data != null)
+            {
+                return JsonConvert.DeserializeObject<GetGlampingResponseModel>(response.data);
+            }
+            else
+            {
+                // Handle the case where response.data is null (optional based on your needs)
+                throw new Exception("Failed to fetch Glamping");
+            }
+        }
+
+        }
 }

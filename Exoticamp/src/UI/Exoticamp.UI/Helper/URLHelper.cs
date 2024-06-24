@@ -107,6 +107,7 @@
         #region Glamping
          
         public const string GetGlampingList = "/api/Glamping/GetGlampingList";
+        public const string GetGlampingById = "/api/Glamping/GetGlampingById?id={0}";
 
         #endregion
 
