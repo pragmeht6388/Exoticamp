@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 
     // Calculate counts for upcoming and today's bookings
-    var upcomingBookingsCount = Model.Bookings.Count(b => b.CheckIn > DateTime.Now);
-    var BackedBookingsCount = Model.Bookings.Count(b => b.CheckIn < DateTime.Now);
+    var upcomingBookingsCount = Model.Bookings.Count(b => b.CreatedDate > DateTime.Now);
+    var backedBookingsCount = Model.Bookings.Count(b => b.CreatedDate < DateTime.Now);
     var todaysBookingsCount = Model.Bookings.Count(b => b.CreatedDate.Date == DateTime.Now.Date);
 }
 
@@ -60,7 +60,7 @@
         }
 
         .backed {
-            background-color: #c16f42; /* Purple */
+            background-color: #c16f42; /* Brown */
         }
     </style>
 </head>
@@ -87,14 +87,14 @@
                 <!-- Today's Booking -->
                 <div class="info-box new-requests">
                     <h4>Today's Bookings</h4>
-                    <p>New Booking :@todaysBookingsCount</p>
+                    <p>New Bookings: @todaysBookingsCount</p>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4">
                 <!-- Upcoming Booking -->
                 <div class="info-box upcoming">
                     <h4>Upcoming Bookings</h4>
-                    <p>Future Booking :@upcomingBookingsCount</p>
+                    <p>Future Bookings: @upcomingBookingsCount</p>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4">
@@ -112,10 +112,10 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-4">
-                <!-- Upcoming Booking -->
+                <!-- Backed Bookings -->
                 <div class="info-box backed">
                     <h4>Backed Dates</h4>
-                    <p>Past Bookings :@BackedBookingsCount</p>
+                    <p>Past Bookings: @backedBookingsCount</p>
                 </div>
             </div>
         </div>
