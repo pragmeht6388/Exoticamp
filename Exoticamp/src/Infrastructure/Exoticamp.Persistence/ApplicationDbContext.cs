@@ -44,6 +44,7 @@ namespace Exoticamp.Persistence
         public DbSet< ReviewReply>  ReviewReplies { get; set; }
         public DbSet<CampsiteActivities> CampsiteActivities { get; set; }
         public DbSet<Payment> Payments {  get; set; }
+        public DbSet<Tent> Tents { get; set; }
 
 
 

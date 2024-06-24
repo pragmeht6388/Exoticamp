@@ -1,11 +1,14 @@
 ﻿ 
- @model IEnumerable<Exoticamp.UI.Models.Users.UsersVM>
+
+                @model IEnumerable<Exoticamp.UI.Models.Users.UsersVM>
 
 @{
     ViewData["Title"] = "GetAllUsers";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,9 +31,14 @@
         .btn {
             margin-right: 5px;
         }
+
+        /* Styling for DataTables headers */
+        #GetAllUsers thead th {
+            background-color: #000;
+            color: #fff;
+        }
     </style>
 </head>
-
 <body>
     <div class="container mt-4">
         <h1>All Users</h1>
@@ -69,21 +77,13 @@
                             <td>
                                 @if (item.IsLocked)
                                 {
-                                    @* <button class="btn btn-info btn-sm" onclick="unlockUser('@item.Email')">Unlock</button> *@
-
                                     <a href="@Url.Action("IsLockedUsers", new { Email = item.Email })" class="btn btn-info btn-sm" onclick="return confirmUnLocked();">
                                         <i class="bi bi-unlock-fill"></i> Unlock
                                     </a>
                                 }
-
-                               @*  <a href="@Url.Action("ShowUser", new { Id =  item.Id })" class="btn btn-info btn-sm">
-                                    <i class="bi bi-eye"></i>
-                                </a> *@
-                                <a href="@Url.Action("ShowUser", new { Id =  item.Id })" class="btn btn-info btn-sm">
+                                <a href="@Url.Action("ShowUser", new { Id = item.Id })" class="btn btn-info btn-sm">
                                     <i class="bi bi-eye"></i> View
                                 </a>
-
-
                                 <a href="@Url.Action("IsDeleteUser", new { Email = item.Email })" class="btn btn-danger btn-sm delete-link" onclick="return confirmDelete();">
                                     <i class="bi bi-trash-fill"></i> Delete
                                 </a>
@@ -94,39 +94,30 @@
             </table>
         </div>
     </div>
-</body>
 
-<!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="~/Scripts/bootstrap.min.js"></script>
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
 
-<script>
-    function confirmUnLocked() {
-        return confirm('Are you sure you want to UnLocked this User?');
-
-    }
-    </script>
-
-<script>
-    function confirmDelete() {
-        return confirm('Are you sure you want to delete this User?');
-
-    }
-</script>
-<script>
-     
-
-    $(document).ready(function () {
-        var table = $('#GetAllUsers').DataTable({
-            "pageLength": 5, // Show 5 rows per page by default
-            "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'All']] // Option to change number of rows per page
+    <script>
+        $(document).ready(function () {
+            var table = $('#GetAllUsers').DataTable({
+                "pageLength": 5, // Show 5 rows per page by default
+                "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'All']] // Option to change number of rows per page
+            });
         });
-         
-             
-</script>
 
+        function confirmUnLocked() {
+            return confirm('Are you sure you want to UnLocked this User?');
+        }
 
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this User?');
+        }
+    </script>
+</body>
+</html>

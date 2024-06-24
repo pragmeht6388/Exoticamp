@@ -180,6 +180,126 @@
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
+         @*  <script>
+        $(document).ready(function () {
+            // Name Validation
+            $('#Name').on('input', function () {
+                var name = $(this).val().trim();
+                if (!/^[a-zA-Z\s\-']*$/.test(name)) {
+                    $(this).val(name.replace(/[^a-zA-Z\s\-']/g, ''));
+                }
+            });
+
+            // File Name Validation (for files like IDCardFile, LicenseFile, etc.)
+            $('input[type="file"]').on('change', function () {
+                var fileName = $(this).val().split('\\').pop();
+                if (fileName.length > 50 || !/^[a-zA-Z0-9_ ]+$/.test(fileName)) {
+                    $(this).val(''); // Clear the input if invalid
+                }
+            });
+
+            // Phone Number Validation
+            $('#PhoneNumber, #AlternatePhoneNumber').on('input', function () {
+                var phoneNumber = $(this).val().trim();
+                if (phoneNumber.length > 10 || !/^\d*$/.test(phoneNumber)) {
+                    $(this).val(phoneNumber.replace(/[^\d]/g, '').slice(0, 10));
+                }
+            });
+
+            // Email Validation
+            $('#Email, #AlternateEmail').on('input', function () {
+                var email = $(this).val().trim();
+                if (email.length > 50) {
+                    $(this).val(email.slice(0, 50));
+                }
+            });
+
+            // Alternate Address Validation
+            $('#AlternateAddress').on('input', function () {
+                var address = $(this).val().trim();
+                if (address.length > 200) {
+                    $(this).val(address.slice(0, 200));
+                }
+            });
+
+            // Bank Details Validation (Basic validation, customize as per specific requirements)
+            $('#BankName, #AccountNumber, #IFSCCode').on('input', function () {
+                var value = $(this).val().trim();
+                if (value === '') {
+                    $(this).val(''); // Clear the input if invalid
+                }
+                // Add more specific validations here if needed
+            });
+        });
+    </script> *@
+        <script>
+            $(document).ready(function () {
+                // Name and BankName Validation
+                $('#Name, #BankName').on('input', function () {
+                    var name = $(this).val().trim();
+                    if (!/^[a-zA-Z\s\-']*$/.test(name)) {
+                        $(this).val(name.replace(/[^a-zA-Z\s\-']/g, ''));
+                    }
+                });
+
+                // File Name Validation (for files like IDCardFile, LicenseFile, etc.)
+                $('input[type="file"]').on('change', function () {
+                    var fileName = $(this).val().split('\\').pop();
+                    if (fileName.length > 50 || !/^[a-zA-Z0-9_ ]+$/.test(fileName)) {
+                        $(this).val(''); // Clear the input if invalid
+                    }
+                });
+
+                // Phone Number Validation
+                $('#PhoneNumber, #AlternatePhoneNumber').on('input', function () {
+                    var phoneNumber = $(this).val().trim();
+                    if (phoneNumber.length > 10 || !/^\d*$/.test(phoneNumber)) {
+                        $(this).val(phoneNumber.replace(/[^\d]/g, '').slice(0, 10));
+                    }
+                });
+
+                // Email Validation
+                $('#Email, #AlternateEmail').on('input', function () {
+                    var email = $(this).val().trim();
+                    if (email.length > 50) {
+                        $(this).val(email.slice(0, 50));
+                    }
+                });
+
+                // Address Validation
+                $('#Address, #AlternateAddress').on('input', function () {
+                    var address = $(this).val().trim();
+                    if (address.length > 200) {
+                        $(this).val(address.slice(0, 200));
+                    }
+                });
+
+                // Password Validation
+                $('#Password').on('input', function () {
+                    var password = $(this).val().trim();
+                    if (password.length > 25) {
+                        $(this).val(password.slice(0, 25));
+                    }
+                });
+
+                // Account Number Validation
+                $('#AccountNumber').on('input', function () {
+                    var accountNumber = $(this).val().trim();
+                    if (accountNumber.length > 20 || accountNumber.length < 6 || !/^\d*$/.test(accountNumber)) {
+                        $(this).val(accountNumber.replace(/[^\d]/g, '').slice(0, 20));
+                    }
+                });
+
+                // IFSC Code Validation
+                $('#IFSCCode').on('input', function () {
+                    var ifscCode = $(this).val().trim();
+                    if (ifscCode.length > 15 || !/^[a-zA-Z0-9]*$/.test(ifscCode)) {
+                        $(this).val(ifscCode.replace(/[^a-zA-Z0-9]/g, '').slice(0, 15));
+                    }
+                });
+            });
+        </script>
     }
 </body>
 </html>
+ 

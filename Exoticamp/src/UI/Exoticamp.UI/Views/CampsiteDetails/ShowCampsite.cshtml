@@ -22,24 +22,27 @@
         <table class="table table-bordered" id="campsiteTable">
             <thead class="thead-dark">
                 <tr>
+                    <th>Sr No</th>
                     <th>Name</th>
                     <th>Location</th>
                     <th>Tent</th>
                     <th>Images</th>
                     <th>Date Time</th>
                     <th>Is Approved</th>
+                    @* <th>Category</th> *@
                     <th>Activity</th>
                     <th>Location</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var (item, index) in Model.Select((item, index) => (item, index + 1)))
                 {
                     <tr>
+                        <td>@index</td>
                         <td>@Html.DisplayFor(modelItem => item.Name)</td>
                         <td>@Html.DisplayFor(modelItem => item.Location)</td>
-                        <td>@Html.DisplayFor(modelItem => item.TentType)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TentName)</td>
                         <td><img src="@item.Images" alt="Campsite Image" style="max-width:100px;max-height:100px;" /></td>
                         <td>@Html.DisplayFor(modelItem => item.DateTime)</td>
                         <td>
