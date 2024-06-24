@@ -102,5 +102,11 @@
         public const string UpdateVendorProfile = "/api/v1/Vendor/edit-profile";
         #endregion
 
+        #region Glamping
+         
+        public const string GetGlampingList = "/api/Glamping/GetGlampingList";
+
+        #endregion
+
     }
 }
