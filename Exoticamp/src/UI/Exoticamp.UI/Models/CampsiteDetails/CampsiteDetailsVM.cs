@@ -144,9 +144,9 @@ namespace Exoticamp.UI.Models.CampsiteDetails
 
         [JsonProperty("activities")]
         public List<ActivitiesVM> Activities { get; set; }
-        [JsonProperty("CreatedBy")]
+        //[JsonProperty("CreatedBy")]
 
-        public string? CreatedBy { get; set; }
+        //public string? CreatedBy { get; set; }
         public class FutureDateAttribute : ValidationAttribute
         {
             public override bool IsValid(object value)
