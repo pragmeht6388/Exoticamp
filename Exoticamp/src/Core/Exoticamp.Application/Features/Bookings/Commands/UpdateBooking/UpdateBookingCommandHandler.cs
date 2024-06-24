@@ -50,8 +50,7 @@ namespace Exoticamp.Application.Features.Bookings.Commands.UpdateBooking
                 response.Message = "Location Not found";
                 return response;
             }
-            request.Campsite = campsite;
-            request.Location = location;
+
             var validator = new UpdateBookingCommandValidator(_messageRepository,_bookingRepository);
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
