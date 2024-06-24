@@ -70,12 +70,13 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
 
         public string CancellationPolicy { get; set; }
         public bool? isActive { get; set; }
+   
         public string? ApprovedBy { get; set; }
         public DateTime? ApprovededDate { get; set; }
         public string? DeletededBy { get; set; }
         public DateTime? DeletedDate { get; set; }
         public List<ActivityVM> Activities { get; set; }
 
-        public string? CreatedBy { get; set; }
+        public string CreatedBy { get; set; }
     }
 }

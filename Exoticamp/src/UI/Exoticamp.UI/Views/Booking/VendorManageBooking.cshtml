@@ -1,0 +1,172 @@
+﻿@using Exoticamp.UI.Models.Booking
+@model Exoticamp.UI.Models.Booking.BookingVM
+
+@{
+    ViewData["Title"] = "Vendor Manage Booking";
+    Layout = "~/Views/Shared/_VendorLayout.cshtml";
+    BookingCampsiteList VendorBookings = (BookingCampsiteList)ViewBag.BookingsWithCampsite;
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+<div class="container">
+    <p class="text-center">
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="true" aria-controls="multiCollapseExample1">My Bookings</a>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Upcoming Bookings</button>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">Past Bookings</button>
+    </p>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="collapse show multi-collapse" id="multiCollapseExample1">
+                <div class="card card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Email</th>
+                                <th>Check In</th>
+                                <th>Campsite</th>
+                                <th>Total Price (Rs)</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var booking in VendorBookings.Bookings)
+                            {
+                                var campsite = VendorBookings.Campsites.FirstOrDefault(c => c.Id == booking.CampsiteId);
+                                <tr>
+                                    <td>@booking.CustomerName</td>
+                                    <td>@booking.Email</td>
+                                    <td>@booking.CheckIn.ToString("g")</td>
+                                    <td>@campsite?.Name</td>
+                                    <td>@booking.TotalPrice.ToString("C", new System.Globalization.CultureInfo("en-IN"))</td>
+                                    <td>
+                                        <div class="action-links">
+                                            <a href="@Url.Action("Edit", new { id = booking.BookingId })" class="edit-link">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="@Url.Action("Delete", new { id = booking.BookingId })" class="delete-link" onclick="return confirmDelete();">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                            <a href="@Url.Action("Details", new { id = booking.BookingId })" class="view-link">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="collapse multi-collapse" id="multiCollapseExample2">
+                <div class="card card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Email</th>
+                                <th>Check In</th>
+                                <th>Campsite</th>
+                                <th>Total Price (Rs)</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var booking in VendorBookings.UpcomingBookings)
+                            {
+                                var campsite = VendorBookings.Campsites.FirstOrDefault(c => c.Id == booking.CampsiteId);
+                                <tr>
+                                    <td>@booking.CustomerName</td>
+                                    <td>@booking.Email</td>
+                                    <td>@booking.CheckIn.ToString("g")</td>
+                                    <td>@campsite?.Name</td>
+                                    <td>@booking.TotalPrice.ToString("C", new System.Globalization.CultureInfo("en-IN"))</td>
+                                    <td>
+                                        <div class="action-links">
+                                            <a href="@Url.Action("Edit", new { id = booking.BookingId })" class="edit-link">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="@Url.Action("Delete", new { id = booking.BookingId })" class="delete-link" onclick="return confirmDelete();">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                            <a href="@Url.Action("Details", new { id = booking.BookingId })" class="view-link">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="collapse multi-collapse" id="multiCollapseExample3">
+                <div class="card card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Email</th>
+                                <th>Check In</th>
+                                <th>Campsite</th>
+                                <th>Total Price (Rs)</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var booking in VendorBookings.PastBookings)
+                            {
+                                var campsite = VendorBookings.Campsites.FirstOrDefault(c => c.Id == booking.CampsiteId);
+                                <tr>
+                                    <td>@booking.CustomerName</td>
+                                    <td>@booking.Email</td>
+                                    <td>@booking.CheckIn.ToString("g")</td>
+                                    <td>@campsite?.Name</td>
+                                    <td>@booking.TotalPrice.ToString("C", new System.Globalization.CultureInfo("en-IN"))</td>
+                                    <td>
+                                        <div class="action-links">
+                                            <a href="@Url.Action("Edit", new { id = booking.BookingId })" class="edit-link">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="@Url.Action("Delete", new { id = booking.BookingId })" class="delete-link" onclick="return confirmDelete();">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                            <a href="@Url.Action("Details", new { id = booking.BookingId })" class="view-link">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Handle the collapse toggle logic
+            const buttons = document.querySelectorAll('.btn-primary');
+            buttons.forEach(button => {
+                button.addEventListener('click', function () {
+                    buttons.forEach(btn => {
+                        const target = btn.getAttribute('data-bs-target') || btn.getAttribute('href');
+                        const collapseElement = document.querySelector(target);
+                        const bsCollapse = new bootstrap.Collapse(collapseElement, { toggle: false });
+                        if (btn === button) {
+                            bsCollapse.show();
+                        } else {
+                            bsCollapse.hide();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+}

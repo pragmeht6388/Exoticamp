@@ -5,6 +5,8 @@ using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+
+
 namespace Exoticamp.UI.Controllers
 {
     public class BookingController : Controller
@@ -102,16 +104,38 @@ namespace Exoticamp.UI.Controllers
             var loc = location.FirstOrDefault(x => x.Name == campsite.Data.Location);
             campsite.Data.LocationId = loc.Id;
             ViewBag.Campsite = campsite.Data;
-            
-            return View();
+            var model = new BookingVM()
+            {
+                Campsite = campsite.Data,
+                Location = loc,
+                PriceForAdults=campsite.Data.Price,
+                PriceForChildrens=campsite.Data.Price/2,
+              
+
+            };
+            return View(model);
         }
         [HttpPost]
         public async Task<ActionResult> UserBooking(BookingVM model)
         {
-            var response = await _bookingRepository.AddBooking(model);
-            if (response.Succeeded)
+            var campsite = await _campsiteDetailsRepository.GetCampsiteById(model.CampsiteId.ToString());
+            if (campsite.Data == null)
             {
-                return RedirectToAction("GetAllBookings", "Booking");
+                return NotFound();
+            }
+
+            if (model.NoOfTents > campsite.Data.NoOfTents)
+            {
+                ModelState.AddModelError("NoOfTents", $"You can only book up to {campsite.Data.NoOfTents} tents.");
+                return View(model);
+            }
+            if (ModelState.IsValid)
+            {
+                var response = await _bookingRepository.AddBooking(model);
+                if (response.Succeeded)
+                {
+                    return RedirectToAction("GetAllBookings", "Booking");
+                }
             }
             return View(model);
 
@@ -173,7 +197,34 @@ namespace Exoticamp.UI.Controllers
             ViewBag.ErrorMessage = updatedBooking.Message;
             return View(model);
         }
+        [HttpGet]
+        public async Task<ActionResult> VendorManageBooking()
+        {
+            var bookingList = await _bookingRepository.GetAllBookings();
+            var campsiteList = await _campsiteDetailsRepository.GetAllCampsites();
 
+            var loggedInVendor = HttpContext.Session.GetString("VendorId");
+
+            // Filter campsites by the logged in vendor
+            var vendorCampsites = campsiteList.Where(c => c.CreatedBy == loggedInVendor).ToList();
+
+            // Filter bookings by the vendor's campsites
+            var vendorBookings = bookingList.Where(b => vendorCampsites.Any(c => c.Id == b.CampsiteId)).ToList();
+            var now = DateTime.Now;
+            var upcomingBookings = vendorBookings.Where(b => b.CheckIn > now).ToList();
+            var pastBookings = vendorBookings.Where(b => b.CheckIn <= now).ToList();
+            BookingCampsiteList Vendorsbookings = new BookingCampsiteList
+            {
+                Bookings = vendorBookings,
+                Campsites = vendorCampsites,
+                UpcomingBookings = upcomingBookings,
+                PastBookings = pastBookings
+               
+
+            };
+            ViewBag.BookingsWithCampsite= Vendorsbookings;
+            return View();
+        }
 
 
 

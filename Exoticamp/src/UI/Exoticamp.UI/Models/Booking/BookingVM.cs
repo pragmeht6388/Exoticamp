@@ -76,4 +76,15 @@ namespace Exoticamp.UI.Models.Booking
             return ValidationResult.Success;
         }
     }
+
+    public class BookingCampsiteList
+    {
+       
+            public List<BookingVM> Bookings { get; set; }
+            public List<CampsiteDetailsVM> Campsites { get; set; }
+        public List<BookingVM> UpcomingBookings { get; set; }
+        public List<BookingVM> PastBookings { get; set; }
+
+
+    }
 }
