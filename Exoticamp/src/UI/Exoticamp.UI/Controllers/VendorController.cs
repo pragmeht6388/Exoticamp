@@ -68,24 +68,48 @@ namespace Exoticamp.UI.Controllers
 
             return View();
         }
-        public async Task<ActionResult> VendorHome()
+
+        [HttpGet]
+        public async Task<ActionResult> VendorManageBooking()
         {
-            var vendorId = HttpContext.Session.GetString("VendorId");
-            var vendorDetails = await _vendorsRepository.GetVendorByIdAsync(vendorId);
-            var allReviews = await _reviewsRepository.GetAllReviews();
-            var allBookings = await _bookingRepository.GetAllBookings();
+            var bookingList = await _bookingRepository.GetAllBookings();
+            var campsiteList = await _campsiteDetailsRepository.GetAllCampsites();
+            var reviewList = await _reviewsRepository.GetAllReviews();
+            var loggedInVendor = HttpContext.Session.GetString("VendorId");
 
-            // Filter bookings and reviews for the specific vendor
-            var filteredBookings = allBookings.Where(b => b.Campsite.CreatedBy == vendorId);
-//var filteredReviews = allReviews.Where(r => r.Booking.Campsite.CreatedBy == vendorId);
-
-            var adminBookingVM = new AdminBookingVM
+            // Ensure vendorId is not null or empty
+            if (string.IsNullOrEmpty(loggedInVendor))
             {
-                Bookings = filteredBookings,
-                //TotalReviewsCount = filteredReviews.Count()
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Filter campsites by the logged in vendor
+            var vendorCampsites = campsiteList.Where(c => c.CreatedBy == loggedInVendor).ToList();
+
+            // Filter bookings by the vendor's campsites
+            var vendorBookings = bookingList.Where(b => vendorCampsites.Any(c => c.Id == b.CampsiteId)).ToList();
+            var now = DateTime.Now;
+            var upcomingBookings = vendorBookings.Where(b => b.CheckIn > now).ToList();
+            var pastBookings = vendorBookings.Where(b => b.CheckIn <= now).ToList();
+            var vendorReviews = reviewList.Where(r =>
+            vendorBookings.Any(b =>
+            b.BookingId == r.BookingId &&
+            vendorCampsites.Any(c => c.Id == b.CampsiteId)
+            )
+            ).ToList();
+            // Calculate total revenue
+            var totalRevenue = vendorBookings.Sum(b => b.TotalPrice);
+
+            VendorBookVM vendorsBookings = new VendorBookVM
+            {
+                Bookings = vendorBookings,
+                Campsite = vendorCampsites,
+                TotalReviewsCount = vendorReviews.Count,
+                TotalRevenue = totalRevenue
             };
 
-            return View(adminBookingVM);
+            ViewBag.BookingsWithCampsite = vendorsBookings;
+            return View(vendorsBookings);
         }
 
     }

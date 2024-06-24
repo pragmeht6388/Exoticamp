@@ -2,11 +2,11 @@
 
 namespace Exoticamp.UI.Models.Booking
 {
-    public class AdminBookingVM
+    public class VendorBookVM
     {
         public IEnumerable<BookingVM> Bookings { get; set; }
         public IEnumerable<CampsiteDetailsVM> Campsite { get; set; }
         public int TotalReviewsCount { get; set; }
-        public decimal TotalRevenue => Bookings.Sum(b => b.TotalPrice);
+        public decimal TotalRevenue { get; set; }
     }
 }

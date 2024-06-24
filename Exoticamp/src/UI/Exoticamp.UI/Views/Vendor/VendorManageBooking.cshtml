@@ -1,0 +1,112 @@
+﻿@model Exoticamp.UI.Models.Booking.VendorBookVM
+
+@{
+    ViewData["Title"] = "Vendor Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    var upcomingBookingsCount = Model.Bookings.Count(b => b.CheckIn > DateTime.Now);
+    var todaysBookingsCount = Model.Bookings.Count(b => b.CheckIn.Date == DateTime.Now.Date);
+    var pastBookingsCount = Model.Bookings.Count(b => b.CheckIn <= DateTime.Now);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+
+        .info-box {
+            padding: 20px;
+            color: white;
+            margin-bottom: 20px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .new-requests{
+            background-color: black
+        }
+        .revenue {
+            background-color: #28a745;
+        }
+
+        .upcoming {
+            background-color: #17a2b8;
+        }
+
+        .history {
+            background-color: #ffc107;
+        }
+
+        .reviews {
+            background-color: #dc3545;
+        }
+
+        .backed {
+            background-color: #6f42c1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="mb-4">Vendor Dashboard</h2>
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-info" role="alert">
+                    <p>Upcoming Bookings: @upcomingBookingsCount</p>
+                    <p>Today's Bookings: @todaysBookingsCount</p>
+                    <p>Total Reviews: @Model.TotalReviewsCount</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="info-box revenue">
+                    <h4>Total Revenue</h4>
+                    <p>@Model.TotalRevenue.ToString("C")</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="info-box new-requests">
+                    <h4>Today's Bookings</h4>
+                    <p>New Bookings: @todaysBookingsCount</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="info-box upcoming">
+                    <h4>Upcoming Bookings</h4>
+                    <p>Future Bookings: @upcomingBookingsCount</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="info-box history">
+                    <h4>Booking History</h4>
+                    <p>Total Bookings: @Model.Bookings.Count()</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="info-box reviews">
+                    <h4>Reviews</h4>
+                    <p>Total Reviews: @Model.TotalReviewsCount</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="info-box backed">
+                    <h4>Backed Dates</h4>
+                    <p>Past Bookings: @pastBookingsCount</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
