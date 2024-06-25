@@ -11,11 +11,13 @@ namespace Exoticamp.UI.Controllers
     {
         private readonly IReviewsRepository _reviewsRepository;
         private readonly IReviewReplyRepository _replyRepository;
+        private readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
 
-        public ReviewsController(IReviewsRepository reviewsRepository, IReviewReplyRepository replyRepository)
+        public ReviewsController(IReviewsRepository reviewsRepository, IReviewReplyRepository replyRepository, ICampsiteDetailsRepository campsiteDetailsRepository)
         {
             _reviewsRepository = reviewsRepository;
             _replyRepository = replyRepository;
+            _campsiteDetailsRepository = campsiteDetailsRepository;
         }
         [HttpGet]
         [UserAuthFilter]
@@ -50,12 +52,16 @@ namespace Exoticamp.UI.Controllers
         [NoCache]
         public async Task<IActionResult> ShowReviews()
         {
-            var campsiteDetail = await _reviewsRepository.GetAllReviews();
-
+            var userId = HttpContext.Session.GetString("VendorId");
+           
+            var allReviews = await _reviewsRepository.GetAllReviews();
+            var campsite = await _campsiteDetailsRepository.GetAllCampsites();
+           var sorted=allReviews.Where(c=>c.CreatedBy== userId);
+            // var campsite = allReviews.Where(x  => x. == userId).ToList();
             // Filter the campsiteDetail to include only those with isActive set to true
-            var activeCampsites = campsiteDetail.Where(c => c.Status == true).ToList();
+            var activeReviews = sorted.Where(c => c.Status == true ).ToList();
 
-            return View(activeCampsites);
+            return View(activeReviews);
         }
 
 

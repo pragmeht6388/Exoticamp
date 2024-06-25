@@ -83,6 +83,7 @@ namespace Exoticamp.Application.Features.Reviews.Queryies.GetReviewList
                     {
                         reviewVM.CampsiteName = campsiteDetail.Name;
                         reviewVM.CampsiteImage = campsiteDetail.Images;
+                        reviewVM.CreatedBy = campsiteDetail.CreatedBy;
                     }
                     else
                     {

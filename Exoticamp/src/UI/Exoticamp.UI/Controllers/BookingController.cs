@@ -1,6 +1,7 @@
 ﻿using Exoticamp.Domain.Entities;
 using Exoticamp.UI.Models;
 using Exoticamp.UI.Models.Booking;
+using Exoticamp.UI.Models.Booking;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,16 +12,17 @@ namespace Exoticamp.UI.Controllers
 {
     public class BookingController : Controller
     {
-
+        private readonly IReviewsRepository _reviewsRepository;
         private readonly IBookingRepository _bookingRepository;
         public readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
         public readonly ILocationRepository _locationRepository;
 
-        public BookingController(IBookingRepository bookingRepository, ICampsiteDetailsRepository campsiteDetailsRepository, ILocationRepository locationRepository)
+        public BookingController(IBookingRepository bookingRepository, ICampsiteDetailsRepository campsiteDetailsRepository, ILocationRepository locationRepository, IReviewsRepository reviewsRepository)
         {
             _bookingRepository = bookingRepository;
             _campsiteDetailsRepository = campsiteDetailsRepository;
             _locationRepository = locationRepository;
+            _reviewsRepository = reviewsRepository;
         }
         public IActionResult Index()
         {

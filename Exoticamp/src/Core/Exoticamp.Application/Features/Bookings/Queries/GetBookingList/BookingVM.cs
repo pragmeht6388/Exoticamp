@@ -17,6 +17,7 @@ namespace Exoticamp.Application.Features.Bookings.Queries.GetBookingList
         public int NoOfAdults { get; set; }
         public int NoOfChildrens { get; set; }
         public int NoOfTents { get; set; }
+        public DateTime CreatedDate { get; set; }
         public decimal TotalPrice { get; set; }
         public string? GlampingType { get; set; }
         public string Status { get; set; }

@@ -258,18 +258,23 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
-            $(document).ready(function () {
-                var successMessage = '@TempData["SuccessMessage"]';
-                var errorMessage = '@TempData["ErrorMessage"]';
+            // $(document).ready(function () {
+            //     var successMessage = '@TempData["SuccessMessage"]';
+            //     var errorMessage = '@TempData["ErrorMessage"]';
 
-                if (successMessage) {
-                    toastr.success(successMessage);
-                }
-                if (errorMessage) {
-                    toastr.error(errorMessage);
-                }
-            });
-
+            //     if (successMessage) {
+            //         toastr.success(successMessage);
+            //     }
+            //     if (errorMessage) {
+            //         toastr.error(errorMessage);
+            //     }
+            // });
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+                toastr.success('@TempData["SuccessMessage"]');
+            </text>
+        }
         $(document).ready(function () {
             // Name validation (only alphabets and space allowed)
             $('#Name').on('input', function () {

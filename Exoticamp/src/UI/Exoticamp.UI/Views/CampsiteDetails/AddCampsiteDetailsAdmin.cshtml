@@ -262,11 +262,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         // Check if TempData contains the success message
-        @if (TempData["SuccessMessage"] != null)
+        @if (TempData["Message"] != null)
         {
-            <text>
-                toastr.success('@TempData["SuccessMessage"]');
-            </text>
+                <script type="text/javascript" >
+                    toastr.error('@TempData["Message"]');
+        </script>
         }
 
             $(document).ready(function () {
