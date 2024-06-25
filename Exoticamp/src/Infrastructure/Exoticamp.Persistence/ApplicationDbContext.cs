@@ -23,6 +23,8 @@ namespace Exoticamp.Persistence
 
 
         public DbSet<Event> Events { get; set; }
+         
+         public DbSet<EventCampsite> EventCampsites { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Message> Messages { get; set; }

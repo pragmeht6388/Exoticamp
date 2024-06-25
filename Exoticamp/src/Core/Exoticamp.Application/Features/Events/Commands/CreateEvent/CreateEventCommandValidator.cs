@@ -46,10 +46,10 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
                .NotEmpty().WithMessage("Description is required")
                .NotNull().WithMessage("Description can not be null")
                .MaximumLength(400).WithMessage("Description shold not exceed 400 characters");
-            RuleFor(p => p.ImageUrl)
-               .NotEmpty().WithMessage("Image Url is required")
-               .NotNull().WithMessage("Image Url can not be null")
-               .MaximumLength(400).WithMessage("Image Url shold not exceed 400 characters");
+            //RuleFor(p => p.ImageUrls)
+            //   .NotEmpty().WithMessage("Image Url is required")
+            //   .NotNull().WithMessage("Image Url can not be null")
+            //   .MaximumLength(400).WithMessage("Image Url shold not exceed 400 characters");
             RuleFor(p => p.Highlights)
               .NotEmpty().WithMessage("Highlights is required")
               .NotNull().WithMessage("Highlights can not be null")
