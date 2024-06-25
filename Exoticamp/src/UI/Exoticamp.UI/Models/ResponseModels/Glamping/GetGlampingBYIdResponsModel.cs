@@ -1,10 +1,9 @@
 ﻿using Exoticamp.UI.Models.Glamping;
-using Exoticamp.UI.Services.Repositories;
 using Newtonsoft.Json;
 
 namespace Exoticamp.UI.Models.ResponseModels.Glamping
 {
-    public class GetGlampingResponseModel
+    public class GetGlampingBYIdResponsModel
     {
         [JsonProperty("isSuccess")]
         public bool IsSuccess { get; set; }
@@ -19,7 +18,6 @@ namespace Exoticamp.UI.Models.ResponseModels.Glamping
         public string StatusCode { get; set; }
 
         [JsonProperty("data")]
-        public IEnumerable< GlampingVM> Data { get; set; }
-         
+        public GlampingVM Data { get; set; } // Changed to a single GlampingVM
     }
 }
