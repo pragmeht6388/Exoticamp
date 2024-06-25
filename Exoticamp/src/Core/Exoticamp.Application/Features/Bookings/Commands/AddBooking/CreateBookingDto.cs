@@ -22,6 +22,7 @@ namespace Exoticamp.Application.Features.Bookings.Commands.AddBooking
         public string Status { get; set; }
         public Guid CampsiteId { get; set; }
         public Guid LocationId { get; set; }
+        public Guid? GlampingId { get; set; }
         //public Guid? PaymentId { get; set; }
         public  Domain.Entities.CampsiteDetails? Campsite { get; set; }
         public  Location? Location { get; set; }

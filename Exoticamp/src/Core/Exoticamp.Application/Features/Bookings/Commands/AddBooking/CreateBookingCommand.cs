@@ -21,6 +21,7 @@ namespace Exoticamp.Application.Features.Bookings.Commands.AddBooking
         public int NoOfTents { get; set; }
         public decimal TotalPrice { get; set; }
         public string? GlampingType { get; set; }
+        public Guid? GlampingId { get; set; }
         public string Status { get; set; }
         public Guid CampsiteId { get; set; }
         public Guid LocationId { get; set; }
