@@ -28,16 +28,16 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CheckIn" class="control-label"></label> <span class="text-danger">*</span>
-                <input asp-for="CheckIn" class="form-control" type="datetime-local" id="CheckIn" />
-                <span asp-validation-for="CheckIn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CheckOut" class="control-label"></label> <span class="text-danger">*</span>
-                <input asp-for="CheckOut" class="form-control" type="datetime-local" id="CheckOut" />
-                <span asp-validation-for="CheckOut" class="text-danger"></span>
-            </div>
+          <div class="form-group">
+    <label asp-for="CheckIn" class="control-label"></label> <span class="text-danger">*</span>
+    <input asp-for="CheckIn" class="form-control" type="datetime-local" id="CheckIn" />
+    <span asp-validation-for="CheckIn" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="CheckOut" class="control-label"></label> <span class="text-danger">*</span>
+    <input asp-for="CheckOut" class="form-control" type="datetime-local" id="CheckOut" />
+    <span asp-validation-for="CheckOut" class="text-danger"></span>
+</div>
 
             <div class="form-group">
                 <label asp-for="NoOfAdults" class="control-label"></label> <span class="text-danger">*</span>
@@ -91,11 +91,11 @@
                 <span asp-validation-for="GlampingType" class="text-0;;danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="PriceForAdults" class="form-control" type="hidden" id="PriceForAdults" value="@ViewBag.Campsite.Price" />
+                <input asp-for="PriceForAdults" class="form-control" type="hidden" id="PriceForAdults" value="@Model.PriceForAdults" />
                 <span asp-validation-for="PriceForAdults" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="PriceForChildrens" class="form-control" type="hidden" id="PriceForChildrens" value="@(ViewBag.Campsite.Price / 2)" />
+                <input asp-for="PriceForChildrens" class="form-control" type="hidden" id="PriceForChildrens" value="@(Model.PriceForChildrens)" />
                 <span asp-validation-for="PriceForChildrens" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -109,13 +109,11 @@
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @* <label asp-for="CampsiteId" class="control-label"></label> *@
-                <input asp-for="CampsiteId" class="form-control" type="hidden" value="@ViewBag.Campsite.Id" />
-                @* <span asp-validation-for="CampsiteId" class="text-danger"></span> *@
+                <input asp-for="CampsiteId" class="form-control" type="hidden" value="@Model.Campsite.Id" id="CampsiteId" />
             </div>
             <div class="form-group">
                 @* <label asp-for="LocationId" class="control-label"></label> *@
-                <input asp-for="LocationId" class="form-control" type="hidden" value="@ViewBag.Campsite.LocationId" />
+                <input asp-for="LocationId" class="form-control" type="hidden" value="@Model.LocationId" />
                 @* <span asp-validation-for="LocationId" class="text-danger"></span> *@
             </div>
             <div class="form-group">
@@ -128,11 +126,11 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
 
     <script>
         $(document).ready(function () {
@@ -200,11 +198,10 @@
             // Initial calculation
             updateTotalPrice();
         });
-
-    </script>
-    <script>
-        //validation for Date 
+ 
         $(document).ready(function () {
+            var bookedRanges = [];
+
             function addMonths(date, months) {
                 date.setMonth(date.getMonth() + months);
                 return date;
@@ -225,6 +222,22 @@
                 // Set current date and time as default value
                 $('#CheckIn').val(minDateStr);
                 $('#CheckOut').val(minDateStr);
+            }
+
+            function disableBookedRanges() {
+                bookedRanges.forEach(function (range) {
+                    var checkIn = new Date(range.CheckIn);
+                    var checkOut = new Date(range.CheckOut);
+
+                    for (var d = new Date(checkIn); d <= checkOut; d.setDate(d.getDate() + 1)) {
+                        var dateStr = d.toISOString().slice(0, 16);
+                        $('<option>', {
+                            value: dateStr,
+                            text: dateStr,
+                            disabled: true
+                        }).appendTo('#CheckIn, #CheckOut');
+                    }
+                });
             }
 
             $('#CheckIn').on('change', function () {
@@ -249,12 +262,30 @@
                 }
             });
 
+            // Fetch booked date ranges from the MVC controller
+            var campsiteId = $('#CampsiteId').val();
+            $.ajax({
+                url: '@Url.Action("GetBookedDates", "Booking")',
+                method: 'GET',
+                data: { campsiteId: campsiteId },
+                success: function (data) {
+                    bookedRanges = data.map(function (booking) {
+                        return {
+                            CheckIn: new Date(booking.checkIn).toISOString().slice(0, 16),
+                            CheckOut: new Date(booking.checkOut).toISOString().slice(0, 16)
+                        };
+                    });
+                    disableBookedRanges();
+                },
+                error: function () {
+                    alert("Failed to fetch booked dates from the server.");
+                }
+            });
+
             // Initialize date constraints and set default values
             updateMinMaxDates();
         });
+        
     </script>
-}
+    }
 
-
-
-          

@@ -9,6 +9,6 @@ namespace Exoticamp.Application.Contracts.Persistence
 {
     public  interface ITentAvailabilityRepository:IAsyncRepository<TentAvailability>
     {
-
+        Task<IEnumerable<TentAvailability>> GetAll();
     }
 }

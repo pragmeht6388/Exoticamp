@@ -5,6 +5,7 @@ using Exoticamp.UI.Models.Booking;
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -110,6 +111,7 @@ namespace Exoticamp.UI.Controllers
             {
                 Campsite = campsite.Data,
                 Location = loc,
+                LocationId=loc.Id,
                 PriceForAdults=campsite.Data.Price,
                 PriceForChildrens=campsite.Data.Price/2,
               
@@ -125,20 +127,19 @@ namespace Exoticamp.UI.Controllers
             {
                 return NotFound();
             }
-
+            model.Campsite = campsite.Data;
             if (model.NoOfTents > campsite.Data.NoOfTents)
             {
                 ModelState.AddModelError("NoOfTents", $"You can only book up to {campsite.Data.NoOfTents} tents.");
                 return View(model);
             }
-            if (ModelState.IsValid)
-            {
+        
                 var response = await _bookingRepository.AddBooking(model);
                 if (response.Succeeded)
                 {
                     return RedirectToAction("GetAllBookings", "Booking");
                 }
-            }
+            
             return View(model);
 
         }
@@ -228,7 +229,18 @@ namespace Exoticamp.UI.Controllers
             return View();
         }
 
-
+        [HttpGet]
+        public async Task<JsonResult> GetBookedDates(string campsiteId)
+        {
+            var bookedDates = await _bookingRepository.GetAllBookings();
+            var bookedList=bookedDates.Where(b => b.CampsiteId == new Guid(campsiteId)) // Adjust according to your model
+                                      .Select(b => new {
+                                          CheckIn = b.CheckIn,
+                                          CheckOut = b.CheckOut
+                                      })
+                                      .ToList();
+            return Json(bookedList);
+        }
 
     }
 }
