@@ -26,8 +26,8 @@ namespace Exoticamp.Domain.Entities
         //public Guid? PaymentId {  get; set; }
         //public Guid EventId { get; set; }
         //public virtual Event Event { get; set; }
-        public Guid GlampingId { get; set; }
-        //public int NoOfGlamps{get; set;}
+        public Guid? GlampingId { get; set; }
+        public int? NoOfGlamps { get; set; }
         public Guid? GuestDetailsId { get; set; }
         public GuestDetails? GuestDetails { get; set; }
         public virtual CampsiteDetails Campsite { get; set; }

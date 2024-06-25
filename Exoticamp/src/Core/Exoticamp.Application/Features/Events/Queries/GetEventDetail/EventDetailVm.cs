@@ -24,7 +24,7 @@ namespace Exoticamp.Application.Features.Events.Queries.GetEventDetail
         public string Highlights { get; set; }
 
         public string EventRules { get; set; }
-        public Guid CampsiteId { get; set; }
+        public Guid? CampsiteId { get; set; }
 
         public Guid ActivityId { get; set; }
 

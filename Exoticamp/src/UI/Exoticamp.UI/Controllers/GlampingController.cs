@@ -31,6 +31,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> GetGlampingById(string id)
         {
             var glamping = await _glampingRepository.GetGlampingByIdAsync(  id);
+            
             return View(glamping);
         }
 

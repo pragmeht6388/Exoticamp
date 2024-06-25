@@ -36,7 +36,7 @@ namespace Exoticamp.Domain.Entities
         [StringLength(100)]
         public string Description { get; set; }
         [Required(ErrorMessage = "upload the images of the event")]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
         [Required(ErrorMessage = "enter highlights of the event")]
         [StringLength(100)]
@@ -49,11 +49,11 @@ namespace Exoticamp.Domain.Entities
         public bool Status { get; set; } = true;
         public bool IsDeleted { get; set; }
          
-        public Guid CampsiteId { get; set; }
+        public Guid? CampsiteId { get; set; }
 
         [Required(ErrorMessage = "Please select the  campsite")]
         [ForeignKey("CampsiteId")]
-        public virtual Domain.Entities.CampsiteDetails Campsite { get; set; }
+        public virtual Domain.Entities.CampsiteDetails? Campsite { get; set; }
 
         public ICollection<EventActivities> EventActivities { get; set; }
         public ICollection<EventLocation> EventLocations { get; set; }
