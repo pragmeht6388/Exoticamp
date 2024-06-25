@@ -158,6 +158,7 @@ namespace Exoticamp.Persistence.Repositories
                     Safety = request.Safety,
                     DistanceWithMap = request.DistanceWithMap,
                     CancellationPolicy = request.CancellationPolicy,
+                    Categories=request.Category,
                     CategoryId=request.CategoryId,
                     CategoryName=request.Category.Name,
                     FAQs = request.FAQs,

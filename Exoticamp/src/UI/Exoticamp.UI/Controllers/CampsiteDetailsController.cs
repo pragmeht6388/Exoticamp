@@ -36,12 +36,14 @@ namespace Exoticamp.UI.Controllers
         [NoCache]
         public async Task<IActionResult> ShowCampsite()
         {
+            var userId = HttpContext.Session.GetString("VendorId");
             var campsiteDetail = await _campsiteRepository.GetAllCampsites();
+            var campsite = campsiteDetail.Where(x => x.CreatedBy == userId).ToList();
             if (TempData.ContainsKey("SuccessMessage"))
             {
                 ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
             }
-            return View(campsiteDetail);
+            return View(campsite);
         }
 
        
@@ -102,12 +104,12 @@ namespace Exoticamp.UI.Controllers
             {
                 TempData["SuccessMessage"] = "Campsite details added successfully.";
 
-                ModelState.AddModelError(string.Empty, result.Message);
+                return RedirectToAction("ShowCampsite");
             }
             else
             {
 
-                ModelState.AddModelError(string.Empty, "An error occurred while creating the SysPrefCompany.");
+                ModelState.AddModelError(string.Empty, "An error occurred while creating the Campsite.");
             }
 
 
@@ -177,12 +179,17 @@ namespace Exoticamp.UI.Controllers
             }
             model.IsActive = true;
             var result = await _campsiteRepository.EditCampsiteDetails(model);
-            if (result.Succeeded)
+            if (result.Message != null)
             {
-                TempData["SuccessMessage"] = "Campsite details updated successfully.";
+                TempData["SuccessMessage"] = "Campsite details Updated successfully.";
+
                 return RedirectToAction("ShowCampsite");
             }
-            TempData["ErrorMessage"] = "Unable to update campsite.";
+            else
+            {
+
+                ModelState.AddModelError(string.Empty, "An error occurred while creating the Campsite.");
+            }
             return RedirectToAction("ShowCampsite");
         }
         [VendorAuthFilter]
@@ -249,6 +256,7 @@ namespace Exoticamp.UI.Controllers
             var eventObj = await _campsiteRepository.GetCampsiteById(id);
             eventObj.Data.ActivitiesId = eventObj.Data.Activities[0].Id;
             var categoryList = await _categoryRepository.GetAllCategory();
+            var tentList = await _tentRepository.GetAllTents();
             //var Approved = eventObj.Data.ApprovedBy;
             //ViewBag.ApprovedBy = Approved;
             var activitiesList = await _activitiesRepository.GetAllActivities();
@@ -256,6 +264,8 @@ namespace Exoticamp.UI.Controllers
             if (activitiesList != null)
             {
                 ViewBag.CategoryList = categoryList.Select(c => new SelectListItem { Value = c.CategoryId.ToString(), Text = c.Name });
+                ViewBag.TentList = tentList.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name });
+
                 var activitiesSelectList = activitiesList.Select(a => new SelectListItem
                 {
                     Value = a.Id.ToString(),
@@ -304,12 +314,17 @@ namespace Exoticamp.UI.Controllers
             }
             model.IsActive = true;
             var result = await _campsiteRepository.EditCampsiteDetails(model);
-            if (result.Succeeded)
+            if (result.Message != null)
             {
-                TempData["SuccessMessage"] = "Campsite details updated successfully.";
+                TempData["SuccessMessage"] = "Campsite details Updated successfully.";
+
                 return RedirectToAction("ShowCampsiteAdmin");
             }
-            TempData["ErrorMessage"] = "Unable to update campsite.";
+            else
+            {
+
+                ModelState.AddModelError(string.Empty, "An error occurred while creating the Campsite.");
+            }
             return RedirectToAction("ShowCampsiteAdmin");
         }
 
@@ -411,14 +426,13 @@ namespace Exoticamp.UI.Controllers
             {
                 TempData["SuccessMessage"] = "Campsite details added successfully.";
 
-                ModelState.AddModelError(string.Empty, result.Message);
+                return RedirectToAction("ShowCampsiteAdmin");
             }
             else
             {
 
-                ModelState.AddModelError(string.Empty, "An error occurred while creating the SysPrefCompany.");
+                ModelState.AddModelError(string.Empty, "An error occurred while creating the Campsite.");
             }
-
 
             return RedirectToAction("AddCampsiteDetailsAdmin");
 

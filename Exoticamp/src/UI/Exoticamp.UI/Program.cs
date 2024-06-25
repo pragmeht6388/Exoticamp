@@ -27,7 +27,7 @@ builder.Services.AddScoped<ILocationRepository , LocationRepository>();
 builder.Services.AddScoped<ISearchRepository, SearchRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
-
+builder.Services.AddScoped<IGlampingRepository, GlampingRepository>();
 
 
 

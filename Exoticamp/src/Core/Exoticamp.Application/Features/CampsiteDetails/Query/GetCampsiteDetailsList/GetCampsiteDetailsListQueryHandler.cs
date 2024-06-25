@@ -48,11 +48,10 @@ namespace Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetail
         {
             _logger.LogInformation("Handle Initiated");
             var user = _loggedInUserService.UserId;
-            
 
             var allCampsite = await _campsiteRepository.GetAllCampsiteWithCategoryAndActivityDetails();
 
-            var activeCampsites = allCampsite.Where(c => c.isActive == true);// the person who have created the campsite 
+            var activeCampsites = allCampsite.Where(c => c.isActive == true );// the person who have created the campsite 
 
             var orderedCampsites = activeCampsites.OrderBy(x => x.Name);
 
