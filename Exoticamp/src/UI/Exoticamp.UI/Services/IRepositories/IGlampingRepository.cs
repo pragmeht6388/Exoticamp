@@ -9,6 +9,7 @@ namespace Exoticamp.UI.Services.IRepositories
         //Task<Response<GlampingVM>> GetGlampingByIdAsync( );
         Task<Response<IEnumerable<GlampingVM>>> GetGlampingListVAsync();
         //Task<Response<GlampingVM>> GetGlampingByIdAsync(string id);
-        Task<GetGlampingResponseModel> GetGlampingByIdAsync(string id);
+        //Task<GetGlampingResponseModel> GetGlampingByIdAsync(string id);
+        Task<Response<GlampingVM>> GetGlampingByIdAsync(string id);
     }
 }
