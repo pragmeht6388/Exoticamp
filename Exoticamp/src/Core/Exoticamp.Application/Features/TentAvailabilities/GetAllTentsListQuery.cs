@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Exoticamp.Application.Features.TentAvailability
 {
-    public class GetAllTentsListQuery : IRequest<Response<IEnumerable<TentAvailabilityVM>>>
-    {
-    }
+    //public class GetAllTentsListQuery : IRequest<Response<IEnumerable<TentAvailabilityVM>>>
+    //{
+    //}
 }

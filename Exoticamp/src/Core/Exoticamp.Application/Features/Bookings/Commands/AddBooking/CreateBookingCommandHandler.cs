@@ -18,13 +18,15 @@ namespace Exoticamp.Application.Features.Bookings.Commands.AddBooking
     {
         private readonly IMapper _mapper;
         private readonly IBookingRepository _bookingRepository;
+        private readonly IAsyncRepository<Domain.Entities.TentAvailability> _TentAvailabilityRepository;
         private readonly IMessageRepository _messageRepository;
         private readonly ILogger<CreateBookingCommandHandler> _logger;
         public readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
         public readonly ILoactionRepository _locationRepository;
 
         public CreateBookingCommandHandler(IMapper mapper, IBookingRepository bookingRepository, IMessageRepository messageRepository,ILogger<CreateBookingCommandHandler>logger
-            ,ICampsiteDetailsRepository campsiteDetailsRepository,ILoactionRepository loactionRepository)
+            ,ICampsiteDetailsRepository campsiteDetailsRepository,ILoactionRepository loactionRepository
+            , IAsyncRepository<Domain.Entities.TentAvailability> TentAvailabilityRepository)
         {
             _mapper = mapper;
             _bookingRepository = bookingRepository;
@@ -32,6 +34,7 @@ namespace Exoticamp.Application.Features.Bookings.Commands.AddBooking
             _logger = logger;
             _campsiteDetailsRepository = campsiteDetailsRepository;
             _locationRepository = loactionRepository;
+            _TentAvailabilityRepository= TentAvailabilityRepository;
         }
 
         public async Task<Response<CreateBookingDto>> Handle(CreateBookingCommand request, CancellationToken cancellationToken)
@@ -77,12 +80,14 @@ namespace Exoticamp.Application.Features.Bookings.Commands.AddBooking
                 {
                     TentId = campsite.TentId,
                     CampsiteId=booking.CampsiteId,
+                    GlampingId=booking.GlampingId,
                     BookedTents=booking.NoOfTents,
                     AvailableTents=campsite.NoOfTents-booking.NoOfTents,
                     VendorId=new Guid(campsite.CreatedBy)
                     
 
                 };
+                await _TentAvailabilityRepository.AddAsync(tentAvailibility);
                 return response;
             }
             else
