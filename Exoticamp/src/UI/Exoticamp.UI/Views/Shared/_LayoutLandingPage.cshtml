@@ -38,7 +38,7 @@
             z-index: 1030; /* Adjust the z-index if necessary to layer it above other elements */
         }
 
-     
+
 
         header .logo {
             height: 50px;
@@ -164,7 +164,6 @@
             display: block;
         }
 
-
         }
 
         footer ul {
@@ -289,12 +288,11 @@
             cursor: pointer;
         }
 
-
     </style>
 </head>
-
-    <!-- Header -->
-    @*  <header class="bg-primary text-white text-center p-3">
+<body>
+<!-- Header -->
+@*  <header class="bg-primary text-white text-center p-3">
     <div class="container d-flex justify-content-between align-items-center">
     <div>
     <img src="/Assets/Icons/Exoticamp.png" alt="Exoticamp Logo" class="logo">
@@ -327,221 +325,183 @@
     </header> *@
 
 
-    <header id="Foothead" class="bg-primar text-white text-center p-3">
-        <div class="container d-flex justify-content-between align-items-center">
-            <div>
-                <a asp-action="Index" asp-controller="Home"> <img src="https://www.exoticamp.com/img/white-logo.png" alt="Exoticamp Logo" class="logo"></a>
+<header id="Foothead" class="bg-primar text-white text-center p-3">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div>
+            <a asp-action="Index" asp-controller="Home"> <img src="https://www.exoticamp.com/img/white-logo.png" alt="Exoticamp Logo" class="logo"></a>
+        </div>
+        <nav class="d-flex align-items-center gap-2">
+            @* <a href="#" class="text-white ml-3">Toll Free Number</a> *@
+            @* <a href="#" class="text-white ml-3">List My Site / Become a Host</a> *@
+            <div class="nav-item dropdown ml-3">
+                <a class="text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    Locations
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="locationDropdown">
+                    <!-- Locations will be dynamically populated here -->
+                </ul>
             </div>
-            <nav class="d-flex align-items-center gap-2">
-                @* <a href="#" class="text-white ml-3">Toll Free Number</a> *@
-                @* <a href="#" class="text-white ml-3">List My Site / Become a Host</a> *@
+            <div class="d-flex align-items-center ml-3">
+                <i class="fas fa-map-marker-alt location-icon"></i>
+                <span>Mumbai</span>
+            </div>
+            @if (string.IsNullOrEmpty(userName))
+            {
+                <a asp-action="Login" asp-controller="Account" class="text-white ml-3">Login</a>
+            }
+            else
+            {
                 <div class="nav-item dropdown ml-3">
                     <a class="text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Locations
+                        Welcome @userName!
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="locationDropdown">
-                        <!-- Locations will be dynamically populated here -->
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" asp-action="Profile" asp-controller="User">My Profile</a></li>
+                        <li><a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a></li>
                     </ul>
                 </div>
-                <div class="d-flex align-items-center ml-3">
-                    <i class="fas fa-map-marker-alt location-icon"></i>
-                    <span>Mumbai</span>
-                </div>
-                @if (string.IsNullOrEmpty(userName))
-                {
-                    <a asp-action="Login" asp-controller="Account" class="text-white ml-3">Login</a>
-                }
-                else
-                {
-                    <div class="nav-item dropdown ml-3">
-                        <a class="text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Welcome @userName!
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" asp-action="Profile" asp-controller="User">My Profile</a></li>
-                            <li><a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a></li>
-                        </ul>
-                    </div>
-                }
-            </nav>
+            }
+        </nav>
 
-        </div>
-    </header>
-
-
-
-
-    <!-- Collapsible Content Sections -->
-    <!-- Other Sections -->
-    @RenderBody()
-    <!-- Content Sections -->
     </div>
-    <!-- Code for chatbot.-->
-    <div id="chatbot-icon" style="position:fixed; bottom:25px; right:25px; cursor:pointer; z-index:1000;">
-        <img src="~/images/robot.png" alt="Chatbot" style="width:50px; height:50px;" />
-    </div>
-    <div id="chatbot-window">
-        <div class="chatbot-header">
-            <h5 class="modal-title">Welcom @userName!</h5>
-            <span class="chatbot-close" aria-hidden="true">&times;</span>
-        </div>
-        <div class="chatbot-body" id="chatbot-content"></div>
-    </div>
+</header>
 
-    <!-- Footer -->
-    <footer id="Foothead1" class="bg-primar text-white text-center p-2 mt-2">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-auto">
-                    <h5 class="text-uppercase small">Quick Links</h5>
-                    <ul class="list-unstyled d-flex justify-content-center">
-                        <li class="mx-2"><a href="/Home/InfoPage" class="text-white small">About Us</a></li>
-                        <li class="mx-2"><a href="/Home/InfoPage" class="text-white small">About Team</a></li>
-                    </ul>
-                </div>
-                <div class="col-auto">
-                    <h5 class="text-uppercase small">Contact</h5>
-                    <ul class="list-unstyled d-flex justify-content-center">
-                        <li class="mx-2"><a href="#" class="text-white small">Terms of Use</a></li>
-                        <li class="mx-2"><a asp-action="ContactUs" asp-controller="ContactUs" class="text-white small">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-auto">
-                    <h5 class="text-uppercase small">Social Media</h5>
-                    <ul class="list-unstyled d-flex justify-content-center">
-                        <li class="mx-2"><a href="#" class="text-white small">Facebook</a></li>
-                        <li class="mx-2"><a href="#" class="text-white small">Instagram</a></li>
-                        <li class="mx-2"><a href="#" class="text-white small">Twitter</a></li>
-                        <li class="mx-2"><a href="#" class="text-white small">LinkedIn</a></li>
-                    </ul>
-                </div>
+
+
+
+<!-- Collapsible Content Sections -->
+<!-- Other Sections -->
+@RenderBody()
+<!-- Content Sections -->
+    </div>
+<!-- Code for chatbot.-->
+<div id="chatbot-icon" style="position:fixed; bottom:25px; right:25px; cursor:pointer; z-index:1000;">
+    <img src="~/images/robot.png" alt="Chatbot" style="width:50px; height:50px;" />
+</div>
+<div id="chatbot-window">
+    <div class="chatbot-header">
+        <h5 class="modal-title">Welcom @userName!</h5>
+        <span class="chatbot-close" aria-hidden="true">&times;</span>
+    </div>
+    <div class="chatbot-body" id="chatbot-content"></div>
+</div>
+
+<!-- Footer -->
+<footer id="Foothead1" class="bg-primar text-white text-center p-2 mt-2">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <h5 class="text-uppercase small">Quick Links</h5>
+                <ul class="list-unstyled d-flex justify-content-center">
+                    <li class="mx-2"><a href="/Home/InfoPage" class="text-white small">About Us</a></li>
+                    <li class="mx-2"><a href="/Home/InfoPage" class="text-white small">About Team</a></li>
+                </ul>
             </div>
-            <div class="mt-1">
-                <small class="d-block">&copy; 2024 Exoticamp. All rights reserved.</small>
+            <div class="col-auto">
+                <h5 class="text-uppercase small">Contact</h5>
+                <ul class="list-unstyled d-flex justify-content-center">
+                    <li class="mx-2"><a href="#" class="text-white small">Terms of Use</a></li>
+                    <li class="mx-2"><a asp-action="ContactUs" asp-controller="ContactUs" class="text-white small">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="col-auto">
+                <h5 class="text-uppercase small">Social Media</h5>
+                <ul class="list-unstyled d-flex justify-content-center">
+                    <li class="mx-2"><a href="#" class="text-white small">Facebook</a></li>
+                    <li class="mx-2"><a href="#" class="text-white small">Instagram</a></li>
+                    <li class="mx-2"><a href="#" class="text-white small">Twitter</a></li>
+                    <li class="mx-2"><a href="#" class="text-white small">LinkedIn</a></li>
+                </ul>
             </div>
         </div>
-    </footer>
+        <div class="mt-1">
+            <small class="d-block">&copy; 2024 Exoticamp. All rights reserved.</small>
+        </div>
+    </div>
+</footer>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
 
 
 
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            // Initialize all collapse-content as hidden
-            $('.collapse-content').addClass('d-none').removeClass('d-block');
+        // Initialize all collapse-content as hidden
+        $('.collapse-content').addClass('d-none').removeClass('d-block');
 
-            // Handle click event for menu buttons
-            $('.menu-button').on('click', function () {
-                var target = $(this).data('target');
+        // Handle click event for menu buttons
+        $('.menu-button').on('click', function () {
+            var target = $(this).data('target');
 
-                // Hide all other collapse-content elements
-                $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
+            // Hide all other collapse-content elements
+            $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
 
-                // Toggle the targeted element
-                $(target).toggleClass('d-none d-block');
+            // Toggle the targeted element
+            $(target).toggleClass('d-none d-block');
+        });
+        $('#chatbot-icon').click(function () {
+            debugger
+            $get('@Url.Action("ChatbotPartial", "Chatbot")', function (data) {
+                $('#chatbot-content').html(data);
+                $('#chatbot-window').show();
             });
-            $('#chatbot-icon').click(function () {
-                debugger
-                $get('@Url.Action("ChatbotPartial", "Chatbot")', function (data) {
-                    $('#chatbot-content').html(data);
-                    $('#chatbot-window').show();
+        });
+
+        $('.chatbot-close').click(function () {
+            $('#chatbot-window').hide();
+        });
+        $.ajax({
+            url: '@Url.Action("GetLocations", "Home")',
+            type: 'GET',
+            success: function (data) {
+                var locationDropdown = $('#locationDropdown');
+                locationDropdown.empty(); // Clear any existing options
+
+                data.forEach(function (location) {
+                    locationDropdown.append('<li><a class="dropdown-item, location-item" data-id="' + location.id + '">' + location.name + '</a></li>');
                 });
-            });
+            },
+            error: function (error) {
+                console.log('Error fetching locations:', error);
+            }
+        });
 
-            $('.chatbot-close').click(function () {
-                $('#chatbot-window').hide();
-            });
-            $.ajax({
-                url: '@Url.Action("GetLocations", "Home")',
-                type: 'GET',
-                success: function (data) {
-                    var locationDropdown = $('#locationDropdown');
-                    locationDropdown.empty(); // Clear any existing options
-
-                    data.forEach(function (location) {
-                        locationDropdown.append('<li><a class="dropdown-item, location-item" data-id="' + location.id + '">' + location.name + '</a></li>');
-                    });
-                },
-                error: function (error) {
-                    console.log('Error fetching locations:', error);
-                }
-            });
-
-            $(document).on('click', '.location-item', function () {
-                var locationId = $(this).data('id');
-
-                $.ajax({
-                    url: '@Url.Action("SetLocationId", "Home")',
-                    type: 'POST',
-                    data: { locationId: locationId },
-                    success: function (response) {
-                        if (response.success) {
-                            // Handle success - you can redirect or update the UI accordingly
-                            location.reload();
-                        } else {
-                            // Handle failure
-                            alert('Failed to set location ID.');
-                        }
-                    },
-                    error: function () {
-                        // Handle error
-                        alert('An error occurred while setting the location ID.');
-                    }
-                });
-            });
-            //     // Collapsible js
-            //     $('.collapse-content').addClass('d-none').removeClass('d-block');
-
-            //     $('.menu-button').on('click', function () {
-            //         var target = $(this).data('target');
-
-            //         // Hide all other collapse-content elements
-            //         $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
-
-            //         // Toggle the targeted element
-            //         $(target).toggleClass('d-none d-block');
-            //     });
-            // });
-
-
- <script>
-$(document).ready(function() {
-    // Initialize all collapse-content as hidden
-    $('.collapse-content').addClass('d-none').removeClass('d-block');
-
-            // Handle click event for menu buttons
-            $('.menu-button').on('click', function () {
-                var target = $(this).data('target');
-
-                // Hide all other collapse-content elements
-                $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
-
-        // Toggle the targeted element
-        $(target).toggleClass('d-none d-block');
     });
-});
+
+
+
+    $(document).on('click', '.location-item', function () {
+        var locationId = $(this).data('id');
+
+        $.ajax({
+            url: '@Url.Action("SetLocationId", "Home")',
+            type: 'POST',
+            data: { locationId: locationId },
+            success: function (response) {
+                if (response.success) {
+                    // Handle success - you can redirect or update the UI accordingly
+                    location.reload();
+                } else {
+                    // Handle failure
+                    alert('Failed to set location ID.');
+                }
+            },
+            error: function () {
+                // Handle error
+                alert('An error occurred while setting the location ID.');
+            }
+        });
+    });
+ 
 </script>
-  
-    <script>
-        $(document).ready(function () {
-            // Initialize all collapse-content as hidden
-            $('.collapse-content').addClass('d-none').removeClass('d-block');
-
-            // Handle click event for menu buttons
-            $('.menu-button').on('click', function () {
-                var target = $(this).data('target');
-
-                // Hide all other collapse-content elements
-                $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
 
 
-    @await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

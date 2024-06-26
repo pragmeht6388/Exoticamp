@@ -108,7 +108,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="NoOfTents" class="control-label">Quantity<span class="text-danger">*</span></label>
-                <input asp-for="NoOfTents" class="form-control" />
+                <input asp-for="NoOfTents" class="form-control" maxlength="3"/>
                 <span asp-validation-for="NoOfTents" class="text-danger"></span>
             </div>
             @* <div class="form-group">
@@ -128,9 +128,10 @@
             </div> *@
             <div class="form-group">
                 <label asp-for="Price" class="control-label">Price<span class="text-danger">*</span></label>
-                <input asp-for="Price" class="form-control" />
+                <input asp-for="Price" class="form-control" id="Price" data-val="true" data-val-regex="Only digits are allowed" data-val-regex-pattern="^\d+$" onkeypress="return isNumberKey(event)" maxlength="7"/>
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="ImageFile" class="control-label">Images<span class="text-danger">*</span></label>
                 <input asp-for="ImageFile" class="form-control" type="file" required/>
@@ -138,12 +139,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="DateTime" class="control-label">DateTime<span class="text-danger">*</span></label>
-                <input asp-for="DateTime" class="form-control" />
+                <input asp-for="DateTime" class="form-control" id="DateTime" data-val="true" data-val-date="Please enter a valid date" />
                 <span asp-validation-for="DateTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Highlights" class="control-label">Highlights<span class="text-danger">*</span></label>
-                <input asp-for="Highlights" class="form-control" />
+                <input asp-for="Highlights" class="form-control" id="Highlights" maxlength="50" />
                 <span asp-validation-for="Highlights" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
@@ -160,82 +161,84 @@
             </div>
             <div class="form-group">
                 <label asp-for="AboutCampsite" class="control-label">About Campsite<span class="text-danger">*</span></label>
-                <textarea asp-for="AboutCampsite" class="form-control" rows="3"></textarea>
+                <textarea asp-for="AboutCampsite" class="form-control" rows="3" maxlength="170"></textarea>
                 <span asp-validation-for="AboutCampsite" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CampsiteRules" class="control-label">Campsite Rules<span class="text-danger">*</span></label>
-                <textarea asp-for="CampsiteRules" class="form-control"></textarea>
+                <textarea asp-for="CampsiteRules" class="form-control" maxlength="170"></textarea>
                 <span asp-validation-for="CampsiteRules" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="BestTimeToVisit" class="control-label">Best Time To Visit<span class="text-danger">*</span></label>
-                <input asp-for="BestTimeToVisit" class="form-control" />
+                <input asp-for="BestTimeToVisit" class="form-control" maxlength="30" />
                 <span asp-validation-for="BestTimeToVisit" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HowToGetHere" class="control-label">How To Get Here<span class="text-danger">*</span></label>
-                <textarea asp-for="HowToGetHere" class="form-control"></textarea>
+                <textarea asp-for="HowToGetHere" class="form-control" maxlength="170"></textarea>
                 <span asp-validation-for="HowToGetHere" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="QuickSummary" class="control-label">Quick Summary<span class="text-danger">*</span></label>
-                <textarea asp-for="QuickSummary" class="form-control"></textarea>
+                <textarea asp-for="QuickSummary" class="form-control" maxlength="170"></textarea>
                 <span asp-validation-for="QuickSummary" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MealPlans" class="control-label">Meal Plans<span class="text-danger">*</span></label>
-                <textarea asp-for="MealPlans" class="form-control"></textarea>
+                <textarea asp-for="MealPlans" class="form-control" maxlength="170"></textarea>
                 <span asp-validation-for="MealPlans" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Itinerary" class="control-label">Itinerary<span class="text-danger">*</span></label>
-                <textarea asp-for="Itinerary" class="form-control"></textarea>
+                <textarea asp-for="Itinerary" class="form-control" maxlength="170"></textarea>
                 <span asp-validation-for="Itinerary" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Inclusions" class="control-label">Inclusions<span class="text-danger">*</span></label>
-                <textarea asp-for="Inclusions" class="form-control"></textarea>
+                <textarea asp-for="Inclusions" class="form-control" maxlength="170"></textarea>
                 <span asp-validation-for="Inclusions" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Exclusion" class="control-label">Exclusion<span class="text-danger">*</span></label>
-                <textarea asp-for="Exclusion" class="form-control"></textarea>
+                <textarea asp-for="Exclusion" class="form-control" maxlength="170"></textarea>
                 <span asp-validation-for="Exclusion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Amenities" class="control-label">Amenities<span class="text-danger">*</span></label>
-                <textarea asp-for="Amenities" class="form-control"></textarea>
+                <textarea asp-for="Amenities" class="form-control" maxlength="170"></textarea>
                 <span asp-validation-for="Amenities" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Accommodation" class="control-label">Accommodation<span class="text-danger">*</span></label>
-                <textarea asp-for="Accommodation" class="form-control"></textarea>
+                <textarea asp-for="Accommodation" class="form-control" maxlength="170"></textarea>
                 <span asp-validation-for="Accommodation" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Safety" class="control-label">Safety<span class="text-danger">*</span></label>
-                <textarea asp-for="Safety" class="form-control"></textarea>
+                <textarea asp-for="Safety" class="form-control" maxlength="170"></textarea>
                 <span asp-validation-for="Safety" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DistanceWithMap" class="control-label">Distance With Map<span class="text-danger">*</span></label>
-                <input asp-for="DistanceWithMap" class="form-control" />
+                <input asp-for="DistanceWithMap" class="form-control" id="DistanceWithMap" maxlength="50" data-val="true" data-val-distanceunit="Please specify either 'km' or 'm'." />
                 <span asp-validation-for="DistanceWithMap" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="WhyExoticamp" class="control-label">Why Exoticamp<span class="text-danger"> *</span></label>
-                <textarea asp-for="WhyExoticamp" class="form-control"></textarea>
+                <textarea asp-for="WhyExoticamp" class="form-control" maxlength="170"></textarea>
                 <span asp-validation-for="WhyExoticamp" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FAQs" class="control-label">FAQs<span class="text-danger">*</span></label>
-                <textarea asp-for="FAQs" class="form-control"></textarea>
+                <textarea asp-for="FAQs" class="form-control" maxlength="170"></textarea>
                 <span asp-validation-for="FAQs" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HouseRules" class="control-label">House Rules<span class="text-danger">*</span></label>
-                <textarea asp-for="HouseRules" class="form-control"></textarea>
+                <textarea asp-for="HouseRules" class="form-control" maxlength="170"></textarea>
                 <span asp-validation-for="HouseRules" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -265,7 +268,35 @@
                     toastr.error('@TempData["Message"]');
         </script>
         }
+            document.addEventListener('DOMContentLoaded', function () {
+            var highlightsInput = document.getElementById('Highlights');
 
+            highlightsInput.addEventListener('input', function () {
+                var inputValue = this.value;
+                var sanitizedValue = sanitizeInput(inputValue);
+                if (sanitizedValue !== inputValue) {
+                    this.value = sanitizedValue;
+                }
+            });
+
+            function sanitizeInput(input) {
+                // Regex pattern to allow only alphabetic characters and spaces
+                var pattern = /^[A-Za-z\s]+$/;
+                // Replace any characters not matching the pattern with an empty string
+                return input.replace(new RegExp('[^A-Za-z\s]', 'g'), '');
+            }
+        });
+            function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+             $(document).ready(function() {
+            var today = new Date().toISOString().split('T')[0];
+            $('#DateTime').attr('min', today);
+        });
             $(document).ready(function () {
                 // Name validation (only alphabets and space allowed)
                 $('#Name').on('input', function () {
@@ -287,13 +318,73 @@
                 });
 
                 // Ratings validation (only numbers allowed, maximum 5)
-                $('#Ratings').on('input', function () {
-                    var rating = parseInt($(this).val());
-                    if (isNaN(rating) || rating < 0 || rating > 5) {
-                        toastr.error('Rating should be a number between 0 and 5');
-                        $(this).val('');
-                    }
-                });
+                // $('#Ratings').on('input', function () {
+                //     var rating = parseInt($(this).val());
+                //     if (isNaN(rating) || rating < 0 || rating > 5.1) {
+                //         toastr.error('Rating should be a number between 0 and 5');
+                //         $(this).val('');
+                //     }
+                // });
+
+
+
+                    $(document).ready(function () {
+            $('#Ratings').on('input', function () {
+                var input = $(this).val();
+                // Remove non-numeric characters except decimal point (.)
+                var sanitizedInput = input.replace(/[^0-9.]/g, '');
+                // Update the input value with sanitized value
+                $(this).val(sanitizedInput);
+
+                // Parse the sanitized input as a float
+                var rating = parseFloat(sanitizedInput);
+
+                // Validate the parsed rating
+                if (isNaN(rating) || rating < 0 || rating > 5) {
+                    toastr.error('Rating should be a number between 0 and 5');
+                    $(this).val('');
+                }
+            });
+        });
+
+             $(document).ready(function () {
+            $('#DistanceWithMap').on('blur', function () {
+                var input = $(this).val().trim().toLowerCase();
+
+                // Check if input ends with 'km' or 'm' and remove the suffix for numeric validation
+                if (input.endsWith('km')) {
+                    var numericValue = input.slice(0, -2).trim();
+                    validateNumericValue(numericValue, 'km');
+                } else if (input.endsWith('m')) {
+                    var numericValue = input.slice(0, -1).trim();
+                    validateNumericValue(numericValue, 'm');
+                } else {
+                    showError('Please specify either "km" or "m" after the numeric value.');
+                }
+            });
+
+            function validateNumericValue(value, unit) {
+                // Check if the value is numeric
+                if (/^\d+(\.\d+)?$/.test(value)) {
+                    // Success case: valid numeric value with correct unit
+                    hideError();
+                } else {
+                    // Error case: invalid numeric value
+                    showError('Numeric value before "' + unit + '" should be a valid number.');
+                }
+            }
+
+            function showError(message) {
+                $('#DistanceWithMap').addClass('input-validation-error');
+                $('#DistanceWithMap').siblings('.text-danger').text(message);
+            }
+
+            function hideError() {
+                $('#DistanceWithMap').removeClass('input-validation-error');
+                $('#DistanceWithMap').siblings('.text-danger').text('');
+            }
+        });
+
             });
     </script>
 }

@@ -1,48 +1,27 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@model Exoticamp.UI.Models.Events.EventVM
+﻿@model Exoticamp.UI.Models.Events.EventVM
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Event Details";
     Layout = "_LayoutLandingPage";
 }
+
 <div class="col-md-8 text-left" style="margin-top:20px">
     <button id="backButton" class="btn btn-secondary">Back</button>
 </div>
-<h1 class="text-center">Event</h1>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-body">
-                    <h4>Event Details</h4>
+                <div class="card-body ">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid mb-4" />
+                    }
+                    <h1>@Model.Name at @Model.Campsite.Name</h1>
                     <hr />
+                    <h4>Event Details</h4>
                     <dl class="row">
-                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Name)</dt>
-                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
-
-                        <dt class="col-sm-4">Location</dt>
-                        <dd class="col-sm-8">@Html.DisplayFor(model => model.EventLocationDto.LocationDetails.Name)</dd>
-
-                        <dt class="col-sm-4">Campsite</dt>
-                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Campsite.Name)</dd>
-
-                        <dt class="col-sm-4">Activities</dt>
-                        <dd class="col-sm-8">
-                            @*   @foreach (var activity in Model.ActivitiesVMs)
-                            {
-                            <span>@activity.Text</span>
-
-                            <br />
-                            } *@
-                            @Html.DisplayFor(model => model.EventActivityDto.ActivityDetails.Name)
-
-                        </dd>
-
                         <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Price)</dt>
                         <dd class="col-sm-8">@Html.DisplayFor(model => model.Price)</dd>
 
@@ -63,37 +42,26 @@
 
                         <dt class="col-sm-4">@Html.DisplayNameFor(model => model.EventRules)</dt>
                         <dd class="col-sm-8">@Html.DisplayFor(model => model.EventRules)</dd>
+
                         <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Campsite.Safety)</dt>
                         <dd class="col-sm-8">@Html.DisplayFor(model => model.Campsite.Safety)</dd>
+
                         <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Campsite.Itinerary)</dt>
                         <dd class="col-sm-8">@Html.DisplayFor(model => model.Campsite.Itinerary)</dd>
+
                         <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Campsite.CampsiteRules)</dt>
                         <dd class="col-sm-8">@Html.DisplayFor(model => model.Campsite.CampsiteRules)</dd>
+
                         <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Campsite.HowToGetHere)</dt>
                         <dd class="col-sm-8">@Html.DisplayFor(model => model.Campsite.HowToGetHere)</dd>
                     </dl>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h4>Event Image</h4>
-                    <hr />
-                    <div>
-                        @if (Model.ImageUrl != null)
-                        {
-                            <img src="@Model.ImageUrl" alt="@Model.Name" height="350" width="350" class="img-fluid" />
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-    <div class="row justify-content-center mt-4">
-       
-        <button class="btn btn-primary mr-2">Book Now</button>
+    <div class=" mt-4 d-flex justify-content-center align-items-center">
 
+            <a asp-action="EventUserBooking" asp-controller="Booking" class="btn btn-primary" style="background-color: #32CD32" id="bookButton" asp-route-id="@Model.EventId">Book Now</a>
     </div>
 </div>
 

@@ -395,6 +395,8 @@ namespace Exoticamp.UI.Controllers
             var categories = await _categoryRepository.GetAllCategory();
             var activities = await _activitiesRepository.GetAllActivities();
             var loaction = await _locationRepository.GetAllLocations();
+            var tent = await _tentRepository.GetAllTents();
+
             // var vendorId=await _
 
             if (categories == null)
@@ -404,6 +406,8 @@ namespace Exoticamp.UI.Controllers
 
             ViewBag.CategoryList = new SelectList(categories, "CategoryId", "Name");
             ViewBag.ActivitiesList = new SelectList(activities, "Id", "Name");
+            ViewBag.TentList = new SelectList(tent, "Id", "Name");
+
 
             return View();
         }

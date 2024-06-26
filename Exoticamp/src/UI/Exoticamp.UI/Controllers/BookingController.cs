@@ -15,12 +15,13 @@ namespace Exoticamp.UI.Controllers
         private readonly IBookingRepository _bookingRepository;
         public readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
         public readonly ILocationRepository _locationRepository;
-
-        public BookingController(IBookingRepository bookingRepository, ICampsiteDetailsRepository campsiteDetailsRepository, ILocationRepository locationRepository)
+        public readonly IEventRepository _eventRepository;
+        public BookingController(IBookingRepository bookingRepository, ICampsiteDetailsRepository campsiteDetailsRepository, ILocationRepository locationRepository, IEventRepository eventRepository)
         {
             _bookingRepository = bookingRepository;
             _campsiteDetailsRepository = campsiteDetailsRepository;
             _locationRepository = locationRepository;
+            _eventRepository = eventRepository;
         }
         public IActionResult Index()
         {
@@ -226,7 +227,53 @@ namespace Exoticamp.UI.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<ActionResult> EventUserBooking(string id)
+        {
+            var events = await _eventRepository.GetEventById(id);
+            var tent = await _campsiteDetailsRepository.GetCampsiteById(events.Data.CampsiteId.ToString());
+            var noOfTent = tent.Data.NoOfTents;
+            var CampId = tent.Data.Id;
+            TempData["CID"] = CampId;
+            ViewBag.Tents = noOfTent;
+            TempData["tent"] = noOfTent;
+            var location = await _locationRepository.GetAllLocations();
+            var loc = location.FirstOrDefault(x => x.Id == events.Data.LocationId);
+            events.Data.LocationId = loc.Id;
+            ViewBag.Campsite = events.Data;
+            var model = new BookingVM()
+            {
+                Event = events.Data,
+                Location = loc,
+                PriceForAdults = events.Data.Price,
+                PriceForChildrens = events.Data.Price / 2,
 
+
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<ActionResult> EventUserBooking(BookingVM model)
+        {
+            var events = await _eventRepository.GetEventById(model.EventId.ToString());
+            var noOfTent = TempData["tent"];
+            string tempDataValue = TempData["CID"].ToString();
+
+            if (tempDataValue != null && Guid.TryParse(tempDataValue, out Guid guidValue))
+            {
+                model.CampsiteId = guidValue;
+            }            
+           
+           
+                var response = await _bookingRepository.AddBooking(model);
+                if (response.Succeeded)
+                {
+                    return RedirectToAction("GetAllBookings", "Booking");
+                }
+            
+            return View(model);
+
+        }
 
     }
 }
