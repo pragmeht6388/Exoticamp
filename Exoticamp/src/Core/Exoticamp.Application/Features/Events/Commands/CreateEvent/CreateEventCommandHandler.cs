@@ -54,6 +54,8 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
 
                  response = new Response<CreateEventCommandDto>(_mapper.Map<CreateEventCommandDto>(eventObj), "Inserted successfully");
                 _logger.LogInformation("Handle Completed");
+                response.Succeeded = true;
+                response.Message = "Add Event Successfully";
                 return response;
             }
             else

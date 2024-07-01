@@ -48,6 +48,13 @@ namespace Exoticamp.Identity.Services
                 return response;
             }
 
+            if(user.IsDeleted)
+            { 
+                response.IsAuthenticated = false;
+                response.Message = $"No Accounts Registered with {request.Email}.";
+                return response;
+            }
+
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
             if (user.IsLocked)
             {

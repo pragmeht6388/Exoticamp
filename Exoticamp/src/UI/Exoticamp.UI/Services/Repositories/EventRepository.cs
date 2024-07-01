@@ -41,7 +41,7 @@ namespace Exoticamp.UI.Services.Repositories
             return events;
         }
 
-        public async Task<AddEventResponseModel> AddEvent(EventVM model)
+        public async Task<AddEventResponseModel> AddEvent(AddEventVM model)
         {
             AddEventResponseModel res=new AddEventResponseModel();
 
