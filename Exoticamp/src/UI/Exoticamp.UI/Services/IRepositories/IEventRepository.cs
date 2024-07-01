@@ -6,7 +6,7 @@ namespace Exoticamp.UI.Services.IRepositories
     public interface IEventRepository
     {
         Task<IEnumerable<EventVM>> GetAllEvents();
-        Task<AddEventResponseModel> AddEvent(EventVM model);
+        Task<AddEventResponseModel> AddEvent(AddEventVM model);
         Task<EditEventResponseModel> EditEvent(EventVM model);
         Task<GetEventByIdResponseModel> GetEventById(string id);
         Task<DeleteEventResponseModel> DeleteEvent(string modelid);

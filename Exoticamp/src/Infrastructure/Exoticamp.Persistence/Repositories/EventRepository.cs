@@ -126,7 +126,7 @@ namespace Exoticamp.Persistence.Repositories
         //        await _dbContext.Set<EventLocation>().AddAsync(eventLocation);
         //        //await _dbContext.SaveChangesAsync();
 
-                
+
         //        await _dbContext.SaveChangesAsync();
         //        _dbContext.Commit();
 
@@ -145,12 +145,188 @@ namespace Exoticamp.Persistence.Repositories
         //    return @event;
         //}
 
+        //        public async Task<Event> AddEvent(CreateEventCommand request)
+        //{
+        //    _dbContext.BeginTransaction();
+        //    var @event = new Event();
+        //    try
+        //    {
+        //                // Assign the first values from the lists to the event properties
+        //                @event.Name = request.Name;
+        //                @event.Price = request.Price;
+        //                @event.Capacity = request.Capacity;
+        //                @event.StartDate = request.StartDate;
+        //                @event.EndDate = request.EndDate;
+        //                @event.Description = request.Description;
+        //                @event.Highlights = request.Highlights;
+        //                @event.EventRules = request.EventRules;
+        //                @event.Status = request.Status;
+        //                @event.IsDeleted = request.IsDeleted;
+        //                @event.CampsiteId = request.CampsiteIds?.FirstOrDefault(); // Assign the first campsite ID
+        //                @event.ImageUrl = request.ImageUrls?.FirstOrDefault(); // Assign the first image URL
+
+
+        //                await _dbContext.Set<Event>().AddAsync(@event);
+        //        await _dbContext.SaveChangesAsync();
+
+        //        // Add EventCampsites
+        //        foreach (var campsiteId in request.CampsiteIds)
+        //        {
+        //            var campsite = await _dbContext.CampsiteDetails.FirstOrDefaultAsync(x => x.Id == campsiteId);
+        //            if (campsite == null)
+        //                throw new NotFoundException("Campsite not found", @event);
+
+        //            foreach (var imageUrl in request.ImageUrls)
+        //            {
+        //                var eventCampsite = new EventCampsite
+        //                {
+        //                    EventId = @event.EventId,
+        //                    CampsiteId = campsiteId,
+        //                    ImageUrl = imageUrl,
+        //                    Event = @event,
+        //                    Campsite = campsite
+        //                };
+        //                await _dbContext.Set<EventCampsite>().AddAsync(eventCampsite);
+        //            }
+        //        }
+
+        //        // Add EventActivities
+        //        foreach (var activityId in request.ActivityIds)
+        //        {
+        //            var activity = await _dbContext.Activities.FirstOrDefaultAsync(x => x.Id == activityId);
+        //            if (activity == null)
+        //                throw new NotFoundException("Activity not found", @event);
+
+        //            var eventActivity = new EventActivities
+        //            {
+        //                ActivityId = activityId,
+        //                EventId = @event.EventId,
+        //                Event = @event,
+        //                Activity = activity
+        //            };
+        //            await _dbContext.Set<EventActivities>().AddAsync(eventActivity);
+        //        }
+
+        //        // Add EventLocation
+        //        var location = await _dbContext.Locations.FirstOrDefaultAsync(x => x.Id == request.LocationId);
+        //        if (location == null)
+        //            throw new NotFoundException("Location not found", @event);
+
+        //        var eventLocation = new EventLocation
+        //        {
+        //            LocationId = request.LocationId,
+        //            EventId = @event.EventId,
+        //            Location = location,
+        //            Event = @event
+        //        };
+        //        await _dbContext.Set<EventLocation>().AddAsync(eventLocation);
+
+        //        await _dbContext.SaveChangesAsync();
+        //        _dbContext.Commit();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _dbContext.Rollback();
+        //        _logger.LogError(ex, "Error creating event");
+        //        return null;
+        //    }
+
+        //    return @event;
+        //}
+
+        //public async Task<Event> AddEvent(CreateEventCommand request)
+        //{
+        //    _dbContext.BeginTransaction();
+        //    var @event = new Event();
+        //    try
+        //    {
+        //        // Assign the first values from the lists to the event properties
+        //        @event.Name = request.Name;
+        //        @event.Price = request.Price;
+        //        @event.Capacity = request.Capacity;
+        //        @event.StartDate = request.StartDate;
+        //        @event.EndDate = request.EndDate;
+        //        @event.Description = request.Description;
+        //        @event.Highlights = request.Highlights;
+        //        @event.EventRules = request.EventRules;
+        //        @event.Status = request.Status;
+        //        @event.IsDeleted = request.IsDeleted;
+        //        @event.CampsiteId = request.CampsiteIds?.FirstOrDefault(); // Assign the first campsite ID
+        //        @event.ImageUrl = request.ImageUrls?.FirstOrDefault(); // Assign the first image URL
+
+        //        await _dbContext.Set<Event>().AddAsync(@event);
+        //        await _dbContext.SaveChangesAsync();
+
+        //        // Add EventCampsites
+        //        for (int i = 0; i < request.CampsiteIds.Count; i++)
+        //        {
+        //            var campsiteId = request.CampsiteIds[i];
+        //            var campsite = await _dbContext.CampsiteDetails.FirstOrDefaultAsync(x => x.Id == campsiteId);
+        //            if (campsite == null)
+        //                throw new NotFoundException("Campsite not found", @event);
+
+        //            var imageUrl = i < request.ImageUrls.Count ? request.ImageUrls[i] : request.ImageUrls.FirstOrDefault();
+
+        //            var eventCampsite = new EventCampsite
+        //            {
+        //                EventId = @event.EventId,
+        //                CampsiteId = campsiteId,
+        //                ImageUrl = imageUrl,
+        //                Event = @event,
+        //                Campsite = campsite
+        //            };
+        //            await _dbContext.Set<EventCampsite>().AddAsync(eventCampsite);
+        //        }
+
+        //        // Add EventActivities
+        //        foreach (var activityId in request.ActivityIds)
+        //        {
+        //            var activity = await _dbContext.Activities.FirstOrDefaultAsync(x => x.Id == activityId);
+        //            if (activity == null)
+        //                throw new NotFoundException("Activity not found", @event);
+
+        //            var eventActivity = new EventActivities
+        //            {
+        //                ActivityId = activityId,
+        //                EventId = @event.EventId,
+        //                Event = @event,
+        //                Activity = activity
+        //            };
+        //            await _dbContext.Set<EventActivities>().AddAsync(eventActivity);
+        //        }
+
+        //        // Add EventLocation
+        //        var location = await _dbContext.Locations.FirstOrDefaultAsync(x => x.Id == request.LocationId);
+        //        if (location == null)
+        //            throw new NotFoundException("Location not found", @event);
+
+        //        var eventLocation = new EventLocation
+        //        {
+        //            LocationId = request.LocationId,
+        //            EventId = @event.EventId,
+        //            Location = location,
+        //            Event = @event
+        //        };
+        //        await _dbContext.Set<EventLocation>().AddAsync(eventLocation);
+
+        //        await _dbContext.SaveChangesAsync();
+        //        _dbContext.Commit();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _dbContext.Rollback();
+        //        _logger.LogError(ex, "Error creating event");
+        //        return null;
+        //    }
+
+        //    return @event;
+        //}
         public async Task<Event> AddEvent(CreateEventCommand request)
-{
-    _dbContext.BeginTransaction();
-    var @event = new Event();
-    try
-    {
+        {
+            _dbContext.BeginTransaction();
+            var @event = new Event();
+            try
+            {
                 // Assign the first values from the lists to the event properties
                 @event.Name = request.Name;
                 @event.Price = request.Price;
@@ -163,76 +339,77 @@ namespace Exoticamp.Persistence.Repositories
                 @event.Status = request.Status;
                 @event.IsDeleted = request.IsDeleted;
                 @event.CampsiteId = request.CampsiteIds?.FirstOrDefault(); // Assign the first campsite ID
-                @event.ImageUrl = request.ImageUrls?.FirstOrDefault(); // Assign the first image URL
-                
+                @event.ImageUrl = request.ImageUrl; // Assign the first image URL
 
                 await _dbContext.Set<Event>().AddAsync(@event);
-        await _dbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync();
 
-        // Add EventCampsites
-        foreach (var campsiteId in request.CampsiteIds)
-        {
-            var campsite = await _dbContext.CampsiteDetails.FirstOrDefaultAsync(x => x.Id == campsiteId);
-            if (campsite == null)
-                throw new NotFoundException("Campsite not found", @event);
-
-            foreach (var imageUrl in request.ImageUrls)
-            {
-                var eventCampsite = new EventCampsite
+                // Add EventCampsites
+                for (int i = 0; i < request.CampsiteIds.Count; i++)
                 {
+                    var campsiteId = request.CampsiteIds[i];
+                    var campsite = await _dbContext.CampsiteDetails.FirstOrDefaultAsync(x => x.Id == campsiteId);
+                    if (campsite == null)
+                        throw new NotFoundException("Campsite not found", @event);
+
+                    //var imageUrl = i < request.ImageUrls.Count ? request.ImageUrls[i] : request.ImageUrls.FirstOrDefault();
+                    var imageUrl = request.ImageUrl;
+                    var eventCampsite = new EventCampsite
+                    {
+                        EventId = @event.EventId,
+                        CampsiteId = campsiteId,
+                        ImageUrl = imageUrl,
+                        Event = @event,
+                        Campsite = campsite
+                    };
+                    await _dbContext.Set<EventCampsite>().AddAsync(eventCampsite);
+                }
+
+                // Add EventActivities
+                foreach (var activityId in request.ActivityIds)
+                {
+                    var activity = await _dbContext.Activities.FirstOrDefaultAsync(x => x.Id == activityId);
+                    if (activity == null)
+                        throw new NotFoundException("Activity not found", @event);
+
+                    var eventActivity = new EventActivities
+                    {
+                        ActivityId = activityId,
+                        EventId = @event.EventId,
+                        Event = @event,
+                        Activity = activity
+                    };
+                    await _dbContext.Set<EventActivities>().AddAsync(eventActivity);
+                }
+
+                // Add EventLocation
+                var location = await _dbContext.Locations.FirstOrDefaultAsync(x => x.Id == request.LocationId);
+                if (location == null)
+                    throw new NotFoundException("Location not found", @event);
+
+                var eventLocation = new EventLocation
+                {
+                    LocationId = request.LocationId,
                     EventId = @event.EventId,
-                    CampsiteId = campsiteId,
-                    ImageUrl = imageUrl,
-                    Event = @event,
-                    Campsite = campsite
+                    Location = location,
+                    Event = @event
                 };
-                await _dbContext.Set<EventCampsite>().AddAsync(eventCampsite);
+                await _dbContext.Set<EventLocation>().AddAsync(eventLocation);
+
+                await _dbContext.SaveChangesAsync();
+                _dbContext.Commit();
+                
             }
-        }
-
-        // Add EventActivities
-        foreach (var activityId in request.ActivityIds)
-        {
-            var activity = await _dbContext.Activities.FirstOrDefaultAsync(x => x.Id == activityId);
-            if (activity == null)
-                throw new NotFoundException("Activity not found", @event);
-
-            var eventActivity = new EventActivities
+            catch (Exception ex)
             {
-                ActivityId = activityId,
-                EventId = @event.EventId,
-                Event = @event,
-                Activity = activity
-            };
-            await _dbContext.Set<EventActivities>().AddAsync(eventActivity);
+                _dbContext.Rollback();
+                _logger.LogError(ex, "Error creating event");
+                return null;
+            }
+
+            return @event;
         }
 
-        // Add EventLocation
-        var location = await _dbContext.Locations.FirstOrDefaultAsync(x => x.Id == request.LocationId);
-        if (location == null)
-            throw new NotFoundException("Location not found", @event);
-
-        var eventLocation = new EventLocation
-        {
-            LocationId = request.LocationId,
-            EventId = @event.EventId,
-            Location = location,
-            Event = @event
-        };
-        await _dbContext.Set<EventLocation>().AddAsync(eventLocation);
-
-        await _dbContext.SaveChangesAsync();
-        _dbContext.Commit();
-    }
-    catch (Exception ex)
-    {
-        _dbContext.Rollback();
-        _logger.LogError(ex, "Error creating event");
-        return null;
-    }
-
-    return @event;
-}
 
 
         public async Task<EventDetailVm> GetEventById(Guid id)
