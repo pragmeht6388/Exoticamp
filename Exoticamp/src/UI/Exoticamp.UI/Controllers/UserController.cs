@@ -5,17 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Exoticamp.UI.Controllers
 {
-    public class UserController : Controller
+    public class UserController(IUsersRepository _usersRepository, ILocationRepository _locationRepository, IActivitiesRepository _activitiesRepository) : Controller
     {
-        private readonly IUsersRepository _usersRepository;
-        private readonly ILocationRepository _locationRepository;
-        private readonly IActivitiesRepository _activitiesRepository;
-        public UserController(IUsersRepository usersRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository)
-        {
-            _usersRepository = usersRepository;
-            _locationRepository = locationRepository;
-            _activitiesRepository = activitiesRepository;
-        }
+       
         public IActionResult Index()
         {
             return View();

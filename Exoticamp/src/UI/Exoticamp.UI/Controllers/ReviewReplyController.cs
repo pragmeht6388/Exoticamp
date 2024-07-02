@@ -6,40 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Exoticamp.UI.Controllers
 {
-    public class ReviewReplyController : Controller
+    public class ReviewReplyController(IReviewReplyRepository _reviewsRepository) : Controller
     {
-        private readonly IReviewReplyRepository _reviewsRepository;
-
-        public ReviewReplyController(IReviewReplyRepository reviewsRepository)
-        {
-            _reviewsRepository = reviewsRepository;
-        }
-        //[HttpGet]
-        //public IActionResult AddReviewReply(int reviewId)
-        //{
-        //    var model = new ReviewReplyVM { ReviewId = Guid.Parse(reviewId.ToString()) };
-        //    return View(model);
-        //}
-        //// [HttpPost]
-        //public async Task<IActionResult> AddReviewReply(ReviewReplyVM reviews)
-        //{
-
-        //    var result = await _reviewsRepository.AddReviewsReply(reviews);
-
-        //    if (result.Message != null)
-        //    {
-        //        ModelState.AddModelError(string.Empty, result.Message);
-        //    }
-        //    else
-        //    {
-
-        //        ModelState.AddModelError(string.Empty, "An error occurred while creating the SysPrefCompany.");
-        //    }
-
-
-        //    return RedirectToAction("ShowCampsite");
-
-        //}
+         
 
         [HttpPost]
         public async Task<IActionResult> AddReviewReply(ReviewReplyVM reviewReply)

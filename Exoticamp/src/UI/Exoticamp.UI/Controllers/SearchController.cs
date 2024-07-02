@@ -3,14 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Exoticamp.UI.Controllers
 {
-    public class SearchController : Controller
+    public class SearchController(ISearchRepository _searchRepository) : Controller
     {
-        private readonly ISearchRepository _searchRepository;
-
-        public SearchController(ISearchRepository searchRepository)
-        {
-            _searchRepository = searchRepository;
-        }
+         
         [HttpGet]
         public async Task<IActionResult> Search(string text)
         {

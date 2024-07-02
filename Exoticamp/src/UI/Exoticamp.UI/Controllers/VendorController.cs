@@ -5,28 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Exoticamp.UI.Controllers
 {
-    public class VendorController : Controller
+    public class VendorController(IVendorRepository _vendorsRepository, ILocationRepository _locationRepository, IBookingRepository _bookingRepository, ICampsiteDetailsRepository _campsiteDetailsRepository, IReviewsRepository _reviewsRepository) : Controller
     {
-        private readonly IReviewsRepository _reviewsRepository;
-
-        private readonly IVendorRepository _vendorsRepository;
-        private readonly ILocationRepository _locationRepository;
-        private readonly IBookingRepository _bookingRepository;
-        public readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
-
-
-        public VendorController(IVendorRepository vendorsRepository, ILocationRepository locationRepository, IBookingRepository bookingRepository, ICampsiteDetailsRepository campsiteDetailsRepository, IReviewsRepository reviewsRepository)
-        {
-            _vendorsRepository = vendorsRepository;
-            _locationRepository = locationRepository;
-            _bookingRepository = bookingRepository;
-            _campsiteDetailsRepository = campsiteDetailsRepository;
-            _reviewsRepository = reviewsRepository;
-        }
+ 
         public async Task<IActionResult> Profile()
         {
             var vendorId = HttpContext.Session.GetString("VendorId");
-            //ViewBag.Locations = await _locationRepository.GetAllLocations();
+         
             var vendorDetails = await _vendorsRepository.GetVendorByIdAsync(vendorId);
 
 
@@ -51,7 +36,7 @@ namespace Exoticamp.UI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // Edit Vendor Profile - Handle form submission
+        
         [HttpPost]
         public async Task<IActionResult> EditProfile(VendorVM model)
         {

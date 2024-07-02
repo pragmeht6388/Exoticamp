@@ -127,8 +127,10 @@ namespace Exoticamp.UI.Services.Repositories
                 );
 
                 // Check if response data is not null
-                if (response.data != null)
+                if (response.Success ==  true)
                 {
+                    response.Success = true;
+                    response.Message = "Banner   Deleted";
                     // Deserialize response data to DeleteBannerResponseModel and return
                     return JsonConvert.DeserializeObject<DeleteBannerResponseModel>(response.data);
                 }

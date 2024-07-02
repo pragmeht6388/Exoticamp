@@ -6,14 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Exoticamp.UI.Controllers
 {
-    public class CampsiteController : Controller
+    public class CampsiteController (ICampsiteRepository _campsiteRepository) : Controller
     {
-        private readonly ICampsiteRepository _campsiteRepository;
-
-        public CampsiteController(ICampsiteRepository campsiteRepository)
-        {
-            _campsiteRepository = campsiteRepository;
-        }
+         
         [HttpGet]
         public IActionResult AddCampsite()
         {

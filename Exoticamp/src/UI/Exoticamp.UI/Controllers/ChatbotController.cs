@@ -5,13 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Exoticamp.UI.Controllers
 {
-    public class ChatbotController : Controller
+    public class ChatbotController(IChatbotRepository _chatbotRepository) : Controller
     {
-        private readonly IChatbotRepository _chatbotRepository;
-        public ChatbotController(IChatbotRepository chatbotRepository)
-        {
-            _chatbotRepository = chatbotRepository;
-        }
+        
         [HttpGet]
         public async Task<IActionResult> ChatbotPartial(string concernId)
         {
