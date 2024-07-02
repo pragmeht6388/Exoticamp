@@ -4,22 +4,17 @@ using Exoticamp.UI.Models.Users;
 using Exoticamp.UI.Services.IRepositories;
 using Exoticamp.UI.Services.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Services.Users;
+using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace Exoticamp.UI.Controllers
 {
     [AdminAuthFilter]
     [NoCache]
-    public class AdminController : Controller
+    public class AdminController(IUsersRepository _userRepository, IRegistrationRepository _registrationRepository, ILocationRepository _locationRepository) : Controller
     {
-        private readonly IRegistrationRepository _registrationRepository;
-        private readonly IUsersRepository _userRepository;
-        private readonly ILocationRepository _locationRepository;
-        public AdminController(IUsersRepository userRepository, IRegistrationRepository registrationRepository, ILocationRepository locationRepository)
-        {
-            _userRepository = userRepository;
-            _registrationRepository = registrationRepository;
-            _locationRepository = locationRepository;
-        }
+        
         [HttpGet]
        
         public async Task<IActionResult> GetAllUsers()
@@ -134,14 +129,32 @@ namespace Exoticamp.UI.Controllers
         {
             var users = await _userRepository.IsDeleteAsync(Email);
 
-            return RedirectToAction("GetAllUsers");
+            if (users != null)
+            {
+                return Json(new { success = true, message = "User deleted successfully." });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Error deleting user." });
+            }
+
         }
+        
+    
 
         public async Task<IActionResult> IsDeleteVendor(string Email)
         {
             var users = await _userRepository.IsDeleteAsync(Email);
 
-            return RedirectToAction("GetAllVendors");
+            //return RedirectToAction("GetAllVendors");
+            if (users != null)
+            {
+                return Json(new { success = true, message = "User deleted successfully." });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Error deleting user." });
+            }
         }
 
 

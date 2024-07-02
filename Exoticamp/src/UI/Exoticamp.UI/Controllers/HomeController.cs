@@ -7,29 +7,9 @@ using System.Diagnostics;
 
 namespace Exoticamp.UI.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(ILogger<HomeController> _logger, IEventRepository _eventRepository, ILocationRepository _locationRepository, IActivitiesRepository _activitiesRepository, IBannerRepository _bannersRepository, ICampsiteDetailsRepository _campsiteDetailsRepository, IHttpContextAccessor _httpContextAccessor) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IEventRepository _eventRepository;
-        private readonly ILocationRepository _locationRepository;
-        private readonly IActivitiesRepository _activitiesRepository;
-        private readonly IBannerRepository _bannersRepository;
-        private readonly ICampsiteDetailsRepository _campsiteDetailsRepository; 
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-
-
-        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository, ILocationRepository locationRepository, IActivitiesRepository activitiesRepository,IBannerRepository bannerRepository, ICampsiteDetailsRepository campsiteDetailsRepository, IHttpContextAccessor httpContextAccessor)
-        {
-            _logger = logger;
-            _eventRepository = eventRepository;
-            _locationRepository = locationRepository;
-            _activitiesRepository = activitiesRepository;
-            _bannersRepository = bannerRepository;
-            _campsiteDetailsRepository = campsiteDetailsRepository;
-            _httpContextAccessor = httpContextAccessor;
-        }
-
+ 
         public async Task<IActionResult> Index()
         {
             var events = await _eventRepository.GetAllEvents();

@@ -8,14 +8,9 @@ using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 namespace Exoticamp.UI.Controllers
 {
 
-    public class ContactUsController : Controller
+    public class ContactUsController(IContactUsRepository _contactUsRepository) : Controller
     {
-        private readonly IContactUsRepository _contactUsRepository;
-
-        public ContactUsController(IContactUsRepository contactUsRepository)
-        {
-            _contactUsRepository = contactUsRepository;
-        }
+      
         [AdminAuthFilter]
         [NoCache]
         public async Task<IActionResult> ContactUsAll()

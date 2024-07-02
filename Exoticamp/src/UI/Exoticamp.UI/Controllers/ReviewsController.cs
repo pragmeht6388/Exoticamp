@@ -7,18 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Exoticamp.UI.Controllers
 {
-    public class ReviewsController : Controller
+    public class ReviewsController(IReviewsRepository _reviewsRepository, IReviewReplyRepository _replyRepository, ICampsiteDetailsRepository _campsiteDetailsRepository) : Controller
     {
-        private readonly IReviewsRepository _reviewsRepository;
-        private readonly IReviewReplyRepository _replyRepository;
-        private readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
-
-        public ReviewsController(IReviewsRepository reviewsRepository, IReviewReplyRepository replyRepository, ICampsiteDetailsRepository campsiteDetailsRepository)
-        {
-            _reviewsRepository = reviewsRepository;
-            _replyRepository = replyRepository;
-            _campsiteDetailsRepository = campsiteDetailsRepository;
-        }
+        
         [HttpGet]
         [UserAuthFilter]
         [NoCache]

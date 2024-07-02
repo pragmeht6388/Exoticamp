@@ -4,13 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Exoticamp.UI.Controllers
 {
-    public class UserQueryController : Controller
+    public class UserQueryController(IUserQueryRepository _userQueryRepository) : Controller
     {
-        private readonly IUserQueryRepository _userQueryRepository;
-        public UserQueryController(IUserQueryRepository userQueryRepository)
-        {
-            _userQueryRepository = userQueryRepository;
-        }
+        
         public async Task<IActionResult> Index()
         {
             var list = await _userQueryRepository.GetAllUserQueries();
