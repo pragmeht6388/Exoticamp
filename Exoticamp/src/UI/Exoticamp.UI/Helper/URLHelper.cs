@@ -1,4 +1,6 @@
-﻿namespace Exoticamp.UI.Helper
+﻿using Exoticamp.Domain.Entities;
+
+namespace Exoticamp.UI.Helper
 {
     public static class URLHelper
     {
@@ -110,6 +112,12 @@
         public const string GetGlampingById = "/api/Glamping/GetGlampingById?id={0}";
 
         #endregion
+        public const string AddCart = "/api/v1/CartCamp/add";
 
+        public const string GetAllCart = "/api/v1/CartCamp/GetAllCart";
+
+        public const string DeleteCartId = "/api/v1/CartCamp/{0}";
+
+        public const string CartById = "/api/v1/CartCamp/{0}";
     }
 }

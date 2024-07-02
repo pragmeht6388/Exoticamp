@@ -13,16 +13,9 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class ReviewReplyController : ControllerBase
+    public class ReviewReplyController(IMediator _mediator, ILogger<ReviewReplyController> _logger) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger _logger;
-
-        public ReviewReplyController(IMediator mediator, ILogger<ReviewReplyController> logger)
-        {
-            _mediator = mediator;
-            _logger = logger;
-        }
+        
 
         [HttpPost(Name = "AddReviewReply")]
         public async Task<ActionResult> Create([FromBody] AddReviewReplyCommand addActivityCommand)

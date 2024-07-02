@@ -14,16 +14,9 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class ActivitiesController : ControllerBase
+    public class ActivitiesController(IMediator _mediator, ILogger<ActivitiesController> _logger) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger _logger;
-
-        public ActivitiesController(IMediator mediator, ILogger<ActivitiesController> logger)
-        {
-            _mediator = mediator;
-            _logger = logger;
-        }
+        
 
         [HttpPost(Name = "AddActivities")]
         public async Task<ActionResult> Create([FromBody] AddActivitiesCommands addActivityCommand)

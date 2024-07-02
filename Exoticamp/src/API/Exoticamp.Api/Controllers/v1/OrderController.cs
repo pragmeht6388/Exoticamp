@@ -12,14 +12,9 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
 
-    public class OrderController : ControllerBase
+    public class OrderController(IMediator _mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public OrderController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+       
 
 
         [HttpGet(Name = "GetOrdersForMonth")]

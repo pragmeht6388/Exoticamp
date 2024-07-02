@@ -10,17 +10,9 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class VendorController : ControllerBase
+    public class VendorController(IMediator _mediator, ILogger<VendorController> _logger) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger<VendorController> _logger;
-
-        public VendorController(IMediator mediator, ILogger<VendorController> logger)
-        {
-            _mediator = mediator;
-            _logger = logger;
-        }
-
+        
         [HttpGet("{id}")]
         public async Task<ActionResult> GetVendor(string id)
         {

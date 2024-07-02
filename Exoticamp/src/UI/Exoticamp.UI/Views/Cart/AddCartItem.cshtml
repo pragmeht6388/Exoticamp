@@ -1,0 +1,123 @@
+﻿@using Exoticamp.UI.Models.CampsiteDetails
+@model Exoticamp.UI.Models.CampCart.CartCampsite
+
+@{
+    ViewData["Title"] = "UserBooking";
+}
+
+<h1>Booking for @Model.Campsite.Name</h1>
+
+<h4>CartCampsite</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddCartItem" asp-controller="Cart">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="CartId" class="form-control" type="hidden" />
+            </div>
+            @Html.HiddenFor(x => x.UserId)
+            <div class="form-group">
+                <label asp-for="CustomerName" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="CustomerName" class="form-control" />
+                <span asp-validation-for="CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckIn" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="CheckIn" class="form-control datepicker" />
+                <span asp-validation-for="CheckIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckOut" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="CheckOut" class="form-control datepicker" />
+                <span asp-validation-for="CheckOut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoOfAdults" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="NoOfAdults" class="form-control" />
+                <span asp-validation-for="NoOfAdults" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoOfChildren" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="NoOfChildren" class="form-control" />
+                <span asp-validation-for="NoOfChildren" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoOfTents" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="NoOfTents" class="form-control" />
+                <span asp-validation-for="NoOfTents" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalPrice" class="control-label"></label>
+                <input asp-for="TotalPrice" class="form-control" readonly />
+                <span asp-validation-for="TotalPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GlampingType" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="GlampingType" class="form-control" />
+                <span asp-validation-for="GlampingType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="PriceForAdults" class="form-control" type="hidden" />
+                <span asp-validation-for="PriceForAdults" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="PriceForChildren" class="form-control" type="hidden" />
+                <span asp-validation-for="PriceForChildren" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="PriceForTents" class="form-control" type="hidden" value="100" />
+                <span asp-validation-for="PriceForTents" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Status" class="form-control" type="hidden" value="pending" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="CampsiteId" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="LocationId" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Function to update total price based on input changes
+            function updateTotalPrice() {
+                var noOfAdults = parseInt($('#NoOfAdults').val()) || 0;
+                var noOfChildren = parseInt($('#NoOfChildren').val()) || 0;
+                var noOfTents = parseInt($('#NoOfTents').val()) || 0;
+                var priceForAdults = parseFloat($('#PriceForAdults').val()) || 0;
+                var priceForChildren = parseFloat($('#PriceForChildren').val()) || 0;
+                var priceForTents = parseFloat($('#PriceForTents').val()) || 0;
+
+                var totalPrice = (noOfAdults * priceForAdults) + (noOfChildren * priceForChildren) + (noOfTents * priceForTents);
+                $('#TotalPrice').val(totalPrice.toFixed(2));
+            }
+
+            // Event listeners for number inputs and price calculation
+            $('#NoOfAdults, #NoOfChildren, #NoOfTents').on('input', function () {
+                updateTotalPrice();
+            });
+
+            // Initial calculation
+            updateTotalPrice();
+        });
+    </script>
+}

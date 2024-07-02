@@ -17,13 +17,15 @@ namespace Exoticamp.UI.Controllers
         private readonly IBookingRepository _bookingRepository;
         public readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
         public readonly ILocationRepository _locationRepository;
+        public readonly IUsersRepository _usersRepository;
 
-        public BookingController(IBookingRepository bookingRepository, ICampsiteDetailsRepository campsiteDetailsRepository, ILocationRepository locationRepository, IReviewsRepository reviewsRepository)
+        public BookingController(IBookingRepository bookingRepository, ICampsiteDetailsRepository campsiteDetailsRepository, ILocationRepository locationRepository, IReviewsRepository reviewsRepository, IUsersRepository usersRepository)
         {
             _bookingRepository = bookingRepository;
             _campsiteDetailsRepository = campsiteDetailsRepository;
             _locationRepository = locationRepository;
             _reviewsRepository = reviewsRepository;
+            _usersRepository = usersRepository;
         }
         public IActionResult Index()
         {
@@ -98,30 +100,43 @@ namespace Exoticamp.UI.Controllers
 
             return Json(filteredCampsites);
         }
-
         [HttpGet]
         public async Task<ActionResult> UserBooking(string id)
         {
+            var userId = HttpContext.Session.GetString("UserId"); // Assuming UserId is stored in session
+            var userDetails = await _usersRepository.GetUserByIdAsync(userId);
+
+            if (userDetails.data == null)
+            {
+                // Handle the case where user details are not found (e.g., redirect to login)
+                return RedirectToAction("Login", "Account");
+            }
+
             var campsite = await _campsiteDetailsRepository.GetCampsiteById(id);
             var location = await _locationRepository.GetAllLocations();
             var loc = location.FirstOrDefault(x => x.Name == campsite.Data.Location);
             campsite.Data.LocationId = loc.Id;
             ViewBag.Campsite = campsite.Data;
+
             var model = new BookingVM()
             {
                 Campsite = campsite.Data,
                 Location = loc,
-                LocationId=loc.Id,
-                PriceForAdults=campsite.Data.Price,
-                PriceForChildrens=campsite.Data.Price/2,
-              
-
+                LocationId = loc.Id,
+                PriceForAdults = campsite.Data.Price,
+                PriceForChildrens = campsite.Data.Price / 2,
+                CustomerName = userDetails.data.Name, // Set customer name from user details
+                Email = userDetails.data.Email // Set email from user details
             };
+
             return View(model);
         }
+
         [HttpPost]
         public async Task<ActionResult> UserBooking(BookingVM model)
         {
+           
+
             var campsite = await _campsiteDetailsRepository.GetCampsiteById(model.CampsiteId.ToString());
             if (campsite.Data == null)
             {
@@ -133,16 +148,16 @@ namespace Exoticamp.UI.Controllers
                 ModelState.AddModelError("NoOfTents", $"You can only book up to {campsite.Data.NoOfTents} tents.");
                 return View(model);
             }
-        
-                var response = await _bookingRepository.AddBooking(model);
-                if (response.Succeeded)
-                {
-                    return RedirectToAction("GetAllBookings", "Booking");
-                }
-            
-            return View(model);
 
+            var response = await _bookingRepository.AddBooking(model);
+            if (response.Succeeded)
+            {
+                return RedirectToAction("GetAllBookings", "Booking");
+            }
+
+            return View(model);
         }
+
 
         [HttpGet]
         public async Task<ActionResult> Details(string id)

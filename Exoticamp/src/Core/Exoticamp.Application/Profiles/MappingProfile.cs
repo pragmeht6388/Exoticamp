@@ -59,6 +59,9 @@ using Exoticamp.Application.Features.RewiewReply.Query.GetReplyList;
 using Exoticamp.Application.Features.TentType.Query;
 using Exoticamp.Application.Features.Glamping.GetGlamping;
 using Exoticamp.Application.Features.Glamping.GetGlampingList;
+using Exoticamp.Application.Features.CartCampsite.Commands.AddCartCampsite;
+using Exoticamp.Application.Features.CartCampsite.Query.GetCartCampList;
+using Exoticamp.Application.Features.CartCampsite.Queries.GetCartById;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -174,6 +177,11 @@ namespace Exoticamp.Application.Profiles
              
                  CreateMap<Glamping, GlampingDto>().ReverseMap();
             CreateMap<Glamping, GetGlampingListDto>().ReverseMap();
+            CreateMap<CartCamp, CartCampDto>().ReverseMap();
+            CreateMap<CartCamp, AddCartCampsite>().ReverseMap();
+            CreateMap<CartCamp, CartCampVM>().ReverseMap();
+            CreateMap<CartCamp, CampCartIdVM>().ReverseMap();
+
         }
 
 

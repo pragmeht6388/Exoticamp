@@ -13,18 +13,11 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class CategoryController(IMediator _mediator, ILogger<CategoryController> _logger) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger _logger;
+        
 
-        public CategoryController(IMediator mediator, ILogger<CategoryController> logger)
-        {
-            _mediator = mediator;
-            _logger = logger;
-        }
-
-        //[Authorize]
+    
         [HttpGet("all", Name = "GetAllCategories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> GetAllCategories()
@@ -35,7 +28,7 @@ namespace Exoticamp.Api.Controllers.v1
             return Ok(dtos);
         }
 
-        //[Authorize]
+
         [HttpGet("allwithevents", Name = "GetCategoriesWithEvents")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK)]

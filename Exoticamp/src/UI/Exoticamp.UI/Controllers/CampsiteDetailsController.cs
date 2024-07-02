@@ -214,7 +214,6 @@ namespace Exoticamp.UI.Controllers
         {
             var campsiteDetail = await _campsiteRepository.GetAllCampsites();
 
-            // Filter the campsiteDetail to include only the approved campsites
             var approvedCampsites = campsiteDetail.Where(c => c.ApprovedBy != null).ToList();
 
             return PartialView("_ShowCampsiteEndUser", approvedCampsites);
@@ -227,7 +226,7 @@ namespace Exoticamp.UI.Controllers
             ViewBag.CampsiteCorousel = await _campsiteRepository.GetAllCampsites();
             var review = await _reviewsRepository.GetAllReviews();
             var campsiteReview=review.Where(x=>x.CampsiteName==campsiteDetail.Data.Name).ToList();
-            //ViewBag.Reviews = await _reviewsRepository.GetAllReviews();
+            
             ViewBag.Reviews = campsiteReview;
             if (campsiteDetail == null)
             {
