@@ -180,9 +180,8 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> DeleteCampsite(string id)
         {
             var deleteResponse = await _campsiteRepository.DeleteCampsite(id);
-            TempData["SuccessMessage"] = "Campsite deleted successfully!";
 
-            return RedirectToAction("ShowCampsite");
+            return Json(new { success = true, message = "User deleted successfully." });
 
         }
 
@@ -363,9 +362,9 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> DeleteCampsiteAdmin(string id)
         {
             var deleteResponse = await _campsiteRepository.DeleteCampsite(id);
-            TempData["SuccessMessage"] = "Campsite deleted successfully!";
 
-            return RedirectToAction("ShowCampsiteAdmin");
+            return Json(new { success = true, message = "Campsite deleted successfully." });
+
 
         }
 
