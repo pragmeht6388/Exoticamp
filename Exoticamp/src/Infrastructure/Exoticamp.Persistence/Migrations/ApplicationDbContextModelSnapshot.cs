@@ -382,6 +382,76 @@ namespace Exoticamp.Persistence.Migrations
                     b.ToTable("CampsiteDetails");
                 });
 
+            modelBuilder.Entity("Exoticamp.Domain.Entities.CartCamp", b =>
+                {
+                    b.Property<Guid?>("CartId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CampsiteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateOnly>("CheckIn")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("CheckOut")
+                        .HasColumnType("date");
+
+                    b.Property<string>("CustomerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("EventId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GlampingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("GuestDetailsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("LocationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("NoOfAdults")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NoOfChildrens")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NoOfGlamps")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NoOfTents")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CartId");
+
+                    b.HasIndex("CampsiteId");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("GuestDetailsId");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("cartCamps");
+                });
+
             modelBuilder.Entity("Exoticamp.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("CategoryId")
@@ -1107,6 +1177,33 @@ namespace Exoticamp.Persistence.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Tent");
+                });
+
+            modelBuilder.Entity("Exoticamp.Domain.Entities.CartCamp", b =>
+                {
+                    b.HasOne("Exoticamp.Domain.Entities.CampsiteDetails", "Campsite")
+                        .WithMany()
+                        .HasForeignKey("CampsiteId");
+
+                    b.HasOne("Exoticamp.Domain.Entities.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId");
+
+                    b.HasOne("Exoticamp.Domain.Entities.GuestDetails", "GuestDetails")
+                        .WithMany()
+                        .HasForeignKey("GuestDetailsId");
+
+                    b.HasOne("Exoticamp.Domain.Entities.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
+
+                    b.Navigation("Campsite");
+
+                    b.Navigation("Event");
+
+                    b.Navigation("GuestDetails");
+
+                    b.Navigation("Location");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>

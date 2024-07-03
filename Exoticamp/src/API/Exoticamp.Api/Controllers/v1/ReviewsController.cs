@@ -18,24 +18,8 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class ReviewsController : ControllerBase
+    public class ReviewsController(IMediator _mediator, ILogger<ReviewsController> _logger, UserManager<ApplicationUser> _userManager, IReviewRepository _reviewRepository) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger _logger;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IReviewRepository _reviewRepository;
-        // private readonly 
-
-        public ReviewsController(IMediator mediator, ILogger<ReviewsController> logger, UserManager<ApplicationUser> userManager, IReviewRepository reviewRepository)
-
-        {
-            _mediator = mediator;
-            _logger = logger;
-            _userManager = userManager;
-            _reviewRepository = reviewRepository;
-        }
-
-
         [HttpPost(Name = "AddReview")]
         public async Task<ActionResult> Create([FromBody] AddReviewCommand addReviewCommand)
         {

@@ -9,16 +9,9 @@ namespace Exoticamp.Api.Controllers.v1
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GlampingController : ControllerBase
+    public class GlampingController(IMediator _mediator, ILogger<GlampingController> _logger) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger<GlampingController> _logger;
-
-        public GlampingController(IMediator mediator, ILogger<GlampingController> logger)
-        {
-            _mediator = mediator;
-            _logger = logger;
-        }
+       
 
 
         [HttpGet("GetGlampingById")]

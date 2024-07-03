@@ -11,18 +11,12 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "")]
 
-    public class AccountController : ControllerBase
+
+    public class AccountController(IAuthenticationService _authenticationService, RoleConfiguration _roleConfiguration) : ControllerBase
     {
     
-        private readonly IAuthenticationService _authenticationService;
-        private readonly RoleConfiguration  _roleConfiguration;
-        public AccountController(IAuthenticationService authenticationService, RoleConfiguration roleConfiguration)
-        {
-            _authenticationService = authenticationService;
-            _roleConfiguration = roleConfiguration;
-        }
+        
 
         [HttpPost("authenticate")]
         public async Task<ActionResult<AuthenticationResponse>> AuthenticateAsync(AuthenticationRequest request)
@@ -71,7 +65,7 @@ namespace Exoticamp.Api.Controllers.v1
                 return Ok(response);
         }
 
-        //AddRole
+    
         [HttpPost("AddRole")]
         public async Task<IActionResult> AddRole([FromBody] CreateRoleRequest createRole)
         {

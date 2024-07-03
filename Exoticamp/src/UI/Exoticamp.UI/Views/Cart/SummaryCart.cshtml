@@ -1,0 +1,85 @@
+﻿@model Exoticamp.UI.Models.CampCart.CartDetailVM
+
+@{
+    ViewData["Title"] = "Cart Detail";
+}
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+<div class="container mt-4">
+    <div class="card mx-auto" style="max-width: 800px;">
+        <div class="card-header bg-primary text-white text-center">
+            <h2>Cart Detail</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Left Column: Address, Itinerary, Rules -->
+                <div class="col-md-6">
+                    <h3 class="text-primary"><i class="fas fa-map-marker-alt"></i> Campsite Details</h3>
+                    <p><strong>Address:</strong> @Model.Campsite.Location</p>
+                    <p><strong>How To Reach:</strong> @Model.Campsite.HowToGetHere</p>
+                   
+                    <p><strong>Rules:</strong> @Model.Campsite.CampsiteRules</p>
+                </div>
+
+                <!-- Right Column: Campsite Name, Check-In/Check-Out, Price -->
+                <div class="col-md-6">
+                    <h3 class="text-primary"><i class="fas fa-info-circle"></i> Booking Details</h3>
+                    <p><strong>Campsite Name:</strong> @Model.Campsite.Images</p>
+
+                    <p><strong>Campsite Name:</strong> @Model.Campsite.Name</p>
+                    <p><strong>Check-In:</strong> @Model.Cart.CheckIn.ToShortDateString()</p>
+                    <p><strong>Check-Out:</strong> @Model.Cart.CheckOut.ToShortDateString()</p>
+                    <p><strong>Total Price:</strong> @Model.Cart.TotalPrice.ToString("C")</p>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12 text-center">
+                    <button type="button" class="btn btn-success btn-lg">
+                        Confirm Booking
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .card {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border-radius: 12px;
+        margin-top: 20px;
+    }
+
+    .card-header {
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        padding: 1rem 2rem;
+    }
+
+    .card-body {
+        padding: 1.5rem 2rem;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+        transition: background-color 0.3s ease;
+        padding: 0.75rem 1.25rem;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    h3 {
+        margin-bottom: 1rem;
+    }
+
+    p {
+        margin-bottom: 0.5rem;
+    }
+</style>

@@ -10,16 +10,9 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductController(IMediator _mediator, ILogger<ProductController> _logger) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger _logger;
-
-        public ProductController(IMediator mediator, ILogger<ProductController> logger)
-        {
-            _mediator = mediator;
-            _logger = logger;
-        }
+      
 
         [HttpPost(Name = "AddProduct")]
         public async Task<ActionResult> Create([FromBody] AddProductCommand addProductCommand)
@@ -46,8 +39,7 @@ namespace Exoticamp.Api.Controllers.v1
         }
 
         [HttpPut("UpdateProduct", Name = "UpdateProduct")]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+       
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Update([FromBody] UpdateProductCommand updateProductCommand)

@@ -51,7 +51,7 @@ namespace Exoticamp.Persistence
         public DbSet<BlockedDates> BlockedDates { get; set; }
         public DbSet<Glamping> Glamps { get; set; }
 
-
+        public DbSet<CartCamp> cartCamps { get; set; }
 
         private IDbContextTransaction _transaction;
 

@@ -17,20 +17,10 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Vendor")]
-    public class AdminController : ControllerBase
+
+    public class AdminController(IMediator _mediator, ILogger<CategoryController> _logger, IAuthenticationService _authenticationService) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger _logger;
-        private readonly IAuthenticationService _authenticationService;
-
-        public AdminController(IMediator mediator, ILogger<CategoryController> logger, IAuthenticationService authenticationService)
-        {
-            _mediator = mediator;
-            _logger = logger;
-            _authenticationService = authenticationService;
-        }
-
+        
 
         [HttpGet("GetAllUsers")]
          
@@ -61,7 +51,7 @@ namespace Exoticamp.Api.Controllers.v1
 
             return Ok(response.Message);
         }
-        //IsLocked
+
         [HttpPut("IsLockedUsers", Name = "IsLockedUsers")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

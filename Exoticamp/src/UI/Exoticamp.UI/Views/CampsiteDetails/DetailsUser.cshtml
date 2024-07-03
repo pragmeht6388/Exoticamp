@@ -1,6 +1,4 @@
-﻿ 
-
-    @model Exoticamp.UI.Models.CampsiteDetails.CampsiteDetailsVM
+﻿ @model Exoticamp.UI.Models.CampsiteDetails.CampsiteDetailsVM
      @using Exoticamp.UI.Models.CampsiteDetails
 @{
     ViewData["Title"] = "Campsite Details";
@@ -18,7 +16,7 @@
     <div class="text-left">
         <button id="backButton" class="btn btn-secondary">Back</button>
     </div>
-    <a asp-action="UserBooking" asp-controller="Booking" style="margin-left:1100px;background-color:limegreen;position:fixed;margin-top:-40px" class="btn btn-primary" id="bookButton" asp-route-id="@Model?.Id">Book Now</a>
+    <a asp-action="AddCartItem" asp-controller="Cart" style="margin-left:1100px;background-color:limegreen;position:fixed;margin-top:-40px" class="btn btn-primary" id="bookButton" asp-route-id="@Model?.Id">Book Now</a>
 </p>
 
 <div class="campsite-details">
@@ -46,7 +44,7 @@
 
         </p>
         <br />
-        @* <img src="@Model.Images" alt="Campsite Image" class="campsite-image" /> *@
+  
         <div class="container">
             <div class="single-image">
                 <img src="@Model.Images" alt="Campsite Image" class="campsite-image" />
@@ -62,15 +60,15 @@
             <i class="bi bi-person"></i> <strong>2 Pax. per Tent</strong> &nbsp; | &nbsp;
             <i class="bi bi-truck"></i> <strong>Jeep Pickup</strong> &nbsp; | &nbsp;
             <i class="bi bi-clock"></i> <strong>Time</strong> &nbsp; | &nbsp;
-            @*             <i class="bi bi-clock"></i> <strong>11.00 a.m.</strong> &nbsp; | &nbsp;
-            *@            <i class="bi bi-file-earmark-text"></i> <strong>Valid ID Required</strong> &nbsp; | &nbsp;
+            
+                      <i class="bi bi-file-earmark-text"></i> <strong>Valid ID Required</strong> &nbsp; | &nbsp;
             <i class="bi bi-trash"></i> <strong>No Littering</strong>
         </p>
     </div><hr />
 
     <div class="campsite-info">
         <h3 style="text-align:center;">Important Information About Campsite</h3><br />
-         
+
         <div class="content-with-map">
             <p><strong>About Campsite:</strong><br /><br /> @Model.AboutCampsite</p>
             <iframe class="map"

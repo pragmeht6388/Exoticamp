@@ -15,16 +15,9 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class BannerController : ControllerBase
+    public class BannerController(IMediator _mediator, ILogger<BannerController> _logger) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger<BannerController> _logger;
-
-        public BannerController(IMediator mediator, ILogger<BannerController> logger)
-        {
-            _mediator = mediator;
-            _logger = logger;
-        }
+        
 
         [HttpPost(Name = "AddBanner")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -63,31 +56,23 @@ namespace Exoticamp.Api.Controllers.v1
             return Ok(dtos);
         }
 
-        //[HttpPut("UpdateBanner", Name = "UpdateBanner")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesDefaultResponseType]
-        //public async Task<ActionResult> Update( [FromBody] UpdateBannerCommand updateBannerCommand)
-        //{
-        //    var response = await _mediator.Send(updateBannerCommand);
-        //    return Ok(response);
-        //}
+
 
         [HttpPut("UpdateBanner", Name = "UpdateBanner")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)] // Add NotFound response
+        [ProducesResponseType(StatusCodes.Status404NotFound)] 
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Update([FromBody] UpdateBannerCommand updateBannerCommand)
         {
-            // Send the command through mediator
+       
             var response = await _mediator.Send(updateBannerCommand);
 
-            // Check if the response is null, indicating the banner was not found
+    
             if (response == null)
             {
-                return NotFound(); // Return NotFound response
+                return NotFound(); 
             }
 
-            // Return the response
             return Ok(response);
         }
 

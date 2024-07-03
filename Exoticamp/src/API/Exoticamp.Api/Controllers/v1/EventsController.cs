@@ -17,14 +17,9 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiController]
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class EventsController : Controller
+    public class EventsController(IMediator _mediator) : Controller
     {
-        private readonly IMediator _mediator;
-
-        public EventsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        
 
         [HttpGet]
         public async Task<ActionResult> GetAllEvents()
@@ -60,7 +55,7 @@ namespace Exoticamp.Api.Controllers.v1
         }
 
         [HttpPut(Name = "UpdateEvent")]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+  
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Update([FromBody] UpdateEventCommand updateEventCommand)

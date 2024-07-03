@@ -13,14 +13,9 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiController]
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class BookingController : ControllerBase
+    public class BookingController(IMediator _mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public BookingController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+       
         [HttpGet]
         public async Task<ActionResult> GetAllBookings()
         {
@@ -48,7 +43,7 @@ namespace Exoticamp.Api.Controllers.v1
 
 
         [HttpPut(Name = "UpdateBooking")]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Update([FromBody] UpdateBookingCommand updateEventCommand)

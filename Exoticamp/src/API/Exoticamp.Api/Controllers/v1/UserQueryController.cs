@@ -18,14 +18,9 @@ namespace Exoticamp.Api.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [Authorize(Roles = "User")]
-    public class UserQueryController : ControllerBase
+    public class UserQueryController(IMediator _mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public UserQueryController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        
 
         [HttpGet("all")]
         [ProducesResponseType(StatusCodes.Status200OK)]

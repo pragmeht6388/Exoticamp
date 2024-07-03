@@ -11,16 +11,8 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController(IMediator _mediator, ILogger<CategoryController> _logger) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger _logger;
-
-        public UserController(IMediator mediator, ILogger<CategoryController> logger)
-        {
-            _mediator = mediator;
-            _logger = logger;
-        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetUser(string id)
@@ -30,7 +22,7 @@ namespace Exoticamp.Api.Controllers.v1
         }
 
         [HttpPut("edit-profile")]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+       
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Update([FromBody] UpdateUserProfileCommand model)
