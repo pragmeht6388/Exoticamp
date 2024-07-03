@@ -10,15 +10,9 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class LocationController : ControllerBase
+    public class LocationController(IMediator _mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public LocationController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
+        
         [HttpGet("all")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> GetAll()

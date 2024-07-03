@@ -10,16 +10,8 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class TentController : ControllerBase
+    public class TentController(IMediator _mediator, ILogger<TentController> _logger) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger _logger;
-
-        public TentController(IMediator mediator, ILogger<TentController> logger)
-        {
-            _mediator = mediator;
-            _logger = logger;
-        }
 
        
 

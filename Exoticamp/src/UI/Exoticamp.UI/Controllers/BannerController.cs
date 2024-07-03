@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static Microsoft.VisualStudio.Services.Graph.GraphResourceIds;
 
 namespace Exoticamp.UI.Controllers
 {
@@ -102,9 +103,15 @@ namespace Exoticamp.UI.Controllers
         {
             var deleteResponse = await _bannerRepository.DeleteBanner(id);
 
-            
+            if (deleteResponse != null)
+            {
                 return Json(new { success = true, message = "Banner deleted successfully." });
-            
+            }
+            else
+            {
+                return Json(new { success = false, message = "Error deleting user." });
+            }
+
         }
 
         public async Task<IActionResult> ViewBanner(string id)

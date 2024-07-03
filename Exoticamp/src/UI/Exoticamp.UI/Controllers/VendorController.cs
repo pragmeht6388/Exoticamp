@@ -62,13 +62,13 @@ namespace Exoticamp.UI.Controllers
             var reviewList = await _reviewsRepository.GetAllReviews();
             var loggedInVendor = HttpContext.Session.GetString("VendorId");
 
-            // Ensure vendorId is not null or empty
+       
             if (string.IsNullOrEmpty(loggedInVendor))
             {
                 return RedirectToAction("Login", "Account");
             }
 
-            // Filter campsites by the logged in vendor
+     
             var vendorCampsites = campsiteList.Where(c => c.CreatedBy == loggedInVendor).ToList();
 
             // Filter bookings by the vendor's campsites

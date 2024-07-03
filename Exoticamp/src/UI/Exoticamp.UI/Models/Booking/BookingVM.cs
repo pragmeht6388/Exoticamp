@@ -16,6 +16,9 @@ namespace Exoticamp.UI.Models.Booking
         [Required(ErrorMessage = "Email is required."),]
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string Email { get; set; }
+
+        public string TestDate { get; set; }
+
         [Required(ErrorMessage = "Please select the date")]
         [DataType(DataType.Date)]
         [CustomValidation(typeof(BookingVM), nameof(ValidateStartDate))]

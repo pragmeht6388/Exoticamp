@@ -26,25 +26,9 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController] 
-    public class CampsiteDetailsController : ControllerBase
+    public class CampsiteDetailsController(IMediator _mediator, ILogger<CampsiteDetailsController> _logger, UserManager<ApplicationUser> _userManager, ILoactionRepository _loactionRepository, ILoggedInUserService _loggedInUserService) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger _logger;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ILoactionRepository _loactionRepository;
-        // private readonly 
-        private readonly ILoggedInUserService _loggedInUserService;
 
-
-        public CampsiteDetailsController(IMediator mediator, ILogger<CampsiteDetailsController> logger, UserManager<ApplicationUser> userManager, ILoactionRepository loactionRepository, ILoggedInUserService loggedInUserService)
-
-        {
-            _mediator = mediator;
-            _logger = logger;
-            _userManager = userManager;
-            _loactionRepository = loactionRepository;
-            _loggedInUserService = loggedInUserService;
-        }
 
         [HttpPost(Name = "AddCampsiteDetails")]
         public async Task<ActionResult> Create([FromBody] AddCampsiteDetailsCommand addCampsiteCommand)

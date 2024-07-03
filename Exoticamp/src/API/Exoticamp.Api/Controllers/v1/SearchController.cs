@@ -9,14 +9,9 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
 
-    public class SearchController : ControllerBase
+    public class SearchController(IMediator _mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public SearchController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+       
 
         [HttpGet(Name = "Search")]
         [ProducesResponseType(StatusCodes.Status200OK)]

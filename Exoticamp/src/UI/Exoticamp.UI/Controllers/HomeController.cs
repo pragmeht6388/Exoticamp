@@ -24,13 +24,12 @@ namespace Exoticamp.UI.Controllers
             
 
             ViewBag.Banners = (await _bannersRepository.GetAllBanners()).Where(c=>c.IsActive==true).ToList();
-           // var activeBanners = ViewBag.Banners.Where(b => ).ToList();
+
 
             ViewBag.CampsiteDetails = await _campsiteDetailsRepository.GetAllCampsites();
             
             if(locationId is not null)
-                //ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetAllCampsites()).Where(c => c.ApprovedBy != null && c.Location == locationNameUser.Name).ToList();
-                //ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetCampsiteLocationId(locationId)).Where(c => c.ApprovedBy != null && c.Location == locationNameUser.Name).ToList();
+
                  ViewBag.CampsiteDetails = (await _campsiteDetailsRepository.GetCampsiteLocationId(locationId)).ToList();
 
 

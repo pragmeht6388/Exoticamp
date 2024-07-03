@@ -10,15 +10,11 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class ChatbotController : ControllerBase
+    public class ChatbotController(IMediator _mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public ChatbotController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+       
 
-        //[Authorize]
+   
         [HttpGet("all")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> GetAllChatbotResponses(int id = 0)

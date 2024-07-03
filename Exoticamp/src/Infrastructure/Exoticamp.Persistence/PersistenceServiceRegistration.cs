@@ -30,7 +30,8 @@ namespace Exoticamp.Persistence
             services.AddScoped<IReviewReplyRepository, ReviewReplyRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<ITentRepository, TentRepository>();
-//services.AddScoped<ITentAvailabilityRepository, TentRepository>();
+            services.AddScoped<ICartCampRepository, CartCampRepository>();
+            //services.AddScoped<ITentAvailabilityRepository, TentRepository>();
             return services;
         }
     }

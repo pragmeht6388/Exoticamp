@@ -25,55 +25,44 @@
             display: none;
         }
 
-        .d-block {
-            display: block;
-        }
-        #form{
-            align-content:center;
-        }
+<h1>Booking for @Model.Campsite.Name</h1>
 
-        .form-control {
-            width:500px;
-        }
+<h4>BookingVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UserBooking">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
 
-        #CheckIn, #CheckOut{
-            width:500px;
-        }
-        .img-dimensions {
-            width: 150px;
-            height: 150px;
-        }
-    </style>
-</head>
-<body>
-    <form asp-action="UserBooking" id="form">
-        <fieldset>
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        @* <label asp-for="BookingId" class="control-label"></label> *@
-        <input asp-for="BookingId" class="form-control" type="hidden" />
-        @* <span asp-validation-for="BookingId" class="text-danger"></span> *@
-    </div>
-    <div class="form-group">
-        <label asp-for="CustomerName" class="control-label"></label> <span class="text-danger">*</span>
-        <input asp-for="CustomerName" class="form-control" />
-        <span asp-validation-for="CustomerName" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Email" class="control-label"></label> <span class="text-danger">*</span>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="CheckIn" class="control-label"></label> <span class="text-danger">*</span>
-        <input asp-for="CheckIn" class="form-control" type="text" id="CheckIn" />
-        <span asp-validation-for="CheckIn" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="CheckOut" class="control-label"></label> <span class="text-danger">*</span>
-        <input asp-for="CheckOut" class="form-control" type="text" id="CheckOut" />
-        <span asp-validation-for="CheckOut" class="text-danger"></span>
-    </div>
+                <input asp-for="BookingId" class="form-control" type="hidden" />
+
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerName" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="CustomerName" class="form-control" value="@Model.CustomerName" />
+                <span asp-validation-for="CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="Email" class="form-control" value="@Model.Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            @* <div class="form-group">
+                <label asp-for="TestDate" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="TestDate" class="form-control form-control-date Checkindatepicker" id="Checkindatepicker" />
+                <span asp-validation-for="TestDate" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="CheckIn" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="CheckIn" class="form-control" type="text" id="CheckIn" />
+                <span asp-validation-for="CheckIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckOut" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="CheckOut" class="form-control datepicker" />
+                <span asp-validation-for="CheckOut" class="text-danger"></span>
+            </div>
 
     <div class="form-group">
         <label asp-for="NoOfAdults" class="control-label"></label> <span class="text-danger">*</span>
@@ -140,25 +129,29 @@
         <span asp-validation-for="PriceForTents" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <input asp-for="Status" class="form-control" type="hidden" value="pending" />
-        <span asp-validation-for="Status" class="text-danger"></span>
+            <div class="form-group">
+                <input asp-for="Status" class="form-control" type="hidden" value="pending" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="CampsiteId" class="form-control" type="hidden" value="@Model.Campsite.Id" id="CampsiteId" />
+            </div>
+            <div class="form-group">
+                @* <label asp-for="LocationId" class="control-label"></label> *@
+                <input asp-for="LocationId" class="form-control" type="hidden" value="@Model.LocationId" />
+                @* <span asp-validation-for="LocationId" class="text-danger"></span> *@
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <input asp-for="CampsiteId" class="form-control" type="hidden" value="@Model.Campsite.Id" id="CampsiteId" />
-    </div>
-    <div class="form-group">
-        @* <label asp-for="LocationId" class="control-label"></label> *@
-        <input asp-for="LocationId" class="form-control" type="hidden" value="@Model.LocationId" />
-        @* <span asp-validation-for="LocationId" class="text-danger"></span> *@
-    </div>
-   
-    <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
-    </div>
-        </fieldset>
-      </form>
-      @section Scripts {
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@* @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
@@ -302,14 +295,112 @@
                     }
                 });
 
-                // Initial calculation
-                updateTotalPrice();
-            });
-        </script>
+            // Initial calculation
+            updateTotalPrice();
+        });
 
+        $(document).ready(function () {
+            var bookedRanges = [];
 
 }
 
 
-</body>
-</html>
+                var minDateStr = now.toISOString().slice(0, 16);
+                var maxDateStr = maxDate.toISOString().slice(0, 16);
+
+                $('#CheckIn').attr('min', minDateStr);
+                $('#CheckIn').attr('max', maxDateStr);
+                $('#CheckOut').attr('min', minDateStr);
+                $('#CheckOut').attr('max', maxDateStr);
+
+                // Set current date and time as default value
+                $('#CheckIn').val(minDateStr);
+                $('#CheckOut').val(minDateStr);
+            }
+
+            function disableBookedRanges() {
+                bookedRanges.forEach(function (range) {
+                    var checkIn = new Date(range.CheckIn);
+                    var checkOut = new Date(range.CheckOut);
+
+                    for (var d = new Date(checkIn); d <= checkOut; d.setDate(d.getDate() + 1)) {
+                        var dateStr = d.toISOString().slice(0, 16);
+                        $('<option>', {
+                            value: dateStr,
+                            text: dateStr,
+                            disabled: true
+                        }).appendTo('#CheckIn, #CheckOut');
+                    }
+                });
+            }
+
+            $('#CheckIn').on('change', function () {
+                var checkInDate = new Date($(this).val());
+                var now = new Date();
+
+                if (checkInDate <= now) {
+                    alert("Check-in date must be greater than the current date.");
+                    $(this).val('');
+                } else {
+                    $('#CheckOut').attr('min', $(this).val());
+                }
+            });
+
+            $('#CheckOut').on('change', function () {
+                var checkInDate = new Date($('#CheckIn').val());
+                var checkOutDate = new Date($(this).val());
+
+                if (checkOutDate <= checkInDate) {
+                    alert("Check-out date must be greater than the check-in date.");
+                    $(this).val('');
+                }
+            });
+
+            // Fetch booked date ranges from the MVC controller
+            var campsiteId = $('#CampsiteId').val();
+            $.ajax({
+                url: '@Url.Action("GetBookedDates", "Booking")',
+                method: 'GET',
+                data: { campsiteId: campsiteId },
+                success: function (data) {
+                    bookedRanges = data.map(function (booking) {
+                        return {
+                            CheckIn: new Date(booking.checkIn).toISOString().slice(0, 16),
+                            CheckOut: new Date(booking.checkOut).toISOString().slice(0, 16)
+                        };
+                    });
+                    disableBookedRanges();
+                },
+                error: function () {
+                    alert("Failed to fetch booked dates from the server.");
+                }
+            });
+
+            // Initialize date constraints and set default values
+            updateMinMaxDates();
+        });
+
+    </script>
+    } *@
+
+<script>
+    $(document).ready(function () {
+        var unavailableDates = ["26-6-2018", "14-3-2018", "15-3-2018", "20-03-2015"];
+
+        function unavailable(date) {
+            var dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+            if ($.inArray(dmy, unavailableDates) == -1) {
+                return [true, ""];
+            } else {
+                return [false, "unavailable-date", "Unavailable"];
+            }
+        }
+
+        $("#CheckIn").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd",
+            beforeShowDay: unavailable
+        });
+    });
+</script>

@@ -11,16 +11,9 @@ namespace Exoticamp.Api.Controllers.v1
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class ContactUsController : ControllerBase
+    public class ContactUsController(IMediator _mediator, ILogger<ContactUsController> _logger) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly ILogger _logger;
-
-        public ContactUsController(IMediator mediator, ILogger<ContactUsController> logger)
-        {
-            _mediator = mediator;
-            _logger = logger;
-        }
+       
 
         [HttpPost(Name = "AddContactUs")]
         public async Task<ActionResult> Create([FromBody] AddContactUsCommand addContactUsCommand)
