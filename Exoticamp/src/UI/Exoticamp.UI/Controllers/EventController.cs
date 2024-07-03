@@ -1,4 +1,5 @@
 ﻿using Exoticamp.Domain.Entities;
+using Exoticamp.UI.AuthFilter;
 using Exoticamp.UI.Models;
 using Exoticamp.UI.Models.Events;
 using Exoticamp.UI.Services.IRepositories;
@@ -28,12 +29,15 @@ namespace Exoticamp.UI.Controllers
             return View();
         }
 
-
+        [AdminAuthFilter]
+        [NoCache]
         public async Task<IActionResult> GetAllEvents()
         {
             var events=await _eventRepository.GetAllEvents();
             return View(events);
         }
+        [AdminAuthFilter]
+        [NoCache]
         [HttpGet]
         public async Task<IActionResult> AddEvent()
         {
@@ -53,6 +57,8 @@ namespace Exoticamp.UI.Controllers
 
             return View(model); 
         }
+        [AdminAuthFilter]
+        [NoCache]
         [HttpPost]
         public async Task<ActionResult> AddEvent(EventVM model)
         {
@@ -123,6 +129,8 @@ namespace Exoticamp.UI.Controllers
 
             return View(model);
         }
+        [AdminAuthFilter]
+        [NoCache]
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
@@ -176,6 +184,8 @@ namespace Exoticamp.UI.Controllers
 
             return View(model);
         }
+        [AdminAuthFilter]
+        [NoCache]
         [HttpPost]
         public async Task<IActionResult> Edit(EventVM model)
         {
@@ -263,7 +273,10 @@ namespace Exoticamp.UI.Controllers
 
 
         }
-    [HttpGet]
+
+        [AdminAuthFilter]
+        [NoCache]
+        [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             var eventObj = await _eventRepository.GetEventById(id);
@@ -353,7 +366,8 @@ namespace Exoticamp.UI.Controllers
             return View(model);
         }
 
-
+        [AdminAuthFilter]
+        [NoCache]
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {

@@ -1,64 +1,82 @@
-﻿@{
-    ViewData["Title"] = "Availibility";
-    Layout = "~/Views/Shared/_VendorLayout.cshtml";
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Request</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
+    <title>Toggle Example</title>
+    <!-- Include Bootstrap CSS if not already included -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <head>
+        <!-- Include jQuery UI CSS -->
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+        <!-- Include jQuery library -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+        <!-- Include jQuery UI library -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </head>
+
     <style>
-        .container {
-            margin-top: 50px;
+        .d-none {
+            display: none;
+        }
+
+        .d-block {
+            display: block;
+        }
+
+        .img-dimensions {
+            width: 150px;
+            height: 150px;
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <h2 class="mb-4">Booking Request</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <form>
-                    <div class="form-group">
-                        <label for="date">Date:</label>
-                        <input type="date" class="form-control" id="date" value="2024-06-30">
-                    </div>
-                    <div class="form-group">
-                        <label for="start-time">Start Time:</label>
-                        <input type="time" class="form-control" id="start-time" value="09:00">
-                    </div>
-                    <div class="form-group">
-                        <label for="end-time">End Time:</label>
-                        <input type="time" class="form-control" id="end-time" value="10:00">
-                    </div>
-                    <div class="form-group">
-                        <label for="customer-name">Customer Name:</label>
-                        <input type="text" class="form-control" id="customer-name" value="John Doe">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit Request</button>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <!-- Display booked appointments here -->
-                <h4>Recent Booking Requests</h4>
-                <ul class="list-group">
-                    <!-- Dummy data -->
-                    <li class="list-group-item">Date: 2024-06-30 | Start Time: 09:00 | End Time: 10:00 | Customer: John Doe</li>
-                    <li class="list-group-item">Date: 2024-07-01 | Start Time: 10:00 | End Time: 11:00 | Customer: Jane Smith</li>
-                </ul>
-            </div>
-        </div>
+   @*  <nav>
+        <ul>
+            <li><a asp-controller="Booking" asp-action="MyBookings">My Bookings</a></li>
+            <li><a asp-controller="Booking" asp-action="UpcomingBookings">Upcoming Bookings</a></li>
+            <li><a asp-controller="Booking" asp-action="PastBookings">Past Bookings</a></li>
+        </ul>
+    </nav> *@
+    <div class="form-group">
+        @* <label asp-for="CheckIn" class="control-label"></label> <span class="text-danger">*</span> *@
+        <input @* asp-for="CheckIn" *@ class="form-control" type="text" id="CheckIn" />
+        @* <span asp-validation-for="CheckIn" class="text-danger"></span> *@
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var unavailableDates = ["9-6-2024", "14-6-2024", "15-6-2024", "20-06-2024"];
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            function unavailable(date) {
+                var dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+                if ($.inArray(dmy, unavailableDates) == -1) {
+                    return [true, ""];
+                } else {
+                    return [false, "unavailable-date", "Unavailable"];
+                }
+            }
+
+            $("#CheckIn").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "yy-mm-dd",
+                beforeShowDay: unavailable
+            });
+        });
+    </script>
+
+    <!-- Custom CSS to mark unavailable dates in red -->
+    <style>
+        .unavailable-date a {
+            background-color: red !important;
+            background-image: none !important;
+            color: white !important;
+        }
+    </style>
 
 </body>
 </html>

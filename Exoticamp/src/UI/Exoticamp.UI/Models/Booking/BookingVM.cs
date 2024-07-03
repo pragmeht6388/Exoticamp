@@ -53,7 +53,7 @@ namespace Exoticamp.UI.Models.Booking
         public SelectList? LocationsList { get; set; }
         public SelectList? CampsitesList { get; set; }
 
-
+    
 
 
 
@@ -92,7 +92,7 @@ namespace Exoticamp.UI.Models.Booking
             public List<CampsiteDetailsVM> Campsites { get; set; }
         public List<BookingVM> UpcomingBookings { get; set; }
         public List<BookingVM> PastBookings { get; set; }
-
+    
 
     }
 }

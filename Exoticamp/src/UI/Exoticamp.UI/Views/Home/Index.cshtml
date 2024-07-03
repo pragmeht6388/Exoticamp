@@ -355,6 +355,16 @@
             <div class="card card-body">
                 Content for Waterfront
                 <div class="abc-container">
+                    
+
+
+
+
+
+
+
+
+
                     <div class="abc-content">
                         <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
                         <h5 class="mt-3">Dummy Name</h5>
@@ -379,11 +389,74 @@
             <div class="card card-body">
                 Content for Mountain
                 <div class="abc-container">
-                    <div class="abc-content">
+                    @{
+                        if (campsiteDetailsVMs != null)
+                        {
+                            int ct = 0;
+                          
+                            @foreach (var item in campsiteDetailsVMs)
+                            {
+                                // if (location != null)
+                                // {
+                                    if (item.CategoryId.ToString() == "C829DD75-0F3A-4A58-19E7-08DC8A147E28".ToLower())
+                                    {
+                                        <div class="abc-content">
+                                            <img src="@item.Images" alt="@item.Name" class="img-thumbnail img-dimensions">
+                                            <h5 class="mt-3">@item.Name</h5>
+                                            <a class="btn btn-info mt-2" asp-action="DetailsUser" asp-controller="Event" asp-route-id="@item.Id">View</a>
+                                        </div>
+                                        if (ct++ == 6)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                // }
+                                // else
+                                // {
+                                //     <div class="abc-content">
+                                //         <img src="@item.Images" alt="@item.Name" class="img-thumbnail img-dimensions">
+                                //         <h5 class="mt-3">@item.Name</h5>
+                                //         <a class="btn btn-info mt-2" asp-action="DetailsUser" asp-controller="Event" asp-route-id="@item.Id">View</a>
+                                //     </div>
+                                //     if (ct++ == 6)
+                                //     {
+                                //         break;
+                                //     }
+
+                                // }
+
+                            }
+                            <div class=" view-all-content">
+                                <div class="view-all-circle">
+                                    <a asp-action="GetAllEventsUser" asp-controller="Event" class="view-all-link"><u>View All</u></a>
+                                </div>
+                            </div>
+
+                        }
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  @*   <div class="abc-content">
                         <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
                         <h5 class="mt-3">Dummy Name</h5>
                         <button class="btn btn-info mt-2">View</button>
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>
@@ -403,11 +476,76 @@
             <div class="card card-body">
                 Content for Desert
                 <div class="abc-container">
-                    <div class="abc-content">
+                    @{
+                        if (campsiteDetailsVMs != null)
+                        {
+                            int ct = 0;
+                            var location = HttpContextAccessor.HttpContext.Session.GetString("LocationId");
+                            @foreach (var item in campsiteDetailsVMs)
+                            {
+                                // if (location != null)
+                                // {
+                                    if (item.CategoryId.ToString() == "C8FE1803-B9C0-4355-19E8-08DC8A147E28".ToLower())
+                                    {
+                                        <div class="abc-content">
+                                            <img src="@item.Images" alt="@item.Name" class="img-thumbnail img-dimensions">
+                                            <h5 class="mt-3">@item.Name</h5>
+                                            <a class="btn btn-info mt-2" asp-action="DetailsUser" asp-controller="Event" asp-route-id="@item.Id">View</a>
+                                        </div>
+                                        if (ct++ == 6)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                // }
+                                // else
+                                // {
+                                //     <div class="abc-content">
+                                //         <img src="@item.Images" alt="@item.Name" class="img-thumbnail img-dimensions">
+                                //         <h5 class="mt-3">@item.Name</h5>
+                                //         <a class="btn btn-info mt-2" asp-action="DetailsUser" asp-controller="Event" asp-route-id="@item.Id">View</a>
+                                //     </div>
+                                //     if (ct++ == 6)
+                                //     {
+                                //         break;
+                                //     }
+
+                                // }
+
+                            }
+                            <div class=" view-all-content">
+                                <div class="view-all-circle">
+                                    <a asp-action="GetAllEventsUser" asp-controller="Event" class="view-all-link"><u>View All</u></a>
+                                </div>
+                            </div>
+
+                        }
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                @*     <div class="abc-content">
                         <img src="https://via.placeholder.com/150" alt="Dummy Image" class="img-thumbnail img-dimensions">
                         <h5 class="mt-3">Dummy Name</h5>
                         <button class="btn btn-info mt-2">View</button>
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 ﻿using Exoticamp.Domain.Entities;
 using Exoticamp.UI.Models;
 using Exoticamp.UI.Models.Booking;
-using Exoticamp.UI.Models.Booking;
+
 using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -114,9 +114,12 @@ namespace Exoticamp.UI.Controllers
                 LocationId=loc.Id,
                 PriceForAdults=campsite.Data.Price,
                 PriceForChildrens=campsite.Data.Price/2,
-              
+                
 
             };
+        
+
+
             return View(model);
         }
         [HttpPost]
@@ -233,14 +236,16 @@ namespace Exoticamp.UI.Controllers
         public async Task<JsonResult> GetBookedDates(string campsiteId)
         {
             var bookedDates = await _bookingRepository.GetAllBookings();
-            var bookedList=bookedDates.Where(b => b.CampsiteId == new Guid(campsiteId)) // Adjust according to your model
-                                      .Select(b => new {
-                                          CheckIn = b.CheckIn,
-                                          CheckOut = b.CheckOut
-                                      })
-                                      .ToList();
+            var bookedList = bookedDates.Where(b => b.CampsiteId == new Guid(campsiteId)) // Adjust according to your model
+                                        .Select(b => new {
+                                            CheckIn = b.CheckIn.ToString("yyyy-MM-dd"), // Ensure the format is correct
+                                            CheckOut = b.CheckOut.ToString("yyyy-MM-dd")
+                                        })
+                                        .ToList();
             return Json(bookedList);
         }
+
+
 
     }
 }
