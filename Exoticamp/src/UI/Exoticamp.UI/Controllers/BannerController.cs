@@ -11,16 +11,9 @@ namespace Exoticamp.UI.Controllers
 {
     [AdminAuthFilter]
     [NoCache]
-    public class BannerController : Controller
+    public class BannerController(IBannerRepository _bannerRepository, ILocationRepository _locationRepository) : Controller
     {
-        private readonly IBannerRepository _bannerRepository; 
-        private readonly ILocationRepository _locationRepository;
-
-        public BannerController(IBannerRepository bannerRepository,ILocationRepository locationRepository)
-        {
-            _bannerRepository = bannerRepository;
-            _locationRepository = locationRepository;
-        }
+         
 
         public async Task<IActionResult> AllBanners()
         {
@@ -104,13 +97,16 @@ namespace Exoticamp.UI.Controllers
             return RedirectToAction("AllBanners");
 
         }
+         
         public async Task<IActionResult> DeleteBanner(string id)
         {
             var deleteResponse = await _bannerRepository.DeleteBanner(id);
 
-                return RedirectToAction("AllBanners");
-      
+            
+                return Json(new { success = true, message = "Banner deleted successfully." });
+            
         }
+
         public async Task<IActionResult> ViewBanner(string id)
         {
             // Fetch the banner details from your data source based on the id

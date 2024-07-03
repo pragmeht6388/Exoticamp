@@ -3,15 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Exoticamp.UI.Controllers
 {
-    public class GlampingController : Controller
+    public class GlampingController(IGlampingRepository _glampingRepository) : Controller
     {
-        private readonly IGlampingRepository _glampingRepository;
-
-        public GlampingController(IGlampingRepository glampingRepository)
-        {
-            _glampingRepository = glampingRepository;
-            
-        }
+         
         public IActionResult Index()
         {
             return View();
@@ -31,6 +25,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> GetGlampingById(string id)
         {
             var glamping = await _glampingRepository.GetGlampingByIdAsync(  id);
+            
             return View(glamping);
         }
 

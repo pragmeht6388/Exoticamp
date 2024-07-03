@@ -13,17 +13,8 @@ namespace Exoticamp.UI.Controllers
 {
     [OutputCache(NoStore = true, Duration = 0)]
     [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-    public class AccountController : Controller
-    {
-        private readonly IRegistrationRepository _registrationRepository;
-        private readonly ILoginRepository _loginRepository;
-        private readonly ILocationRepository _locationRepository;
-        public AccountController(IRegistrationRepository registrationRepository, ILoginRepository loginRepository, ILocationRepository locationRepository)
-        {
-            _registrationRepository = registrationRepository;
-            _loginRepository = loginRepository;
-            _locationRepository = locationRepository;
-        }
+    public class AccountController(IRegistrationRepository _registrationRepository, ILoginRepository _loginRepository, ILocationRepository _locationRepository) : Controller
+    { 
                         
 
         [HttpGet]

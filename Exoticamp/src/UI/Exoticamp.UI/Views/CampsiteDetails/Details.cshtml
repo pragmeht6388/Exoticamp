@@ -1,104 +1,4 @@
-﻿@* @model Exoticamp.UI.Models.CampsiteDetails.CampsiteDetailsVM
-
-@{
-    ViewData["Title"] = "Campsite Details";
-    Layout = "~/Views/Shared/_VendorLayout.cshtml";
-}
-
-<h1 style="text-align:center">Campsite Details</h1>
-<p>
-    <a asp-action="ShowCampsite" class="btn btn-primary">Back to List</a>
-</p>
-<div class="campsite-details">
-    <div class="campsite-header">
-        <h2>@Model.Name</h2>
-        <p><strong>Location:</strong> @Model.Location</p>
-        <p><strong>Status:</strong> @(Model.Status ? "Active" : "Inactive")</p>
-        <p><strong>Tent Type:</strong> @Model.TentType</p>
-        <img src="@Model.Images" alt="Campsite Image" style="width:300px;height:300px;" />
-        <p><strong>Date:</strong> @Model.DateTime</p>
-    </div>
-
-    <div class="campsite-info">
-        <p><strong>Highlights:</strong> @Model.Highlights</p>
-        <p><strong>Ratings:</strong> @Model.Ratings</p>
-        <p><strong>About Campsite:</strong> @Model.AboutCampsite</p>
-        <p><strong>Campsite Rules:</strong> @Model.CampsiteRules</p>
-        <p><strong>Best Time to Visit:</strong> @Model.BestTimeToVisit</p>
-        <p><strong>How to Get Here:</strong> @Model.HowToGetHere</p>
-        <p><strong>Quick Summary:</strong> @Model.QuickSummary</p>
-        <p><strong>Meal Plans:</strong> @Model.MealPlans</p>
-        <p><strong>Itinerary:</strong> @Model.Itinerary</p>
-        <p><strong>Inclusions:</strong> @Model.Inclusions</p>
-        <p><strong>Exclusion:</strong> @Model.Exclusion</p>
-        <p><strong>Amenities:</strong> @Model.Amenities</p>
-        <p><strong>Accommodation:</strong> @Model.Accommodation</p>
-        <p><strong>Safety:</strong> @Model.Safety</p>
-        <p><strong>Distance With Map:</strong> @Model.DistanceWithMap</p>
-        <p><strong>Why Exoticamp:</strong> @Model.WhyExoticamp</p>
-        <p><strong>FAQs:</strong> @Model.FAQs</p>
-        <p><strong>House Rules:</strong> @Model.HouseRules</p>
-        <p><strong>Cancellation Policy:</strong> @Model.CancellationPolicy</p>
-    </div>
-</div>
-
-
-
-<style>
-    .campsite-details {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .campsite-header, .campsite-info {
-        margin-bottom: 20px;
-    }
-
-        .campsite-header h2 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .campsite-header p {
-            margin: 5px 0;
-            font-size: 1.1em;
-        }
-
-    .campsite-image {
-        width: 100%;
-        height: auto;
-        margin: 20px 0;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .campsite-info p {
-        margin: 10px 0;
-        font-size: 1em;
-    }
-
-    .btn {
-        margin-left: 900px;
-        padding: 10px 20px;
-        text-decoration: none;
-        border-radius: 5px;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        color: white;
-        border: none;
-    }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-</style>
- *@
+﻿ 
 
      @model Exoticamp.UI.Models.CampsiteDetails.CampsiteDetailsVM
      @using Exoticamp.UI.Models.CampsiteDetails
@@ -115,7 +15,7 @@
 <h1 style="text-align:center;color:black">Campsite Details</h1>
 <p>
     <a asp-action="ShowCampsite" class="btn btn-primary">Back to List</a>
-    @* <a asp-action="ShowCampsite" style="margin-left:820px;background-color:limegreen;position:fixed" class="btn btn-primary">Book Now</a> *@
+     
 </p>
 
 <div class="campsite-details">
@@ -143,7 +43,7 @@
 
         </p>
         <br />
-        @* <img src="@Model.Images" alt="Campsite Image" class="campsite-image" /> *@
+       
         <div class="container">
             <div class="single-image">
                 <img src="@Model.Images" alt="Campsite Image" class="campsite-image" />
@@ -167,35 +67,7 @@
 
     <div class="campsite-info">
         <h3 style="text-align:center;">Important Information About Campsite</h3><br />
-        @* <p>@Model.AboutCampsite</p>
-
-        <h3 style="text-align:center;">Amenities</h3>
-        <p>@Model.Amenities <i class="bi bi-wifi" style="font-size: 1.5rem;"></i> <i class="bi bi-water" style="font-size: 1.5rem;"></i> <i class="bi bi-lightbulb" style="font-size: 1.5rem;"></i></p>
-
-        <h3 style="text-align:center;">Safety</h3>
-        <p>@Model.Safety <i class="bi bi-shield" style="font-size: 1.5rem;"></i> <i class="bi bi-exclamation-triangle" style="font-size: 1.5rem;"></i></p>
-
-        <h3 style="text-align:center;">Itinerary</h3>
-        <p>@Model.Itinerary</p>
-
-        <h3 style="text-align:center;">Important Information</h3>
-        <p><strong>Check-In:</strong> 2.30 p.m. <strong>Check-Out:</strong> 9.30 a.m.</p>
-
-        <h3 style="text-align:center;">How to Get Here</h3>
-        <p style="font-size: 1.5rem;">
-            <i class="bi bi-bicycle"></i> Bike &nbsp; | &nbsp;
-            <i class="bi bi-car-front"></i> Car &nbsp; | &nbsp;
-            <i class="bi bi-bus-front"></i> Bus + Auto &nbsp; | &nbsp;
-            <i class="bi bi-train-front"></i> Train + Auto
-        </p>
-
-        <h3 style="text-align:center;">Campsite Rules</h3>
-        <p>@Model.CampsiteRules</p>
-
-        <h3 style="text-align:center;">Cancellation Policy</h3>
-        <p>@Model.CancellationPolicy</p> *@
-
-        @* <p><strong>About Campsite:</strong><br /><br /> @Model.AboutCampsite</p> *@
+         
         <div class="content-with-map">
             <p><strong>About Campsite:</strong><br /><br /> @Model.AboutCampsite</p>
             <iframe class="map"
@@ -205,9 +77,7 @@
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <p><strong>Campsite Rules:</strong><br /> @Model.CampsiteRules</p>
-        @* <div class="icon-group">
-            <i class="bi bi-shield" style="font-size: 1.5rem;"></i> <i class="bi bi-exclamation-triangle" style="font-size: 1.5rem;"></i>
-        </div> *@
+        
         <div class="icon-group">
             <div class="icon-item">
                 <i class="bi bi-shield" title="Security"></i>

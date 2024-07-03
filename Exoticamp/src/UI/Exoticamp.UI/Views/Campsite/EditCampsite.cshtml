@@ -12,11 +12,7 @@
     <div class="col-md-4">
         <form asp-action="EditCampsite">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @* <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div> *@
+            
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -37,32 +33,7 @@
                 <input asp-for="TentType" class="form-control" />
                 <span asp-validation-for="TentType" class="text-danger"></span>
             </div>
-            @*  <div class="form-group">
-                <label asp-for="isActive" class="control-label"></label>
-                <input asp-for="isActive" value="true" class="form-control" disabled />
-                <span asp-validation-for="isActive" class="text-danger" ></span>
-            </div> *@
-            @*
-            <div class="form-group">
-                <label asp-for="ApprovedBy" class="control-label"></label>
-                <input asp-for="ApprovedBy" class="form-control" />
-                <span asp-validation-for="ApprovedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ApprovededDate" class="control-label"></label>
-                <input asp-for="ApprovededDate" class="form-control" />
-                <span asp-validation-for="ApprovededDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeletededBy" class="control-label"></label>
-                <input asp-for="DeletededBy" class="form-control" />
-                <span asp-validation-for="DeletededBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeletedDate" class="control-label"></label>
-                <input asp-for="DeletedDate" class="form-control" />
-                <span asp-validation-for="DeletedDate" class="text-danger"></span>
-            </div> *@
+            
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

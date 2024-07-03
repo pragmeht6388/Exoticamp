@@ -9,21 +9,10 @@ using System.Runtime.CompilerServices;
 
 namespace Exoticamp.UI.Controllers
 {
-    public class EventController : Controller
+    public class EventController(IEventRepository _eventRepository, ICampsiteDetailsRepository _campsiteRepository,
+            IActivitiesRepository _activitiesRepository, ILocationRepository _locationRepository) : Controller
     {
-        private readonly IEventRepository _eventRepository;
-        private readonly ICampsiteDetailsRepository _campsiteRepository;
-        private readonly IActivitiesRepository _activitiesRepository;
-        private readonly ILocationRepository _locationRepository;
-
-        public EventController(IEventRepository eventRepository, ICampsiteDetailsRepository campsiteRepository,
-            IActivitiesRepository activitiesRepository, ILocationRepository locationRepository)
-        {
-            _eventRepository = eventRepository;   
-            _campsiteRepository = campsiteRepository;
-            _activitiesRepository = activitiesRepository;
-            _locationRepository = locationRepository;
-        }
+         
         public IActionResult Index()
         {
             return View();
@@ -41,7 +30,7 @@ namespace Exoticamp.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> AddEvent()
         {
-            EventVM model = new EventVM();
+            AddEventVM model = new AddEventVM();
             var Campsites=await _campsiteRepository.GetAllCampsites();
             var Activities =await  _activitiesRepository.GetAllActivities();
             var Locations = await _locationRepository.GetAllLocations();
@@ -60,69 +49,66 @@ namespace Exoticamp.UI.Controllers
         [AdminAuthFilter]
         [NoCache]
         [HttpPost]
-        public async Task<ActionResult> AddEvent(EventVM model)
+        public async Task<ActionResult> AddEvent( AddEventVM model)
         {
-            var eventObj = new EventVM {
-            
-            Name = model.Name,
-            Price = model.Price,
-            Capacity = model.Capacity,
-            StartDate = model.StartDate,
-            EndDate = model.EndDate,
-            Description = model.Description,
-            ImageUrl = model.ImageUrl,
-            Highlights = model.Highlights,
-            EventRules = model.EventRules,
-            CampsiteId = model.CampsiteId,
-            ActivityId = model.ActivityId,
-            LocationId = model.LocationId,
-            Status = model.Status,
-            IsDeleted = model.IsDeleted,
-            //Campsite = campsite!.Data,
-            EventLocationDto = new EventLocationDto
+            var eventObj = new AddEventVM()//EventVM
             {
-                //Id = model.EventLocationDto.Id,
-                LocationId = Guid.Parse(model.LocationId.ToString()),
-                //LocationDetails = new LocationDetails
-                //{
-                //    Name = model.EventLocationDto.LocationDetails.Name
-                //}
-            },
-            EventActivityDto = new EventActivityDto
-            {
-                //Id = model.EventActivityDto.Id,
-                ActivityId = Guid.Parse(model.ActivityId.ToString()),
-                //ActivityDetails = new ActivityDetails
-                //{
-                //    Name = model.EventActivityDto.ActivityDetails.Name
-                //}
-            }
-        };
+
+                Name = model.Name,
+                Price = model.Price,
+                Capacity = model.Capacity,
+                StartDate = model.StartDate,
+                EndDate = model.EndDate,
+                Description = model.Description,
+                Image=model.Image,
+                Highlights = model.Highlights,
+                EventRules = model.EventRules,
+                CampsiteIds = model.CampsiteIds,
+                ActivityIds = model.ActivityIds,
+                LocationId = model.LocationId,
+                Status = model.Status,
+                IsDeleted = model.IsDeleted,
+                
+                EventLocationDto = new EventLocationDto
+                {
+                    
+                    LocationId = Guid.Parse(model.LocationId.ToString()),
+                     
+                },
+               
+            };
 
 
             if (ModelState.IsValid)
             {
+                
+                    var fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.Image.FileName)}";
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
+                    var imageList = new List<string>();
 
-                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.Image.FileName)}";
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
+                    model.ImageUrl="/Assets/Images/Event/" + fileName;
 
-                model.ImageUrl = "/Assets/Images/Event/" + fileName;
 
-                var response = await _eventRepository.AddEvent(model);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await model.Image.CopyToAsync(fileStream);
-                }
-                if (response.Succeeded == false)
-                {
-                    TempData["Message"] = response.Message;
-                    TempData["Flag"] = response.Succeeded;
-                }
-                else {
-                    TempData["Message"] = response.Message;
-                    TempData["Flag"] = null;
-                    return RedirectToAction("GetAllEvents", "Event");
-                     }
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await model.Image.CopyToAsync(fileStream);
+                    }
+             
+                    var response = await _eventRepository.AddEvent(model);
+                    if (response.Succeeded == false)
+                    {
+                        TempData["Message"] = response.Message;
+                        TempData["Flag"] = response.Succeeded;  
+                    }
+                    else
+                    {
+                        TempData["Message"] = response.Message;
+                        TempData["Flag"] = null;
+                        return RedirectToAction("GetAllEvents", "Event");
+                    }
+                
+
+                 
             }
             else
                 ModelState.AddModelError("", "Oops! Some error occured.");
@@ -372,13 +358,17 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var eventObj = await _eventRepository.DeleteEvent(id);
-            return RedirectToAction("GetAllEvents", "Event");
+            // return RedirectToAction("GetAllEvents", "Event");
+          
+            
+                return Json(new { success = true, message = "Event deleted successfully." });
+             
         }
 
         [HttpGet]
         public async Task<JsonResult> GetCampsitesByLocation(Guid locationId)
         {
-            // Fetch departments based on the selected hospital
+             
             var campsites = (await _campsiteRepository.GetAllCampsites())
                                                     .Where(d => d.Id == locationId)
                                                     .ToList();
@@ -388,7 +378,7 @@ namespace Exoticamp.UI.Controllers
         [HttpGet]
         public async Task<JsonResult> GetActivitiesByCampsite(Guid campsiteId)
         {
-            // Fetch doctors based on the selected department
+            
             var activities = (await _activitiesRepository.GetAllActivities())
                                             .Where(d => d.Id == campsiteId)
                                             .ToList();

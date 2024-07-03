@@ -293,39 +293,7 @@
     </style>
 </head>
 
-    <!-- Header -->
-    @*  <header class="bg-primary text-white text-center p-3">
-    <div class="container d-flex justify-content-between align-items-center">
-    <div>
-    <img src="/Assets/Icons/Exoticamp.png" alt="Exoticamp Logo" class="logo">
-    </div>
-    <nav>
-    <a href="#" class="text-white ml-3">Toll Free Number</a>
-    <a href="#" class="text-white ml-3">List My Site / Become a Host</a>
-    @if (string.IsNullOrEmpty(userName))
-    {
-    <a asp-action="Login" asp-controller="Account" class="text-white">Login/Signup</a>
-    }
-    else
-    {
-    <li class="nav-item dropdown list-unstyled">
-    <a class="text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
-    aria-expanded="false">
-    Welcome @userName!
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <li><a class="dropdown-item" asp-action="Profile" asp-controller="User">My Profile</a></li>
-    <li><a class="dropdown-item" asp-action="Logout" asp-controller="Account">Another action</a></li>
-
-    </ul>
-    </li>
-
-    }
-
-    </nav>
-    </div>
-    </header> *@
-
+     
 
     <header id="Foothead" class="bg-primar text-white text-center p-3">
         <div class="container d-flex justify-content-between align-items-center">
@@ -496,19 +464,7 @@
                     }
                 });
             });
-            //     // Collapsible js
-            //     $('.collapse-content').addClass('d-none').removeClass('d-block');
-
-            //     $('.menu-button').on('click', function () {
-            //         var target = $(this).data('target');
-
-            //         // Hide all other collapse-content elements
-            //         $('.collapse-content').not(target).addClass('d-none').removeClass('d-block');
-
-            //         // Toggle the targeted element
-            //         $(target).toggleClass('d-none d-block');
-            //     });
-            // });
+            
 
 
  <script>

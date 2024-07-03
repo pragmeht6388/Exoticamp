@@ -12,26 +12,9 @@ namespace Exoticamp.UI.Controllers
 {
     //[VendorAuthFilter]
     //[]
-    public class CampsiteDetailsController : Controller
-    {
-        private readonly ICampsiteDetailsRepository _campsiteRepository;
-        private readonly ICategoryRepository _categoryRepository;
-        private readonly IActivitiesRepository _activitiesRepository;
-        private readonly ILocationRepository _locationRepository;
-        private readonly IReviewsRepository _reviewsRepository;
-        private readonly ITentRepository _tentRepository;
-
-
-        public CampsiteDetailsController(ICampsiteDetailsRepository campsiteRepository, ICategoryRepository categoryRepository,
-            IActivitiesRepository activitiesRepository, ILocationRepository locationRepository, IReviewsRepository reviewsRepository,ITentRepository tentRepository)
-        {
-            _campsiteRepository = campsiteRepository;
-            _categoryRepository = categoryRepository;
-            _activitiesRepository = activitiesRepository;
-            _locationRepository = locationRepository;
-            _reviewsRepository = reviewsRepository;
-            _tentRepository = tentRepository;
-        }
+    public class CampsiteDetailsController (ICampsiteDetailsRepository _campsiteRepository, ICategoryRepository _categoryRepository,
+            IActivitiesRepository _activitiesRepository, ILocationRepository _locationRepository, IReviewsRepository _reviewsRepository, ITentRepository _tentRepository) : Controller
+    { 
         [VendorAuthFilter]
         [NoCache]
         public async Task<IActionResult> ShowCampsite()

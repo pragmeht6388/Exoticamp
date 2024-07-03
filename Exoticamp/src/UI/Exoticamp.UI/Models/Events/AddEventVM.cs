@@ -1,14 +1,15 @@
-﻿using Exoticamp.Domain.Common;
-using System;
+﻿using Exoticamp.UI.Models.CampsiteDetails;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Exoticamp.Domain.Entities
+namespace Exoticamp.UI.Models.Events
 {
-    public class Event : AuditableEntity
+    public class AddEventVM
     {
-        [Key]
-        public Guid EventId { get; set; }
+
+
+        public string? EventId { get; set; }
 
         [Required(ErrorMessage = "Please enter event name")]
         [StringLength(50, MinimumLength = 3)]
@@ -24,19 +25,24 @@ namespace Exoticamp.Domain.Entities
 
         [Required(ErrorMessage = "Please select the date")]
         [DataType(DataType.Date)]
-        [CustomValidation(typeof(Event), nameof(ValidateStartDate))]
+        [CustomValidation(typeof(EventVM), nameof(ValidateStartDate))]
         public DateTime StartDate { get; set; }
 
         [Required(ErrorMessage = "Please select the date")]
         [DataType(DataType.Date)]
-        [CustomValidation(typeof(Event), nameof(ValidateEndDate))]
+        [CustomValidation(typeof(EventVM), nameof(ValidateEndDate))]
         public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "“Enter description of the event”")]
-        [StringLength(100)]
+        [StringLength(250)]
         public string Description { get; set; }
-        [Required(ErrorMessage = "upload the images of the event")]
+
+        [NotMapped]
+        // public List<IFormFile> Image { get; set; }
+        public IFormFile Image { get; set; }
+
         public string? ImageUrl { get; set; }
+       // public List<string>? ImageUrl { get; set; }
 
         [Required(ErrorMessage = "enter highlights of the event")]
         [StringLength(100)]
@@ -45,18 +51,20 @@ namespace Exoticamp.Domain.Entities
         [Required(ErrorMessage = "enter rules of the event")]
         [StringLength(100)]
         public string EventRules { get; set; }
-       
-        public bool Status { get; set; } = true;
-        public bool IsDeleted { get; set; }
-         
-        public Guid? CampsiteId { get; set; }
-
         [Required(ErrorMessage = "Please select the  campsite")]
-        [ForeignKey("CampsiteId")]
-        public virtual Domain.Entities.CampsiteDetails? Campsite { get; set; }
+        //public Guid? CampsiteId { get; set; }
 
-        public ICollection<EventActivities> EventActivities { get; set; }
-        public ICollection<EventLocation> EventLocations { get; set; }
+        public List<Guid>? CampsiteIds { get; set; }
+
+        [Required(ErrorMessage = "Please select activities")]
+        //public Guid? ActivityId { get; set; }
+        public List<Guid>? ActivityIds { get; set; }
+
+        [Required(ErrorMessage = "Please select a location")]
+        public Guid? LocationId { get; set; }
+        public bool Status { get; set; }
+        public bool IsDeleted { get; set; }
+        public CampsiteDetailsVM? Campsite { get; set; }
 
 
 
@@ -71,7 +79,7 @@ namespace Exoticamp.Domain.Entities
 
         public static ValidationResult ValidateEndDate(DateTime endDate, ValidationContext context)
         {
-            var instance = context.ObjectInstance as Event;
+            var instance = context.ObjectInstance as EventVM;
             if (instance != null && endDate <= instance.StartDate)
             {
                 return new ValidationResult("End date must be greater than the start date.");
@@ -79,5 +87,38 @@ namespace Exoticamp.Domain.Entities
             return ValidationResult.Success;
         }
 
+        public SelectList? ActivitiesVMs { get; set; }
+        public SelectList? Locations { get; set; }
+        public SelectList? Campsites { get; set; }
+
+        public EventLocationDto? EventLocationDto { get; set; }
+        public EventActivityDto? EventActivityDto { get; set; }
     }
+    //public class EventLocationDto
+    //{
+    //    public Guid? Id { get; set; }
+    //    public Guid LocationId { get; set; }
+    //    public LocationDetails LocationDetails { get; set; }
+
+
+    //}
+    //public class LocationDetails
+    //{
+    //    [JsonProperty("name")]
+    //    public string Name { get; set; }
+
+    //}
+    //public class EventActivityDto
+    //{
+    //    public Guid? Id { get; set; }
+    //    public Guid ActivityId { get; set; }
+    //    public ActivityDetails ActivityDetails { get; set; }
+
+    //}
+    //public class ActivityDetails
+    //{
+    //    [JsonProperty("name")]
+    //    public string Name { get; set; }
+
+    //}
 }

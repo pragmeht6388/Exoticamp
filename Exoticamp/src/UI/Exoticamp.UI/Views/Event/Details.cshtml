@@ -26,12 +26,7 @@
 
                         <dt class="col-sm-4">Activities</dt>
                         <dd class="col-sm-8">
-                          @*   @foreach (var activity in Model.ActivitiesVMs)
-                            {
-                                <span>@activity.Text</span>
-
-                                <br />
-                            } *@
+                        
                           @Html.DisplayFor(model => model.EventActivityDto.ActivityDetails.Name)
 
                         </dd>

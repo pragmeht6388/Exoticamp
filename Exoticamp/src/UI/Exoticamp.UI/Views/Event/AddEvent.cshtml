@@ -1,209 +1,8 @@
-﻿@* @model Exoticamp.UI.Models.Events.EventVM
+﻿ 
+ @model Exoticamp.UI.Models.Events.AddEventVM
 
 @{
-    ViewData["Title"] = "AddEvent";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-}
-
-
-<div class="text-left">
-    <button id="backButton" class="btn btn-secondary">Back</button>
-</div>
-<h4 class="text-center">Event</h4>
-<hr />
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <form asp-action="AddEvent" method="post" enctype='multipart/form-data'>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-           
-            <div class="form-group">
-                <label for="LocationId">Select location:</label>
-                <select id="location" asp-for="LocationId" class="form-control">
-                    <option value="">-- Select location --</option>
-                    @if (Model.Locations is not null)
-                    {
-                        @foreach (var location in Model.Locations)
-                        {
-                            <option value="@location.Value">@location.Text</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="CampsiteId">Select campsite:</label>
-                <select id="campsite" asp-for="CampsiteId" class="form-control">
-                    <option value="">-- Select campsite --</option>
-                    @if (Model.Campsites is not null)
-                    {
-                        @foreach (var campsite in Model.Campsites)
-                        {
-                            <option value="@campsite.Value">@campsite.Text</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="ActivityId">Select activities:</label>
-                <select id="activity" asp-for=ActivityId class="form-control" multiple="multiple">
-                    <option value="">-- Select activities --</option>
-                    @if (Model.ActivitiesVMs is not null)
-                    {
-                        @foreach (var activity in Model.ActivitiesVMs)
-                        {
-                            <option value="@activity.Value">@activity.Text</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Capacity" class="control-label"></label>
-                <input asp-for="Capacity" class="form-control" />
-                <span asp-validation-for="Capacity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" type="date" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" type="date" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" type="file" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Highlights" class="control-label"></label>
-                <textarea asp-for="Highlights" class="form-control"></textarea>
-                <span asp-validation-for="Highlights" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventRules" class="control-label"></label>
-                <textarea asp-for="EventRules" class="form-control"></textarea>
-                <span asp-validation-for="EventRules" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" type="checkbox" checked hidden />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group text-center">
-                <input type="submit" value="Add" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-
-@if (TempData["Message"] != null)
-{
-    <script type="text/javascript">
-        toastr.error('@TempData["Message"]');
-        document.getElementById('backButton').addEventListener('click', function () {
-            window.history.back();
-        });
-    </script>
-}
-
-@section Scripts {
-    <script>
-        // Initialize Select2 for the activities dropdown
-        $(document).ready(function () {
-            $('#activity').select2();
-        });
-
-        function updateCampsites() {
-            var locationId = $('#location').val();
-            if (locationId) {
-                $.ajax({
-                    url: '/Event/GetCampsitesByLocation/' + locationId,
-                    type: 'GET',
-                    success: function (data) {
-                        var options = '<option value="">-- Select campsite --</option>';
-                        data.forEach(function (campsite) {
-                            options += '<option value="' + campsite.id + '">' + campsite.name + '</option>';
-                        });
-                        $('#campsite').html(options);
-                    }
-                });
-            } else {
-                $('#campsite').html('<option value="">-- Select campsite --</option>');
-                $('#activity').html('<option value="">-- Select activities --</option>');
-            }
-        }
-
-        function updateActivities() {
-            var campsiteId = $('#campsite').val();
-            if (campsiteId) {
-                $.ajax({
-                    url: '/Event/GetActivitiesByCampsite/' + campsiteId,
-                    type: 'GET',
-                    success: function (data) {
-                        var options = '';
-                        data.forEach(function (activity) {
-                            options += '<option value="' + activity.id + '">' + activity.name + '</option>';
-                        });
-                        $('#activity').html(options).trigger('change');
-                    }
-                });
-            } else {
-                $('#activity').html('<option value="">-- Select activities --</option>');
-            }
-        }
-
-        // Set the min attribute for date inputs to today's date
-        document.addEventListener('DOMContentLoaded', function () {
-            var today = new Date().toISOString().split('T')[0];
-            document.querySelector('[name="StartDate"]').setAttribute('min', today);
-            document.querySelector('[name="EndDate"]').setAttribute('min', today);
-        });
-
-        // Client-side validation for StartDate and EndDate
-        document.querySelector('form').addEventListener('submit', function (e) {
-            var startDate = new Date(document.querySelector('[name="StartDate"]').value);
-            var endDate = new Date(document.querySelector('[name="EndDate"]').value);
-            var currentDate = new Date();
-
-            if (startDate <= currentDate) {
-                e.preventDefault();
-                alert('Start date must be greater than the current date.');
-            }
-
-            if (endDate <= startDate) {
-                e.preventDefault();
-                alert('End date must be greater than the start date.');
-            }
-        });
-
-        // Back button functionality
-        document.getElementById('backButton').addEventListener('click', function () {
-            window.history.back();
-        });
-    </script>
-}
- *@
- @model Exoticamp.UI.Models.Events.EventVM
-
-@{
-    ViewData["Title"] = "AddEvent";
+    ViewData["Title"] = "Add Event";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -215,30 +14,25 @@
     <hr />
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form asp-action="AddEvent" method="post" enctype='multipart/form-data'>
+            <form asp-action="AddEvent" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                 <div class="form-group">
                     <label asp-for="Name" class="control-label">Name<span class="text-danger">*</span></label>
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
-                    <label for="LocationId">Select location:<span class="text-danger">*</span></label>
-                    <select id="location" asp-for="LocationId" class="form-control">
-                        <option value="">-- Select location --</option>
-                        @if (Model.Locations is not null)
-                        {
-                            @foreach (var location in Model.Locations)
-                            {
-                                <option value="@location.Value">@location.Text</option>
-                            }
-                        }
-                    </select>
+                    <label asp-for="LocationId" class="control-label">Select Location:<span class="text-danger">*</span></label>
+                    <select asp-for="LocationId" id="LocationId" class="form-control" asp-items="@Model.Locations"></select>
+                    <span asp-validation-for="LocationId" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
-                    <label for="CampsiteId">Select campsite:<span class="text-danger">*</span></label>
-                    <select id="campsite" asp-for="CampsiteId" class="form-control">
-                        <option value="">-- Select campsite --</option>
+                    <label for="CampsiteIds">Select campsites:<span class="text-danger">*</span></label>
+                    <select id="campsite" asp-for="CampsiteIds" class="form-control" multiple="multiple">
+                        <option value="">-- Select campsites --</option>
                         @if (Model.Campsites is not null)
                         {
                             @foreach (var campsite in Model.Campsites)
@@ -248,64 +42,63 @@
                         }
                     </select>
                 </div>
+                
+               
+
                 <div class="form-group">
-                    <label for="ActivityId">Select activities:<span class="text-danger">*</span></label>
-                    <select id="activity" asp-for="ActivityId" class="form-control" multiple="multiple">
-                        <option value="">-- Select activities --</option>
-                        @if (Model.ActivitiesVMs is not null)
-                        {
-                            @foreach (var activity in Model.ActivitiesVMs)
-                            {
-                                <option value="@activity.Value">@activity.Text</option>
-                            }
-                        }
-                    </select>
+                    <label asp-for="ActivityIds" class="control-label">Select Activities:<span class="text-danger">*</span></label>
+                    <select asp-for="ActivityIds" class="form-control" asp-items="@Model.ActivitiesVMs.Select(a => new SelectListItem { Value = a.Value.ToString(), Text = a.Text })" multiple></select>
+                    <span asp-validation-for="ActivityIds" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="Price" class="control-label">Price<span class="text-danger">*</span></label>
                     <input asp-for="Price" class="form-control" />
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="Capacity" class="control-label">Capacity<span class="text-danger">*</span></label>
                     <input asp-for="Capacity" class="form-control" />
                     <span asp-validation-for="Capacity" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
-                    <label asp-for="StartDate" class="control-label">Start Date <span class="text-danger">*</span></label>
+                    <label asp-for="StartDate" class="control-label">Start Date<span class="text-danger">*</span></label>
                     <input asp-for="StartDate" class="form-control" type="date" />
                     <span asp-validation-for="StartDate" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="EndDate" class="control-label">End Date<span class="text-danger">*</span></label>
                     <input asp-for="EndDate" class="form-control" type="date" />
                     <span asp-validation-for="EndDate" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="Description" class="control-label">Description<span class="text-danger">*</span></label>
                     <textarea asp-for="Description" class="form-control"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
-                    <label asp-for="Image" class="control-label">Image<span class="text-danger">*</span></label>
-                    <input asp-for="Image" class="form-control" type="file" />
+                    <label asp-for="Image" class="control-label">Images<span class="text-danger">*</span></label>
+                    <input asp-for="Image" class="form-control" type="file" accept="image/*" />
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="Highlights" class="control-label">Highlights<span class="text-danger">*</span></label>
                     <textarea asp-for="Highlights" class="form-control"></textarea>
                     <span asp-validation-for="Highlights" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
-                    <label asp-for="EventRules" class="control-label">Event Rule<span class="text-danger">*</span></label>
+                    <label asp-for="EventRules" class="control-label">Event Rules<span class="text-danger">*</span></label>
                     <textarea asp-for="EventRules" class="form-control"></textarea>
                     <span asp-validation-for="EventRules" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    @* <label asp-for="Status" class="control-label"></label> *@
-                    <input asp-for="Status" class="form-control" type="checkbox" checked hidden />
-                    <span asp-validation-for="Status" class="text-danger"></span>
-                </div>
+
                 <div class="form-group text-center">
                     <input type="submit" value="Add" class="btn btn-primary" />
                 </div>
@@ -316,7 +109,7 @@
 
 @if (TempData["Message"] != null)
 {
-    <script type="text/javascript">
+    <script>
         toastr.error('@TempData["Message"]');
         document.getElementById('backButton').addEventListener('click', function () {
             window.history.back();
@@ -325,78 +118,6 @@
 }
 
 @section Scripts {
-    <script>
-        // Initialize Select2 for the activities dropdown
-        $(document).ready(function () {
-            $('#activity').select2();
-        });
-
-        function updateCampsites() {
-            var locationId = $('#location').val();
-            if (locationId) {
-                $.ajax({
-                    url: '/Event/GetCampsitesByLocation/' + locationId,
-                    type: 'GET',
-                    success: function (data) {
-                        var options = '<option value="">-- Select campsite --</option>';
-                        data.forEach(function (campsite) {
-                            options += '<option value="' + campsite.id + '">' + campsite.name + '</option>';
-                        });
-                        $('#campsite').html(options);
-                    }
-                });
-            } else {
-                $('#campsite').html('<option value="">-- Select campsite --</option>');
-                $('#activity').html('<option value="">-- Select activities --</option>');
-            }
-        }
-
-        function updateActivities() {
-            var campsiteId = $('#campsite').val();
-            if (campsiteId) {
-                $.ajax({
-                    url: '/Event/GetActivitiesByCampsite/' + campsiteId,
-                    type: 'GET',
-                    success: function (data) {
-                        var options = '';
-                        data.forEach(function (activity) {
-                            options += '<option value="' + activity.id + '">' + activity.name + '</option>';
-                        });
-                        $('#activity').html(options).trigger('change');
-                    }
-                });
-            } else {
-                $('#activity').html('<option value="">-- Select activities --</option>');
-            }
-        }
-
-        // Set the min attribute for date inputs to today's date
-        document.addEventListener('DOMContentLoaded', function () {
-            var today = new Date().toISOString().split('T')[0];
-            document.querySelector('[name="StartDate"]').setAttribute('min', today);
-            document.querySelector('[name="EndDate"]').setAttribute('min', today);
-        });
-
-        // Client-side validation for StartDate and EndDate
-        document.querySelector('form').addEventListener('submit', function (e) {
-            var startDate = new Date(document.querySelector('[name="StartDate"]').value);
-            var endDate = new Date(document.querySelector('[name="EndDate"]').value);
-            var currentDate = new Date();
-
-            if (startDate <= currentDate) {
-                e.preventDefault();
-                alert('Start date must be greater than the current date.');
-            }
-
-            if (endDate <= startDate) {
-                e.preventDefault();
-                alert('End date must be greater than the start date.');
-            }
-        });
-
-        // Back button functionality
-        document.getElementById('backButton').addEventListener('click', function () {
-            window.history.back();
-        });
-    </script>
+    
 }
+

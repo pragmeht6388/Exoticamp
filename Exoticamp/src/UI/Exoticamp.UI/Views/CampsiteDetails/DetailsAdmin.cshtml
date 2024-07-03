@@ -13,7 +13,7 @@
 <h1 style="text-align:center;color:black">Campsite Details</h1>
 <p>
     <a asp-action="ShowCampsiteAdmin" class="btn btn-primary">Back to List</a>
-    @* <a asp-action="ShowCampsite" style="margin-left:820px;background-color:limegreen;position:fixed" class="btn btn-primary">Book Now</a> *@
+    
 </p>
 
 <div class="campsite-details">
@@ -41,7 +41,7 @@
 
         </p>
         <br />
-        @* <img src="@Model.Images" alt="Campsite Image" class="campsite-image" /> *@
+        
         <div class="container">
             <div class="single-image">
                 <img src="@Model.Images" alt="Campsite Image" class="campsite-image" />
@@ -65,35 +65,7 @@
 
     <div class="campsite-info">
         <h3 style="text-align:center;">Important Information About Campsite</h3><br />
-        @* <p>@Model.AboutCampsite</p>
-
-        <h3 style="text-align:center;">Amenities</h3>
-        <p>@Model.Amenities <i class="bi bi-wifi" style="font-size: 1.5rem;"></i> <i class="bi bi-water" style="font-size: 1.5rem;"></i> <i class="bi bi-lightbulb" style="font-size: 1.5rem;"></i></p>
-
-        <h3 style="text-align:center;">Safety</h3>
-        <p>@Model.Safety <i class="bi bi-shield" style="font-size: 1.5rem;"></i> <i class="bi bi-exclamation-triangle" style="font-size: 1.5rem;"></i></p>
-
-        <h3 style="text-align:center;">Itinerary</h3>
-        <p>@Model.Itinerary</p>
-
-        <h3 style="text-align:center;">Important Information</h3>
-        <p><strong>Check-In:</strong> 2.30 p.m. <strong>Check-Out:</strong> 9.30 a.m.</p>
-
-        <h3 style="text-align:center;">How to Get Here</h3>
-        <p style="font-size: 1.5rem;">
-        <i class="bi bi-bicycle"></i> Bike &nbsp; | &nbsp;
-        <i class="bi bi-car-front"></i> Car &nbsp; | &nbsp;
-        <i class="bi bi-bus-front"></i> Bus + Auto &nbsp; | &nbsp;
-        <i class="bi bi-train-front"></i> Train + Auto
-        </p>
-
-        <h3 style="text-align:center;">Campsite Rules</h3>
-        <p>@Model.CampsiteRules</p>
-
-        <h3 style="text-align:center;">Cancellation Policy</h3>
-        <p>@Model.CancellationPolicy</p> *@
-
-        @* <p><strong>About Campsite:</strong><br /><br /> @Model.AboutCampsite</p> *@
+         
         <div class="content-with-map">
             <p><strong>About Campsite:</strong><br /><br /> @Model.AboutCampsite</p>
             <iframe class="map"
@@ -103,9 +75,7 @@
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <p><strong>Campsite Rules:</strong><br /> @Model.CampsiteRules</p>
-        @* <div class="icon-group">
-        <i class="bi bi-shield" style="font-size: 1.5rem;"></i> <i class="bi bi-exclamation-triangle" style="font-size: 1.5rem;"></i>
-        </div> *@
+        
         <div class="icon-group">
             <div class="icon-item">
                 <i class="bi bi-shield" title="Security"></i>
@@ -231,14 +201,7 @@
 </div>
 <br />
 <br />
-@* <h1>View Similar Campsites</h1>
-<br />
-<br /> *@
-@* <div id="campsite-corousel" style="border: 1px solid black; padding: 20px;">
-    @{
-        await Html.RenderPartialAsync("_PartialCampsiteCorousel", allCampsites);
-    }
-</div> *@
+ 
 
 
 <style>

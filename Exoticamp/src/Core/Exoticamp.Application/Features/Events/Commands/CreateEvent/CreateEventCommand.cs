@@ -37,10 +37,10 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
         [StringLength(250)]
         public string Description { get; set; }
         [Required(ErrorMessage = "upload the images of the event")]
-   
 
 
-        public string? ImageUrl { get; set; }
+
+        public string? ImageUrl { get; set; } 
 
         [Required(ErrorMessage = "enter highlights of the event")]
         [StringLength(100)]
@@ -50,13 +50,13 @@ namespace Exoticamp.Application.Features.Events.Commands.CreateEvent
         [StringLength(100)]
         public string EventRules { get; set; }
         [Required(ErrorMessage = "Please select the  campsite")]
-        public Guid CampsiteId { get; set; }
+        public List<Guid> CampsiteIds { get; set; } = new List<Guid>();
 
         [Required(ErrorMessage = "Please select activities")]
-        public Guid ActivityId { get; set; }
-      
+        public List<Guid> ActivityIds { get; set; } = new List<Guid>();
+
         [Required(ErrorMessage = "Please select a location")]
-        public Guid locationId { get; set; }
+        public Guid LocationId { get; set; }
         public bool Status { get; set; }
         public bool IsDeleted { get; set; }
         public static ValidationResult ValidateStartDate(DateTime startDate, ValidationContext context)

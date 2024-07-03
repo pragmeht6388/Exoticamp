@@ -47,23 +47,6 @@
         </div>
     }
 
-@*     <!-- Events Section -->
-    @if (ViewBag.Events != null && ViewBag.Events.Count > 0)
-    {
-        <h2>Events</h2>
-        @foreach (var item in (IEnumerable<Event>)ViewBag.Events)
-        {
-            <div class="abc-content">
-                <img src="@item.ImageUrl" alt="@item.Name" class="img-thumbnail img-dimensions">
-                <h5 class="mt-3">@item.Name</h5>
-                <a class="btn btn-info mt-2" asp-action="DetailsUser" asp-controller="Event" asp-route-id="@item.EventId">View</a>
-            </div>
-        }
-        <div class="view-all-content">
-            <div class="view-all-circle">
-                <a asp-action="GetAllEventsUser" asp-controller="Event" class="view-all-link"><u>View All</u></a>
-            </div>
-        </div>
-    } *@
+ 
 
 </div>
