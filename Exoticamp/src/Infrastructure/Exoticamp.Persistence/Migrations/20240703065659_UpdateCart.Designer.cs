@@ -4,6 +4,7 @@ using Exoticamp.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Exoticamp.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240703065659_UpdateCart")]
+    partial class UpdateCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -385,7 +388,7 @@ namespace Exoticamp.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CampsiteId")
+                    b.Property<Guid>("CampsiteId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateOnly>("CheckIn")
@@ -1154,7 +1157,9 @@ namespace Exoticamp.Persistence.Migrations
                 {
                     b.HasOne("Exoticamp.Domain.Entities.CampsiteDetails", "Campsite")
                         .WithMany()
-                        .HasForeignKey("CampsiteId");
+                        .HasForeignKey("CampsiteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Exoticamp.Domain.Entities.Event", "Event")
                         .WithMany()

@@ -21,7 +21,9 @@ namespace Exoticamp.Application.Features.CartCampsite.Commands.AddCartCampsite
         public int? NoOfTents { get; set; }
         public decimal TotalPrice { get; set; }
         public string? Status { get; set; }
-        public Guid CampsiteId { get; set; }
+        public Guid? CampsiteId { get; set; }
+        public Guid? EventId { get; set; }
+
         public decimal? PriceForAdults { get; set; }
         // public Guid? LocationId { get; set; }
         //public Guid GlampingId { get; set; }

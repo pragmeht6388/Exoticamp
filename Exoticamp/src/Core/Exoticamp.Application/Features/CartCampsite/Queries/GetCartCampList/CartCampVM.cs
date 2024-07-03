@@ -18,15 +18,19 @@ namespace Exoticamp.Application.Features.CartCampsite.Query.GetCartCampList
         public decimal TotalPrice { get; set; }
 
         public string? Status { get; set; }
-        public Guid CampsiteId { get; set; }
+        public Guid? CampsiteId { get; set; }
         public Guid? LocationId { get; set; }
 
         public Guid GlampingId { get; set; }
         public int? NoOfGlamps { get; set; }
+        public Guid? EventId { get; set; }
+
         public bool? IsActive { get; set; }
         public Guid? GuestDetailsId { get; set; }
         public GuestDetails? GuestDetails { get; set; }
         public virtual Domain.Entities.CampsiteDetails Campsite { get; set; }
+        public virtual Domain.Entities.Event Event { get; set; }
+
         public virtual Location Location { get; set; }
 
     }

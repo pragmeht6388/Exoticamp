@@ -16,7 +16,7 @@ namespace Exoticamp.Api.Controllers.v1
 
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddCartCamp([FromBody] AddCartCampsite command)
+        public async Task<IActionResult> AddCartCamp( AddCartCampsite command)
         {
             if (command == null)
             {
