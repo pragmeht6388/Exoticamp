@@ -8,12 +8,7 @@ namespace Exoticamp.UI.Controllers
 {
     public class ReviewReplyController(IReviewReplyRepository _reviewsRepository) : Controller
     {
-        private readonly IReviewReplyRepository _reviewsRepository;
-
-        public ReviewReplyController(IReviewReplyRepository reviewsRepository)
-        {
-            _reviewsRepository = reviewsRepository;
-        }
+       
 
         [HttpPost]
         public async Task<IActionResult> AddReviewReply(ReviewReplyVM reviewReply)

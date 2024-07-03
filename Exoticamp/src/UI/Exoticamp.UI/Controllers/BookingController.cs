@@ -11,22 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Exoticamp.UI.Controllers
 {
-    public class BookingController(IBookingRepository _bookingRepository, ICampsiteDetailsRepository _campsiteDetailsRepository, ILocationRepository _locationRepository, IReviewsRepository _reviewsRepository) : Controller
+    public class BookingController(IUsersRepository _usersRepository,IBookingRepository _bookingRepository, ICampsiteDetailsRepository _campsiteDetailsRepository, ILocationRepository _locationRepository, IReviewsRepository _reviewsRepository) : Controller
     {
-        private readonly IReviewsRepository _reviewsRepository;
-        private readonly IBookingRepository _bookingRepository;
-        public readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
-        public readonly ILocationRepository _locationRepository;
-        public readonly IUsersRepository _usersRepository;
-
-        public BookingController(IBookingRepository bookingRepository, ICampsiteDetailsRepository campsiteDetailsRepository, ILocationRepository locationRepository, IReviewsRepository reviewsRepository, IUsersRepository usersRepository)
-        {
-            _bookingRepository = bookingRepository;
-            _campsiteDetailsRepository = campsiteDetailsRepository;
-            _locationRepository = locationRepository;
-            _reviewsRepository = reviewsRepository;
-            _usersRepository = usersRepository;
-        }
+    
         public IActionResult Index()
         {
             return View();
