@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Exoticamp.Application.Features.Glamping.GetGlampingList
+﻿namespace Exoticamp.UI.Models.Glamping
 {
-    public class GetGlampingListDto
+    public class GlampingVM
     {
         public Guid GlampingId { get; set; }
         

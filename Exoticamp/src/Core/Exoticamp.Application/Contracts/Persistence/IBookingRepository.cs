@@ -9,6 +9,6 @@ namespace Exoticamp.Application.Contracts.Persistence
 {
     public interface IBookingRepository: IAsyncRepository<Booking>
     {
-        public Task<bool> IsCheckInDateUnique(DateTime checkInDate);
+        public Task<bool> IsCheckInDateUnique(DateTime checkInDate,Guid id);
     }
 }

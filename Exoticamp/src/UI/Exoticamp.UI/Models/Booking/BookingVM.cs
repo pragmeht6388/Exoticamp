@@ -38,6 +38,7 @@ namespace Exoticamp.UI.Models.Booking
         public decimal? PriceForChildrens { get; set; }
         public decimal? PriceForTents { get; set; }
 
+        public DateTime CreatedDate { get; set; }
         public string Status { get; set; }
         [Required(ErrorMessage ="Select Campsite")]
         public Guid CampsiteId { get; set; }
@@ -77,6 +78,13 @@ namespace Exoticamp.UI.Models.Booking
                 return new ValidationResult("Check Out date must be greater than the Check In date.");
             }
             return ValidationResult.Success;
+        }
+        public void CalculateTotalPrice()
+        {
+            decimal priceForAdults = PriceForAdults ?? 0;
+            decimal priceForChildren = PriceForChildrens ?? 0;
+
+            TotalPrice = (NoOfAdults * priceForAdults) + (NoOfChildrens * priceForChildren) + (NoOfTents * 100); // Assume $100 per tent
         }
     }
 

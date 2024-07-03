@@ -33,6 +33,7 @@ namespace Exoticamp.Application.Features.Glamping.GetGlamping
 
             var glampingDto = _mapper.Map<GlampingDto>(glamping);
             var response = new Response<GlampingDto>(glampingDto);
+            response.Succeeded = true;
 
             return response;
         }

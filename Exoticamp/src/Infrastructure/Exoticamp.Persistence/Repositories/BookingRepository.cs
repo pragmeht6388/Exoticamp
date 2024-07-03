@@ -17,10 +17,10 @@ namespace Exoticamp.Persistence.Repositories
         {
             _logger = logger;
         }
-        public Task<bool> IsCheckInDateUnique( DateTime checkInDate)
+        public Task<bool> IsCheckInDateUnique( DateTime checkInDate,Guid id)
         {
             _logger.LogInformation("GetCategoriesWithEvents Initiated");
-            var matches = _dbContext.Bookings.Any(e => e.CheckIn.Date.Equals(checkInDate.Date));
+            var matches = _dbContext.Bookings.Where(x=>x.CampsiteId==id).Any(e => e.CheckIn.Date.Equals(checkInDate.Date));
             _logger.LogInformation("GetCategoriesWithEvents Completed");
             return Task.FromResult(matches);
         }

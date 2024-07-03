@@ -55,7 +55,7 @@ namespace Exoticamp.Application.Features.Bookings.Commands.AddBooking
 
         private async Task<bool> CheckInDateUnique(CreateBookingCommand e, CancellationToken token)
         {
-            return !await _bookingRepository.IsCheckInDateUnique( e.CheckIn);
+            return !await _bookingRepository.IsCheckInDateUnique( e.CheckIn,e.CampsiteId);
         }
 
         private string GetMessage(string Code, string Lang)
