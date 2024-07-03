@@ -1,0 +1,298 @@
+﻿@using Exoticamp.UI.Models.CampsiteDetails
+@model Exoticamp.UI.Models.Booking.BookingVM
+
+@{
+    ViewData["Title"] = "UserBooking";
+    Layout = "";
+}
+
+<head>
+    <!-- Include jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Include jQuery UI library -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<h1>UserBooking</h1>
+
+<h4>BookingVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UserBooking">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @* <label asp-for="BookingId" class="control-label"></label> *@
+                <input asp-for="BookingId" class="form-control" type="hidden" />
+                @* <span asp-validation-for="BookingId" class="text-danger"></span> *@
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerName" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="CustomerName" class="form-control" />
+                <span asp-validation-for="CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+          <div class="form-group">
+    <label asp-for="CheckIn" class="control-label"></label> <span class="text-danger">*</span>
+    <input asp-for="CheckIn" class="form-control" type="datetime-local" id="CheckIn" />
+    <span asp-validation-for="CheckIn" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="CheckOut" class="control-label"></label> <span class="text-danger">*</span>
+    <input asp-for="CheckOut" class="form-control" type="datetime-local" id="CheckOut" />
+    <span asp-validation-for="CheckOut" class="text-danger"></span>
+</div>
+
+            <div class="form-group">
+                <label asp-for="NoOfAdults" class="control-label"></label> <span class="text-danger">*</span>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-outline-secondary" id="decreaseAdults">-</button>
+                    </div>
+                    <input asp-for="NoOfAdults" class="form-control text-center" id="NoOfAdults" value="0" />
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary" id="increaseAdults">+</button>
+                    </div>
+                </div>
+                <span asp-validation-for="NoOfAdults" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoOfChildrens" class="control-label"></label> <span class="text-danger">*</span>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-outline-secondary" id="decreaseChildrens">-</button>
+                    </div>
+                    <input asp-for="NoOfChildrens" class="form-control text-center" id="NoOfChildrens" value="0" />
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary" id="increaseChildrens">+</button>
+                    </div>
+                </div>
+                <span asp-validation-for="NoOfChildrens" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoOfTents" class="control-label"></label> <span class="text-danger">*</span>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-outline-secondary" id="decreaseTents">-</button>
+                    </div>
+                    <input asp-for="NoOfTents" class="form-control text-center" id="NoOfTents" value="0" />
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary" id="increaseTents">+</button>
+                    </div>
+                </div>
+                <span asp-validation-for="NoOfTents" class="text-danger"></span>
+            </div>
+            <input asp-for="@Model.Campsite.NoOfTents" id="MaxNoOfTents" type="hidden" value="@Model.Campsite.NoOfTents" />
+
+            <div class="form-group">
+                <label asp-for="TotalPrice" class="control-label"></label>
+                <input asp-for="TotalPrice" class="form-control" id="TotalPrice" readonly />
+                <span asp-validation-for="TotalPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GlampingType" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="GlampingType" class="form-control" />
+                <span asp-validation-for="GlampingType" class="text-0;;danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="PriceForAdults" class="form-control" type="hidden" id="PriceForAdults" value="@Model.PriceForAdults" />
+                <span asp-validation-for="PriceForAdults" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="PriceForChildrens" class="form-control" type="hidden" id="PriceForChildrens" value="@(Model.PriceForChildrens)" />
+                <span asp-validation-for="PriceForChildrens" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceForTents" class="control-label"></label>
+                <input asp-for="PriceForTents" class="form-control" value="500" hidden />
+                <span asp-validation-for="PriceForTents" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input asp-for="Status" class="form-control" type="hidden" value="pending" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="CampsiteId" class="form-control" type="hidden" value="@Model.Campsite.Id" id="CampsiteId" />
+            </div>
+            <div class="form-group">
+                @* <label asp-for="LocationId" class="control-label"></label> *@
+                <input asp-for="LocationId" class="form-control" type="hidden" value="@Model.LocationId" />
+                @* <span asp-validation-for="LocationId" class="text-danger"></span> *@
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+
+    <script>
+        $(document).ready(function () {
+            function updateTotalPrice() {
+                var noOfAdults = parseInt($('#NoOfAdults').val()) || 0;
+                var noOfChildrens = parseInt($('#NoOfChildrens').val()) || 0;
+                var noOfTents = parseInt($('#NoOfTents').val()) || 0;
+                var priceForAdults = parseFloat($('#PriceForAdults').val()) || 0;
+                var priceForChildrens = parseFloat($('#PriceForChildrens').val()) || 0;
+                var priceForTents = parseFloat($('#PriceForTents').val()) || 0;
+
+                console.log("NoOfAdults:", noOfAdults, "NoOfChildrens:", noOfChildrens, "NoOfTents:", noOfTents);
+                console.log("PriceForAdults:", priceForAdults, "PriceForChildrens:", priceForChildrens, "PriceForTents:", priceForTents);
+
+                var totalPrice = (noOfAdults * priceForAdults) + (noOfChildrens * priceForChildrens) + (noOfTents * priceForTents);
+                $('#TotalPrice').val(totalPrice.toFixed(2)); // Format to 2 decimal places
+                console.log("TotalPrice:", totalPrice);
+            }
+
+            $('#NoOfAdults, #NoOfChildrens, #NoOfTents').on('input', function () {
+                updateTotalPrice();
+            });
+
+            $('#increaseAdults').click(function () {
+                var count = parseInt($('#NoOfAdults').val()) || 0;
+                $('#NoOfAdults').val(count + 1).trigger('input');
+            });
+
+            $('#decreaseAdults').click(function () {
+                var count = parseInt($('#NoOfAdults').val()) || 0;
+                if (count > 0) {
+                    $('#NoOfAdults').val(count - 1).trigger('input');
+                }
+            });
+
+            $('#increaseChildrens').click(function () {
+                var count = parseInt($('#NoOfChildrens').val()) || 0;
+                $('#NoOfChildrens').val(count + 1).trigger('input');
+            });
+
+            $('#decreaseChildrens').click(function () {
+                var count = parseInt($('#NoOfChildrens').val()) || 0;
+                if (count > 0) {
+                    $('#NoOfChildrens').val(count - 1).trigger('input');
+                }
+            });
+
+            $('#increaseTents').click(function () {
+                var count = parseInt($('#NoOfTents').val()) || 0;
+                var maxTents = parseInt($('#MaxNoOfTents').val());
+                if (count < maxTents) {
+                    $('#NoOfTents').val(count + 1).trigger('input');
+                } else {
+                    alert(`You can only book up to ${maxTents} tents.`);
+                }
+            });
+
+            $('#decreaseTents').click(function () {
+                var count = parseInt($('#NoOfTents').val()) || 0;
+                if (count > 0) {
+                    $('#NoOfTents').val(count - 1).trigger('input');
+                }
+            });
+
+            // Initial calculation
+            updateTotalPrice();
+        });
+ </script>
+ <script>
+        $(document).ready(function () {
+            var bookedRanges = [];
+
+            function addMonths(date, months) {
+                date.setMonth(date.getMonth() + months);
+                return date;
+            }
+
+            function updateMinMaxDates() {
+                var now = new Date();
+                var maxDate = addMonths(new Date(), 6);
+
+                var minDateStr = now.toISOString().slice(0, 16);
+                var maxDateStr = maxDate.toISOString().slice(0, 16);
+
+                $('#CheckIn').attr('min', minDateStr);
+                $('#CheckIn').attr('max', maxDateStr);
+                $('#CheckOut').attr('min', minDateStr);
+                $('#CheckOut').attr('max', maxDateStr);
+
+                // Set current date and time as default value
+                $('#CheckIn').val(minDateStr);
+                $('#CheckOut').val(minDateStr);
+            }
+
+
+
+
+
+
+            $('#CheckIn').on('change', function () {
+                var checkInDate = new Date($(this).val());
+                var now = new Date();
+
+                if (checkInDate <= now) {
+                    alert("Check-in date must be greater than the current date.");
+                    $(this).val('');
+                } else {
+                    $('#CheckOut').attr('min', $(this).val());
+                }
+            });
+
+            $('#CheckOut').on('change', function () {
+                var checkInDate = new Date($('#CheckIn').val());
+                var checkOutDate = new Date($(this).val());
+
+                if (checkOutDate <= checkInDate) {
+                    alert("Check-out date must be greater than the check-in date.");
+                    $(this).val('');
+                }
+            });
+            // Fetch booked date ranges from the MVC controller
+            var campsiteId = $('#CampsiteId').val();
+            $.ajax({
+                url: '@Url.Action("GetBookedDates", "Booking")',
+                method: 'GET',
+                data: { campsiteId: campsiteId },
+                success: function (data) {
+                    bookedRanges = data.map(function (booking) {
+                        return {
+                            CheckIn: new Date(booking.checkIn).toISOString().slice(0, 16),
+                            CheckOut: new Date(booking.checkOut).toISOString().slice(0, 16)
+                        };
+                    });
+                    console.log("bookedRanges")
+                    console.log(bookedRanges)
+
+                    unavailableDates.push(bookedRanges)
+                    disableBookedRanges();
+                },
+                error: function () {
+                    alert("Failed to fetch booked dates from the server.");
+                }
+            });
+
+            // Initialize date constraints and set default values
+            updateMinMaxDates();
+        });
+        
+    </script>
+
+  
+    }
+

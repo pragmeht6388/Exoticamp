@@ -1,4 +1,5 @@
 ﻿using Exoticamp.Domain.Entities;
+using Exoticamp.UI.AuthFilter;
 using Exoticamp.UI.Models;
 using Exoticamp.UI.Models.Events;
 using Exoticamp.UI.Services.IRepositories;
@@ -17,12 +18,15 @@ namespace Exoticamp.UI.Controllers
             return View();
         }
 
-
+        [AdminAuthFilter]
+        [NoCache]
         public async Task<IActionResult> GetAllEvents()
         {
             var events=await _eventRepository.GetAllEvents();
             return View(events);
         }
+        [AdminAuthFilter]
+        [NoCache]
         [HttpGet]
         public async Task<IActionResult> AddEvent()
         {
@@ -42,6 +46,8 @@ namespace Exoticamp.UI.Controllers
 
             return View(model); 
         }
+        [AdminAuthFilter]
+        [NoCache]
         [HttpPost]
         public async Task<ActionResult> AddEvent( AddEventVM model)
         {
@@ -109,8 +115,8 @@ namespace Exoticamp.UI.Controllers
 
             return View(model);
         }
-
-
+        [AdminAuthFilter]
+        [NoCache]
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
@@ -164,9 +170,99 @@ namespace Exoticamp.UI.Controllers
 
             return View(model);
         }
+        [AdminAuthFilter]
+        [NoCache]
+        [HttpPost]
+        public async Task<IActionResult> Edit(EventVM model)
+        {
+            var eventObj = await _eventRepository.GetEventById(model.EventId);
+           
+
          
-        
-    [HttpGet]
+            eventObj.Data.EventId = model.EventId;
+            eventObj.Data.Name = model.Name;
+             eventObj.Data.Price = model.Price;
+                eventObj.Data.Capacity = model.Capacity;
+                eventObj.Data.StartDate = model.StartDate;
+                eventObj.Data.EndDate = model.EndDate;
+                eventObj.Data.Description = model.Description;
+                eventObj.Data.ImageUrl = model.ImageUrl;
+                eventObj.Data.Highlights = model.Highlights;
+                eventObj.Data.EventRules = model.EventRules;
+                eventObj.Data.CampsiteId = model.CampsiteId;
+                eventObj.Data.ActivityId = model.ActivityId;
+                eventObj.Data.LocationId = model.LocationId;
+                eventObj.Data.Status = model.Status;
+                eventObj.Data.IsDeleted = model.IsDeleted;
+               
+                eventObj.Data.EventLocationDto = new EventLocationDto
+                {
+                    Id = model.EventLocationDto.Id,
+                    LocationId = Guid.Parse(model.LocationId.ToString()),
+                    //LocationDetails = new LocationDetails
+                    //{
+                    //    Name = model.EventLocationDto.LocationDetails.Name
+                    //}
+                };
+               eventObj.Data.EventActivityDto = new EventActivityDto
+               {
+                   Id = model.EventActivityDto.Id,
+                   ActivityId = Guid.Parse(model.ActivityId.ToString()),
+                   //ActivityDetails = new ActivityDetails
+                   //{
+                   //    Name = model.EventActivityDto.ActivityDetails.Name
+                   //}
+               };
+
+
+            //};
+
+
+            //if (ModelState.IsValid)
+            //{
+                if (model.Image == null)
+                {
+                    //var fileName = $"{Guid.NewGuid()}{Path.GetExtension(modelObj.Image.FileName)}";
+                    //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
+
+                    //model.ImageUrl = "/Assets/Images/Event/" + fileName;
+
+                    var response = await _eventRepository.EditEvent(eventObj.Data);
+                //using (var fileStream = new FileStream(filePath, FileMode.Create))
+                //{
+                //    await modelObj.Image.CopyToAsync(fileStream);
+                //}
+                return RedirectToAction("Details", response.Data);
+            }
+                else
+                {
+                eventObj.Data.Image = model.Image;
+                    var fileName = $"{Guid.NewGuid()}{Path.GetExtension(eventObj.Data.Image.FileName)}";
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/Images/Event/", fileName);
+
+                     eventObj.Data.ImageUrl = "/Assets/Images/Event/" + fileName;
+
+                    var response = await _eventRepository.EditEvent(eventObj.Data);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await eventObj.Data.Image.CopyToAsync(fileStream);
+                    }
+                    return RedirectToAction("Details", response.Data);
+                }
+
+            //}
+            //else
+            //    ModelState.AddModelError("", "Oops! Some error occured.");
+
+            //return View(model);
+
+
+
+        }
+
+        [AdminAuthFilter]
+        [NoCache]
+        [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             var eventObj = await _eventRepository.GetEventById(id);
@@ -256,8 +352,9 @@ namespace Exoticamp.UI.Controllers
             return View(model);
         }
 
-
-        
+        [AdminAuthFilter]
+        [NoCache]
+        [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
             var eventObj = await _eventRepository.DeleteEvent(id);
