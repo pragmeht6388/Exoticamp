@@ -47,6 +47,7 @@ builder.Services.AddScoped<IReviewsRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewReplyRepository,ReviewReplyRepositories>();
 builder.Services.AddScoped<IVendorRepository, VendorsRepository>();
 builder.Services.AddScoped<ITentRepository, TentRepository>();
+builder.Services.AddScoped<IEventCartRepository, EventCartRepository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 
 var app = builder.Build();

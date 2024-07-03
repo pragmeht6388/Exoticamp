@@ -3,6 +3,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
+@{
+    ViewData["Title"] = "UserBooking";
+    Layout = "~/Views/Shared/_LayoutLandingPage.cshtml";
+}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toggle Example</title>
@@ -24,7 +28,21 @@
         .d-none {
             display: none;
         }
+<style>
+    .col-lg-8 {
+        flex: 0 0 auto;
+        width: 30.666667%;
+    }
 
+    
+</style>
+
+<h4 style="margin-top: 30px;" class="text-center">Booking</h4>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+        <!-- Adjusted column size for medium and large screens -->
+        <form asp-action="UserBooking" class="needs-validation" novalidate>
 <h1>Booking for @Model.Campsite.Name</h1>
 
 <h4>BookingVM</h4>
@@ -33,20 +51,35 @@
     <div class="col-md-4">
         <form asp-action="UserBooking">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
 
                 <input asp-for="BookingId" class="form-control" type="hidden" />
 
             </div>
-            <div class="form-group">
+
                 <label asp-for="CustomerName" class="control-label"></label> <span class="text-danger">*</span>
                 <input asp-for="CustomerName" class="form-control" value="@Model.CustomerName" />
                 <span asp-validation-for="CustomerName" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="Email" class="form-control" required />
                 <input asp-for="Email" class="form-control" value="@Model.Email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CheckIn" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="CheckIn" class="form-control" type="datetime-local" id="CheckIn" required />
+                <span asp-validation-for="CheckIn" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CheckOut" class="control-label"></label> <span class="text-danger">*</span>
+                <input asp-for="CheckOut" class="form-control" type="datetime-local" id="CheckOut" required />
+                <span asp-validation-for="CheckOut" class="text-danger"></span>
             </div>
             @* <div class="form-group">
                 <label asp-for="TestDate" class="control-label"></label> <span class="text-danger">*</span>
@@ -64,6 +97,49 @@
                 <span asp-validation-for="CheckOut" class="text-danger"></span>
             </div>
 
+            <div class="form-group">
+                <label asp-for="NoOfAdults" class="control-label"></label> <span class="text-danger">*</span>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-outline-secondary" id="decreaseAdults">-</button>
+                    </div>
+                    <input asp-for="NoOfAdults" class="form-control text-center" id="NoOfAdults" value="0" required />
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary" id="increaseAdults">+</button>
+                    </div>
+                </div>
+                <span asp-validation-for="NoOfAdults" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NoOfChildrens" class="control-label"></label> <span class="text-danger">*</span>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-outline-secondary" id="decreaseChildrens">-</button>
+                    </div>
+                    <input asp-for="NoOfChildrens" class="form-control text-center" id="NoOfChildrens" value="0" required />
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary" id="increaseChildrens">+</button>
+                    </div>
+                </div>
+                <span asp-validation-for="NoOfChildrens" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NoOfTents" class="control-label"></label> <span class="text-danger">*</span>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-outline-secondary" id="decreaseTents">-</button>
+                    </div>
+                    <input asp-for="NoOfTents" class="form-control text-center" id="NoOfTents" value="0" required />
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary" id="increaseTents">+</button>
+                    </div>
+                </div>
+                <span asp-validation-for="NoOfTents" class="text-danger"></span>
+            </div>
+
+            <input asp-for="@Model.Campsite.NoOfTents" id="MaxNoOfTents" type="hidden" value="@Model.Campsite.NoOfTents" />
     <div class="form-group">
         <label asp-for="NoOfAdults" class="control-label"></label> <span class="text-danger">*</span>
         <div class="input-group">
@@ -105,6 +181,33 @@
     </div>
     <input asp-for="@Model.Campsite.NoOfTents" id="MaxNoOfTents" type="hidden" value="@Model.Campsite.NoOfTents" />
 
+            <div class="form-group">
+                <label asp-for="TotalPrice" class="control-label"></label>
+                <input asp-for="TotalPrice" class="form-control" id="TotalPrice" readonly />
+                <span asp-validation-for="TotalPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="GlampingType" class="control-label"></label>
+                <input asp-for="GlampingType" class="form-control" required />
+                <span asp-validation-for="GlampingType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input asp-for="PriceForAdults" class="form-control" type="hidden" id="PriceForAdults" value="@Model.PriceForAdults" />
+                <span asp-validation-for="PriceForAdults" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input asp-for="PriceForChildrens" class="form-control" type="hidden" id="PriceForChildrens" value="@(Model.PriceForChildrens)" />
+                <span asp-validation-for="PriceForChildrens" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PriceForTents" class="control-label" hidden></label>
+                <input asp-for="PriceForTents" class="form-control" value="500" hidden />
+                <span asp-validation-for="PriceForTents" class="text-danger"></span>
+            </div>
     <div class="form-group">
         <label asp-for="TotalPrice" class="control-label"></label>
         <input asp-for="TotalPrice" class="form-control" id="TotalPrice" readonly />
@@ -133,23 +236,21 @@
                 <input asp-for="Status" class="form-control" type="hidden" value="pending" />
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <input asp-for="CampsiteId" class="form-control" type="hidden" value="@Model.Campsite.Id" id="CampsiteId" />
+                <input asp-for="CampsiteId" class="form-control" type="hidden" value="@ViewBag.Campsite.Id" />
             </div>
+
             <div class="form-group">
-                @* <label asp-for="LocationId" class="control-label"></label> *@
-                <input asp-for="LocationId" class="form-control" type="hidden" value="@Model.LocationId" />
-                @* <span asp-validation-for="LocationId" class="text-danger"></span> *@
+                <input asp-for="LocationId" class="form-control" type="hidden" value="@ViewBag.Campsite.LocationId" />
             </div>
-            <div class="form-group">
+
+            <div class="form-group text-center">
+                <!-- Centering the submit button -->
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 @* @section Scripts {
     @{
@@ -157,6 +258,30 @@
     }
 
 
+    <script>
+        $(document).ready(function () {
+            $('#CustomerName').on('input', function () {
+                var regex = /^[a-zA-Z\s]*$/;
+                var value = $(this).val().trim();
+                var errorMessage = 'Name should contain only alphabets and spaces';
+
+                if (!regex.test(value)) {
+                    $(this).addClass('is-invalid');
+                    $(this).siblings('.text-danger').text(errorMessage);
+                } else {
+                    $(this).removeClass('is-invalid');
+                    $(this).siblings('.text-danger').text('');
+                }
+            });
+        });
+        $(document).ready(function () {
+            function updateTotalPrice() {
+                var noOfAdults = parseInt($('#NoOfAdults').val()) || 0;
+                var noOfChildrens = parseInt($('#NoOfChildrens').val()) || 0;
+                var noOfTents = parseInt($('#NoOfTents').val()) || 0;
+                var priceForAdults = parseFloat($('#PriceForAdults').val()) || 0;
+                var priceForChildrens = parseFloat($('#PriceForChildrens').val()) || 0;
+                var priceForTents = parseFloat($('#PriceForTents').val()) || 0;
         <script>
             $(document).ready(function () {
                 var unavailableDates = [];
@@ -245,6 +370,10 @@
                     console.log("NoOfAdults:", noOfAdults, "NoOfChildrens:", noOfChildrens, "NoOfTents:", noOfTents);
                     console.log("PriceForAdults:", priceForAdults, "PriceForChildrens:", priceForChildrens, "PriceForTents:", priceForTents);
 
+                var totalPrice = (noOfAdults * priceForAdults) + (noOfChildrens * priceForChildrens) + (noOfTents * priceForTents);
+                $('#TotalPrice').val(totalPrice.toFixed(2)); // Format to 2 decimal places 
+                console.log("TotalPrice:", totalPrice);
+            }
                     var totalPrice = (noOfAdults * priceForAdults) + (noOfChildrens * priceForChildrens) + (noOfTents * priceForTents);
                     $('#TotalPrice').val(totalPrice.toFixed(2)); // Format to 2 decimal places
                     console.log("TotalPrice:", totalPrice);
@@ -298,6 +427,10 @@
             // Initial calculation
             updateTotalPrice();
         });
+
+    </script>
+    <script>
+        // Validation for Date
 
         $(document).ready(function () {
             var bookedRanges = [];
@@ -381,6 +514,7 @@
         });
 
     </script>
+}
     } *@
 
 <script>

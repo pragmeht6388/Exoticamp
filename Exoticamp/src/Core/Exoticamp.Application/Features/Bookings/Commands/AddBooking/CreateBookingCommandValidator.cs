@@ -29,9 +29,7 @@ namespace Exoticamp.Application.Features.Bookings.Commands.AddBooking
               .NotNull()
               .GreaterThan((p => p.CheckIn)).WithMessage("Check Out date should be greater than Check In date");
 
-            RuleFor(e => e)
-                .MustAsync(CheckInDateUnique)
-                .WithMessage("Event and start date name must be unique");
+            
 
 
             //RuleFor(p => p.Capacity)

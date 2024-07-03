@@ -50,6 +50,9 @@ namespace Exoticamp.UI.Models.Booking
 
         //public Guid? PaymentId { get; set; }
         public CampsiteDetailsVM? Campsite { get; set; }
+        public EventVM? Event { get; set; }
+        [Required(ErrorMessage = "Select Event")]
+        public Guid EventId { get; set; }
         public LocationVM? Location { get; set; }
 
 

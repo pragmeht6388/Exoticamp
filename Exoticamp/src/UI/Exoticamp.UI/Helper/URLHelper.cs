@@ -112,6 +112,10 @@ namespace Exoticamp.UI.Helper
         public const string GetGlampingById = "/api/Glamping/GetGlampingById?id={0}";
 
         #endregion
+        public const string AddEventCart = "/api/v1/EventCart";
+        public const string GetAllEventCart = "/api/v1/EventCart/all";
+        public const string GetEventCartById = "/api/v1/EventCart/{0}";
+        public const string DeleteEventCart = "/api/v1/EventCart/{0}";
         public const string AddCart = "/api/v1/CartCamp/add";
 
         public const string GetAllCart = "/api/v1/CartCamp/GetAllCart";
