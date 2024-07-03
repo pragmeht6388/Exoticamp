@@ -59,6 +59,9 @@ using Exoticamp.Application.Features.RewiewReply.Query.GetReplyList;
 using Exoticamp.Application.Features.TentType.Query;
 using Exoticamp.Application.Features.Glamping.GetGlamping;
 using Exoticamp.Application.Features.Glamping.GetGlampingList;
+using Exoticamp.Application.Features.EventBooking.Commands.AddBooking;
+using Exoticamp.Application.Features.EventBooking.Query.EventBookingList;
+using Exoticamp.Application.Features.EventBooking.Commands.DeleteBookingCart;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -134,6 +137,12 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Activities,ActivityDto>().ReverseMap();
             CreateMap<Activities, UpdateActivitiesCommand>().ReverseMap();
             CreateMap<Activities, Features.Activities.Query.GetActivityList.ActivityVM>().ReverseMap();
+
+            CreateMap<EventBookingCart,CreateEventCartCommand>().ReverseMap();
+            CreateMap<EventBookingCart,CreateEventCartDto>().ReverseMap();
+            CreateMap<EventBookingCart,EventCartVM>().ReverseMap();
+            CreateMap<EventBookingCart,Application.Features.EventBooking.Query.EventCartById. EventCartVM>().ReverseMap();
+            CreateMap<EventBookingCart,DeleteEventCartCommand>().ReverseMap();
 
             CreateMap<Tent,TentVM>().ReverseMap();
 

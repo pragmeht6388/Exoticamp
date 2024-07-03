@@ -312,6 +312,7 @@ namespace Exoticamp.UI.Controllers
         public async Task<IActionResult> DetailsUser(string id)
         {
             var eventObj = await _eventRepository.GetEventById(id);
+            var cid = eventObj.Data.CampsiteId;
             var campsite = await _campsiteRepository.GetCampsiteById(eventObj.Data.CampsiteId.ToString());
             if (campsite == null)
                 ModelState.AddModelError("", "Campsite Not found");

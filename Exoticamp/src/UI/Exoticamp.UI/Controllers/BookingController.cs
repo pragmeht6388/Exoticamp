@@ -18,9 +18,8 @@ namespace Exoticamp.UI.Controllers
         public readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
         public readonly ILocationRepository _locationRepository;
         public readonly IEventRepository _eventRepository;
-        public BookingController(IBookingRepository bookingRepository, ICampsiteDetailsRepository campsiteDetailsRepository, ILocationRepository locationRepository, IEventRepository eventRepository)
 
-        public BookingController(IBookingRepository bookingRepository, ICampsiteDetailsRepository campsiteDetailsRepository, ILocationRepository locationRepository, IReviewsRepository reviewsRepository)
+        public BookingController(IBookingRepository bookingRepository, ICampsiteDetailsRepository campsiteDetailsRepository, ILocationRepository locationRepository, IReviewsRepository reviewsRepository,IEventRepository eventRepository)
         {
             _bookingRepository = bookingRepository;
             _campsiteDetailsRepository = campsiteDetailsRepository;

@@ -346,6 +346,7 @@
                 <i class="fas fa-map-marker-alt location-icon"></i>
                 <span>Mumbai</span>
             </div>
+               
             @if (string.IsNullOrEmpty(userName))
             {
                 <a asp-action="Login" asp-controller="Account" class="text-white ml-3">Login</a>
@@ -360,7 +361,9 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" asp-action="Profile" asp-controller="User">My Profile</a></li>
                         <li><a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a></li>
+
                     </ul>
+                        <a asp-action="ShowEventCart" asp-controller="EventCart">Cart</a>
                 </div>
             }
         </nav>

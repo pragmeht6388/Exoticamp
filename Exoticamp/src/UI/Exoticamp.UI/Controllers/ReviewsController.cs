@@ -5,6 +5,9 @@ using Exoticamp.UI.Services.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using System.Linq; // Ensure System.Linq is imported for LINQ queries
+
+
 namespace Exoticamp.UI.Controllers
 {
     public class ReviewsController : Controller
@@ -12,18 +15,31 @@ namespace Exoticamp.UI.Controllers
         private readonly IReviewsRepository _reviewsRepository;
         private readonly IReviewReplyRepository _replyRepository;
         private readonly ICampsiteDetailsRepository _campsiteDetailsRepository;
+        private readonly IEventCartRepository _eventCartRepository;
 
-        public ReviewsController(IReviewsRepository reviewsRepository, IReviewReplyRepository replyRepository, ICampsiteDetailsRepository campsiteDetailsRepository)
+        public ReviewsController(IReviewsRepository reviewsRepository, IReviewReplyRepository replyRepository, ICampsiteDetailsRepository campsiteDetailsRepository, IEventCartRepository eventCartRepository)
         {
             _reviewsRepository = reviewsRepository;
             _replyRepository = replyRepository;
             _campsiteDetailsRepository = campsiteDetailsRepository;
+            _eventCartRepository = eventCartRepository;
         }
         [HttpGet]
         [UserAuthFilter]
         [NoCache]
         public IActionResult AddReview()
         {
+            // Fetch all event carts
+            //var eventCarts = _eventCartRepository.GetAllEventCart();
+
+            //// Extract distinct BookingId values
+            //var bookingIds = eventCarts.Select(ec => ec.BookingId)
+            //                           .Where(id => !string.IsNullOrEmpty(id)) // Filter out null or empty BookingId values if needed
+            //                           .Distinct()
+            //                           .ToList();
+
+            //ViewBag.BookingIds = bookingIds;
+
             return View();
         }
         // [HttpPost]
