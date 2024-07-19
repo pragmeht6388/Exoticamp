@@ -31,7 +31,12 @@ namespace Exoticamp.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IReadOnlyList<RegistrationRequest>> GetPagedReponseAsync(int page, int size)
+		public Task<RegistrationRequest> GetByIdbyintAsync(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IReadOnlyList<RegistrationRequest>> GetPagedReponseAsync(int page, int size)
         {
             throw new NotImplementedException();
         }

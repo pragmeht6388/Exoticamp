@@ -1,49 +1,47 @@
-﻿//using AutoMapper;
-//using Exoticamp.Application.Contracts.Persistence;
-//using Exoticamp.Application.Exceptions;
-//using Exoticamp.Application.Features.Campsite.Query.GetCampsite;
-//using Exoticamp.Application.Responses;
-//using MediatR;
-//using Microsoft.AspNetCore.DataProtection;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using AutoMapper;
+using Exoticamp.Application.Contracts.Persistence;
+using Exoticamp.Application.Exceptions;
+using Exoticamp.Application.Features.Campsite.Query.GetCampsite;
+using Exoticamp.Application.Responses;
+using MediatR;
+using Microsoft.AspNetCore.DataProtection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-//namespace Exoticamp.Application.Features.CustomerOtp.Query.GetByCustomerId
-//{
-//	internal class GetCustomerOtpQueryHandler : IRequestHandler<GetCustomerOtpQuery, Response<CustomerOtpVM>>
-//	{
-//		private readonly IAsyncRepository<Domain.Entities.CustomerOtp> _customerOtpRepository;
-//		private readonly IMapper _mapper;
+namespace Exoticamp.Application.Features.CustomerOtp.Query.GetByCustomerId
+{
+	internal class GetCustomerOtpQueryHandler : IRequestHandler<GetCustomerOtpQuery, Response<CustomerOtpVM>>
+	{
+		private readonly IAsyncRepository<Domain.Entities.CustomerOtp> _customerOtpRepository;
+		private readonly IMapper _mapper;
 
-//		private readonly IDataProtector _protector;
-//		public GetCustomerOtpQueryHandler(IMapper mapper, IAsyncRepository<Domain.Entities.CustomerOtp> customerOtpRepository, IDataProtectionProvider provider)
-//		{
-//			_mapper = mapper;
+		private readonly IDataProtector _protector;
+		public GetCustomerOtpQueryHandler(IMapper mapper, IAsyncRepository<Domain.Entities.CustomerOtp> customerOtpRepository, IDataProtectionProvider provider)
+		{
+			_mapper = mapper;
 
-//			_customerOtpRepository = customerOtpRepository;
+			_customerOtpRepository = customerOtpRepository;
 
-//		}
-//		public async Task<Response<CustomerOtpVM>> Handle(GetCustomerOtpQuery request, CancellationToken cancellationToken)
-//		{
-//			// Retrieve the campsite by ID
-//			var campsite = await _customerOtpRepository.GetByIdAsync(request.Id);
+		}
+		public async Task<Response<CustomerOtpVM>> Handle(GetCustomerOtpQuery request, CancellationToken cancellationToken)
+		{
+			
 
-//			// Check if the campsite is null or not active
-//			if (campsite == null || !campsite.isActive == true)
-//			{
-//				throw new NotFoundException(nameof(Domain.Entities.Campsite), request.Id);
-//			}
+			var customerOtp = await _customerOtpRepository.GetByIdbyintAsync(request.OtpId);
 
-//			// Map the campsite to the view model
-//			var campsiteDto = _mapper.Map<CampsiteVM>(campsite);
+			if (customerOtp == null )
+			{
+				throw new NotFoundException(nameof(Domain.Entities.CustomerOtp), request.OtpId);
+			}
 
-//			// Create the response object
-//			var response = new Response<CampsiteVM>(campsiteDto);
+			var customerOtpDto = _mapper.Map<CustomerOtpVM>(customerOtp);
 
-//			return response;
-//		}
-//	}
-//}
+			var response = new Response<CustomerOtpVM>(customerOtpDto);
+
+			return response;
+		}
+	}
+}

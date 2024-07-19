@@ -1,5 +1,7 @@
 ﻿using Exoticamp.Application.Features.Activities.Commands.AddActivities;
+using Exoticamp.Application.Features.CampsiteDetails.Query.GetCampsiteDetails;
 using Exoticamp.Application.Features.CustomerOtp.Commands.AddCustomerOtp;
+using Exoticamp.Application.Features.CustomerOtp.Query.GetByCustomerId;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +18,13 @@ namespace Exoticamp.Api.Controllers.v1
 		{
 			var response = await _mediator.Send(addCustomerOtpCommand);
 			return Ok(response);
+		}
+
+		[HttpGet("{id}", Name = "GetCustomerOtpById")]
+		public async Task<ActionResult> GetCustomerOtpById(int id)
+		{
+			var getCustomerOtpQuery = new GetCustomerOtpQuery() { OtpId = id };
+			return Ok(await _mediator.Send(getCustomerOtpQuery));
 		}
 	}
 }
