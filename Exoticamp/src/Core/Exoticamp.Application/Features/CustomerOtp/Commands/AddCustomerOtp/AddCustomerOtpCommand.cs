@@ -23,7 +23,7 @@ namespace Exoticamp.Application.Features.CustomerOtp.Commands.AddCustomerOtp
 		public int OtpNo { get; set; }
 		public string CreatedBy { get; set; }
 
-		[ForeignKey("CustomerID")]
-		public virtual Customer Customer { get; set; }
+		//[ForeignKey("CustomerID")]
+		//public virtual Customer Customer { get; set; }
 	}
 }

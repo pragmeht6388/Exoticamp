@@ -10,6 +10,6 @@ namespace Exoticamp.Application.Features.CustomerOtp.Query.GetByCustomerId
 {
 	public class GetCustomerOtpQuery : IRequest<Response<CustomerOtpVM>>
 	{
-		public int Id { get; set; }
+		public int OtpId { get; set; }
 	}
 }

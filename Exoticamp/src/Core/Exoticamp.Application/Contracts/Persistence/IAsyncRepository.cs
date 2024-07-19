@@ -6,6 +6,7 @@ namespace Exoticamp.Application.Contracts.Persistence
 {
     public interface IAsyncRepository<T> where T : class
     {
+
         Task<T> GetByIdAsync(Guid id);
         Task<T> GetByIdbyintAsync(int id);
         Task<IReadOnlyList<T>> ListAllAsync();

@@ -38,7 +38,8 @@ namespace Exoticamp.Application.Features.CustomerOtp.Commands.AddCustomerOtp
             }
             else
             {
-                var customerOtp = new Domain.Entities.CustomerOtp { CustomerID=request.CustomerID, CreatedBy=request.CreatedBy,CreatedDate=request.CreatedDate,OtpNo=request.OtpNo};
+                var customerOtp = new Domain.Entities.CustomerOtp { CustomerID=request.CustomerID, CreatedBy=request.CreatedBy,CreatedDate=DateTime.Now,OtpNo=request.OtpNo};
+
 				customerOtp = await _customerOtpRepository.AddAsync(customerOtp);
 				addCustomerOtpCommandResponse = new Response<CustomerOtpDto>(_mapper.Map<CustomerOtpDto>(customerOtp), "success");
             }

@@ -66,6 +66,9 @@ using Exoticamp.Application.Features.CustomerConsents.Command.AddCustomerConsent
 using Exoticamp.Application.Features.CustomerMPINs.Commands.AddCustomerMPIN;
 using System.Reflection.Metadata.Ecma335;
 using Exoticamp.Application.Features.CustomerMPINs.GetById;
+using Exoticamp.Application.Features.Customer.Commands.CreateCustomer;
+using Exoticamp.Application.Features.CustomerOtp.Commands.AddCustomerOtp;
+using Exoticamp.Application.Features.CustomerOtp.Query.GetByCustomerId;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -129,6 +132,7 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Campsite, Features.Campsite.Query.GetCampsite.CampsiteVM>();
 
             CreateMap<CampsiteDetails,AddCampsiteDetailsCommand>().ReverseMap();
+            
             CreateMap<CampsiteDetails,CampsiteDetailsDto>();
             CreateMap<CampsiteDetails, UpdateCampsiteDetailsCommand>().ReverseMap();
             CreateMap<CampsiteDetails, Features.CampsiteDetails.Query.GetCampsiteDetailsList.CampsiteDetailsVM>().ReverseMap();
@@ -187,7 +191,6 @@ namespace Exoticamp.Application.Profiles
             CreateMap<CartCamp, CampCartIdVM>().ReverseMap();
 
 
-
             CreateMap<CustomerConsent, CustomerConsentCommand>().ReverseMap();
             CreateMap<CustomerConsent, CustomerConsentDto>().ReverseMap();
 
@@ -195,8 +198,14 @@ namespace Exoticamp.Application.Profiles
             CreateMap<CustomerMPIN, CustomerMPINDto>().ReverseMap();
             CreateMap<CustomerMPIN, GetCustomerMpinVM>().ReverseMap();
 
-        }
 
+            CreateMap<Customer, CreateCustomerCommand>().ReverseMap();
+            CreateMap<Customer, CreateCustomerDTO>().ReverseMap();
+
+			CreateMap<CustomerOtp, AddCustomerOtpCommand>().ReverseMap();
+            CreateMap<CustomerOtp,CustomerOtpDto>().ReverseMap();
+			CreateMap<CustomerOtp, CustomerOtpVM>();
+		}
 
     }
 }

@@ -22,6 +22,6 @@ namespace Exoticamp.Application.Features.CustomerOtp.Commands.AddCustomerOtp
 		public string CreatedBy { get; set; }
 
 		[ForeignKey("CustomerID")]
-		public virtual Customer Customer { get; set; }
+		public virtual Domain.Entities.Customer Customer { get; set; }
 	}
 }
