@@ -62,7 +62,12 @@ using Exoticamp.Application.Features.Glamping.GetGlampingList;
 using Exoticamp.Application.Features.CartCampsite.Commands.AddCartCampsite;
 using Exoticamp.Application.Features.CartCampsite.Query.GetCartCampList;
 using Exoticamp.Application.Features.CartCampsite.Queries.GetCartById;
+<<<<<<< HEAD
 using Exoticamp.Application.Features.Customer.Commands.CreateCustomer;
+=======
+using Exoticamp.Application.Features.CustomerOtp.Commands.AddCustomerOtp;
+using Exoticamp.Application.Features.CustomerOtp.Query.GetByCustomerId;
+>>>>>>> 7df06ece10816a11bebf1071d7d27d4936e3451c
 
 namespace Exoticamp.Application.Profiles
 {
@@ -126,6 +131,7 @@ namespace Exoticamp.Application.Profiles
             CreateMap<Campsite, Features.Campsite.Query.GetCampsite.CampsiteVM>();
 
             CreateMap<CampsiteDetails,AddCampsiteDetailsCommand>().ReverseMap();
+            
             CreateMap<CampsiteDetails,CampsiteDetailsDto>();
             CreateMap<CampsiteDetails, UpdateCampsiteDetailsCommand>().ReverseMap();
             CreateMap<CampsiteDetails, Features.CampsiteDetails.Query.GetCampsiteDetailsList.CampsiteDetailsVM>().ReverseMap();
@@ -183,11 +189,18 @@ namespace Exoticamp.Application.Profiles
             CreateMap<CartCamp, CartCampVM>().ReverseMap();
             CreateMap<CartCamp, CampCartIdVM>().ReverseMap();
 
+<<<<<<< HEAD
 
             CreateMap<Customer, CreateCustomerCommand>().ReverseMap();
             CreateMap<Customer, CreateCustomerDTO>().ReverseMap();
 
         }
+=======
+			CreateMap<CustomerOtp, AddCustomerOtpCommand>().ReverseMap();
+            CreateMap<CustomerOtp,CustomerOtpDto>().ReverseMap();
+			CreateMap<CustomerOtp, CustomerOtpVM>();
+		}
+>>>>>>> 7df06ece10816a11bebf1071d7d27d4936e3451c
 
 
     }
