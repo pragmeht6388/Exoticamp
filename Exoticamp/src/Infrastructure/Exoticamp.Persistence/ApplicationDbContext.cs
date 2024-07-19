@@ -53,7 +53,13 @@ namespace Exoticamp.Persistence
 
         public DbSet<CartCamp> cartCamps { get; set; }
 
+        public DbSet<Customer> customers { get; set; }
+        public DbSet<CustomerOtp> customerOtps { get; set; }
+        public DbSet<CustomerConsent> customerConsents { get; set; }
+
         private IDbContextTransaction _transaction;
+
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

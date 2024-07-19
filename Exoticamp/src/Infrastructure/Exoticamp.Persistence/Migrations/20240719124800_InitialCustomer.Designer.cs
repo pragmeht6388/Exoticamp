@@ -4,6 +4,7 @@ using Exoticamp.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Exoticamp.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240719124800_InitialCustomer")]
+    partial class InitialCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -535,91 +538,6 @@ namespace Exoticamp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContactUs");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.Customer", b =>
-                {
-                    b.Property<int>("CustomerID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"));
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ICNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MobileNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OTPNO")
-                        .HasColumnType("int");
-
-                    b.HasKey("CustomerID");
-
-                    b.ToTable("customers");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.CustomerConsent", b =>
-                {
-                    b.Property<int>("ConsentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ConsentId"));
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ConsentId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("customerConsents");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.CustomerOtp", b =>
-                {
-                    b.Property<int>("OtpId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OtpId"));
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("CustomerID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OtpNo")
-                        .HasColumnType("int");
-
-                    b.HasKey("OtpId");
-
-                    b.HasIndex("CustomerID")
-                        .IsUnique()
-                        .HasFilter("[CustomerID] IS NOT NULL");
-
-                    b.ToTable("customerOtps");
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
@@ -1291,26 +1209,6 @@ namespace Exoticamp.Persistence.Migrations
                     b.Navigation("Location");
                 });
 
-            modelBuilder.Entity("Exoticamp.Domain.Entities.CustomerConsent", b =>
-                {
-                    b.HasOne("Exoticamp.Domain.Entities.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.CustomerOtp", b =>
-                {
-                    b.HasOne("Exoticamp.Domain.Entities.Customer", "Customer")
-                        .WithOne("CustomerOtp")
-                        .HasForeignKey("Exoticamp.Domain.Entities.CustomerOtp", "CustomerID");
-
-                    b.Navigation("Customer");
-                });
-
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
                 {
                     b.HasOne("Exoticamp.Domain.Entities.CampsiteDetails", "Campsite")
@@ -1422,12 +1320,6 @@ namespace Exoticamp.Persistence.Migrations
             modelBuilder.Entity("Exoticamp.Domain.Entities.CampsiteDetails", b =>
                 {
                     b.Navigation("CampsiteActivities");
-                });
-
-            modelBuilder.Entity("Exoticamp.Domain.Entities.Customer", b =>
-                {
-                    b.Navigation("CustomerOtp")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Exoticamp.Domain.Entities.Event", b =>
