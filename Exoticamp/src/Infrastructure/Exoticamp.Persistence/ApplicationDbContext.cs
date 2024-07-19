@@ -56,6 +56,7 @@ namespace Exoticamp.Persistence
         public DbSet<Customer> customers { get; set; }
         public DbSet<CustomerOtp> customerOtps { get; set; }
         public DbSet<CustomerConsent> customerConsents { get; set; }
+        public DbSet<CustomerMPIN>CustomerMPINs { get; set; }
 
         private IDbContextTransaction _transaction;
 

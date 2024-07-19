@@ -62,6 +62,10 @@ using Exoticamp.Application.Features.Glamping.GetGlampingList;
 using Exoticamp.Application.Features.CartCampsite.Commands.AddCartCampsite;
 using Exoticamp.Application.Features.CartCampsite.Query.GetCartCampList;
 using Exoticamp.Application.Features.CartCampsite.Queries.GetCartById;
+using Exoticamp.Application.Features.CustomerConsents.Command.AddCustomerConsent;
+using Exoticamp.Application.Features.CustomerMPINs.Commands.AddCustomerMPIN;
+using System.Reflection.Metadata.Ecma335;
+using Exoticamp.Application.Features.CustomerMPINs.GetById;
 
 namespace Exoticamp.Application.Profiles
 {
@@ -181,6 +185,15 @@ namespace Exoticamp.Application.Profiles
             CreateMap<CartCamp, AddCartCampsite>().ReverseMap();
             CreateMap<CartCamp, CartCampVM>().ReverseMap();
             CreateMap<CartCamp, CampCartIdVM>().ReverseMap();
+
+
+
+            CreateMap<CustomerConsent, CustomerConsentCommand>().ReverseMap();
+            CreateMap<CustomerConsent, CustomerConsentDto>().ReverseMap();
+
+            CreateMap<CustomerMPIN,CustomerMPINCommand>().ReverseMap();
+            CreateMap<CustomerMPIN, CustomerMPINDto>().ReverseMap();
+            CreateMap<CustomerMPIN, GetCustomerMpinVM>().ReverseMap();
 
         }
 

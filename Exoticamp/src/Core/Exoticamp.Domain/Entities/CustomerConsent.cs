@@ -20,5 +20,6 @@ namespace Exoticamp.Domain.Entities
 
 		[ForeignKey("CustomerId")]
 		public virtual Customer Customer { get; set; }
+
 	}
 }

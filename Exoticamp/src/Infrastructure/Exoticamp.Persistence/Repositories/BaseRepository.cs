@@ -44,7 +44,10 @@ namespace Exoticamp.Persistence.Repositories
 
             return entity;
         }
-
+        public virtual async Task<T> GetByIdbyintAsync(int id)
+        {
+            return await _dbContext.Set<T>().FindAsync(id);
+        }
         public async Task UpdateAsync(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;

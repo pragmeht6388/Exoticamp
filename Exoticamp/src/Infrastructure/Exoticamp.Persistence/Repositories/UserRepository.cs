@@ -20,7 +20,10 @@ namespace Exoticamp.Persistence.Repositories
         {
             throw new NotImplementedException();
         }
-
+        public Task<RegistrationRequest> GetByIdbyintAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
         public Task<List<RegistrationRequest>> GetAllUsers(bool includePassedEvents)
         {
             throw new NotImplementedException();
