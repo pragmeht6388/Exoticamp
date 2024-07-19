@@ -45,8 +45,11 @@ namespace Exoticamp.Persistence.Repositories
         {
             throw new NotImplementedException();
         }
-        
 
-        
+        public Task<RegistrationRequest> GetByIdbyintAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

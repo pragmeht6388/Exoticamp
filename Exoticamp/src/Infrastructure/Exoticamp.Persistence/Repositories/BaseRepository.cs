@@ -80,5 +80,9 @@ namespace Exoticamp.Persistence.Repositories
             }
             return parameterNames;
         }
+        public virtual async Task<T> GetByIdbyintAsync(int id)
+        {
+            return await _dbContext.Set<T>().FindAsync(id);
+        }
     }
 }
