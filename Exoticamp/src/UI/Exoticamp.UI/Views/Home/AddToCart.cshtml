@@ -24,7 +24,7 @@
 						<div class="col-12 col-lg-6 pb-4">
 							<div class="row">
 								<h4 class="d-flex justify-content-between align-items-center mb-3">
-									<span class="text-Booking Details:</span>
+									<span class="text-Booking"> Details:</span>
 								</h4>
 							</div>
 							<div class="row my-1">
@@ -50,19 +50,11 @@
 									<label>Street Address</label>
 								</div>
 								<div class="col-9">
-									<input  class="form-control" />
+									<textarea  class="form-control"></textarea>
 									<span  class="text-danger"></span>
 								</div>
 							</div>
-							<div class="row my-1">
-								<div class="col-3">
-									<label>City</label>
-								</div>
-								<div class="col-9">
-									<input  class="form-control" />
-									<span  class="text-danger"></span>
-								</div>
-							</div>
+							
 							<div class="row my-1">
 								<div class="col-3">
 									<label>State</label>
@@ -72,15 +64,7 @@
 									<span  class="text-danger"></span>
 								</div>
 							</div>
-							<div class="row my-1">
-								<div class="col-3">
-									<label>Postal Code</label>
-								</div>
-								<div class="col-9">
-									<input  class="form-control" />
-									<span  class="text-danger"></span>
-								</div>
-							</div>
+							
 						</div>
 						<div class="col-12 col-lg-5 offset-lg-1">
 							<h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -94,7 +78,7 @@
 											<h6 class="my-0"></h6>
 											<small class="text-muted"></small>
 										</div>
-										<span class="text-muted">) </span>
+										<span class="text-muted"> </span>
 									</li>
 								@* } *@
 
@@ -108,13 +92,13 @@
 				</div>
 			</div>
 			<div class="card-footer">
-				<div class="row">
-					<div class="col-12 col-md-8 pt-2">
+				<div class="row" style="justify-content:center">
+					@* <div class="col-12 col-md-8 pt-2">
 						<p style="color:maroon; font-size:14px;">
 							Cancallation Time:
 							@DateTime.Now.AddDays(7).ToShortDateString() - @DateTime.Now.AddDays(14).ToShortDateString()
 						</p>
-					</div>
+					</div> *@
 					<div class="col-12 col-md-4">
 						<button type="submit" value="Book" class="btn btn-primary form-control">Place Booking</button>
 					</div>

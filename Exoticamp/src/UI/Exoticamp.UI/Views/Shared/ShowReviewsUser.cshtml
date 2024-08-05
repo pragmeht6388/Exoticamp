@@ -73,6 +73,11 @@
             width: 500px;
             margin-left: 450px;
         }
+
+        .read-more-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -81,7 +86,11 @@
 
         @if (Model.Any())
         {
-            foreach (var item in Model)
+            var reviewsToShow = Model.Take(5);
+            var totalReviews = Model.Count();
+            var showAll = totalReviews > 5;
+
+            foreach (var item in reviewsToShow)
             {
                 <div class="review-container1">
                     <div class="review-header1">
@@ -116,6 +125,51 @@
                     </div>
                 </div>
             }
+
+            @if (showAll)
+            {
+                <div class="read-more-btn">
+                    <button id="readMoreBtn" class="btn btn-primary">Read More</button>
+                </div>
+
+                <div id="allReviews" style="display:none;">
+                    @foreach (var item in Model.Skip(5))
+                    {
+                        <div class="review-container1">
+                            <div class="review-header1">
+                                <div>
+                                    <strong>Campsite Name:</strong> @Html.DisplayFor(modelItem => item.CampsiteName)
+                                </div>
+                                <div>
+                                    <strong>Ratings:</strong>
+                                    @{
+                                        int rating = (int)item.Ratings;
+                                        for (int i = 1; i <= 5; i++)
+                                        {
+                                            if (i <= rating)
+                                            {
+                                                <i class="bi bi-star-fill rating-stars"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="bi bi-star rating-stars"></i>
+                                            }
+                                        }
+                                    }
+                                    (@item.Ratings.ToString("0.0") / 5.0)
+                                </div>
+                            </div>
+                            <div class="review-details1">
+                                <strong>Name:</strong> @Html.DisplayFor(modelItem => item.Name)
+                                <br />
+                            </div>
+                            <div class="review-details1">
+                                <strong>Description:</strong> @Html.DisplayFor(modelItem => item.Description)
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
         }
         else
         {
@@ -130,15 +184,22 @@
 
     <!-- JavaScript functions -->
     <script>
-        function toggleForm(button) {
-            var formDropdown = $(button).closest('.review-container').find('.form-dropdown');
-            formDropdown.slideToggle();
-        }
+        $(document).ready(function () {
+            $('#readMoreBtn').click(function () {
+                var allReviews = $('#allReviews');
+                var btn = $(this);
 
-        function cancelReply(button) {
-            var formDropdown = $(button).closest('.form-dropdown');
-            formDropdown.slideUp();
-        }
+                allReviews.slideToggle(function () {
+                    // Update button text after slideToggle completes
+                    if (allReviews.is(':visible')) {
+                        btn.text('Read Less');
+                    } else {
+                        btn.text('Read More');
+                    }
+                });
+            });
+        });
     </script>
+
 </body>
 </html>
